@@ -1,0 +1,79 @@
+{
+    "name": "partner",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+      "validateUpsert": true
+    },
+    "properties": {
+      "cas_user": {
+        "type": "string",
+        "required": true
+      },
+      "email": {
+        "type": "string",
+        "required": true
+      },
+      "description": {
+        "type": "string"
+      },
+      "available": {
+        "type": "boolean",
+        "default": true
+      },
+      "user_name": {
+        "type": "string",
+        "required": true
+      },
+      "gender": {
+        "type": "string",
+        "required": true,
+        "default": "Undeclared"
+      },
+      "avatar_file_name": {
+        "type": "string"
+      },
+      "avatar_content_type": {
+        "type": "string"
+      },
+      "avatar_file_size": {
+        "type": "number"
+      },
+      "avatar_updated_at": {
+        "type": "date"
+      },
+      "email_conf_code": {
+        "type": "string"
+      },
+      "email_confirmed": {
+        "type": "boolean",
+        "default": false
+      },
+      "notify_by_email": {
+        "type": "boolean",
+        "default": true
+      },
+      "affiliation": {
+        "type": "string",
+        "required": true,
+        "default": "Not Specified"
+      },
+      "field_of_study": {
+        "type": "string",
+        "required": true,
+        "default": "Not Specified"
+      },
+      "created_at": {
+        "type": "date",
+        "required": true,
+        "defaultFn": "now"
+      },
+      "updated_at": {
+        "type": "date"
+      }
+    },
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {}
+  }
