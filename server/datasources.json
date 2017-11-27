@@ -1,0 +1,8 @@
+{
+  "db": {
+    "name": "db",
+    "file": "./server/db/dev.sqlite3",
+    "debug": true,
+    "connector": "loopback-connector-sqlite3"
+  }
+}
