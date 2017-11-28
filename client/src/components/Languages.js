@@ -32,6 +32,7 @@ class Languages extends Component{
                 <ul className="list-group">
                     { languageItems }
                 </ul>
+                
             </div>    
         )
     }
