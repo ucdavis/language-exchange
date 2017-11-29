@@ -6,8 +6,7 @@ class LanguageDetails extends Component{
     constructor(props){
         super(props);
         this.state = {
-            details : '',
-            history : this.props.history
+            details : ''
         }
     }
 
@@ -19,11 +18,9 @@ class LanguageDetails extends Component{
         let languageId = this.props.match.params.id;
         axios.get(`http://localhost:3000/api/languages/${languageId}`)
         .then(response => {
-            this.setState({details: response.data}, () => {
-                console.log(this.state);
-            })
+            this.setState({details: response.data})
         })
-        .catch(err => console.log("There was an error fetching Language", err));
+        .catch(err => console.log("There was an error fetching Language"));
     }
 
     render(){

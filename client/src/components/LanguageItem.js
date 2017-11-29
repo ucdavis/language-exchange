@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
-
-
 
 class LanguageItem extends Component{
     constructor(props){
@@ -11,14 +8,13 @@ class LanguageItem extends Component{
             language : props.language
         }
     }
-    
-
 
     render(){
+        
         return(
             <li className="list-group-item">
                 { this.state.language.name }
-                <Link to={`/languages/edit/${this.state.language.id}`} className="btn btn-xs btn-default pull-right"> Delete </Link>  
+                <Link to={{pathname:`/languages/edit/${this.state.language.id}`, search:"delete"}} className="btn btn-xs btn-default pull-right"> Delete </Link>  
                 <Link to={`/languages/edit/${this.state.language.id}`} className="btn btn-xs btn-default pull-right"> Edit </Link>               
             </li> 
         );

@@ -24,10 +24,8 @@ class EditLanguage extends Component{
                 id : response.data.id,
                 name: response.data.name
                 
-            }, () => {
-                 console.log(this.state);
             });
-        });
+        }).catch(err =>console.log("There was an error fetching the language"))
     }
 
     editLanguage(newLanguage){
@@ -68,9 +66,15 @@ class EditLanguage extends Component{
     }
 
     render(){
+        console.log(this.props.location.search)
+        let message = '';
+        if (this.props.location.search === '?delete'){
+            message = 'Are you sure you want to delete this language?'
+        }
         return(
             <div>
                 <h1>Edit Language</h1>
+                <h4>{ message } </h4>
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="form-group">
                         <label htmlFor="name" className="control-label">Language Name:</label>

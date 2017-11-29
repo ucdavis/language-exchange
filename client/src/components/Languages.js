@@ -6,7 +6,8 @@ class Languages extends Component{
     constructor(){
         super();
         this.state={
-            languages : []
+            languages : [],
+            action : ''
         }
     }
 
@@ -29,6 +30,7 @@ class Languages extends Component{
         })
         return (
             <div>
+                <h1>Languages</h1>
                 <ul className="list-group">
                     { languageItems }
                 </ul>
