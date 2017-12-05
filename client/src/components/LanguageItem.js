@@ -13,7 +13,7 @@ class LanguageItem extends Component{
         
         return(
             <li className="list-group-item">
-                { this.state.language.name }
+                <Link to={`/languages/${this.state.language.id}`}>  { this.state.language.name } </Link>  
                 <Link to={{pathname:`/languages/edit/${this.state.language.id}`, search:"delete"}} className="btn btn-xs btn-default pull-right"> Delete </Link>  
                 <Link to={`/languages/edit/${this.state.language.id}`} className="btn btn-xs btn-default pull-right"> Edit </Link>               
             </li> 

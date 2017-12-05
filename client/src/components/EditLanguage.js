@@ -22,7 +22,8 @@ class EditLanguage extends Component{
         .then(response => {
             this.setState({
                 id : response.data.id,
-                name: response.data.name
+                name: response.data.name,
+                created_at : response.data.created_at
                 
             });
         }).catch(err =>console.log("There was an error fetching the language"))
@@ -51,8 +52,12 @@ class EditLanguage extends Component{
 
     onSubmit(e){
         e.preventDefault();
+        let now = new Date();
         const newLanguage = {
-            name : this.refs.name.value
+            name : this.refs.name.value,
+            updated_at : now,
+            created_at : this.state.created_at
+
         }
         this.editLanguage(newLanguage);
     }
