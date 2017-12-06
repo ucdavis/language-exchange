@@ -1,12 +1,12 @@
-import axions from 'axios';
+import axios from 'axios';
 
-export function fetchLanguages(){
+export default function fetchLanguages(){
     return (dispatch)=>{
         axios.get('http://localhost:3000/api/languages')
         .then((response)=>{
             dispatch({
                 type: "FETCH_LANGUAGE_START",
-                payload: reponse.data
+                payload: response.data
             })
         })
         .catch((err)=>{
