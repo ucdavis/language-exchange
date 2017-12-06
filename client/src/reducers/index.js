@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import languageReducer from "./languageReducer";
 
 const reducers = combineReducers({
-    languageReducer
+    languages: languageReducer
 });
 
 export default reducers;

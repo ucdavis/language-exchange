@@ -1,9 +1,26 @@
-export default( state={
+export default function( state={
         fetching: false,
         fetched: false,
-        languages: [],
+        languages: [{
+            "name": "Arabic",
+            "created_at": "2013-12-31T09:20:10.090Z",
+            "updated_at": "2013-12-31T09:20:10.090Z",
+            "id": 1
+          },
+          {
+            "name": "Catalan",
+            "created_at": "2013-12-31T09:20:10.100Z",
+            "updated_at": "2013-12-31T09:20:10.100Z",
+            "id": 2
+          },
+          {
+            "name": "Chinese (Cantonese)",
+            "created_at": "2013-12-31T09:20:10.108Z",
+            "updated_at": "2013-12-31T09:20:10.108Z",
+            "id": 3
+          }],
         error: null
-    }, action) => {
+    }, action) {
     switch (action.type){
         case "FETCH_LANGUAGE_START":
             state = {...state, fetching:true, languages : action.payload};
