@@ -2,22 +2,22 @@ export default function( state={
         fetching: false,
         fetched: false,
         languages: [{
-            "name": "Arabic",
-            "created_at": "2013-12-31T09:20:10.090Z",
-            "updated_at": "2013-12-31T09:20:10.090Z",
-            "id": 1
+            "name": "New Language 1",
+            "created_at": "2017-12-05T05:34:02.028Z",
+            "updated_at": "2017-12-06T02:51:32.359Z",
+            "id": 19
           },
           {
-            "name": "Catalan",
-            "created_at": "2013-12-31T09:20:10.100Z",
-            "updated_at": "2013-12-31T09:20:10.100Z",
-            "id": 2
+            "name": "New language 2",
+            "created_at": "2017-12-05T05:33:28.389Z",
+            "updated_at": "2017-12-06T02:51:50.132Z",
+            "id": 20
           },
           {
-            "name": "Chinese (Cantonese)",
-            "created_at": "2013-12-31T09:20:10.108Z",
-            "updated_at": "2013-12-31T09:20:10.108Z",
-            "id": 3
+            "name": "New language 13",
+            "created_at": "2017-11-29T04:55:18.676Z",
+            "updated_at": "2017-12-05T05:36:56.104Z",
+            "id": 21
           }],
         error: null
     }, action) {

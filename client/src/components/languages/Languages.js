@@ -10,11 +10,7 @@ class Languages extends Component{
             action : ''
         }
     }
-    
-    componentWillMount(){
-        this.props.languages;
-    }
-    
+
 
     render(){
         console.log(this.props.languages.languages)

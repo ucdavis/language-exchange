@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import axios from 'axios';
 
+
 class EditLanguage extends Component{
     constructor(props){
         super(props);
@@ -86,6 +87,7 @@ class EditLanguage extends Component{
                         <input type="text" className="form-control" ref="name" name = "name" id="name" placeholder="type here" value={this.state.name} onChange={this.handleInputChange.bind(this)}/>
                     </div> 
                     <input type="submit" value="Save" className="btn btn-success" />
+                    <button onClick={()=>this.props.editLanguage(this.state.name)} className="btn btn-success pull-right" > Edit with Redux </button> 
                     <button onClick={this.onDelete.bind(this)} className="btn btn-danger pull-right" > Delete </button> 
                 </form>
             </div>    

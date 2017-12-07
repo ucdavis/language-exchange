@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default function fetchLanguages(){
+export const fetchLanguages = ()=>{
     return (dispatch)=>{
         axios.get('http://localhost:3000/api/languages')
         .then((response)=>{
@@ -15,5 +15,14 @@ export default function fetchLanguages(){
                 payload: err
             })
         })
+    }
+}
+
+export const editLanguage = (name)=>{
+
+    console.log("New Name: ",name);
+    return {
+        type: "EDIT_LANGUAGE",
+        payload : name
     }
 }
