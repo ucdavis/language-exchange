@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import LanguageItem from './LanguageItem';
 
 class Languages extends Component{
-    constructor(){
-        super();
-        this.state={
-            languages : [],
-            action : ''
-        }
-    }
-
-
     render(){
-        console.log(this.props.languages.languages)
-        const languageItems = this.props.languages.languages.map((language, i) => {
-            return <LanguageItem key={i} language={language} />
+        console.log("Languages props: ",this.props)
+        const languageItems = this.props.state.languages.map((language, i) => {
+            return <LanguageItem key={i} language={language} state={this.props.state} />
         })
         return (
             <div>

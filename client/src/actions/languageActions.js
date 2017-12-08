@@ -1,21 +1,13 @@
 import axios from 'axios';
 
 export const fetchLanguages = ()=>{
-    return (dispatch)=>{
         axios.get('http://localhost:3000/api/languages')
-        .then((response)=>{
-            dispatch({
-                type: "FETCH_LANGUAGE_START",
-                payload: response.data
+        .then(response => {
+            this.setState({languages: response.data}, () => {
+                console.log(this.state);
             })
         })
-        .catch((err)=>{
-            dispatch({
-                type: "FETCH_LANGUAGE_ERROR",
-                payload: err
-            })
-        })
-    }
+        .catch(err => console.log("There was an error fetching Language", err));
 }
 
 export const editLanguage = (name)=>{
@@ -26,3 +18,10 @@ export const editLanguage = (name)=>{
         payload : name
     }
 }
+
+export const showLanguage = (language)=>{
+        return {
+            type: "SHOW_LANGUAGE",
+            payload : language
+        }
+    }

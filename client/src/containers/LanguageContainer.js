@@ -3,17 +3,14 @@ import Language from '../components/languages/Languages';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../actions/languageActions";
-import { editLanguage } from '../actions/languageActions';
 
 class LanguageContainer extends Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
+    
+    render(){        
         return (
             <div>
-                <Language  languages= {this.props.languages} />
-            </div>    
+                <Language  state= {this.props.languages} fetchLanguages={this.props.fetchLanguages}  />
+            </div>       
         )
     }
 }
@@ -25,7 +22,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({editLanguage: languageActions.editLanguage}, dispatch)
+    return bindActionCreators({fetchLanguages: languageActions.fetchLanguages}, dispatch)
     
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageContainer);
