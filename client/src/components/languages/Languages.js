@@ -3,9 +3,8 @@ import LanguageItem from './LanguageItem';
 
 class Languages extends Component{
     render(){
-        console.log("Languages props: ",this.props)
         const languageItems = this.props.state.languages.map((language, i) => {
-            return <LanguageItem key={i} language={language} state={this.props.state} />
+            return <LanguageItem key={i} language={language} state={this.props.state}/>
         })
         return (
             <div>
