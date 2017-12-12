@@ -20,12 +20,19 @@ export function fetchLanguage(id){
     }
 }   
 
-export const editLanguage = (name)=>{
-
-    console.log("New Name: ",name);
-    return {
-        type: "EDIT_LANGUAGE",
-        payload : name
+export function updateLanguage(newLanguage){
+    return function (dispatch){
+        axios.request({
+            method: 'put',
+            url : `http://localhost:3000/api/languages/${newLanguage.id}`,
+            data: newLanguage
+        })
+        .then(response => {
+            dispatch({type:"UPDATE_LANGUAGE_FULFILLED",payload:response.data})
+            })
+        .catch(err => {
+            dispatch({type:"UPDATELANGUAGE_REJECTED", payload: err})
+        });
     }
 }
 

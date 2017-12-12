@@ -12,7 +12,7 @@ class LanguageContainer extends Component{
     render(){        
         return (
             <div>
-                <Languages state= {this.props.languageState} />
+                <Languages state= {this.props.languageState} fetchLanguage = {this.props.fetchLanguage}/>
             </div>       
         )
     }
@@ -25,7 +25,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchLanguages: languageActions.fetchLanguages}, dispatch)
+    return bindActionCreators({fetchLanguages: languageActions.fetchLanguages, fetchLanguage : languageActions.fetchLanguage}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageContainer);

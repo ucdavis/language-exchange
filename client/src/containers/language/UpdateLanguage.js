@@ -4,26 +4,28 @@ import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
 
 class UpdateLanguage extends Component{
+    
     constructor(props){
         super(props);
-        this.state = {nameValue : ""}
+        this.state = {
+            name : '',
+            created_at : ''      
+        }
 
         this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     componentWillMount(){
-        const id = this.props.match.params.id;
-        this.props.fetchLanguage(id);
-        this.setState({
-            nameValue: this.props.languageState.active.name
-        })
-    }
+        if(this.props.match.params.id){
+        this.props.fetchLanguage(this.props.match.params.id);
+        console.log("Will mount: ",this.props.languageState.active.name)
+    }}
 
     handleInputChange(e){
         const value = e.target.value
-        const nameValue = e.target.nameValue
+        const name = e.target.name
         this.setState({
-            [nameValue]: value
+            [name]: value
         })
     }
     
@@ -46,7 +48,7 @@ class UpdateLanguage extends Component{
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="form-group">
                         <label htmlFor="name" className="control-label">Language Name:</label>
-                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.nameValue} onChange={this.handleInputChange}/>
+                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={ this.state.name} onChange={this.handleInputChange.bind(this)} />
                     </div> 
                     <input type="submit" value="Save" className="btn btn-success" />
                     <button className="btn btn-success pull-right" > Edit with Redux </button> 
