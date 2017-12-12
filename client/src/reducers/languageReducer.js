@@ -1,7 +1,8 @@
 const initialState = {
     fetching: false,
     fetched: false,
-    languages: [{"null":"null"}],
+    languages: [],
+    active :{},
     error: null
   }
 
@@ -24,6 +25,11 @@ export default function languageReducer(state=initialState, action) {
         
         case "FETCH_LANGUAGES_FULFILLED":{
             state =  { ...state, fetching:false, fetched:true, languages : action.payload };
+            break;
+        }
+
+        case "FETCH_LANGUAGE_FULFILLED":{
+            state = {...state, active : action.payload}
             break;
         }
         default:

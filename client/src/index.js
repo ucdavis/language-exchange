@@ -9,14 +9,10 @@ import { Provider } from "react-redux";
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promiseMiddleware from "redux-promise-middleware";
-// import axios from 'axios';
+
 const middleware = applyMiddleware(thunk,logger, promiseMiddleware());
 const store = createStore(reducers, middleware);
 
-// store.dispatch({
-//     type:"FETCH_LANGUAGE",
-//     payload: axios.get('http://localhost:3000/api/languages')
-// })
 
 ReactDOM.render(  
     <Provider store={store}>  
