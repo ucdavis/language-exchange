@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Languages from '../../components/languages/Languages';
+import Languages from '../../components/language/Languages';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";

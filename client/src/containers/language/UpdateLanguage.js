@@ -8,8 +8,9 @@ class UpdateLanguage extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name : '',
-            created_at : ''      
+            name : this.props.languageState.active.name ,
+            created_at : '',
+            title: this.props.languageState.active.name 
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -18,14 +19,12 @@ class UpdateLanguage extends Component{
     componentWillMount(){
         if(this.props.match.params.id){
         this.props.fetchLanguage(this.props.match.params.id);
-        console.log("Will mount: ",this.props.languageState.active.name)
     }}
 
-    handleInputChange(e){
-        const value = e.target.value
-        const name = e.target.name
+    handleInputChange(event){
         this.setState({
-            [name]: value
+            ...this.state.values,
+            name : event.target.value
         })
     }
     
@@ -33,22 +32,23 @@ class UpdateLanguage extends Component{
         e.preventDefault();
         let now = new Date();
         const newLanguage = {
+            id : this.props.match.params.id,
             name : this.refs.name.value,
             updated_at : now,
-            created_at : this.languageState.active.created_at
+            created_at : this.props.languageState.active.created_at
 
         }
-        this.editLanguage(newLanguage);
+        this.props.updateLanguage(newLanguage);
     }
 
     render(){
-        return(
+         return(
             <div>
-                <h1>Edit Language {this.props.languageState.active.name}</h1>
+                <h1>Edit Language : {this.props.languageState.active.name } </h1>
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="form-group">
                         <label htmlFor="name" className="control-label">Language Name:</label>
-                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={ this.state.name} onChange={this.handleInputChange.bind(this)} />
+                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.name} onChange={this.handleInputChange} />
                     </div> 
                     <input type="submit" value="Save" className="btn btn-success" />
                     <button className="btn btn-success pull-right" > Edit with Redux </button> 
@@ -65,7 +65,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-   return  bindActionCreators({fetchLanguage:languageActions.fetchLanguage}, dispatch)
+   return  bindActionCreators({fetchLanguage:languageActions.fetchLanguage, updateLanguage : languageActions.updateLanguage}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateLanguage);

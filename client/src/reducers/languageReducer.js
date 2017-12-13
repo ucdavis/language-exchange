@@ -3,6 +3,7 @@ const initialState = {
     fetched: false,
     languages: [],
     active :{},
+    title: '',
     error: null
   }
 
@@ -26,15 +27,15 @@ export default function languageReducer(state=initialState, action) {
         }
 
         case "FETCH_LANGUAGE_FULFILLED":{
-            state = {...state, active : action.payload}
+            state = {...state, active : action.payload,  title:action.payload.name}
             break;
         }
         case "FETCH_LANGUAGE_REJECTED":{
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
-        case "UPDATE_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, active : action.payload };
+        case "UPDATE_LANGUAGE_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, title:action.payload.name, active: action.payload };
             break;
         }
 

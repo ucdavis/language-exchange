@@ -25,13 +25,18 @@ export function updateLanguage(newLanguage){
         axios.request({
             method: 'put',
             url : `http://localhost:3000/api/languages/${newLanguage.id}`,
-            data: newLanguage
+            data: {
+                name : newLanguage.name,
+                updated_at : newLanguage.updated_at,
+                created_at : newLanguage.created_at,
+                
+            }
         })
         .then(response => {
             dispatch({type:"UPDATE_LANGUAGE_FULFILLED",payload:response.data})
             })
         .catch(err => {
-            dispatch({type:"UPDATELANGUAGE_REJECTED", payload: err})
+            dispatch({type:"UPDATE_LANGUAGE_REJECTED", payload: err})
         });
     }
 }
