@@ -9,6 +9,7 @@ class UpdateLanguage extends Component{
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.match.params.id,
             name : '' ,
             created_at : '',
             title: this.props.languageState.active.name 
@@ -19,7 +20,7 @@ class UpdateLanguage extends Component{
 
     componentWillMount(){
         if(this.props.match.params.id){
-        this.props.fetchLanguage(this.props.match.params.id);
+            this.props.fetchLanguage(this.props.match.params.id);
     }}
 
     handleInputChange(event){
@@ -27,6 +28,10 @@ class UpdateLanguage extends Component{
             ...this.state.values,
             name : event.target.value
         })
+    }
+    
+    onDelete(){
+       this.props.deleteLanguage(this.props.match.params.id);
     }
     
     onSubmit(e){
@@ -52,7 +57,7 @@ class UpdateLanguage extends Component{
                         <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.name} onChange={this.handleInputChange} />
                     </div> 
                     <input type="submit" value="Save" className="btn btn-success" />
-                    <button className="btn btn-danger pull-right" > Delete </button> 
+                    <button className="btn btn-danger pull-right" onClick={this.onDelete.bind(this)} > Delete </button> 
                 </form>
             </div>  
         )

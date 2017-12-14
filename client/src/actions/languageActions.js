@@ -46,12 +46,8 @@ export function updateLanguage(newLanguage){
                 
             }
         })
-        .then(response => {
-            dispatch({type:"UPDATE_LANGUAGE_FULFILLED",payload:response.data});
-            })
-        .catch(err => {
-            dispatch({type:"UPDATE_LANGUAGE_REJECTED", payload: err})
-        });
+        .then(response =>dispatch({type:"UPDATE_LANGUAGE_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"UPDATE_LANGUAGE_REJECTED", payload: err}));
     }
 }
 
@@ -59,9 +55,7 @@ export function updateLanguage(newLanguage){
 export function deleteLanguage (languageId){
     return function(dispatch){
         axios.delete(`http://localhost:3000/api/languages/${languageId}`)
-        .then(response=>{
-            dispatch(this.props.history.push('/languages'));
-            })
+        .then(response => dispatch({type:"DELETE_LANGUAGES_FULFILLED",payload:response.data}))
         .catch(err=>dispatch({type: "DELETE_LANGUAGE_REJECTED", payload: err}))
     }
 }

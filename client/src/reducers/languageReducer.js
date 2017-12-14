@@ -43,6 +43,12 @@ export default function languageReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
+
+        case "DELETE_LANGUAGE_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, languages : state.languages.filter(val=>val !== state.active)};
+            break;
+        }
+
         default:
         return state;       
         }
