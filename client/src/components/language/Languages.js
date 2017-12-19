@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import  LanguageItem from './LanguageItem';
+import { Link } from 'react-router-dom';
 
 class Languages extends Component{
     render(){
@@ -8,7 +9,7 @@ class Languages extends Component{
         })
         return (
             <div>
-                <h1>Languages</h1>
+                <h1>Languages<Link to={'/languages/add'} className="btn btn-sm btn-success pull-right" > New Language </Link>    </h1>
                 <ul className="list-group">
                     { languageItems }
                 </ul>
