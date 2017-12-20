@@ -8,7 +8,7 @@ class Languages extends Component{
         })
         return (
             <div>
-                <h1>Languages</h1>
+                <h1>Languages </h1>
                 <ul className="list-group">
                     { languageItems }
                 </ul>
