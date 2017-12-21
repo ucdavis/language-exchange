@@ -1,10 +1,11 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-
 let UserForm = props => {
   const {  handleSubmit, pristine, submitting } = props;
+ 
   return (
+
       <div>
       <h1> User Profile</h1>
             <form onSubmit={handleSubmit}>
@@ -38,6 +39,7 @@ let UserForm = props => {
                     type="text"
                     placeholder="User Name"
                     className="form-control"
+                    value = ""
                 />
             </div>
 

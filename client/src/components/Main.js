@@ -5,8 +5,10 @@ import UpdateLanguage from '../containers/language/UpdateLanguage';
 import Home from './Home';
 import LanguageContainer from '../containers/language/LanguageContainer';
 import LanguageDetails from '../containers/language/LanguageDetails';
-import Users from './user/Users';
+import Users from '../containers/user/ReadUsers';
+import UserDetails from '../containers/user/UserDetails';
 import CreateUser from "../containers/user/CreateUser";
+import UpdateUser from "../containers/user/UpdateUser";
 
 
 const Main = () => (
@@ -18,7 +20,10 @@ const Main = () => (
             <Route exact path='/languages/edit/:id' component = { UpdateLanguage } />
             <Route exact path='/languages/:id' component = { LanguageDetails } /> 
             <Route exact path='/users' component = { Users } />
-            <Route exact path='/users/add' component = { CreateUser } />            
+            <Route exact path='/users/add' component = { CreateUser } />
+            <Route exact path='/users/edit/:id' component = { UpdateUser } />
+            <Route exact path='/users/:id' component = { UserDetails } /> 
+
         </Switch>    
     </main>    
 )

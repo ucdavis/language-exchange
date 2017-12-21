@@ -1,16 +1,21 @@
 import React from 'react';
 import { bindActionCreators } from "redux";
-import UserForm from '../../components/user/UserForm';
+import UpdateUserForm from '../../components/user/UpdateUserForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
 import { withRouter } from 'react-router-dom';
 
-class CreateUser extends React.Component {
+class UpdateUser extends React.Component {
+  componentWillMount(){
+    this.props.fetchUser(this.props.match.params.id);
+  }
+
   submit = values => {
-    const casUser = "casUser";
     let now = new Date();
+    let cas_user = "casUser"
     const newUser= {
-        cas_user : casUser,
+        id :this.props.match.params.id,
+        cas_user : cas_user,
         available : values.available,
         user_name : values.userName,
         email_confirmed : values.emailConfirmed,
@@ -21,12 +26,12 @@ class CreateUser extends React.Component {
         affiliation : values.affiliation,
         field_of_study: values.field,
         updated_at : now,
-        created_at : now
     }
-    this.props.createUser(newUser);
+    console.log(newUser)
+    this.props.updateUser(newUser);
   }
   render() {
-    return <UserForm onSubmit={this.submit} />
+    return <UpdateUserForm onSubmit={this.submit} state={this.props.userState} />
   }
 }
 
@@ -35,7 +40,7 @@ function mapStateToProps(state){
  }
  
  function mapDispatchToProps(dispatch){
-    return  bindActionCreators({ createUser : userActions.createUser }, dispatch)
+    return  bindActionCreators({ updateUser : userActions.updateUser, fetchUser: userActions.fetchUser }, dispatch)
  }
 
- export default withRouter( connect(mapStateToProps, mapDispatchToProps)(CreateUser));
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UpdateUser));

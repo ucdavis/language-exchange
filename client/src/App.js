@@ -4,10 +4,12 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 
 const App = () => (
-      <div >
-        <Nav />         
-        <Main />
-        <Footer />
+      <div className="row" >
+        <div className="col-sm-12">
+          <Nav />         
+          <Main />
+          <Footer />
+        </div>
       </div>
     )
     
