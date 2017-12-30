@@ -1,14 +1,15 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 let UserForm = props => {
   const {  handleSubmit, pristine, submitting } = props;
+  console.log("State: ",this.initialValues);
  
   return (
 
       <div>
-      <h1> User Profile</h1>
-            <form onSubmit={handleSubmit}>
+             <form onSubmit={handleSubmit}>
 
             <div className="well">
                 <div className="form-check">
@@ -32,9 +33,9 @@ let UserForm = props => {
             </div> */}
 
             <div className="form-group">
-                <label htmlFor="userName">User Name</label>
+                <label htmlFor="user_name">User Name</label>
                 <Field
-                    name="userName"
+                    name="user_name"
                     component="input"
                     type="text"
                     placeholder="User Name"
@@ -52,15 +53,13 @@ let UserForm = props => {
                     placeholder="Email"
                     className="form-control"
                 />               
-            </div>
-
-            
+            </div>            
 
             <div className="form-group">
                 <div className="form-check">
                     <label className="form-check-label">
                         <Field
-                            name="emailNotifications"
+                            name="notify_by_email"
                             component="input"
                             type="checkbox"
                             className="form-check-input"
@@ -73,7 +72,7 @@ let UserForm = props => {
                 <div className="form-check">
                     <label className="form-check-label">
                         <Field
-                            name="emailConfirmed"
+                            name="email_confirmed"
                             component="input"
                             type="checkbox"
                             className="form-check-input"
@@ -81,8 +80,6 @@ let UserForm = props => {
                     </label>
                 </div>
             </div>
-
-            
 
             <div className="form-group">
                 <label>Gender</label>
@@ -107,9 +104,9 @@ let UserForm = props => {
             </div>
 
             <div className="form-group">
-                <label htmlFor="field">Major or Field of Study</label>
+                <label htmlFor="field_of_study">Major or Field of Study</label>
                 <Field
-                    name="field"
+                    name="field_of_study"
                     component="input"
                     type="text"
                     placeholder="Major"
@@ -118,13 +115,13 @@ let UserForm = props => {
             </div>
             
             <div className="form-group">
-                <label htmlFor="aditionalInformation">Additional Information</label>
+                <label htmlFor="description">Additional Information</label>
                 <br />
-                <small id="aditionalInformationHelp" className="form-text text-muted">
+                <small id="descriptionHelp" className="form-text text-muted">
                     Including any languages you know or are learning which fall under the 'Other' category below
                 </small>
                 <Field
-                    name="aditionalInformation"
+                    name="description"
                     component="textarea"
                     placeholder="Type here..."
                     className="form-control"
@@ -146,7 +143,14 @@ let UserForm = props => {
 UserForm = reduxForm({
   // a unique name for the form
   form: 'user',
-  destroyOnUnmount : true
+  enableReinitialize : true
 })(UserForm)
+
+// connect() to user reducer
+UserForm = connect(
+    state => ({
+        initialValues : state.userState.active
+    })
+  )(UserForm)
 
 export default UserForm;

@@ -43,7 +43,15 @@ export function updateUser(newUser){
                 cas_user : newUser.cas_user,
                 user_name : newUser.user_name,
                 email : newUser.email,
-                available : newUser.available
+                available : newUser.available,
+                description : newUser.description,
+                gender : newUser.gender,
+                email_confirmed : newUser.email_confirmed,
+                notify_by_email : newUser.notify_by_email,
+                affiliation : newUser.affiliation,
+                field_of_study : newUser.field_of_study,
+                updated_at : newUser.updated_at,
+                created_at : newUser.created_at
 
             }
         })
@@ -51,12 +59,3 @@ export function updateUser(newUser){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
-
-
-// export function deleteLanguage (languageId){
-//     return function(dispatch){
-//         axios.delete(`http://localhost:3000/api/languages/${languageId}`)
-//         .then(response => dispatch({type:"DELETE_LANGUAGES_FULFILLED",payload:response.data}))
-//         .catch(err=>dispatch({type: "DELETE_LANGUAGE_REJECTED", payload: err}))
-//     }
-// }

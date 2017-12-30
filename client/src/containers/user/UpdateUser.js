@@ -6,8 +6,10 @@ import * as userActions from "../../actions/userActions";
 import { withRouter } from 'react-router-dom';
 
 class UpdateUser extends React.Component {
-  componentWillMount(){
+
+  componentWillMount = () => {
     this.props.fetchUser(this.props.match.params.id);
+    console.log(this.state);
   }
 
   submit = values => {
@@ -17,21 +19,27 @@ class UpdateUser extends React.Component {
         id :this.props.match.params.id,
         cas_user : cas_user,
         available : values.available,
-        user_name : values.userName,
-        email_confirmed : values.emailConfirmed,
-        notify_by_email : values.emailNotifications,
+        user_name : values.user_name,
+        email_confirmed : values.email_confirmed,
+        notify_by_email : values.notify_by_email,
         email : values.email,
         gender : values.gender,
-        description : values.aditionalInformation,
+        description : values.description,
         affiliation : values.affiliation,
-        field_of_study: values.field,
+        field_of_study: values.field_of_study,
+        created_at : this.props.userState.active.created_at,
         updated_at : now,
     }
-    console.log(newUser)
     this.props.updateUser(newUser);
   }
   render() {
-    return <UpdateUserForm onSubmit={this.submit} state={this.props.userState} />
+    
+    return (
+      <div>
+        <h1> My Profile</h1>
+        <UpdateUserForm onSubmit={this.submit} state={this.props.userState} fetchUser={this.fetchUser} />
+    </div>
+    )
   }
 }
 
