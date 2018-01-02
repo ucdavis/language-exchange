@@ -1,5 +1,5 @@
 {
-  "name": "languages",
+  "name": "ability",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -9,14 +9,6 @@
     "name": {
       "type": "string",
       "required": true
-    },
-    "created_at": {
-      "type": "date",
-      "required": true,
-      "defaultFn": "now"
-    },
-    "updated_at": {
-      "type": "date"
     }
   },
   "validations": [],
@@ -24,12 +16,12 @@
     "providedLanguages": {
       "type": "hasMany",
       "model": "provided_languages",
-      "foreignKey": "language_id"
+      "foreignKey": "ability"
     },
     "desiredLanguages": {
       "type": "hasMany",
-      "model": "desired_languages",
-      "foreignKey": "language_id"
+      "model": "desireed_languages",
+      "foreignKey": "ability"
     }
   },
   "acls": [],

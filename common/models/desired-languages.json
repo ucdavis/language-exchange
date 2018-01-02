@@ -1,0 +1,52 @@
+{
+  "name": "desired_languages",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "language_id": {
+      "type": "number",
+      "required": true
+    },
+    "user_id": {
+      "type": "number",
+      "required": true
+    },
+    "ability": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "created_at": {
+      "type": "date",
+      "required": true
+    },
+    "updated_at": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "languages": {
+      "type": "belongsTo",
+      "model": "languages",
+      "foreignKey": "language_id"
+    },
+    "partners": {
+      "type": "belongsTo",
+      "model": "partner",
+      "foreignKey": "user_id"
+    },
+    "abilities": {
+      "type": "belongsTo",
+      "model": "ability",
+      "foreignKey": "ability"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

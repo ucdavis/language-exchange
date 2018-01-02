@@ -42,5 +42,17 @@
   "partner": {
     "dataSource": "db",
     "public": true
+  },
+  "provided_languages": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ability": {
+    "dataSource": "db",
+    "public": true
+  },
+  "desired_languages": {
+    "dataSource": "db",
+    "public": true
   }
 }

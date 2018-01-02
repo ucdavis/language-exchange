@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
+import * as userLanguageActions from "../../actions/userLanguageActions";
+import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLanguageDetail";
+import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 
 
 class userDetails extends Component{
@@ -9,8 +12,9 @@ class userDetails extends Component{
     componentWillMount(){
         const id = this.props.match.params.id;
         this.props.fetchUser(id);
+        this.props.fetchProvidedLanguages(id);
+        this.props.fetchDesiredLanguages(id);
     }
-    
     
     render(){ 
         let created_at = (new Date(this.props.userState.active.created_at)).toString();
@@ -19,7 +23,8 @@ class userDetails extends Component{
         if (!this.props.userState.active) {
             return (<h4>No User</h4>);
         }       
-        return (         
+        return (   
+               
             <div>
                <h1>{this.props.userState.active.user_name} </h1>
                
@@ -43,17 +48,24 @@ class userDetails extends Component{
                <p>{ created_at }</p>
                <label>Updated</label>
                <p>{ updated_at }</p>
+
+               <ProvidedLanguageDetail state={this.props.userLanguageState}/>
+               <DesiredLanguageDetail state={this.props.userLanguageState}/>
             </div>    
         )
     }
 }
 
 function mapStateToProps(state){
-    return{ userState: state.userState }
+    return{ userState: state.userState, userLanguageState: state.userLanguageState, }
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchUser: userActions.fetchUser}, dispatch)
+    return bindActionCreators({
+        fetchUser: userActions.fetchUser,
+        fetchProvidedLanguages:userLanguageActions.fetchProvidedLanguages,
+        fetchDesiredLanguages:userLanguageActions.fetchDesiredLanguages
+    }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(userDetails);
