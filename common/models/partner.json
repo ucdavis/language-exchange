@@ -76,9 +76,14 @@
   },
   "validations": [],
   "relations": {
-    "userProvidedLanguages": {
+    "provided_languages": {
       "type": "hasMany",
       "model": "provided_languages",
+      "foreignKey": "user_id"
+    },
+    "desired_languages": {
+      "type": "hasMany",
+      "model": "desired_languages",
       "foreignKey": "user_id"
     }
   },

@@ -1,6 +1,7 @@
 const initialState = {
     fetching: false,
     fetched: false,
+    searchResult : [],
     users: [],
     current : {},
     created : {},
