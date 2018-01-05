@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 let UserForm = props => {
   const {  handleSubmit, pristine, submitting } = props;
-  console.log("State: ",this.initialValues);
- 
   return (
 
       <div>
@@ -28,10 +26,6 @@ let UserForm = props => {
                 </div>
             </div>
 
-            {/* <div className="form-group">
-                <label className="form-text text-muted">Authenticated Username : { casUser }</label>
-            </div> */}
-
             <div className="form-group">
                 <label htmlFor="user_name">User Name</label>
                 <Field
@@ -40,7 +34,6 @@ let UserForm = props => {
                     type="text"
                     placeholder="User Name"
                     className="form-control"
-                    value = ""
                 />
             </div>
 
@@ -118,7 +111,7 @@ let UserForm = props => {
                 <label htmlFor="description">Additional Information</label>
                 <br />
                 <small id="descriptionHelp" className="form-text text-muted">
-                    Including any languages you know or are learning which fall under the 'Other' category below
+                    Including any languages you know or are learning which fall under the 'Other' category.
                 </small>
                 <Field
                     name="description"

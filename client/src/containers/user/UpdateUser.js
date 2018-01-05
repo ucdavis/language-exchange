@@ -9,7 +9,6 @@ class UpdateUser extends React.Component {
 
   componentWillMount = () => {
     this.props.fetchUser(this.props.match.params.id);
-    console.log(this.state);
   }
 
   submit = values => {
@@ -36,8 +35,8 @@ class UpdateUser extends React.Component {
     
     return (
       <div>
-        <h1> My Profile</h1>
-        <UpdateUserForm onSubmit={this.submit} state={this.props.userState} fetchUser={this.fetchUser} />
+        <h1>My Profile</h1>
+        <UpdateUserForm onSubmit={this.submit}  />
     </div>
     )
   }

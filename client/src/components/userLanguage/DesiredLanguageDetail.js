@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 class DesiredLanguagesDetail extends Component{
     render(){
-        const languageItems = this.props.state.desiredLanguages.map((language, i) => {
+        const languageItems = this.props.state.userDesiredLanguages.map((language, i) => {
             return <li key={i} language={language} state={this.props.state}>{language.languages.name} - {language.abilities.name}</li>
         })
         return (

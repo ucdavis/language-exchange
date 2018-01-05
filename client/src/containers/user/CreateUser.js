@@ -1,8 +1,8 @@
-import React from 'react';
 import { bindActionCreators } from "redux";
-import UserForm from '../../components/user/UserForm';
 import { connect } from "react-redux";
+import UserForm from '../../components/user/UserForm';
 import * as userActions from "../../actions/userActions";
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class CreateUser extends React.Component {

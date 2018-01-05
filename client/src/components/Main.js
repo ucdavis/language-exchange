@@ -9,6 +9,7 @@ import Users from '../containers/user/ReadUsers';
 import UserDetails from '../containers/user/UserDetails';
 import CreateUser from "../containers/user/CreateUser";
 import UpdateUser from "../containers/user/UpdateUser";
+import UpdateUserLanguages from "../containers/user/UpdateUserLanguages";
 
 
 const Main = () => (
@@ -23,6 +24,7 @@ const Main = () => (
             <Route exact path='/users/add' component = { CreateUser } />
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
+            <Route exact path='/userlanguages/edit/:id' component = { UpdateUserLanguages } />
 
         </Switch>    
     </main>    

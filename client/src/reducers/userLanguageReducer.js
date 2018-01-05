@@ -3,6 +3,8 @@ const initialState = {
     fetched: false,
     providedLanguages: [],
     desiredLanguages: [],
+    userProvidedLanguages: [],
+    userDesiredLanguages: [],
     active : {},
     error: null
   }
@@ -22,7 +24,7 @@ export default function userReducer(state=initialState, action) {
         }
         
         case "FETCH_USER_PROVIDED_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, providedLanguages : action.payload };
+            state =  { ...state, fetching:false, fetched:true, userProvidedLanguages : action.payload };
             break;
         }
 
@@ -37,6 +39,35 @@ export default function userReducer(state=initialState, action) {
         }
         
         case "FETCH_USER_DESIRED_LANGUAGES_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, userDesiredLanguages : action.payload };
+            break;
+        }
+        case "FETCH_PROVIDED_LANGUAGES_PENDING":{
+            state = {...state, fetching:true};
+            break;
+        }       
+        
+        case "FETCH_PROVIDED_LANGUAGES_REJECTED":{
+            state =  {...state,fetching: false, error: action.payload };
+            break;
+        }
+        
+        case "FETCH_PROVIDED_LANGUAGES_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, providedLanguages : action.payload };
+            break;
+        }
+
+        case "FETCH_DESIRED_LANGUAGES_PENDING":{
+            state = {...state, fetching:true};
+            break;
+        }       
+        
+        case "FETCH_DESIRED_LANGUAGES_REJECTED":{
+            state =  {...state,fetching: false, error: action.payload };
+            break;
+        }
+        
+        case "FETCH_DESIRED_LANGUAGES_FULFILLED":{
             state =  { ...state, fetching:false, fetched:true, desiredLanguages : action.payload };
             break;
         }

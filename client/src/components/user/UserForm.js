@@ -6,7 +6,7 @@ let UserForm = props => {
   const {  handleSubmit, pristine, submitting } = props;
   return (
       <div>
-      <h1> User Profile</h1>
+      <h1>User Profile</h1>
             <form onSubmit={handleSubmit}>
 
             <div className="well">

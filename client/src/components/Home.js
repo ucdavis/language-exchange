@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import SearchUsersResults from '../containers/user/SearchUsersResult';
 
 class Home extends Component{
     render(){
         return(
             <div>
+                <h1>Language Exchange App</h1>
+
                 <div className="row">
-                    <div className="col-lg-12">
-                        <div className="well text-center">
-                        Welcome to Language Exchange App
+                    <div className="col-sm-12">
+                        <div className="well">
+                            < SearchUsersResults />
                         </div>
                     </div>
-                </div>  
+                </div> 
+
 
                 <div className="row">
                 <div className="col-md-4">

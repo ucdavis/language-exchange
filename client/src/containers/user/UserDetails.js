@@ -12,8 +12,8 @@ class userDetails extends Component{
     componentWillMount(){
         const id = this.props.match.params.id;
         this.props.fetchUser(id);
-        this.props.fetchProvidedLanguages(id);
-        this.props.fetchDesiredLanguages(id);
+        this.props.fetchUserProvidedLanguages(id);
+        this.props.fetchUserDesiredLanguages(id);
     }
     
     render(){ 
@@ -63,8 +63,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchUser: userActions.fetchUser,
-        fetchProvidedLanguages:userLanguageActions.fetchProvidedLanguages,
-        fetchDesiredLanguages:userLanguageActions.fetchDesiredLanguages
+        fetchUserProvidedLanguages:userLanguageActions.fetchUserProvidedLanguages,
+        fetchUserDesiredLanguages:userLanguageActions.fetchUserDesiredLanguages
     }, dispatch)
 }
 
