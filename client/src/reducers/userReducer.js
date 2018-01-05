@@ -1,6 +1,7 @@
 const initialState = {
     fetching: false,
     fetched: false,
+    searchResult : [],
     users: [],
     current : {},
     created : {},
@@ -55,10 +56,16 @@ export default function userReducer(state=initialState, action) {
             break;
         }
 
-        // case "DELETE_USER_FULFILLED":{
-        //     state =  { ...state, fetching:false, fetched:true, USERS : state.USERS.filter(val=>val !== state.active)};
-        //     break;
-        // }
+        case "SEARCH_USERS_FULFILLED":{
+            state = {...state,  searchResult : action.payload };
+            break;
+        }
+        case "SEARCH_USERS_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
+
+
 
         default:
         return state;       

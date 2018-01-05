@@ -59,3 +59,11 @@ export function updateUser(newUser){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
+
+export function searchUsers(gender){
+    return function(dispatch){
+        axios.get(`http://localhost:3000/api/partners?filter[where][gender]=${gender.gender}`)
+        .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
+    }
+}  

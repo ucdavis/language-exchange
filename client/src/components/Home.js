@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SearchUsers from '../containers/user/SearchUsers';
+import SearchUsersResults from '../containers/user/SearchUsersResult';
 
 class Home extends Component{
     render(){
@@ -6,9 +8,15 @@ class Home extends Component{
             <div>
                 <div className="row">
                     <div className="col-lg-12">
-                        <div className="well text-center">
-                        Welcome to Language Exchange App
+                        <div className="well ">
+                         <SearchUsers/>
                         </div>
+                    </div>
+                </div>  
+
+                <div className="row">
+                    <div className="col-lg-12">
+                         <SearchUsersResults />
                     </div>
                 </div>  
 
