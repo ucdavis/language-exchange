@@ -60,9 +60,9 @@ export function updateUser(newUser){
     }
 }
 
-export function searchUsers(gender){
+export function searchUsers(gender, provided, desired){
     return function(dispatch){
-        axios.get(`http://localhost:3000/api/partners?filter[where][gender]=${gender.gender}`)
+        axios.get(`http://localhost:3000/api/partners?filter={"where":{"gender":{"like":"${gender}"}},"include":[{"relation":"provided_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }

@@ -4,16 +4,27 @@ import SearchUsersForm from '../../components/user/SearchUsersForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
 import { withRouter } from 'react-router-dom';
+import SearchUsersResults from '../../containers/user/SearchUsersResult';
+
 
 class SearchUser extends React.Component {
   submit = values => {
-    const gender= {
+    let searchParams= {
         gender : values.gender,
+        provided : values.provided,
+        desired : values.desired
     }
-    this.props.searchUsers(gender);
+    this.props.searchUsers(searchParams.gender, searchParams.provided, searchParams.desired);
   }
   render() {
-    return <SearchUsersForm onSubmit={this.submit} />
+    return(
+      <div className="row">
+       <div className="col-lg-12">
+        <SearchUsersForm onSubmit={this.submit} />
+        <SearchUsersResults/>
+       </div>
+   </div>  
+    )
   }
 }
 
