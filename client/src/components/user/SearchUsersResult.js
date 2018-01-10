@@ -5,14 +5,13 @@ class UsersResult extends Component{
 
     render(){
 
-        // const provided = this.props.state.provided;
-        // const desired =this.props.state.desired;
-
-
+        var count = 1;
         const userList = this.props.state.searchResult.map((user,i)=>{
+            
+            if( user.provided_languages.length > 0 && user.desired_languages.length > 0 ){
                 return (
                     <tr key={ i } >
-                        <th scope="row"> { i+1 } </th>
+                        <th scope="row"> { count++ } </th>
                         <td> { user.user_name } </td>
                         <td> { user.gender } </td>
                         <td>
@@ -32,11 +31,15 @@ class UsersResult extends Component{
                     </tr>    
                 )
 
+            }
+            return userList;    
+
         })
 
         return (
             <div>
-                <h4>Users</h4>
+                <h4>Search Result</h4>
+                <p>Some people currently available for contacting:</p>
                 <div className="table-responsive">
                 <table className="table table-responsive table-hover table-sm">
                 <thead>
