@@ -3,11 +3,15 @@ import { bindActionCreators } from "redux";
 import SearchUsersForm from '../../components/user/SearchUsersForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
+import * as languageActions from "../../actions/languageActions";
 import { withRouter } from 'react-router-dom';
-import SearchUsersResults from '../../containers/user/SearchUsersResult';
 
 
 class SearchUser extends React.Component {
+  componentWillMount(){
+    this.props.fetchLanguages();
+  }
+
   submit = values => {
     let searchParams= {
         gender : values.gender,
@@ -20,8 +24,7 @@ class SearchUser extends React.Component {
     return(
       <div className="row">
        <div className="col-lg-12">
-        <SearchUsersForm onSubmit={this.submit} />
-        <SearchUsersResults/>
+        <SearchUsersForm onSubmit={this.submit} languages = {this.props.languageState.languages} />
        </div>
    </div>  
     )
@@ -29,11 +32,11 @@ class SearchUser extends React.Component {
 }
 
 function mapStateToProps(state){
-    return { userState : state.userState }
+    return { userState : state.userState, languageState : state.languageState }
  }
  
  function mapDispatchToProps(dispatch){
-    return  bindActionCreators({ searchUsers : userActions.searchUsers }, dispatch)
+    return  bindActionCreators({ searchUsers : userActions.searchUsers, fetchLanguages : languageActions.fetchLanguages }, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(SearchUser));

@@ -2,39 +2,37 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class UsersResult extends Component{
-    constructor(props) {
-        super(props)
-        this.state = {
-            gender : null,
-            desired: null,
-            provided: null,
-        }
-    }
 
     render(){
-        const userList = this.props.state.searchResult.map((user,i)=>{      
-            return (
-                <tr key={ i } >
-                    <th scope="row"> { i+1 } </th>
-                    <td> { user.user_name } </td>
-                    <td> { user.gender } </td>
-                    <td>
-                            {user.provided_languages.map((provided,i)=>{
-                                return( <p key={i}>{provided.languages.name}</p> )
-                                })
-                            }
-                    </td>
-                    <td>
-                            {user.desired_languages.map((desired,i)=>{
-                                return(  <p key={i}>{desired.languages.name}</p> )
-                                })
-                            }
-                    </td> 
-                    <td><Link to={ `/users/${user.id}`}>Show</Link> </td>
-                    <td> Contact </td>
-                </tr>    
-            )
-        });
+
+        // const provided = this.props.state.provided;
+        // const desired =this.props.state.desired;
+
+
+        const userList = this.props.state.searchResult.map((user,i)=>{
+                return (
+                    <tr key={ i } >
+                        <th scope="row"> { i+1 } </th>
+                        <td> { user.user_name } </td>
+                        <td> { user.gender } </td>
+                        <td>
+                                {user.provided_languages.map((provided,i)=>{
+                                    return( <p key={i}>{provided.languages.name}</p> )
+                                    })
+                                }
+                        </td>
+                        <td>
+                                {user.desired_languages.map((desired,i)=>{
+                                    return(  <p key={i}>{desired.languages.name}</p> )
+                                    })
+                                }
+                        </td> 
+                        <td><Link to={ `/users/${user.id}`}>Show</Link> </td>
+                        <td>Contact</td>
+                    </tr>    
+                )
+
+        })
 
         return (
             <div>

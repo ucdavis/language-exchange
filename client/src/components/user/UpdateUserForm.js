@@ -134,7 +134,6 @@ let UserForm = props => {
 }
 
 UserForm = reduxForm({
-  // a unique name for the form
   form: 'user',
   enableReinitialize : true
 })(UserForm)
