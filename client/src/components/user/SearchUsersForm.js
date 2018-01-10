@@ -17,7 +17,7 @@ import { Field, reduxForm } from 'redux-form';
     <div>
         <div className="row">
             <div className="col-sm-12">
-                <h4>Find a partner</h4>      
+                <h4>Find a partner</h4>  
                     <form onSubmit={handleSubmit}>   
 
                         <div className="form-group col-md-4">
@@ -39,6 +39,7 @@ import { Field, reduxForm } from 'redux-form';
                         <div className="form-group col-md-4">
                             <label>Gender :</label>
                                 <Field name="gender" component="select" className="form-control custom-select ">
+                                    <option />
                                     <option value="Any">Any</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
