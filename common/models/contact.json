@@ -1,0 +1,56 @@
+{
+  "name": "contacts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sender_id": {
+      "type": "number",
+      "required": true
+    },
+    "recipient_id": {
+      "type": "number",
+      "required": true
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "string",
+      "required": true
+    },
+    "read":{
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "created_at": {
+      "type": "date",
+      "required": true
+    },
+    "updated_at": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "recipient": {
+      "type": "belongsTo",
+      "model": "partner",
+      "foreignKey": "recipient_id"
+    },
+    "sender": {
+      "type": "belongsTo",
+      "model": "partner",
+      "foreignKey": "sender_id"
+    }
+
+  },
+  "acls": [],
+  "methods": {}
+}

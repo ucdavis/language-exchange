@@ -85,6 +85,16 @@
       "type": "hasMany",
       "model": "desired_languages",
       "foreignKey": "user_id"
+    },
+    "sent": {
+      "type": "hasMany",
+      "model": "contacts",
+      "foreignKey": "sender_id"
+    },
+    "received": {
+      "type": "hasMany",
+      "model": "contacts",
+      "foreignKey": "recipient_id"
     }
   },
   "acls": [],

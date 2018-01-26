@@ -5,6 +5,8 @@ import * as userActions from "../../actions/userActions";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLanguageDetail";
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
+import Img from 'react-image';
+
 
 
 class userDetails extends Component{
@@ -15,43 +17,76 @@ class userDetails extends Component{
         this.props.fetchUserProvidedLanguages(id);
         this.props.fetchUserDesiredLanguages(id);
     }
-    
-    render(){ 
-        let created_at = (new Date(this.props.userState.active.created_at)).toString();
-        let updated_at = (new Date(this.props.userState.active.updated_at)).toString();
 
-        if (!this.props.userState.active) {
-            return (<h4>No User</h4>);
-        }       
+    
+    render(){
+        
+        // let created_at = (new Date(this.props.userState.active.created_at)).toString();
+        // let updated_at = (new Date(this.props.userState.active.updated_at)).toString();
+        let user = this.props.userState.active;
+        let notFound = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar"/>;
+        let userImage = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar" />;
+        if (user.avatar_file_name !== null) {
+            var url = `http://localhost:3000/api/storages/images/download/${user.avatar_file_name}`;
+            userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
+           }else{
+            userImage = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar" unloader={ notFound() } />;
+           }
+        
         return (   
                
             <div>
-               <h1>{this.props.userState.active.user_name} </h1>
-               
-               <label>Available</label>
-               <p>{String (this.props.userState.active.available)}</p>
-               <label>Email notifications</label>
-               <p>{String(this.props.userState.active.notify_by_email)}</p>
-               <label>Email</label>
-               <p>{this.props.userState.active.email} </p>
-               <label>CAS</label>
-               <p>{this.props.userState.active.cas_user} </p>
-               <label>Description</label>
-               <p>{this.props.userState.active.description} </p>
-               <label>Field of Study</label>
-               <p>{this.props.userState.active.field_of_study} </p>
-               <label>Gender </label>
-               <p>{this.props.userState.active.gender} </p>
-               <label>University Affiliation</label>
-               <p>{this.props.userState.active.affiliation} </p>
-               <label>Created</label>
-               <p>{ created_at }</p>
-               <label>Updated</label>
-               <p>{ updated_at }</p>
+                <h2><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;User Profile</h2>
+                <hr />
 
-               <ProvidedLanguageDetail state={this.props.userLanguageState}/>
-               <DesiredLanguageDetail state={this.props.userLanguageState}/>
-            </div>    
+                        {/* Image column */}
+                        <div className="row">
+                        <div className="col-sm-4">
+                        
+                            <ul className="list-group">
+                                <li className="list-group-item text-center" >
+                                    { userImage() }
+                                </li>
+                                <li className="list-group-item">  
+                                    <label>Description:</label> 
+                                    <p>{user.description}</p> 
+                                </li>
+                                <li className="list-group-item">  
+                                    <label>Gender :&nbsp;</label>
+                                    {user.gender}
+                                </li>     
+                                <li className="list-group-item">  
+                                    <label>Field of Study:</label>
+                                    <p> {user.field_of_study} </p>
+                                </li>                                  
+                                <li className="list-group-item">  
+                                    <label>University Affiliation:</label>
+                                    <p>{user.affiliation} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                        
+
+                        {/* Languages column */}
+                        <div className="col-sm-8">
+                        
+                            <div className="card">
+                                
+                            <div className="card-header"> <h4>{user.user_name}</h4></div>
+                            <div className="card=block">
+
+                                <div className="well well-small"> 
+                                <ProvidedLanguageDetail state={this.props.userLanguageState}/>
+                                </div>
+                                <div className="well well-small"> 
+                                <DesiredLanguageDetail state={this.props.userLanguageState}/>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                    </div> 
+                </div>    
         )
     }
 }

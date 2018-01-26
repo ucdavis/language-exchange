@@ -20,3 +20,6 @@ npm-debug.log
 
 # Data store
 server/db/
+
+# Storage
+storage/
