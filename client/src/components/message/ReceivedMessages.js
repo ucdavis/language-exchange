@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 
 class ReceivedMessages extends Component{
@@ -12,6 +13,7 @@ class ReceivedMessages extends Component{
             var date = created_at.getMonth()+1 +"/"
                     +created_at.getDate()+"/"
                     +created_at.getFullYear();
+                    var linkToMessage = `/message/read/${message.id}`
 
             const read = message.read.toString();
             if(read === "false" ){
@@ -20,8 +22,8 @@ class ReceivedMessages extends Component{
 
               return (
                 <li className={read_class}  key={message.id}>
-                <button className="btn btn-default btn-xs"
-                  onClick={this.props.handler} >Read</button>
+               
+                   <Link to={ linkToMessage } >Read</Link>
                     &nbsp; { message.subject }
                     &nbsp; { message.sender.user_name }
                     &nbsp; { date }

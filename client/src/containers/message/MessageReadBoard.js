@@ -11,20 +11,26 @@ import MessageDetail from "../../components/message/MessageDetail";
 class ReadMessage extends React.Component {
 
   constructor(props){
+
     super(props);
     this.state = {
-      display : <MessageDetail state = { this.props.messageState } />,
+      display : null,
       message : null
     }
+    
   }
 
   componentDidMount(){
+    var id = this.props.match.params.id;
+    this.props.fetchMessage(id);
+  }
 
-    this.props.fetchMessage(1897);
-}
 
   
   render() {
+
+    let message = this.props.messageState.message;
+
  
     return (
     
@@ -35,7 +41,7 @@ class ReadMessage extends React.Component {
       <div className="side-bar">
         <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
 
-          <button
+        <button
             type="button"
             className="btn btn-default"
             onClick={() => this.setState({display:<ReceivedMessages />})} >
@@ -67,7 +73,13 @@ class ReadMessage extends React.Component {
 
       <div className="col-sm-10">
           <div>
-            { this.state.display }
+
+
+
+            {/* { this.message } */}
+          <MessageDetail
+             message = { message }
+        />
           </div>
       </div>
 

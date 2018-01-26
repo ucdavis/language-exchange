@@ -29,7 +29,7 @@ const Main = () => (
             <Route exact path='/userlanguages/edit/:id' component = { UpdateUserLanguages } />
             {/* <Route exact path='/file' component ={ UploadAvatar } /> */}
             <Route exact path='/message' component ={ MessageBoard } />
-            <Route exact path='/message/read/' component ={ MessageReadBoard } />
+            <Route exact path='/message/read/:id' component ={ MessageReadBoard } />
             
 
         </Switch>    

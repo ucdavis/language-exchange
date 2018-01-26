@@ -14,7 +14,7 @@ class ReceivedMessagesContainer extends Component{
     render(){        
         return (
             <div>
-                <ReceivedMessages state= { this.props.messageState } />
+                <ReceivedMessages state= { this.props.messageState } fetchMessage = { this.props.fetchMessage } />
             </div>       
         )
     }
@@ -27,7 +27,10 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchReceivedMessages : messageActions.fetchReceivedMessages}, dispatch)
+    return bindActionCreators({
+        fetchReceivedMessages : messageActions.fetchReceivedMessages,
+        fetchMessage : messageActions.fetchSentMessages
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReceivedMessagesContainer);
