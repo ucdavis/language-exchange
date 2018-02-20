@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as userActions from "../actions/userActions";
+import { withRouter } from 'react-router-dom';
 
-export default class Nav extends React.Component {
+class Nav extends React.Component {
   constructor() {
     super()
     this.state = {
       collapsed: true,
     };
+  }
+
+  componentDidMount(){
+    this.props.fetchCurrentUser();
   }
 
   toggleCollapse() {
@@ -50,6 +58,15 @@ export default class Nav extends React.Component {
               <li >
                 <Link to="/message" onClick={this.toggleCollapse.bind(this)}>Message</Link>
               </li>
+              <li >
+                <a href="/logout" onClick={this.toggleCollapse.bind(this)}>Logout</a>
+              </li>
+              <li >
+                <Link to="/" onClick={this.toggleCollapse.bind(this)}>
+                  <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
+                  &nbsp;{ this.props.userState.current.current_user }
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -57,3 +74,15 @@ export default class Nav extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return{
+      userState: state.userState
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchCurrentUser: userActions.fetchCurrentUser}, dispatch)
+}
+
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Nav));

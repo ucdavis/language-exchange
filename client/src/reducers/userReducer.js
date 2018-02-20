@@ -2,6 +2,7 @@ const initialState = {
     fetching: false,
     fetched: false,
     users: [],
+    cas_user:null,
     current : {},
     created : {},
     active : {},
@@ -37,13 +38,22 @@ export default function userReducer(state=initialState, action) {
         }
     // FETCH SINGLE USER
         case "FETCH_USER_FULFILLED":{
-            state = {...state, active : action.payload,  title:action.payload.name}
+            state = {...state, active : action.payload }
             break;
         }
         case "FETCH_USER_REJECTED":{
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
+     // FETCH CURRENT USER
+     case "FETCH_CURRENT_USER_FULFILLED":{
+        state = {...state, current:action.payload }
+        break;
+    }
+    case "FETCH_CURRENT_USER_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }    
     // UPDATE USER
         case "UPDATE_USER_FULFILLED":{
             state =  { ...state, fetching:false, fetched:true, active: action.payload };

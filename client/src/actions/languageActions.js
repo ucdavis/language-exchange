@@ -4,7 +4,7 @@ export function createLanguage (newLanguage){
     return function(dispatch){
         axios.request({
             method: 'post',
-            url : 'http://localhost:3000/api/languages/',
+            url : '/api/languages/',
             data: newLanguage
         })
         .then(response=>{
@@ -16,7 +16,7 @@ export function createLanguage (newLanguage){
 
 export function fetchLanguages(){
     return function(dispatch){
-        axios.get('http://localhost:3000/api/languages')
+        axios.get('/api/languages')
         .then(response => dispatch({type:"FETCH_LANGUAGES_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_LANGUAGES_REJECTED", payload: err}));
     }
@@ -24,7 +24,7 @@ export function fetchLanguages(){
 
 export function fetchLanguage(id){
     return function(dispatch){
-        axios.get(`http://localhost:3000/api/languages/${id}`)
+        axios.get(`/api/languages/${id}`)
         .then(response => {
             dispatch({type:"FETCH_LANGUAGE_FULFILLED",payload:response.data})
             })
@@ -38,7 +38,7 @@ export function updateLanguage(newLanguage){
     return function (dispatch){
         axios.request({
             method: 'put',
-            url : `http://localhost:3000/api/languages/${newLanguage.id}`,
+            url : `/api/languages/${newLanguage.id}`,
             data: {
                 name : newLanguage.name,
                 updated_at : newLanguage.updated_at,
@@ -54,7 +54,7 @@ export function updateLanguage(newLanguage){
 
 export function deleteLanguage (languageId){
     return function(dispatch){
-        axios.delete(`http://localhost:3000/api/languages/${languageId}`)
+        axios.delete(`/api/languages/${languageId}`)
         .then(response => dispatch({type:"DELETE_LANGUAGES_FULFILLED",payload:response.data}))
         .catch(err=>dispatch({type: "DELETE_LANGUAGE_REJECTED", payload: err}))
     }

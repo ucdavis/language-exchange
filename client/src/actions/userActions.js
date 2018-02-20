@@ -4,7 +4,7 @@ export function createUser (newUser){
     return function(dispatch){
         axios.request({
             method: 'post',
-            url : 'http://localhost:3000/api/partners/',
+            url : '/api/partners/',
             data: newUser
         })
         .then(response=>{
@@ -16,15 +16,23 @@ export function createUser (newUser){
 
 export function fetchUsers(){
     return function(dispatch){
-        axios.get('http://localhost:3000/api/partners')
+        axios.get('/api/partners')
         .then(response => dispatch({type:"FETCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
+    }
+}
+
+export function fetchCurrentUser(){
+    return function(dispatch){
+        axios.get('/api/user/current')
+        .then(response => dispatch({type:"FETCH_CURRENT_USER_FULFILLED", payload:response.data}))
+        .catch(err => dispatch({type:"FETCH_CURRENT_USER_REJECTED", payload: err}));
     }
 }   
 
 export function fetchUser(id){
     return function(dispatch){
-        axios.get(`http://localhost:3000/api/partners/${id}`)
+        axios.get(`/api/partners/${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_FULFILLED",payload:response.data})
             })
@@ -38,7 +46,7 @@ export function updateUser(newUser){
     return function (dispatch){
         axios.request({
             method: 'put',
-            url : `http://localhost:3000/api/partners/${newUser.id}`,
+            url : `/api/partners/${newUser.id}`,
             data: {
                 cas_user : newUser.cas_user,
                 user_name : newUser.user_name,
@@ -68,7 +76,7 @@ export function searchUsers(gender, provided, desired){
         }else{
             filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`
         }
-        axios.get(`http://localhost:3000/api/partners?filter=${filter}`)
+        axios.get(`/api/partners?filter=${filter}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
