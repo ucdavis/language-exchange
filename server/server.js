@@ -3,6 +3,10 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 
+// Required for cas_authentication module
+var session = require('express-session');
+var CASAuthentication = require('cas-authentication');
+
 var app = module.exports = loopback();
 
 app.start = function() {
@@ -17,6 +21,63 @@ app.start = function() {
     }
   });
 };
+
+
+// Set up an Express session, which is required for CASAuthentication.
+// TODO: secret key
+app.use( session({
+  secret            : 'super_secret_key',
+  resave            : false,
+  saveUninitialized : true,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+  },
+}));
+ 
+var cas = new CASAuthentication({
+    cas_url         : 'https://cas.ucdavis.edu/cas',
+    service_url     : 'http://localhost:3000',
+    cas_version     : '3.0',
+    renew           : false,
+    session_name    : 'cas_user',
+    destroy_session : false,
+    is_dev_mode     : false,
+    dev_mode_user   : 'guest',
+});
+
+
+// Check all requests for authentication
+// TODO : Solve 'No Access-Control-Allow-Origin' Error
+app.use(function (req, res, next) {
+  var user_name = null;
+
+  if(user_name = req.session[cas.session_name]) {
+    console.log("\n CAS session found : ", user_name);
+    next();
+  } else {
+    // No username in session, need to log in
+    console.log("No CAS session found");
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
+    cas.bounce(req, res, next);       
+  }
+});
+
+// This route will de-authenticate the client with the Express server and then 
+// redirect the client to the CAS logout page. 
+app.get( '/logout', cas.logout );
+
+// API sends current authenticated user
+app.get( '/api/user/current', cas.bounce, function(req, res){
+  res.send({current_user:req.session[cas.session_name]});
+} );
+
+
+// Test for sending users to root if they manually type a url (ex:/languages)
+app.get( '/languages', function(req, res){
+  res.redirect('/');
+} );
+
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
