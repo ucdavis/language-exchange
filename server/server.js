@@ -42,7 +42,7 @@ var cas = new CASAuthentication({
     renew           : false,
     session_name    : 'cas_user',
     destroy_session : false,
-    is_dev_mode     : false,
+    is_dev_mode     : true,
     dev_mode_user   : 'guest',
 });
 

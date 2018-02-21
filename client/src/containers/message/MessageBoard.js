@@ -11,15 +11,23 @@ class CreateMessage extends React.Component {
 
   constructor(props){
     super(props);
+    this.showView = this.showView.bind(this);
     this.state = {
       display : null
     }
   }
 
+  showView = (view)=>{
+    this.setState({ display:view });
+  }
+
   componentDidMount(){
-    
-    this.setState({display:<ReceivedMessages />});
+    this.setState({display:<ReceivedMessages showView={this.showView }/>});
 }
+
+
+
+
 
   submit = values => {
     // const casUser = "casUser";
@@ -38,6 +46,8 @@ class CreateMessage extends React.Component {
 
   
   render() {
+
+
     return (
     
     <div className="row">
@@ -50,7 +60,7 @@ class CreateMessage extends React.Component {
           <button
             type="button"
             className="btn btn-default"
-            onClick={() => this.setState({display:<ReceivedMessages />})} >
+            onClick={() => this.setState({display: <ReceivedMessages  showView={this.showView } /> })} >
             &nbsp;&nbsp;Inbox&nbsp;
           </button>
 

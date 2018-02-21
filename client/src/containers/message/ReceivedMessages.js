@@ -4,17 +4,21 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
 
+
 class ReceivedMessagesContainer extends Component{
 
+
+    // TODO: GET AUTH USER MESSAGES HERE !!!
     componentDidMount(){
     
         this.props.fetchReceivedMessages(663);
     }
     
-    render(){        
+    render(){  
+
         return (
             <div>
-                <ReceivedMessages state= { this.props.messageState } fetchMessage = { this.props.fetchMessage } />
+                <ReceivedMessages state= { this.props.messageState } fetchMessage = { this.props.fetchMessage } showView={this.props.showView}  />
             </div>       
         )
     }

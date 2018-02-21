@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import MessageDetail from "../../components/message/MessageDetail";
 
 
 class ReceivedMessages extends Component{
+
 
     render(){
 
@@ -21,14 +23,18 @@ class ReceivedMessages extends Component{
             }
 
               return (
+                <div>
+                
                 <li className={read_class}  key={message.id}>
                
                    <Link to={ linkToMessage } >Read</Link>
                     &nbsp; { message.subject }
                     &nbsp; { message.sender.user_name }
                     &nbsp; { date }
+                    <button onClick={()=>this.props.showView(<MessageDetail id={message.id} />)} className="btn btn-default">Read</button>
 
                 </li>
+                </div>
               )
           })
 
@@ -36,6 +42,7 @@ class ReceivedMessages extends Component{
             
             <div>
                 <h1>Inbox</h1>
+               
 
                 <ul className="list-group">
                     { messages }

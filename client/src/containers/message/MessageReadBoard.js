@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import  SentMessages  from "../../containers/message/SentMessages";
 import  ReceivedMessages  from "../../containers/message/ReceivedMessages";
 import MessageDetail from "../../components/message/MessageDetail";
+import { Link } from "react-router-dom";
 
 class ReadMessage extends React.Component {
 
@@ -23,13 +24,31 @@ class ReadMessage extends React.Component {
   componentDidMount(){
     var id = this.props.match.params.id;
     this.props.fetchMessage(id);
+    let message = this.props.messageState.message;
+    this.setState({
+      display :   <MessageDetail message = { message } />
+      })
   }
 
+  componentWillReceiveProps(){
+
+  }
+  // componentDidUpdate(){
+    
+  //   this.setState({
+  //     display :   <MessageDetail message = { message } />
+  //   })}
+
+
+    // componentDidUpdate(){
+    //   this.setState({
+    //     display :   <MessageDetail message = { message } />
+    //   })}
 
   
   render() {
 
-    let message = this.props.messageState.message;
+    // let message = this.props.messageState.message;
 
  
     return (
@@ -40,6 +59,18 @@ class ReadMessage extends React.Component {
 
       <div className="side-bar">
         <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
+
+         <button className="btn btn-default">
+          <Link to="/message" >Inbox</Link>
+        </button>
+
+        <button className="btn btn-default">
+          <Link to="/message" >Sent</Link>
+        </button>
+
+        <button className="btn btn-default">
+          <Link to="/message" >Compose</Link>
+        </button>
 
         <button
             type="button"
@@ -73,13 +104,8 @@ class ReadMessage extends React.Component {
 
       <div className="col-sm-10">
           <div>
-
-
-
-            {/* { this.message } */}
-          <MessageDetail
-             message = { message }
-        />
+            {this.state.display}
+         
           </div>
       </div>
 
