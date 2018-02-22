@@ -2,6 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import MessageForm from '../../components/message/MessageForm';
 import * as messageActions from "../../actions/messageActions";
+// import * as userActions from "../../actions/userActions";
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import  SentMessages  from "../../containers/message/SentMessages";
@@ -22,9 +23,16 @@ class CreateMessage extends React.Component {
   }
 
   componentDidMount(){
-    this.setState({display:<ReceivedMessages showView={this.showView }/>});
+    this.props.fetchReceivedMessages(this.props.userState.current.id);
+    this.setState({
+      display:<ReceivedMessages
+                showView={this.showView }
+                userState = {this.props.userState}
+              />});
 }
 
+
+//Function to submit new message, move to create message form
   submit = values => {
     // const casUser = "casUser";
     let now = new Date();
@@ -42,6 +50,7 @@ class CreateMessage extends React.Component {
 
   
   render() {
+    
 
 
     return (
@@ -56,7 +65,7 @@ class CreateMessage extends React.Component {
           <button
             type="button"
             className="btn btn-default"
-            onClick={() => this.setState({display: <ReceivedMessages  showView={this.showView } /> })} >
+            onClick={() => this.setState({display: <ReceivedMessages  showView={this.showView } userState = {this.props.userState}  messageState = {this.props.messageState} /> })} >
             &nbsp;&nbsp;Inbox&nbsp;
           </button>
 
@@ -96,11 +105,15 @@ class CreateMessage extends React.Component {
 }
 
 function mapStateToProps(state){
-    return { userState : state.userState }
+    return { userState : state.userState, messageState : state.messageState }
  }
  
  function mapDispatchToProps(dispatch){
-    return  bindActionCreators({ createMessage : messageActions.createMessage }, dispatch)
+    return  bindActionCreators({
+      createMessage : messageActions.createMessage,
+      fetchReceivedMessages : messageActions.fetchReceivedMessages,
+      // fetchCasUser : userActions.fetchCasUser
+    }, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(CreateMessage));

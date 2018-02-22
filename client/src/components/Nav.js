@@ -10,15 +10,16 @@ class Nav extends React.Component {
     super()
     this.state = {
       collapsed: true,
+      
     };
   }
 
-  componentWillMount(){
-    this.props.fetchCasUser();
 
-  }
   componentDidMount(){
-  this.props.fetchCurrentUser(this.props.userState.current.cas_user);
+    this.props.fetchCasUser();
+    // this.props.fetchCurrentUser(this.props.userState.current.cas_user);
+    // this.setState();
+  // this.props.fetchCurrentUser("maimiyan");
   }
 
   toggleCollapse() {
@@ -68,7 +69,7 @@ class Nav extends React.Component {
               <li >
                 <Link to="/" onClick={this.toggleCollapse.bind(this)}>
                   <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
-                  &nbsp;{ this.props.userState.cas_user }
+                  &nbsp;{ this.props.userState.current.user_name }
                 </Link>
               </li>
             </ul>
@@ -86,7 +87,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchCurrentUser: userActions.fetchCurrentUser, fetchCasUser: userActions.fetchCasUser}, dispatch)
+  return bindActionCreators({ fetchCasUser: userActions.fetchCasUser}, dispatch)
 }
 
 export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Nav));

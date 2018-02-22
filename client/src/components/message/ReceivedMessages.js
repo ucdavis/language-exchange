@@ -4,9 +4,10 @@ import MessageDetail from "../../components/message/MessageDetail";
 
 class ReceivedMessages extends Component{
 
+
     render(){
 
-        const received_messages = this.props.state.received_messages;
+        const received_messages = this.props.messageState.received_messages;
         let read_class = "bg-default";
         const messages = received_messages.map( message=>{
             var created_at = new Date(message.created_at)
