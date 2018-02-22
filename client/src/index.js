@@ -9,16 +9,29 @@ import { Provider } from "react-redux";
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promiseMiddleware from "redux-promise-middleware";
+// Persisting the State to the Local Storage
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; 
+import { PersistGate } from 'redux-persist/integration/react';
 
+const persistConfig = {
+    key: 'root',
+    storage,
+  }
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 const middleware = applyMiddleware(thunk,logger, promiseMiddleware());
-const store = createStore(reducers, middleware);
+const store = createStore(persistedReducer, undefined,middleware );
+const persistor = persistStore(store);
 
 
 ReactDOM.render(  
-    <Provider store={store}>  
+    <Provider store={store}> 
+    <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
             <App />
-        </BrowserRouter> 
+        </BrowserRouter>
+    </PersistGate>    
     </Provider>   
 , document.getElementById('root'));
 registerServiceWorker();
