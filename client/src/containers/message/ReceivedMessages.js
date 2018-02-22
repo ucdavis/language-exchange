@@ -3,15 +3,15 @@ import ReceivedMessages from '../../components/message/ReceivedMessages';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
+import * as userActions from "../../actions/userActions";
 
 
 class ReceivedMessagesContainer extends Component{
 
-
     // TODO: GET AUTH USER MESSAGES HERE !!!
     componentDidMount(){
-    
-        this.props.fetchReceivedMessages(663);
+        const current_user =this.props.userState.current;
+        this.props.fetchReceivedMessages(current_user.id);
     }
     
     render(){  
@@ -26,14 +26,16 @@ class ReceivedMessagesContainer extends Component{
 
 function mapStateToProps(state){
     return{
-        messageState: state.messageState
+        messageState: state.messageState,
+        userState: state.userState
     }
 }
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchReceivedMessages : messageActions.fetchReceivedMessages,
-        fetchMessage : messageActions.fetchSentMessages
+        fetchMessage : messageActions.fetchSentMessages,
+        fetchCurrentUser: userActions.fetchCurrentUser
     }, dispatch)
 }
 

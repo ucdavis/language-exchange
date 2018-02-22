@@ -25,10 +25,6 @@ class CreateMessage extends React.Component {
     this.setState({display:<ReceivedMessages showView={this.showView }/>});
 }
 
-
-
-
-
   submit = values => {
     // const casUser = "casUser";
     let now = new Date();

@@ -43,7 +43,7 @@ var cas = new CASAuthentication({
     session_name    : 'cas_user',
     destroy_session : false,
     is_dev_mode     : true,
-    dev_mode_user   : 'guest',
+    dev_mode_user   : 'romerov',
 });
 
 
@@ -68,8 +68,9 @@ app.use(function (req, res, next) {
 app.get( '/logout', cas.logout );
 
 // API sends current authenticated user
-app.get( '/api/user/current', cas.bounce, function(req, res){
-  res.send({current_user:req.session[cas.session_name]});
+
+app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
+  res.send(req.session[cas.session_name]);
 } );
 
 

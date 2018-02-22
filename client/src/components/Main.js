@@ -11,7 +11,7 @@ import CreateUser from "../containers/user/CreateUser";
 import UpdateUser from "../containers/user/UpdateUser";
 import UpdateUserLanguages from "../containers/user/UpdateUserLanguages";
 import MessageBoard from "../containers/message/MessageBoard";
-import MessageReadBoard from "../containers/message/MessageReadBoard";
+// import MessageReadBoard from "../containers/message/MessageReadBoard";
 
 
 const Main = () => (
@@ -30,8 +30,8 @@ const Main = () => (
             {/* <Route exact path='/file' component ={ UploadAvatar } /> */}
 
            {/* Messages */}
-            <Route exact path='/message' component ={ MessageBoard } />
-            <Route exact path='/message/read/:id' component ={ MessageReadBoard } />
+            <Route exact path='/messages' component ={ MessageBoard } />
+           
             
 
         </Switch>    

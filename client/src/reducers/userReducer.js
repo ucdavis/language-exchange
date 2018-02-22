@@ -54,6 +54,15 @@ export default function userReducer(state=initialState, action) {
         state =  {...state, fetching: false, error: action.payload };
         break;
     }    
+     // FETCH CAS USER
+     case "FETCH_CAS_USER_FULFILLED":{
+        state = {...state, cas_user:action.payload }
+        break;
+    }
+    case "FETCH_CAS_USER_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }    
     // UPDATE USER
         case "UPDATE_USER_FULFILLED":{
             state =  { ...state, fetching:false, fetched:true, active: action.payload };

@@ -30,7 +30,7 @@ export function fetchReceivedMessages(id){
 
 export function fetchMessage(id){
     return function(dispatch){
-        axios.get(`/api/contacts/${id}`)
+        axios.get(`/api/contacts?filter={"include":{"relation":"sender"},"where":{"id":${id}}}`)
         .then(response => dispatch({type:"FETCH_MESSAGE_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH__MESSAGE_REJECTED", payload: err}));
     }

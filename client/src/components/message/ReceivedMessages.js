@@ -1,40 +1,36 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import MessageDetail from "../../components/message/MessageDetail";
 
 
 class ReceivedMessages extends Component{
 
-
     render(){
 
         const received_messages = this.props.state.received_messages;
-        let read_class = "list-group-item ";
+        let read_class = "bg-default";
         const messages = received_messages.map( message=>{
             var created_at = new Date(message.created_at)
             var date = created_at.getMonth()+1 +"/"
                     +created_at.getDate()+"/"
                     +created_at.getFullYear();
-                    var linkToMessage = `/message/read/${message.id}`
+                  
 
             const read = message.read.toString();
             if(read === "false" ){
-                read_class = "list-group-item  list-group-item-info";               
+                read_class = "bg-info";               
             }
 
               return (
-                <div>
-                
-                <li className={read_class}  key={message.id}>
                
-                   <Link to={ linkToMessage } >Read</Link>
-                    &nbsp; { message.subject }
-                    &nbsp; { message.sender.user_name }
-                    &nbsp; { date }
-                    <button onClick={()=>this.props.showView(<MessageDetail id={message.id} />)} className="btn btn-default">Read</button>
-
-                </li>
-                </div>
+                    <tr key={message.id} className={read_class}>
+                        <th scope="row"  className={read_class}>{ message.sender.user_name }</th>
+                        <td className={read_class}>{ message.subject }</td>
+                        <td className={read_class}>{ date }</td>
+                        <td className={read_class}>
+                            <button onClick={()=>this.props.showView(<MessageDetail id={message.id} />)} className="btn btn-default btn-sm">Read</button>  
+                        </td>
+                    </tr>
+                
               )
           })
 
@@ -42,12 +38,22 @@ class ReceivedMessages extends Component{
             
             <div>
                 <h1>Inbox</h1>
-               
-
-                <ul className="list-group">
-                    { messages }
-                </ul>
+                <div className="table-responsive">
+                <table className="table table-sm table-hover table-responsive">
+                    <thead>
+                        <tr>
+                        <th scope="col">From</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Received</th>
+                        <th scope="col">Read</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { messages }
+                    </tbody>
+                </table>
                     
+            </div>
             </div>
         )
     }
