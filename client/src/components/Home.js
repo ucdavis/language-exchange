@@ -14,7 +14,7 @@ class Home extends Component{
 
     render(){
 
-        let home = <CreateUser/>;
+        let home = <CreateUser cas_user = {this.props.userState.cas_user}/>;
 
         if( this.props.userState.current !== null ){
           home = <HomeSearch/>     

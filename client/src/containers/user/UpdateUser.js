@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 class UpdateUser extends React.Component {
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.props.fetchUser(this.props.match.params.id);
   }
 

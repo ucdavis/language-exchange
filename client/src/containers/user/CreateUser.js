@@ -6,11 +6,17 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class CreateUser extends React.Component {
+
+  componentDidMount(){
+    this.props.fetchCasUser();
+}
+
   submit = values => {
-    const casUser = "casUser";
+    let cas_user = this.props.cas_user;
+    console.log("cas user create:",cas_user);
     let now = new Date();
     const newUser= {
-        cas_user : casUser,
+        cas_user : cas_user,
         available : values.available,
         user_name : values.userName,
         email_confirmed : values.emailConfirmed,
@@ -26,7 +32,7 @@ class CreateUser extends React.Component {
     this.props.createUser(newUser);
   }
   render() {
-    return <UserForm onSubmit={this.submit} />
+    return <UserForm onSubmit={this.submit} cas_user = {this.cas_user}/>
   }
 }
 
@@ -35,7 +41,9 @@ function mapStateToProps(state){
  }
  
  function mapDispatchToProps(dispatch){
-    return  bindActionCreators({ createUser : userActions.createUser }, dispatch)
+    return  bindActionCreators({
+      createUser : userActions.createUser,
+      fetchCasUser : userActions.fetchCasUser  }, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(CreateUser));

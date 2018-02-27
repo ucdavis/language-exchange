@@ -6,7 +6,7 @@ const validate = values => {
     if (!values.subject) {
       errors.subject = 'Required'
     } else if (values.subject.length < 2) {
-      errors.firstName = 'Please use a more descriptive subject'
+      errors.subject = 'Please use a more descriptive subject'
     }
 
     if (!values.content) {
@@ -23,7 +23,7 @@ let MessageForm = props => {
 
   
 
-  const inputField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label className="control-label">{label}</label>
       <div>
@@ -33,7 +33,7 @@ let MessageForm = props => {
     </div>
   )
 
-  const messageField = ({ textarea, label, type, meta: { touched, error, warning } }) => (
+  const TextAreaField = ({ textarea, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label className="control-label">{label}</label>
       <div>
@@ -51,10 +51,10 @@ let MessageForm = props => {
       <form onSubmit={ handleSubmit }>
 
       <div className="form-group">
-        <Field name="subject" component={inputField} label="Subject" />
+        <Field name="subject" component={InputField} label="Subject" />
       </div>
       <div className="form-group">
-        <Field name="content" component={messageField}  label="Message" />
+        <Field name="content" component={TextAreaField}  label="Message" />
       </div>
       <div className="form-group">
         <button type="submit" disabled={pristine || submitting} className="btn btn-success">Send Message</button>
