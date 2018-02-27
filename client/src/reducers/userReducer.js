@@ -1,13 +1,14 @@
 const initialState = {
-    fetching: false,
-    fetched: false,
-    users: [],
-    cas_user:null,
+    fetching : false,
+    fetched : false,
+    users : [],
+    cas_user : null,
+    existed : null,
     current : {},
     created : {},
     active : {},
     searchResult : [],
-    error: null
+    error : null
   }
 
 export default function userReducer(state=initialState, action) {
@@ -60,6 +61,15 @@ export default function userReducer(state=initialState, action) {
         break;
     }
     case "FETCH_CAS_USER_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }    
+     // CHECK EXISTED USER
+     case "EXISTED_USER_FULFILLED":{
+        state = {...state, existed:action.payload }
+        break;
+    }
+    case "EXISTED_USER_REJECTED":{
         state =  {...state, fetching: false, error: action.payload };
         break;
     }    

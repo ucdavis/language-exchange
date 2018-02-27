@@ -1,52 +1,41 @@
 import React, { Component } from 'react';
-import SearchUsers from '../containers/user/SearchUsers';
-import SearchUsersResults from '../containers/user/SearchUsersResult';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as userActions from "../actions/userActions";
+import { withRouter } from 'react-router-dom';
+import CreateUser from '../containers/user/CreateUser';
+import HomeSearch from '../components/home/HomeSearch';
 
 class Home extends Component{
+
+    componentDidMount(){
+        this.props.fetchCasUser();
+    }
+
     render(){
+
+        let home = <CreateUser/>;
+
+        if( this.props.userState.current !== null ){
+          home = <HomeSearch/>     
+        }
+
         return(
             <div>
-                <h2>Language Exchange App</h2>
-
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="well well-sm">
-                         <SearchUsers/>
-                        </div>
-                    </div>
-                </div> 
-
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div >
-                        <SearchUsersResults/>
-                        </div>
-                    </div>
-                </div> 
-
-                <div className="row">
-                <div className="col-md-4">
-                    <h3>Heading 1</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                    <a className="btn btn-default" href="/">More Info</a>
-                </div>
-
-                <div className="col-md-4">
-                    <h3>Heading 2</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                    <a className="btn btn-default" href="/languages">More Info</a>
-                </div>
-
-                <div className="col-md-4">
-                    <h3>Heading 3</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                    <a className="btn btn-default" href="/users">More Info</a>
-                </div>
-
-                </div>
+              { home }
          </div>
         );
     }
 }
 
-export default Home;
+function mapStateToProps(state){
+    return{
+        userState: state.userState
+    }
+  }
+  
+  function mapDispatchToProps(dispatch){
+    return bindActionCreators({ fetchCasUser: userActions.fetchCasUser}, dispatch)
+  }
+  
+  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home));

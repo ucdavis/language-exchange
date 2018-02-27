@@ -14,12 +14,8 @@ class Nav extends React.Component {
     };
   }
 
-
   componentDidMount(){
-    this.props.fetchCasUser();
-    // this.props.fetchCurrentUser(this.props.userState.current.cas_user);
-    // this.setState();
-  // this.props.fetchCurrentUser("maimiyan");
+      this.props.fetchCasUser();
   }
 
   toggleCollapse() {
@@ -28,6 +24,15 @@ class Nav extends React.Component {
   }
 
   render() {
+  
+  let link_to_profile = `/users/add`;
+  let user_name = null;
+  if( this.props.userState.current !== null ){
+    this.user_id = this.props.userState.current.id
+    this.user_name = this.props.userState.current.user_name;
+
+  }
+    
     // const { location } = this.props;
      const { collapsed } = this.state;
     // const featuredClass = location.pathname === "/" ? "active" : "";
@@ -67,9 +72,9 @@ class Nav extends React.Component {
                 <a href="/logout" onClick={this.toggleCollapse.bind(this)}>Logout</a>
               </li>
               <li >
-                <Link to="/" onClick={this.toggleCollapse.bind(this)}>
+                <Link to={link_to_profile} onClick={this.toggleCollapse.bind(this)}>
                   <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
-                  &nbsp;{ this.props.userState.current.user_name }
+                  &nbsp;{this.user_name }
                 </Link>
               </li>
             </ul>

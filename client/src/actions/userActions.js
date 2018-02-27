@@ -22,13 +22,13 @@ export function fetchUsers(){
     }
 }
 
-// export function fetchCurrentUser(cas_user){
-//     return function(dispatch){
-//         axios.get(`/api/partners/current/${cas_user}`)
-//         .then(response => dispatch({type:"FETCH_CURRENT_USER_FULFILLED", payload:response.data}))
-//         .catch(err => dispatch({type:"FETCH_CURRENT_USER_REJECTED", payload: err}));
-//     }
-// }   
+export function existedUser(cas_user){
+    return function(dispatch){
+        axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
+        .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
+        .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
+    }
+}   
 
 export function fetchCasUser(){
     return function(dispatch){

@@ -23,14 +23,15 @@ class CreateMessage extends React.Component {
   }
 
   componentDidMount(){
-    this.props.fetchReceivedMessages(this.props.userState.current.id);
-    this.setState({
-      display:<ReceivedMessages
-                showView={this.showView }
-                userState = {this.props.userState}
-              />});
+    if (this.props.userState.current){
+      this.props.fetchReceivedMessages(this.props.userState.current.id);
+      this.setState({
+        display:<ReceivedMessages
+                  showView={this.showView }
+                  userState = {this.props.userState}
+                />});
+    }
 }
-
 
 //Function to submit new message, move to create message form
   submit = values => {
