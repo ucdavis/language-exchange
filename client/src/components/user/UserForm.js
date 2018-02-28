@@ -101,7 +101,7 @@ let UserForm = props => {
             </div>
 
 
-            <div className="form-group col-sm-6">
+            <div className="form-group">
                 <Field
                     name="userName"
                     component={InputField}
@@ -110,7 +110,7 @@ let UserForm = props => {
                 />
             </div>
 
-            <div className="form-group  col-sm-6">
+            <div className="form-group">
                 <Field
                     name="email"
                     component={InputField}
@@ -120,7 +120,7 @@ let UserForm = props => {
                 />               
             </div>
 
-            <div className="form-group col-sm-12">
+            <div className="form-group">
                 <div className="form-check">
                     <label className="form-check-label">
                         <Field
@@ -133,7 +133,7 @@ let UserForm = props => {
                 </div>
             </div>
 
-            <div className="form-group col-sm-6">
+            <div className="form-group">
                     <Field name="gender" component={SelectField} label="Gender" >
                         <option />
                         <option value="male">Male</option>
@@ -142,7 +142,7 @@ let UserForm = props => {
                     </Field>
             </div>
 
-            <div className="form-group col-sm-6">
+            <div className="form-group">
                     <Field name="affiliation" component={SelectField} label="University Affiliation" >
                         <option />
                         <option value="Not Specified">Not Specified</option>
@@ -153,7 +153,7 @@ let UserForm = props => {
                     </Field>
             </div>
 
-            <div className="form-group col-sm-12">
+            <div className="form-group">
                 <Field
                     name="field"
                     component={InputField}
@@ -163,7 +163,7 @@ let UserForm = props => {
             </div>
             
 
-            <div className="form-group col-sm-12">
+            <div className="form-group">
                 
                 <Field
                     name="description"
@@ -172,7 +172,7 @@ let UserForm = props => {
                 
             </div>                       
             
-            <div className="form-group col-sm-12">
+            <div className="form-group">
                 <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
                 Save Changes
                 </button>

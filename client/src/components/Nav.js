@@ -15,7 +15,7 @@ class Nav extends React.Component {
   }
 
   componentDidMount(){
-      this.props.fetchCasUser();
+      this.props.fetchCurrentUser();
   }
 
   toggleCollapse() {
@@ -96,7 +96,8 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ fetchCasUser: userActions.fetchCasUser}, dispatch)
+  return bindActionCreators({ fetchCasUser: userActions.fetchCasUser,
+    fetchCurrentUser: userActions.fetchCurrentUser }, dispatch)
 }
 
 export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Nav));

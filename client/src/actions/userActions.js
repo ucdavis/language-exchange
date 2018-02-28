@@ -33,16 +33,22 @@ export function existedUser(cas_user){
 export function fetchCasUser(){
     return function(dispatch){
         axios.get('/api/partners/cas_user')
+        .then(response => dispatch({type:"FETCH_CAS_USER_FULFILLED", payload:response.data}))
+        .catch(err => dispatch({type:"FETCH_CAS_USER_REJECTED", payload: err}));
+    }
+}   
+
+export function fetchCurrentUser(){
+    return function(dispatch){
+        let cas_user = null;
+        axios.get('/api/partners/cas_user')
         .then(response => {
-            console.log("fetchCas function response :", response.data)
-            const cas_user = response.data;
+            cas_user = response.data;
             axios.get(`/api/partners/current/${cas_user}`)
             .then(response => dispatch({type:"FETCH_CURRENT_USER_FULFILLED", payload:response.data}))
             .catch(err => dispatch({type:"FETCH_CURRENT_USER_REJECTED", payload: err}));
 
         })
-        .then(response => dispatch({type:"FETCH_CAS_USER_FULFILLED", payload:response.data}))
-        .catch(err => dispatch({type:"FETCH_CAS_USER_REJECTED", payload: err}));
     }
 }   
 
