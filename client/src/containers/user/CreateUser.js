@@ -11,18 +11,17 @@ class CreateUser extends React.Component {
   }
 
   componentDidMount(){
-    this.props.fetchCasUser();
-    
+    this.props.fetchCasUser(); 
 }
 
   submit = values => {
     let cas_user = this.props.userState.cas_user;
-    
     let now = new Date();
+    
     const newUser= {
         cas_user : cas_user,
         available : values.available,
-        user_name : values.userName,
+        user_name : values.user_name,
         email_confirmed : values.emailConfirmed,
         notify_by_email : values.emailNotifications,
         email : values.email,

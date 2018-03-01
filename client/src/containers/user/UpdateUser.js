@@ -7,15 +7,16 @@ import { withRouter } from 'react-router-dom';
 
 class UpdateUser extends React.Component {
 
-  componentDidMount = () => {
-    this.props.fetchUser(this.props.match.params.id);
-  }
+  componentDidMount(){
+    this.props.fetchCasUser(); 
+}
 
   submit = values => {
+    let cas_user = this.props.userState.cas_user;
     let now = new Date();
-    let cas_user = "casUser"
+
     const newUser= {
-        id :this.props.match.params.id,
+        id :this.props.userState.current.id,
         cas_user : cas_user,
         available : values.available,
         user_name : values.user_name,
@@ -35,7 +36,7 @@ class UpdateUser extends React.Component {
     
     return (
       <div>
-        <h1>My Profile</h1>
+        <h2>My Profile</h2>
         <UpdateUserForm onSubmit={this.submit}  />
     </div>
     )
@@ -47,7 +48,9 @@ function mapStateToProps(state){
  }
  
  function mapDispatchToProps(dispatch){
-    return  bindActionCreators({ updateUser : userActions.updateUser, fetchUser: userActions.fetchUser }, dispatch)
+    return  bindActionCreators({
+        updateUser : userActions.updateUser,
+        fetchCasUser: userActions.fetchCasUser}, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UpdateUser));

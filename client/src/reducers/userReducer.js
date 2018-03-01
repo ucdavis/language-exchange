@@ -75,7 +75,7 @@ export default function userReducer(state=initialState, action) {
     }    
     // UPDATE USER
         case "UPDATE_USER_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, active: action.payload };
+            state =  { ...state, fetching:false, fetched:true, active: action.payload, current: action.payload };
             break;
         }
         case "UPDATE_USER_REJECTED":{

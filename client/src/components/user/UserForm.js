@@ -101,7 +101,7 @@ let UserForm = props => {
 
             <div className="form-group">
                 <Field
-                    name="userName"
+                    name="user_name"
                     component={InputField}
                     type="text"
                     label="User Name"
