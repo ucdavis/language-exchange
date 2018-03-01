@@ -80,9 +80,7 @@ let UserForm = props => {
       <div>
       <h2>Registration Form</h2>
             <form onSubmit={handleSubmit}>
-
-            {/* <input type="hidden" value={this.props.cas_user} /> */}
-
+            
             <div className="well">
                 <div className="form-check">
                     <label className="form-check-label">

@@ -30,11 +30,11 @@ export default function userReducer(state=initialState, action) {
         }
     // CREATE USER
         case "CREATE_USER_REJECTED":{
-            state =  {...state, error: action.payload };
+            state =  {...state, error: action.payload, created : null };
             break;
         }
         case "CREATE_USER_FULFILLED":{
-            state =  { ...state, created : action.payload };
+            state =  { ...state, created : action.payload, current: action.payload};
             break;
         }
     // FETCH SINGLE USER

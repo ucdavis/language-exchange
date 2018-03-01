@@ -3,9 +3,12 @@ import { connect } from "react-redux";
 import UserForm from '../../components/user/UserForm';
 import * as userActions from "../../actions/userActions";
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class CreateUser extends React.Component {
+  state = {
+    redirect : false
+  }
 
   componentDidMount(){
     this.props.fetchCasUser();
@@ -13,7 +16,7 @@ class CreateUser extends React.Component {
 }
 
   submit = values => {
-    let cas_user = this.props.cas_user;
+    let cas_user = this.props.userState.cas_user;
     
     let now = new Date();
     const newUser= {
@@ -31,9 +34,19 @@ class CreateUser extends React.Component {
         created_at : now
     }
     this.props.createUser(newUser);
+    this.setState({ redirect: true })
   }
   render() {
-    return <UserForm onSubmit={this.submit} cas_user = {this.cas_user}/>
+    const {redirect} = this.state;
+    if (redirect) {
+      const new_user_id = this.props.userState.created.id;
+      const redirect_url = `/userlanguages/edit/${new_user_id}`;
+      return <Redirect to={redirect_url}  />;
+    }else{
+      return <UserForm onSubmit={this.submit} />
+
+    }
+    
   }
 }
 

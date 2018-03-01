@@ -25,7 +25,8 @@ class Nav extends React.Component {
 
   render() {
   
-  let link_to_profile = `/users/add`;
+  let link_to_profile = '/users/register';
+  let link_to_my_languages = '/users/register';
   let user_name = "Unregistered";
   let user_id = null;
   let cas_user = this.props.userState.cas_user;
@@ -34,6 +35,7 @@ class Nav extends React.Component {
     user_name = this.props.userState.current.user_name;
     cas_user = this.props.userState.current.cas_user;
     link_to_profile = `/users/edit/${user_id}`;
+    link_to_my_languages= `/userlanguages/edit/${user_id}`;
 
   }
     
@@ -74,6 +76,9 @@ class Nav extends React.Component {
               </li>
               <li >
                 <a href="/logout" onClick={this.toggleCollapse.bind(this)}>Logout</a>
+              </li>
+              <li >
+                <a href={link_to_my_languages} onClick={this.toggleCollapse.bind(this)}>My Languages</a>
               </li>
               <li >
                 <Link to={link_to_profile} onClick={this.toggleCollapse.bind(this)}>

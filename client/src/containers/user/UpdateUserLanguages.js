@@ -1,48 +1,59 @@
 import React from 'react';
 import { bindActionCreators } from "redux";
 // import LanguageSelectionForm from '../../components/userLanguage/LanguageSelectionForm';
-import LanguageSelection from "../../components/userLanguage/LanguageSelection";
+import DesiredLanguagesForm from "../../components/userLanguage/DesiredLanguagesForm";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
+import * as languageActions from '../../actions/languageActions'
 import { withRouter } from 'react-router-dom';
 
 class UpdateUserLanguages extends React.Component {
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const id = this.props.match.params.id;
         this.props.fetchProvidedLanguages(id);
         this.props.fetchDesiredLanguages(id);
+        this.props.fetchLanguages();
+        
   }
 
   submit = values => {
-    const newDesiredLanguages = this.props.state.userLanguageState.desiredLanguages;
-    const newProvidedLanguages = this.props.state.userLanguageState.providedLanguages;
+    // const newDesiredLanguages = this.props.state.userLanguageState.desiredLanguages;
+    // const newProvidedLanguages = this.props.state.userLanguageState.providedLanguages;
 
-    console.log(newDesiredLanguages);
-    console.log(newProvidedLanguages);
+    // console.log(newDesiredLanguages);
+    // console.log(newProvidedLanguages);
+    console.log(values);
     //this.props.updateUser(newUser);
   }
 
 
   render() {
+    let languages = this.props.languageState.languages;
     
     return (
       <div>
-        <h1>My Profile</h1>
-        <LanguageSelection onSubmit={ this.submit } state = {this.props.userLanguageState} />
+        <h2>My Languages</h2>
+        <DesiredLanguagesForm
+          onSubmit={ this.submit }
+          state = {this.props.userLanguageState}
+          languages = { languages }
+/>
     </div>
     )
   }
 }
 
 function mapStateToProps(state){
-    return{ userLanguageState: state.userLanguageState }
+    return{ userLanguageState: state.userLanguageState,
+            languageState : state.languageState }
 }
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
       fetchProvidedLanguages : userLanguageActions.fetchProvidedLanguages,
-      fetchDesiredLanguages : userLanguageActions.fetchDesiredLanguages
+      fetchDesiredLanguages : userLanguageActions.fetchDesiredLanguages,
+      fetchLanguages : languageActions.fetchLanguages
   }, dispatch)
  }
 

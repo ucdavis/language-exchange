@@ -23,7 +23,7 @@ const Main = () => (
             <Route exact path='/languages/edit/:id' component = { UpdateLanguage } />
             <Route exact path='/languages/:id' component = { LanguageDetails } /> 
             <Route exact path='/users' component = { Users } />
-            <Route exact path='/users/add' component = { CreateUser } />
+            <Route exact path='/users/register' component = { CreateUser } />
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
             <Route exact path='/userlanguages/edit/:id' component = { UpdateUserLanguages } />

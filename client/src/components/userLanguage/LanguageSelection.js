@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-// import { Field, reduxForm } from 'redux-form';
 
 class LanguageSelection extends Component{
+
+
     render(){
-        const languageItems = this.props.state.desiredLanguages.map((language, i) => {
+
+
+        const languageItems = this.props.languages.map((language, i) => {
             return(
             <tr key={ i } >
-                    <th scope="row"> { language.languages.name } </th>
+                    <th scope="row"> { language.name } </th>
                     <td> 
                     <select name="ability">
                         <option />
