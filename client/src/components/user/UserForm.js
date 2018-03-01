@@ -3,12 +3,12 @@ import { reduxForm, Field } from 'redux-form';
 
 const validate = values => {
     const errors = {}
-    if (!values.userName) {
-      errors.userName = 'Required'
-    } else if (values.userName.length < 2) {
-      errors.userName = 'Please use a more descriptive name'
-    } else if (values.userName.length > 10) {
-        errors.userName = 'Must be 10 characters or less'
+    if (!values.user_name) {
+      errors.user_name = 'Required'
+    } else if (values.user_name.length < 2) {
+      errors.user_name = 'Please use a more descriptive name'
+    } else if (values.user_name.length > 10) {
+        errors.user_name = 'Must be 10 characters or less'
       }
 
     if (!values.email) {

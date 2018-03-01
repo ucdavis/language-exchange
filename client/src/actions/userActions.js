@@ -64,24 +64,24 @@ export function fetchUser(id){
     }
 }   
 
-export function updateUser(newUser){
+export function updateUser(newUserData){
     return function (dispatch){
         axios.request({
             method: 'put',
-            url : `/api/partners/${newUser.id}`,
+            url : `/api/partners/${newUserData.id}`,
             data: {
-                cas_user : newUser.cas_user,
-                user_name : newUser.user_name,
-                email : newUser.email,
-                available : newUser.available,
-                description : newUser.description,
-                gender : newUser.gender,
-                email_confirmed : newUser.email_confirmed,
-                notify_by_email : newUser.notify_by_email,
-                affiliation : newUser.affiliation,
-                field_of_study : newUser.field_of_study,
-                updated_at : newUser.updated_at,
-                created_at : newUser.created_at
+                cas_user : newUserData.cas_user,
+                user_name : newUserData.user_name,
+                email : newUserData.email,
+                available : newUserData.available,
+                description : newUserData.description,
+                gender : newUserData.gender,
+                email_confirmed : newUserData.email_confirmed,
+                notify_by_email : newUserData.notify_by_email,
+                affiliation : newUserData.affiliation,
+                field_of_study : newUserData.field_of_study,
+                updated_at : newUserData.updated_at,
+                created_at : newUserData.created_at
 
             }
         })

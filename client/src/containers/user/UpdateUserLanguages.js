@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 class UpdateUserLanguages extends React.Component {
 
   componentDidMount = () => {
-    const id = this.props.match.params.id;
+    const id = this.props.userState.current.id;
         this.props.fetchProvidedLanguages(id);
         this.props.fetchDesiredLanguages(id);
         this.props.fetchLanguages();
@@ -46,7 +46,8 @@ class UpdateUserLanguages extends React.Component {
 
 function mapStateToProps(state){
     return{ userLanguageState: state.userLanguageState,
-            languageState : state.languageState }
+            languageState : state.languageState,
+            userState : state.userState }
 }
  
 function mapDispatchToProps(dispatch){

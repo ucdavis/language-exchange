@@ -8,15 +8,16 @@ import { withRouter } from 'react-router-dom';
 class UpdateUser extends React.Component {
 
   componentDidMount(){
-    this.props.fetchCasUser(); 
+    this.props.fetchCurrentUser(); 
 }
 
   submit = values => {
-    let cas_user = this.props.userState.cas_user;
+    let cas_user = this.props.userState.current.cas_user;
     let now = new Date();
+    let user_id = this.props.userState.current.id;
 
-    const newUser= {
-        id :this.props.userState.current.id,
+    const newUserData= {
+        id : user_id,
         cas_user : cas_user,
         available : values.available,
         user_name : values.user_name,
@@ -30,7 +31,7 @@ class UpdateUser extends React.Component {
         created_at : this.props.userState.active.created_at,
         updated_at : now,
     }
-    this.props.updateUser(newUser);
+    this.props.updateUser(newUserData);
   }
   render() {
     
@@ -50,7 +51,7 @@ function mapStateToProps(state){
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
         updateUser : userActions.updateUser,
-        fetchCasUser: userActions.fetchCasUser}, dispatch)
+        fetchCurrentUser: userActions.fetchCurrentUser}, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UpdateUser));

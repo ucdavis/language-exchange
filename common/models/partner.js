@@ -15,12 +15,10 @@ module.exports = function(Partner) {
             Partner.findOne({where: {cas_user: cas_user},
                 fields:{
                     email_conf_code:false,
-                    email:false,
                     avatar_content_type:false,
                     avatar_file_size: false,
                     avatar_updated_at: false,
                     
-
             }}, function(err, res) { 
             cb(null, res);
         });    

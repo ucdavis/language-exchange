@@ -190,7 +190,7 @@ UserForm = reduxForm({
 // connect() to user reducer
 UserForm = connect(
     state => ({
-        initialValues : state.userState.active
+        initialValues : state.userState.current
     })
   )(UserForm)
 
