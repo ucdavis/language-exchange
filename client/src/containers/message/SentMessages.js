@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
 
 class SentMessagesContainer extends Component{
+    componentDidMount() {
+        this.props.fetchSentMessages(this.props.userState.current.id);
+    }
 
     
     render(){        
@@ -12,7 +15,6 @@ class SentMessagesContainer extends Component{
             <div>
                     <SentMessages
                         messageState = { this.props.messageState }
-                        fetchMessage = { this.props.fetchMessage }
                         showView={this.props.showView}
                         currentUser = {this.props.userState.current}  />
             </div>       

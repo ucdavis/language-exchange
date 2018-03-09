@@ -9,6 +9,7 @@ class SentMessages extends Component{
         let messages = null;
         const sent_messages = this.props.messageState.sent_messages;
         let read_class = "bg-default";
+        let status = "Viewed";
 
         if (sent_messages.length){
             messages = sent_messages.map( message=>{
@@ -20,8 +21,9 @@ class SentMessages extends Component{
 
             const read = message.read.toString();
             if(read === "false" ){
-                read_class = "bg-info";               
+                read_class = "bg-warning";               
             }
+            if(message.read===false){status="Unread"}
 
               return (
                
@@ -29,8 +31,11 @@ class SentMessages extends Component{
                         <th scope="row"  className={read_class}>{message.recipient.user_name}</th>
                         <td className={read_class}>{message.subject}</td>
                         <td className={read_class}>{date}</td>
+                        <td className={read_class}>{status}</td>
                         <td className={read_class}>
-                            <button onClick={()=>this.props.showView(<MessageDetail message={message} sent={true}/>)} className="btn btn-default btn-sm">Read</button>  
+                            <button onClick={
+                                ()=>this.props.showView(<MessageDetail message={message} sent={true}/>)
+                                } className="btn btn-default btn-sm">Read</button>  
                         </td>
                     </tr>
                 
@@ -41,7 +46,7 @@ class SentMessages extends Component{
         return(
             
             <div>
-                <h1>Sent</h1>
+                <h2>Sent messages</h2>
                 <div className="table-responsive">
                 <table className="table table-sm table-hover table-responsive">
                     <thead>
@@ -49,6 +54,7 @@ class SentMessages extends Component{
                         <th scope="col">To</th>
                         <th scope="col">Subject</th>
                         <th scope="col">Sent</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Read</th>
                         </tr>
                     </thead>

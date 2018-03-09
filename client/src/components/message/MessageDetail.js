@@ -13,24 +13,21 @@ class MessageDetail extends React.Component {
 
 
     componentDidMount(){
-        var message_id = this.props.message.id;
-        this.props.fetchMessage(message_id);
-
-      }
-
-    // readMessage(){
-    //     let now = new Date();
-    //     const messageData = {
-    //         content : this.props.message.content,
-    //         sender_id : this.props.message.sender_id,
-    //         recipient_id : this.props.message.recipient_id,
-    //         subject : this.props.message.subject,
-    //         read : 1,
-    //         updated_at : now,
-    //         created_at : this.props.message.created_at
-    //     }
-    //     console.log("update this message:",messageData);
-    // }  
+        if(this.props.sent===false){
+            let now = new Date();
+            const messageData = {
+                id : this.props.message.id,
+                content : this.props.message.content,
+                sender_id : this.props.message.sender_id,
+                recipient_id : this.props.message.recipient_id,
+                subject : this.props.message.subject,
+                read : true,
+                updated_at : now,
+                created_at : this.props.message.created_at
+            }
+            this.props.updatedMessage(messageData);
+        }
+    }  
 
     reply(sender_id){
         this.setState({
@@ -42,7 +39,8 @@ class MessageDetail extends React.Component {
 
     render(){
         let button = null;
-        let messages = null;
+        let sender = null;
+        let label = null;
         const {redirect,redirect_url} = this.state;
         if(redirect&&redirect_url){
             return <Redirect to={redirect_url}  />;
@@ -54,8 +52,7 @@ class MessageDetail extends React.Component {
                 return i;
             }
 
-                 messages = this.props.messageState.message.map(message=>{
-                    var created_at = new Date(message.created_at)
+                    var created_at = new Date(this.props.message.created_at)
                     var date = addZero(created_at.getMonth()+1) +"/"
                         +addZero(created_at.getDate())+"/"
                         +addZero(created_at.getFullYear())+" "
@@ -63,15 +60,21 @@ class MessageDetail extends React.Component {
                         +addZero(created_at.getMinutes());
 
                 if(this.props.sent===false){
-                     button = (<button onClick={()=>this.reply(`${message.sender_id}`)} className="btn btn-success" type="button">Reply</button>)
+                     button = (<button onClick={()=>this.reply(`${this.props.message.sender_id}`)} className="btn btn-success" type="button">Reply</button>);
+                     sender = this.props.message.sender.user_name;
+                     label = "From";
+
+                    }else{
+                        sender = this.props.message.recipient.user_name;
+                        label = "To";
                     }
                 
 
                     return(
-                        <div key={message.id} >
+                        <div>
                         <ul className="list-group">
                             <li className="list-group-item">
-                                <label> From: </label>&nbsp;{ message.sender.user_name }
+                                <label> {label}: </label>&nbsp;{ sender }
                             </li>
                         
                             <li className="list-group-item">
@@ -79,30 +82,22 @@ class MessageDetail extends React.Component {
                             </li>  
 
                             <li className="list-group-item">
-                                <label> Subject: </label>&nbsp;{ message.subject }
+                                <label> Subject: </label>&nbsp;{ this.props.message.subject }
                             </li>            
                         </ul>
                         
                         <ul className="list-group">
                             <li className="list-group-item">
-                                <label> Message: </label> &nbsp; { message.content }
+                                <label> Message: </label> &nbsp; { this.props.message.content }
                             </li>
                         </ul>
                         {button}
                         </div>
                     );
-                })
+
             }
 
 
-        return(
-            <div>
-                 <h2>Message</h2>
-
-                {messages}
-            </div>
-
-        )
     }
 
 }

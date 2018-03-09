@@ -4,6 +4,9 @@ import MessageDetail from "../../components/message/MessageDetail";
 
 class ReceivedMessages extends Component{
 
+    componentDidMount() {
+        this.props.fetchReceivedMessages(this.props.currentUser.id);
+    }
 
     render(){
 
@@ -39,7 +42,7 @@ class ReceivedMessages extends Component{
         return(
             
             <div>
-                <h1>Inbox</h1>
+                <h2>Inbox</h2>
                 <div className="table-responsive">
                 <table className="table table-sm table-hover table-responsive">
                     <thead>
