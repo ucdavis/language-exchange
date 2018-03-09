@@ -6,12 +6,12 @@ import * as userLanguageActions from "../../actions/userLanguageActions";
 import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLanguageDetail";
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
-
+import { Link } from 'react-router-dom';
 
 
 class userDetails extends Component{
 
-    componentWillMount(){
+    componentDidMount(){
         const id = this.props.match.params.id;
         this.props.fetchUser(id);
         this.props.fetchUserProvidedLanguages(id);
@@ -21,16 +21,14 @@ class userDetails extends Component{
     
     render(){
         
-        // let created_at = (new Date(this.props.userState.active.created_at)).toString();
-        // let updated_at = (new Date(this.props.userState.active.updated_at)).toString();
         let user = this.props.userState.active;
-        let notFound = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar"/>;
-        let userImage = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar" />;
+        let notFound = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar"/>;
+        let userImage = () => <Img src="api/storages/images/download/no_image.png" alt="avatar" />;
         if (user.avatar_file_name !== null) {
-            var url = `http://localhost:3000/api/storages/images/download/${user.avatar_file_name}`;
+            var url = `/api/storages/images/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
-            userImage = () => <Img src="http://localhost:3000/api/storages/images/download/no_image.png" alt="avatar" unloader={ notFound() } />;
+            userImage = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar" unloader={ notFound() } />;
            }
         
         return (   
@@ -39,10 +37,8 @@ class userDetails extends Component{
                 <h2><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;User Profile</h2>
                 <hr />
 
-                        {/* Image column */}
-                        <div className="row">
-                        <div className="col-sm-4">
-                        
+                    <div className="row">
+                        <div className="col-sm-4">                       
                             <ul className="list-group">
                                 <li className="list-group-item text-center" >
                                     { userImage() }
@@ -64,28 +60,27 @@ class userDetails extends Component{
                                     <p>{user.affiliation} </p>
                                 </li>
                             </ul>
-
+                        </div>
+                        
+                        <div className="col-sm-8">
+                            <div className="card">
+                            <div className="card-header">
+                                <h4>{user.user_name}</h4></div>
+                            <div className="card=block">
+                                <div className="well well-small"> 
+                                    <ProvidedLanguageDetail state={this.props.userLanguageState}/>
+                                </div>
+                                <div className="well well-small"> 
+                                    <DesiredLanguageDetail state={this.props.userLanguageState}/>
+                                </div>
+                            </div>
+                            </div>
+                            <Link to={ `/users/contact/${user.id}`} className="btn btn-success" >Contact</Link>
                         </div>
                         
 
-                        {/* Languages column */}
-                        <div className="col-sm-8">
-                        
-                            <div className="card">
-                                
-                            <div className="card-header"> <h4>{user.user_name}</h4></div>
-                            <div className="card=block">
-
-                                <div className="well well-small"> 
-                                <ProvidedLanguageDetail state={this.props.userLanguageState}/>
-                                </div>
-                                <div className="well well-small"> 
-                                <DesiredLanguageDetail state={this.props.userLanguageState}/>
-                                </div>
-                            </div>
-                            </div>
-                            </div>
                     </div> 
+                
                 </div>    
         )
     }

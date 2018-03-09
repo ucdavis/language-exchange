@@ -7,13 +7,15 @@ class ReceivedMessages extends Component{
 
     render(){
 
+        let messages = null;
         const received_messages = this.props.messageState.received_messages;
         let read_class = "bg-default";
-        const messages = received_messages.map( message=>{
+        if (received_messages.length){
+            messages = received_messages.map( message=>{
             var created_at = new Date(message.created_at)
             var date = created_at.getMonth()+1 +"/"
-                    +created_at.getDate()+"/"
-                    +created_at.getFullYear();
+                        +created_at.getDate()+"/"
+                        +created_at.getFullYear();
                   
 
             const read = message.read.toString();
@@ -22,18 +24,17 @@ class ReceivedMessages extends Component{
             }
 
               return (
-               
                     <tr key={message.id} className={read_class}>
-                        <th scope="row"  className={read_class}>{ message.sender.user_name }</th>
-                        <td className={read_class}>{ message.subject }</td>
-                        <td className={read_class}>{ date }</td>
+                        <th scope="row"  className={read_class}>{message.sender.user_name}</th>
+                        <td className={read_class}>{message.subject}</td>
+                        <td className={read_class}>{date}</td>
                         <td className={read_class}>
-                            <button onClick={()=>this.props.showView(<MessageDetail id={message.id} />)} className="btn btn-default btn-sm">Read</button>  
+                            <button onClick={()=>this.props.showView(<MessageDetail message={message} sent={false} read={true}/>)} className="btn btn-default btn-sm">Read</button>  
                         </td>
                     </tr>
-                
               )
           })
+        }
 
         return(
             
@@ -49,9 +50,7 @@ class ReceivedMessages extends Component{
                         <th scope="col">Read</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        { messages }
-                    </tbody>
+                    <tbody>{messages}</tbody>
                 </table>
                     
             </div>

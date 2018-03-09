@@ -19,9 +19,7 @@ const validate = values => {
 
 
 let MessageForm = props => {
-  const { handleSubmit, pristine, submitting  } = props;
-
-  
+  const { handleSubmit, pristine, submitting, recipient  } = props;
 
   const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
@@ -33,11 +31,11 @@ let MessageForm = props => {
     </div>
   )
 
-  const TextAreaField = ({ textarea, label, type, meta: { touched, error, warning } }) => (
+  const TextAreaField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label className="control-label">{label}</label>
       <div>
-        <textarea {...textarea} placeholder={label} type={type} className="form-control" />
+        <textarea {...input} placeholder={label} type={type} className="form-control" />
         {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
       </div>
     </div>
@@ -47,12 +45,17 @@ let MessageForm = props => {
   
   return (
       <div>
-      <h1>New Message</h1>
+      <h2>New Message</h2>
       <form onSubmit={ handleSubmit }>
+
+      <div className="form-group">
+        <label>To: {recipient}</label>   
+      </div>
 
       <div className="form-group">
         <Field name="subject" component={InputField} label="Subject" />
       </div>
+
       <div className="form-group">
         <Field name="content" component={TextAreaField}  label="Message" />
       </div>

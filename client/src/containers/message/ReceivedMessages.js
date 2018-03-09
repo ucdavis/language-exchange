@@ -12,10 +12,10 @@ class ReceivedMessagesContainer extends Component{
         return (
             <div>
                 <ReceivedMessages 
-                messageState = { this.props.messageState }
-                fetchMessage = { this.props.fetchMessage }
-                showView={this.props.showView}
-                currentUser = {this.props.userState.current}  />
+                    messageState = { this.props.messageState }
+                    fetchMessage = { this.props.fetchMessage }
+                    showView={this.props.showView}
+                    currentUser = {this.props.userState.current}  />
             </div>       
         )
     }
@@ -30,8 +30,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
-        fetchReceivedMessages : messageActions.fetchReceivedMessages,
-        fetchMessage : messageActions.fetchSentMessages
+        fetchReceivedMessages : messageActions.fetchReceivedMessages
     }, dispatch)
 }
 

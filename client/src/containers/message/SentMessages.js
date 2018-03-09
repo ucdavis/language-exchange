@@ -6,17 +6,15 @@ import * as messageActions from "../../actions/messageActions";
 
 class SentMessagesContainer extends Component{
 
-    componentDidMount(){
-    
-        this.props.fetchSentMessages(663);
-    }
     
     render(){        
         return (
             <div>
-                <ul className="list-group">
-                    <SentMessages state= {this.props.messageState} />
-                </ul>    
+                    <SentMessages
+                        messageState = { this.props.messageState }
+                        fetchMessage = { this.props.fetchMessage }
+                        showView={this.props.showView}
+                        currentUser = {this.props.userState.current}  />
             </div>       
         )
     }
@@ -24,12 +22,16 @@ class SentMessagesContainer extends Component{
 
 function mapStateToProps(state){
     return{
-        messageState: state.messageState
+        messageState: state.messageState,
+        userState: state.userState
     }
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchSentMessages : messageActions.fetchSentMessages}, dispatch)
+    return bindActionCreators({
+        fetchSentMessages : messageActions.fetchSentMessages,
+        fetchMessage : messageActions.fetchSentMessages
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SentMessagesContainer);

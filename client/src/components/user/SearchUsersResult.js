@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class UsersResult extends Component{
 
@@ -25,7 +25,7 @@ class UsersResult extends Component{
                                 }
                         </td> 
                         <td><Link to={ `/users/${user.id}`}>Show</Link> </td>
-                        <td>Contact</td>
+                        <td><Link to={ `/users/contact/${user.id}`}>Contact</Link> </td>
                     </tr>    
                 )
             }

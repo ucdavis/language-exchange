@@ -52,6 +52,16 @@ export default function userReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
+        // UPDATE MESSAGE
+        case "UPDATE_MESSAGE_FULFILLED":{
+            state = {...state, message : action.payload}
+            break;
+        }
+
+        case "UPDATE_MESSAGE_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
 
         default:
         return state;       

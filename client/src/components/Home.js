@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
-// import CreateUser from '../containers/user/CreateUser';
 import HomeSearch from '../components/home/HomeSearch';
 
 class Home extends Component{
