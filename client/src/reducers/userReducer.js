@@ -34,7 +34,7 @@ export default function userReducer(state=initialState, action) {
             break;
         }
         case "CREATE_USER_FULFILLED":{
-            state =  { ...state, created : action.payload, current: action.payload};
+            state =  { ...state, current : action.payload};
             break;
         }
     // FETCH SINGLE USER

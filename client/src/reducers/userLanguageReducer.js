@@ -72,38 +72,27 @@ export default function userReducer(state=initialState, action) {
             break;
         }
 
-        // case "CREATE_USER_REJECTED":{
-        //     state =  {...state, error: action.payload };
-        //     break;
-        // }
-        
-        // case "CREATE_USER_FULFILLED":{
-        //     state =  { ...state, created : action.payload };
-        //     break;
-        // }
 
-        // case "FETCH_USER_FULFILLED":{
-        //     state = {...state, active : action.payload,  title:action.payload.name}
-        //     break;
-        // }
-        // case "FETCH_USER_REJECTED":{
-        //     state =  {...state, fetching: false, error: action.payload };
-        //     break;
-        // }
-        // case "UPDATE_USER_FULFILLED":{
-        //     state =  { ...state, fetching:false, fetched:true, active: action.payload };
-        //     break;
-        // }
+        case "UPDATE_PROVIDED_LANGUAGES_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, userProvidedLanguages: action.payload };
+            break;
+        }
 
-        // case "UPDATE_USER_REJECTED":{
-        //     state =  {...state, fetching: false, error: action.payload };
-        //     break;
-        // }
+        case "UPDATE_PROVIDED_LANGUAGES_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
 
-        // case "DELETE_USER_FULFILLED":{
-        //     state =  { ...state, fetching:false, fetched:true, USERS : state.USERS.filter(val=>val !== state.active)};
-        //     break;
-        // }
+        case "UPDATE_DESIRED_LANGUAGES_FULFILLED":{
+            state =  { ...state, fetching:false, fetched:true, userDesiredLanguages: action.payload };
+            break;
+        }
+
+        case "UPDATE_DESIRED_LANGUAGES_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
+
 
         default:
         return state;       
