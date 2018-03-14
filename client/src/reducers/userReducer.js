@@ -29,15 +29,23 @@ export default function userReducer(state=initialState, action) {
             break;
         }
     // CREATE USER
+        case "CREATE_USER_PENDING":{
+            state = {...state, fetching:true};
+            break;
+        }     
         case "CREATE_USER_REJECTED":{
             state =  {...state, error: action.payload, created : null };
             break;
         }
         case "CREATE_USER_FULFILLED":{
-            state =  { ...state, created : action.payload, current: action.payload};
+            state =  { ...state, fetching:false, created : action.payload, current: action.payload};
             break;
         }
     // FETCH SINGLE USER
+        case "FETCH_USER_PENDING":{
+            state = {...state, fetching:true};
+            break;
+        }  
         case "FETCH_USER_FULFILLED":{
             state = {...state, active : action.payload }
             break;

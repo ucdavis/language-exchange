@@ -6,14 +6,27 @@ import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 import * as languageActions from '../../actions/languageActions'
 import { withRouter } from 'react-router-dom';
+import { fetchCurrentUser } from '../../actions/userActions';
 
 class UpdateUserLanguages extends React.Component {
+  constructor (props){
+    super(props);
+    this.state = {
+      redirect : false,
+      fetching : this.props.userState.fetching,
+      fetchingLanguages : this.props.userLanguageState.fetching
+
+    }
+  }
 
   componentDidMount = () => {
-    const id = this.props.userState.current.id;
-        this.props.fetchProvidedLanguages(id);
-        this.props.fetchDesiredLanguages(id);
-        this.props.fetchLanguages();
+    fetchCurrentUser()
+    if (this.props.userState.current !== null){
+          const id = this.props.userState.current.id;
+          this.props.fetchProvidedLanguages(id);
+          this.props.fetchDesiredLanguages(id);
+          this.props.fetchLanguages();
+        }
         
   }
 
@@ -29,18 +42,28 @@ class UpdateUserLanguages extends React.Component {
 
 
   render() {
-    let languages = this.props.languageState.languages;
+    const {fetching, fetchingLanguages} = this.state;
+    if (fetchingLanguages){
+      return(<h5>..fetching languages</h5>);
+    }
     
-    return (
-      <div>
-        <h2>My Languages</h2>
-        <DesiredLanguagesForm
-          onSubmit={ this.submit }
-          state = {this.props.userLanguageState}
-          languages = { languages }
-/>
-    </div>
-    )
+    if(fetching){
+      return <h2>..Loading User</h2>
+    }else{
+      let languages = this.props.languageState.languages;
+    
+      return (
+        <div>
+          <h2>Languages I'm learning</h2>
+          <DesiredLanguagesForm
+            onSubmit={ this.submit }
+            userLanguageState = {this.props.userLanguageState}
+            languages = { languages }
+          />
+
+      </div>
+      )
+    }
   }
 }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export function createUser (newUser){
     return function(dispatch){
+        dispatch({type:"CREATE_USER_PENDING"});
         axios.request({
             method: 'post',
             url : '/api/partners/',

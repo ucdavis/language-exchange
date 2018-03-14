@@ -21,7 +21,7 @@ let DesiredLanguagesForm = props => {
     return(
 
         <div className="form-group row" key={language.id}>
-                    <Field name={language.id} component={SelectField} label={language.name}  >
+                    <Field name={language.name} component={SelectField} label={language.name}  >
                     <option />
                     <option value="5">Native Speaker</option>
                     <option value="4">Superior</option>
@@ -43,10 +43,10 @@ let DesiredLanguagesForm = props => {
             
             <div className="form-group">
                 <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
-                Save Changes
+                  Save Changes
                 </button>
- 
             </div>
+            
             </form>
 
         </div>         

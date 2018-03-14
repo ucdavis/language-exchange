@@ -6,9 +6,13 @@ import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 
 class CreateUser extends React.Component {
-  state = {
-    redirect : false
+  constructor (props){
+    super(props);
+    this.state = {
+      redirect : false
+    }
   }
+
 
   componentDidMount(){
     this.props.fetchCasUser(); 
@@ -37,9 +41,15 @@ class CreateUser extends React.Component {
   }
   render() {
     const {redirect} = this.state;
+
+    if (this.props.userState.fetching){
+      return <h5>...Creating User</h5>
+    }
+   
     if (redirect) {
-      const new_user_id = this.props.userState.created.id;
-      const redirect_url = `/userlanguages/edit/${new_user_id}`;
+      const user_id = this.props.userState.current.id;
+      const redirect_url = `/userlanguages/edit/${user_id}`;
+      // const redirect_url = '/userlanguages/create';
       return <Redirect to={redirect_url}  />;
     }else{
       return <UserForm onSubmit={this.submit} />
@@ -50,7 +60,8 @@ class CreateUser extends React.Component {
 }
 
 function mapStateToProps(state){
-    return { userState : state.userState }
+    return { userState : state.userState,
+             userlanguageState : state.userlanguageState }
  }
  
  function mapDispatchToProps(dispatch){
