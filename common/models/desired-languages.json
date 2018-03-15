@@ -20,18 +20,15 @@
       "default": 0
     },
     "created_at": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "updated_at": {
-      "type": "date",
-      "required": true,
-      "defaultFn": "now"
+      "type": "date"
     }
   },
   "validations": [],
   "relations": {
-    "languages": {
+    "language": {
       "type": "belongsTo",
       "model": "languages",
       "foreignKey": "language_id"

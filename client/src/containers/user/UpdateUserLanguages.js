@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import DesiredLanguagesForm from "../../components/userLanguage/DesiredLanguagesForm";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
-import * as languageActions from '../../actions/languageActions'
+// import * as languageActions from '../../actions/languageActions'
 import { withRouter } from 'react-router-dom';
 import { fetchCurrentUser } from '../../actions/userActions';
 
@@ -20,50 +20,44 @@ class UpdateUserLanguages extends React.Component {
   }
 
   componentDidMount = () => {
-    fetchCurrentUser()
-    if (this.props.userState.current !== null){
-          const id = this.props.userState.current.id;
-          this.props.fetchProvidedLanguages(id);
-          this.props.fetchDesiredLanguages(id);
-          this.props.fetchLanguages();
-        }
+    const current_user_id = this.props.userState.current.id;
+        this.props.fetchProvidedLanguages(current_user_id);
+        this.props.fetchDesiredLanguages(current_user_id);
         
   }
 
   submit = values => {
-    // const newDesiredLanguages = this.props.state.userLanguageState.desiredLanguages;
-    // const newProvidedLanguages = this.props.state.userLanguageState.providedLanguages;
 
-    // console.log(newDesiredLanguages);
-    // console.log(newProvidedLanguages);
-    console.log(values);
-    //this.props.updateUser(newUser);
+    // let user_id = this.props.userState.current.id;
+    
+    values.abilityLanguage.map((ability, desiredLanguage_id)=>{
+
+          var now = new Date();
+          let desiredLanguageUpdate = {
+            id : desiredLanguage_id,
+            ability : ability,
+            updated_at : now
+          } 
+          this.props.updateDesiredLanguages(desiredLanguageUpdate);     
+          // console.log(desiredLanguageUpdate);
+      
+      return desiredLanguageUpdate;   
+    })
+
   }
 
 
   render() {
-    const {fetching, fetchingLanguages} = this.state;
-    if (fetchingLanguages){
-      return(<h5>..fetching languages</h5>);
-    }
     
-    if(fetching){
-      return <h2>..Loading User</h2>
-    }else{
-      let languages = this.props.languageState.languages;
-    
-      return (
-        <div>
-          <h2>Languages I'm learning</h2>
-          <DesiredLanguagesForm
-            onSubmit={ this.submit }
-            userLanguageState = {this.props.userLanguageState}
-            languages = { languages }
-          />
-
-      </div>
-      )
-    }
+    return (
+      <div>
+        <h2>Desired Languages</h2>
+        <DesiredLanguagesForm
+          onSubmit={ this.submit }
+          userLanguageState = {this.props.userLanguageState}
+        />
+    </div>
+    )
   }
 }
 
@@ -77,7 +71,8 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
       fetchProvidedLanguages : userLanguageActions.fetchProvidedLanguages,
       fetchDesiredLanguages : userLanguageActions.fetchDesiredLanguages,
-      fetchLanguages : languageActions.fetchLanguages
+      updateProvidedLanguages : userLanguageActions.updateProvidedLanguages,
+      updateDesiredLanguages : userLanguageActions.updateDesiredLanguages
   }, dispatch)
  }
 
