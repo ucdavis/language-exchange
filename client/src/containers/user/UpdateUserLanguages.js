@@ -6,23 +6,20 @@ import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 // import * as languageActions from '../../actions/languageActions'
 import { withRouter } from 'react-router-dom';
-import { fetchCurrentUser } from '../../actions/userActions';
+
 
 class UpdateUserLanguages extends React.Component {
   constructor (props){
     super(props);
     this.state = {
-      redirect : false,
-      fetching : this.props.userState.fetching,
-      fetchingLanguages : this.props.userLanguageState.fetching
-
+      redirect : false
     }
   }
 
   componentDidMount = () => {
     const current_user_id = this.props.userState.current.id;
-        this.props.fetchProvidedLanguages(current_user_id);
-        this.props.fetchDesiredLanguages(current_user_id);
+    this.props.fetchProvidedLanguages(current_user_id);
+    this.props.fetchDesiredLanguages(current_user_id);
         
   }
 

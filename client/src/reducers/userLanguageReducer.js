@@ -19,12 +19,12 @@ export default function userReducer(state=initialState, action) {
         }       
         
         case "FETCH_USER_PROVIDED_LANGUAGES_REJECTED":{
-            state =  {...state,fetching: false, error: action.payload };
+            state =  {...state, fetching: false, error: action.payload };
             break;
         }
         
         case "FETCH_USER_PROVIDED_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, userProvidedLanguages : action.payload };
+            state =  { ...state, fetching:false, userProvidedLanguages : action.payload };
             break;
         }
 
@@ -53,7 +53,7 @@ export default function userReducer(state=initialState, action) {
         }
         
         case "FETCH_PROVIDED_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, providedLanguages : action.payload };
+            state =  { ...state, fetching:false, providedLanguages : action.payload };
             break;
         }
 

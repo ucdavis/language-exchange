@@ -12,7 +12,7 @@ import UpdateUser from '../containers/user/UpdateUser';
 import UpdateUserLanguages from '../containers/user/UpdateUserLanguages';
 import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
-import CreateUserLanguages from '../containers/user/CreateUserLanguages';
+import CreateUserLanguages from '../containers/userLanguages/CreateUserLanguages';
 
 
 const Main = () => (

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export function fetchUserProvidedLanguages(id){
     return function(dispatch){
+        dispatch({type:"FETCH_USER_PROVIDED_LANGUAGES_PENDING"})
         axios.get(`/api/provided_languages?filter[include]=languages&filter[include]=abilities&filter[where][and][0][ability][gt]=0&filter[where][and][1][user_id]=${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_PROVIDED_LANGUAGES_FULFILLED",payload:response.data})
@@ -14,6 +15,7 @@ export function fetchUserProvidedLanguages(id){
 
 export function fetchUserDesiredLanguages(id){
     return function(dispatch){
+        dispatch({type:"FETCH_USER_DESIRED_LANGUAGES_PENDING"})
         axios.get(`/api/desired_languages?filter[include]=language&filter[include]=abilities&filter[where][and][0][ability][gt]=0&filter[where][and][1][user_id]=${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_DESIRED_LANGUAGES_FULFILLED",payload:response.data})
