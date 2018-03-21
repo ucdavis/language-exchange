@@ -1,7 +1,6 @@
 const initialState = {
     fetching: false,
     abilities: [],
-    active :{},
     error: null
   }
 
@@ -15,15 +14,15 @@ export default function languageReducer(state=initialState, action) {
         }       
         
         case "FETCH_ABILITIES_REJECTED":{
-            state =  {...state, fetching: false, error: action.payload };
+            state =  {...state,fetching: false, error: action.payload };
             break;
         }
-        
+
         case "FETCH_ABILITIES_FULFILLED":{
             state =  { ...state, fetching:false, abilities : action.payload };
             break;
         }
-
+        
 
         default:
         return state;       

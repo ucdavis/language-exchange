@@ -1,69 +1,52 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import * as userActions from "../../actions/userActions";
+import * as languageActions from '../../actions/languageActions';
+import * as abilityActions from '../../actions/abilityActions';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+
+import LanguageSelectionForm from './LanguageSelectionForm';
 
 class LanguageSelection extends Component{
 
+    componentDidMount() {
+        this.props.fetchAbilities();
+        this.props.fetchLanguages();
+    }
+
+    submit = values => {
+        console.log("Values:",values);
+      }
 
     render(){
-        const {  handleSubmit, pristine, submitting } = this.props;
-
-        const languageItems = this.props.languages.map((language) => {
-            return(
-                <option key={language.id} value={language.id}>{language.name}</option>
-            )  
-        });
-
-        const languageAbility = this.props.abilities.map((ability) => {
-            return(
-                <option key={ability.id} value={ability.id}>{ability.name}</option>
-            )
-        })
-
-
+        const languageItems = this.props.languageState.languages
+        const languageAbility = this.props.abilityState.abilities
         return (
-            <div className="row">
+            <div>
+                <LanguageSelectionForm
+                    languages={languageItems}
+                    abilities={languageAbility}
+                    onSubmit={this.submit}
+                    />
 
-             <form onSubmit={handleSubmit}>   
-                <div>
-                    <label>Please select a language and your level of proficiency, then add it to the list of languages you want to learn</label> 
-                </div>    
-                <div className="table-responsive">
-                    <table className="table table-responsive table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Language</th>
-                        <th scope="col">Ability</th>
-                        <th scope="col">Add</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>    
-                        <td>
-                        <Field name="language" component="select" className="form-control custom-select form-control-sm">
-                            <option />
-                            {languageItems}
-                        </Field>
-                        </td>
-                        <td>
-                        <Field name="ability" component="select" className="form-control custom-select form-control-sm">
-                            <option />
-                            {languageAbility}
-                        </Field>                        
-                        </td>
-                        <td><button className="btn btn-sm btn-success">Add</button></td>  
-                    </tr>    
-                    </tbody>
-                    </table> 
-                </div>
-                </form >   
-            </div>    
+            </div>  
         )
     }
 }
 
-LanguageSelection = reduxForm({
-    form: 'languageSelectForm',
-    destroyOnUnmount : false 
-  })(LanguageSelection)
+function mapStateToProps(state){
+    return{ abilityState: state.abilityState,
+            languageState : state.languageState,
+            userState : state.userState }
+}
+ 
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+      fetchCurrentUser : userActions.fetchCurrentUser,
+      fetchLanguages : languageActions.fetchLanguages,
+      fetchAbilities : abilityActions.fetchAbilities
+  }, dispatch)
+ }
 
-export default LanguageSelection;
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(LanguageSelection));
