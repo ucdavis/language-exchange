@@ -1,64 +1,52 @@
 import React, { Component } from 'react';
+import * as userActions from "../../actions/userActions";
+import * as languageActions from '../../actions/languageActions';
+import * as abilityActions from '../../actions/abilityActions';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+
+import LanguageSelectionForm from './LanguageSelectionForm';
 
 class LanguageSelection extends Component{
 
+    componentDidMount() {
+        this.props.fetchAbilities();
+        this.props.fetchLanguages();
+    }
+
+    submit = values => {
+        console.log("Values:",values);
+      }
 
     render(){
-
-
-        const languageItems = this.props.languages.map((language, i) => {
-            return(
-            <tr key={ i } >
-                    <th scope="row"> { language.name } </th>
-                    <td> 
-                    <select name="ability">
-                        <option />
-                        <option value="5">Native Speaker</option>
-                        <option value="4">Superior</option>
-                        <option value="3">Advanced</option>
-                        <option value="2">Intermediate</option>
-                        <option value="1">Elementary</option>
-                        
-                    </select>
-                    </td>
-
-                </tr>
-            )  
-        });
-
-        // const languageAbility = this.props.state.desiredLanguages.map((language, i) => {
-        //     return(
-        //     <div className="form-group"  key={language.id}>
-        //             <label>Ability</label>
-        //             <select>
-        //                 <option />
-        //                 {language.ability}
-        //             </select>
-        //         </div> 
-        //     )
-        // })
-
-
+        const languageItems = this.props.languageState.languages
+        const languageAbility = this.props.abilityState.abilities
         return (
-            <div className="row">
-                <h4>My Languages</h4>
-                <div className="table-responsive">
-                    <table className="table table-responsive table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Language</th>
-                        <th scope="col">Languages you know</th>
-                        <th scope="col">Language you are learning</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {languageItems }    
-                    </tbody>
-                    </table> 
-                </div>
-            </div>    
+            <div>
+                <LanguageSelectionForm
+                    languages={languageItems}
+                    abilities={languageAbility}
+                    onSubmit={this.submit}
+                    />
+
+            </div>  
         )
     }
 }
 
-export default LanguageSelection;
+function mapStateToProps(state){
+    return{ abilityState: state.abilityState,
+            languageState : state.languageState,
+            userState : state.userState }
+}
+ 
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+      fetchCurrentUser : userActions.fetchCurrentUser,
+      fetchLanguages : languageActions.fetchLanguages,
+      fetchAbilities : abilityActions.fetchAbilities
+  }, dispatch)
+ }
+
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(LanguageSelection));
