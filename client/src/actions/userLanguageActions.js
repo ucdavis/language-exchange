@@ -1,9 +1,27 @@
 import axios from 'axios';
 
+export function createDesiredLanguage(newDesiredLanguage){
+    return function(dispatch){
+        dispatch({type:"CREATE_DESIRED_LANGUAGE_PENDING"});
+        axios.request({
+            method: 'post',
+            url : '/api/desired_languages',
+            data: newDesiredLanguage
+        })
+        .then(response=>{
+            dispatch({type:"CREATE_DESIRED_LANGUAGE_FULFILLED",payload:response.data})
+            })
+        .then(response=>{
+            dispatch(fetchUserDesiredLanguages(731))
+            })
+        .catch(err=>dispatch({type: "CREATE_DESIRED_LANGUAGE_REJECTED", payload: err}))
+    }
+}   
+
 export function fetchUserProvidedLanguages(id){
     return function(dispatch){
         dispatch({type:"FETCH_USER_PROVIDED_LANGUAGES_PENDING"})
-        axios.get(`/api/provided_languages?filter[include]=languages&filter[include]=abilities&filter[where][and][0][ability][gt]=0&filter[where][and][1][user_id]=${id}`)
+        axios.get(`/api/provided_languages?filter[include]=language&filter[include]=abilities&filter[where][and][0][ability][gt]=0&filter[where][and][1][user_id]=${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_PROVIDED_LANGUAGES_FULFILLED",payload:response.data})
             })
@@ -60,7 +78,7 @@ export function updateProvidedLanguages(providedLanguageUpdate){
         let ability = providedLanguageUpdate.ability
         axios.request({
             method: 'put',
-            url : `http://localhost:3000/api/provided_languages/upsertWithWhere?where={"user_id":${user_id},"language_id":${language_id}}`,
+            url : `/api/provided_languages/upsertWithWhere?where={"user_id":${user_id},"language_id":${language_id}}`,
             data: {
                 ability : ability
             }

@@ -46,10 +46,12 @@ class CreateUserLanguages extends React.Component {
       return(
         <li className="list-group-item" key = {language.id}>
         <DesiredLanguagesOption
-          form = {'form_'+language.languages.name}
+          form = {'form_'+language.language.name}
           onSubmit={ this.submit }
-          languageName = {language.languages.name}
-          initialValues = {{ability:language.ability}}     
+          languageName = {language.language.name}
+          initialValues = {{ability:language.ability}}
+          desiredLanguageId = {language.id}
+          // removeLanguage = {this.props.removeDesiredLanguage}     
         />
         </li>
       )

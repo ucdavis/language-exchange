@@ -10,11 +10,12 @@ let LanguageSelectionForm = props => {
   return (
 
       <div className="well">
+
              <form onSubmit={handleSubmit}>
+
                 <div className="form-group">
-                <label className="col-sm-12col-form-label">Language</label>
-                <div className="col-sm-12 ">
-                    <Field name="language_id" component="select">
+                    <label htmlFor="language_id">Language</label>             
+                    <Field name="language_id" id="language_id" component="select" className="form-control custom-select form-control-sm">
                         <option value="">Select language &nbsp;</option>
                         {languages.map(language => (
                         <option value={language.id} key={language.id}>
@@ -23,12 +24,10 @@ let LanguageSelectionForm = props => {
                         ))}
                     </Field>
                 </div>
-                </div>
 
                 <div className="form-group">
-                    <label className="col-sm-12 col-form-label">Ability</label>
-                    <div className="col-sm-12">
-                    <Field name="ability" component="select">
+                    <label htmlFor="ability">Ability</label>
+                    <Field name="ability" id="ability" component="select" className="form-control custom-select form-control-sm">
                         <option value="">Select ability</option>
                         {abilities.map(ability => (
                         <option value={ability.id} key={ability.id}>
@@ -37,13 +36,11 @@ let LanguageSelectionForm = props => {
                         ))}
                     </Field>
                 </div>
-                </div>
 
             
-                    <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
-                    Add Language
+                    <button type="submit" className="btn btn-success " disabled={pristine || submitting}>
+                        Add Language
                     </button>
-    
                 
             </form>
 
@@ -52,7 +49,6 @@ let LanguageSelectionForm = props => {
 }
 
 LanguageSelectionForm = reduxForm({
-  // a unique name for the form
   form: 'languageSelection',
 
 })(LanguageSelectionForm)

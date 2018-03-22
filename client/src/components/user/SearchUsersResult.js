@@ -14,13 +14,13 @@ class UsersResult extends Component{
                         <td> { user.gender } </td>
                         <td>
                                 {user.provided_languages.map((provided,i)=>{
-                                    return( <p key={i}>{provided.languages.name}</p> )
+                                    return( <p key={i}>{provided.language.name}</p> )
                                     })
                                 }
                         </td>
                         <td>
                                 {user.desired_languages.map((desired,i)=>{
-                                    return(  <p key={i}>{desired.languages.name}</p> )
+                                    return(  <p key={i}>{desired.language.name}</p> )
                                     })
                                 }
                         </td> 

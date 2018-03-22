@@ -12,7 +12,7 @@ import UpdateUser from '../containers/user/UpdateUser';
 import UpdateUserLanguages from '../containers/user/UpdateUserLanguages';
 import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
-import CreateUserLanguages from '../containers/userLanguages/CreateUserLanguages';
+import CreateUserLanguages from '../containers/user/CreateUserLanguages';
 
 
 const Main = () => (
@@ -28,7 +28,7 @@ const Main = () => (
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
             <Route exact path='/userlanguages/edit/:id' component = { UpdateUserLanguages } />
-            <Route exact path='/userlanguages/create' component = { CreateUserLanguages } />
+            <Route exact path='/userlanguages' component = { CreateUserLanguages } />
             {/* <Route exact path='/file' component ={ UploadAvatar } /> */}
 
            {/* Messages */}

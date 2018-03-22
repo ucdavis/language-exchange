@@ -13,6 +13,24 @@ export default function userReducer(state=initialState, action) {
 
      switch (action.type){
 
+// CREATE
+        case "CREATE_DESIRED_LANGUAGE_PENDING":{
+            state = {...state, fetching:true };
+            break;
+        }
+
+        case "CREATE_DESIRED_LANGUAGE_FULFILLED":{
+            state = {...state, fetching:false};
+            break;
+        }
+
+        case "CREATE_DESIRED_LANGUAGE_REJECTED":{
+            state = {...state, fetching: false, error: action.payload};
+            break;
+        }
+
+
+// FETCH
         case "FETCH_USER_PROVIDED_LANGUAGES_PENDING":{
             state = {...state, fetching:true};
             break;

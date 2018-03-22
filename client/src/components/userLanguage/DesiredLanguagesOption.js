@@ -2,9 +2,15 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 // import { connect } from "react-redux";
 
+
 let DesiredLanguagesForm = props => {
-  let {  handleSubmit, pristine, submitting, languageName } = props;
+  let {  handleSubmit, pristine, submitting, languageName, desiredLanguageId } = props;
   console.log(props);
+
+
+const removeLanguage = ()=>{
+  alert("Are you sure you want to delete ID :"+desiredLanguageId);
+}
 
 
   const SelectField = ({ input, label, type, meta: { touched, error, warning }, children}) => (
@@ -41,6 +47,11 @@ let DesiredLanguagesForm = props => {
             <div className="form-group">
                 <button type="submit" className="btn btn-success btn-sm" disabled={pristine || submitting}>
                   Save
+                </button>
+            </div>
+            <div className="form-group">
+                <button type="button" onClick={removeLanguage} className="btn btn-danger btn-sm">
+                  Remove
                 </button>
             </div>
             

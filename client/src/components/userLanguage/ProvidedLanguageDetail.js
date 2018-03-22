@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ProvidedLanguagesDetail extends Component{
     render(){
         const languageItems = this.props.state.userProvidedLanguages.map((language, i) => {
-            return <li className="list-group-item" key={i} language={language} state={this.props.state}>{language.languages.name} - {language.abilities.name}</li>
+            return <li className="list-group-item" key={i} language={language} state={this.props.state}>{language.language.name} - {language.abilities.name}</li>
         })
         return (
             <div>

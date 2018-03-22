@@ -34,12 +34,8 @@ class CreateUserLanguages extends React.Component {
   render() {
     // const {redirect} = this.state;
 
-    if (this.props.userState.fetching){
+    if (this.props.userState.fetching || this.props.userLanguageState.fetching || this.props.abilityState.fething ){
       return(<h5>..loading User</h5>);
-    }else if (this.props.userLanguageState.fetching){
-      return(<h5>..laoding languages</h5>);
-    }else if (this.props.languageState.fetching){
-      return(<h5>..laoding languages</h5>);
     }else{
       let desired = this.props.userLanguageState.userDesiredLanguages;
       let abilities = this.props.abilityState.abilities;

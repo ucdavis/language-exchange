@@ -95,9 +95,9 @@ export function searchUsers(gender, provided, desired){
     return function(dispatch){
         var filter = "";
         if( gender !== "Any"){
-            filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`          
+            filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`          
         }else{
-            filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"languages","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`
+            filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}]}`
         }
         axios.get(`/api/partners?filter=${filter}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
