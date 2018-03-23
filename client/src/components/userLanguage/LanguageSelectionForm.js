@@ -16,7 +16,7 @@ let LanguageSelectionForm = props => {
                 <div className="form-group">
                     <label htmlFor="language_id">Language</label>             
                     <Field name="language_id" id="language_id" component="select" className="form-control custom-select form-control-sm">
-                        <option value="">Select language &nbsp;</option>
+                        <option/>
                         {languages.map(language => (
                         <option value={language.id} key={language.id}>
                             {language.name}
@@ -28,7 +28,7 @@ let LanguageSelectionForm = props => {
                 <div className="form-group">
                     <label htmlFor="ability">Ability</label>
                     <Field name="ability" id="ability" component="select" className="form-control custom-select form-control-sm">
-                        <option value="">Select ability</option>
+                        <option/>
                         {abilities.map(ability => (
                         <option value={ability.id} key={ability.id}>
                             {ability.name}
@@ -36,7 +36,6 @@ let LanguageSelectionForm = props => {
                         ))}
                     </Field>
                 </div>
-
             
                     <button type="submit" className="btn btn-success " disabled={pristine || submitting}>
                         Add Language

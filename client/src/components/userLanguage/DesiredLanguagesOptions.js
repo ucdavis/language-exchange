@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
-import * as languageActions from '../../actions/languageActions'
+// import * as languageActions from '../../actions/languageActions'
 import { withRouter } from 'react-router-dom';
 // import { fetchCurrentUser } from '../../actions/userActions';
 import DesiredLanguagesOption from '../../components/userLanguage/DesiredLanguagesOption';
@@ -16,29 +16,13 @@ class CreateUserLanguages extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    // this.props.fetchLanguages();
-  //   fetchCurrentUser()
-  //   if (this.props.userState.current !== null){
-  //         const id = this.props.userState.current.id;
-  //         this.props.fetchProvidedLanguages(id);
-  //         this.props.fetchDesiredLanguages(id);
-  //         this.props.fetchLanguages();
-  //       }
-        
-  }
-
-
   submit = values => {
-    // const newDesiredLanguages = this.props.state.userLanguageState.desiredLanguages;
-    // const newProvidedLanguages = this.props.state.userLanguageState.providedLanguages;
-
-    // console.log(newDesiredLanguages);
-    // console.log(newProvidedLanguages);
     console.log("Values:",values);
-    //this.props.updateUser(newUser);
   }
 
+  deleteDesiredLanguage = (desiredLanguageId,user_id)=>{
+    this.props.deleteDesiredLanguage(desiredLanguageId,user_id);
+  }
 
   render() {
 
@@ -51,7 +35,10 @@ class CreateUserLanguages extends React.Component {
           languageName = {language.language.name}
           initialValues = {{ability:language.ability}}
           desiredLanguageId = {language.id}
-          // removeLanguage = {this.props.removeDesiredLanguage}     
+          deleteDesiredLanguage = {this.deleteDesiredLanguage}
+          user_id = {language.user_id}
+          ability = {language.abilities.name}
+          abilities = {this.props.abilities}
         />
         </li>
       )
@@ -68,7 +55,6 @@ class CreateUserLanguages extends React.Component {
   }
     
 
-
 function mapStateToProps(state){
     return{ userLanguageState: state.userLanguageState,
             languageState : state.languageState,
@@ -79,7 +65,7 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
       fetchProvidedLanguages : userLanguageActions.fetchProvidedLanguages,
       fetchDesiredLanguages : userLanguageActions.fetchDesiredLanguages,
-      fetchLanguages : languageActions.fetchLanguages
+      deleteDesiredLanguage : userLanguageActions.deleteDesiredLanguage
   }, dispatch)
  }
 

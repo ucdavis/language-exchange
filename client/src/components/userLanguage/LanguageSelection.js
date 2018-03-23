@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as userActions from "../../actions/userActions";
+// import * as userActions from "../../actions/userActions";
 import * as languageActions from '../../actions/languageActions';
 import * as abilityActions from '../../actions/abilityActions';
 import * as userLanguageActions from '../../actions/userLanguageActions';
@@ -12,8 +12,15 @@ import LanguageSelectionForm from './LanguageSelectionForm';
 class LanguageSelection extends Component{
 
     componentDidMount() {
+        // this.props.fetchCurrentUser();
         this.props.fetchAbilities();
         this.props.fetchLanguages();
+    // if (this.props.userState.current !== null){
+    //       const id = this.props.userState.current.id;
+    //     //   this.props.fetchUserProvidedLanguages(id);
+    //       this.props.fetchUserDesiredLanguages(id);
+        // }
+
     }
 
     submit = values => {
@@ -27,8 +34,6 @@ class LanguageSelection extends Component{
             updated_at : now
         }
         this.props.createDesiredLanguage(newDesiredLanguage);
-
-        console.log("newDesiredLanguage:",newDesiredLanguage);
 
       }
 
@@ -56,10 +61,12 @@ function mapStateToProps(state){
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-      fetchCurrentUser : userActions.fetchCurrentUser,
+    //   fetchCurrentUser : userActions.fetchCurrentUser,
       fetchLanguages : languageActions.fetchLanguages,
       fetchAbilities : abilityActions.fetchAbilities,
+    //   fetchUserDesiredLanguages : userLanguageActions.fetchUserDesiredLanguages,
       createDesiredLanguage : userLanguageActions.createDesiredLanguage
+    //   fetchCurrentUser : userActions.fetchCurrentUser
   }, dispatch)
  }
 

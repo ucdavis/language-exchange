@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+// CREATE
 export function createDesiredLanguage(newDesiredLanguage){
     return function(dispatch){
         dispatch({type:"CREATE_DESIRED_LANGUAGE_PENDING"});
@@ -9,15 +9,14 @@ export function createDesiredLanguage(newDesiredLanguage){
             data: newDesiredLanguage
         })
         .then(response=>{
-            dispatch({type:"CREATE_DESIRED_LANGUAGE_FULFILLED",payload:response.data})
-            })
-        .then(response=>{
-            dispatch(fetchUserDesiredLanguages(731))
+            dispatch({type:"CREATE_DESIRED_LANGUAGE_FULFILLED",payload:response.data});
+            dispatch(fetchUserDesiredLanguages(response.data.user_id));
             })
         .catch(err=>dispatch({type: "CREATE_DESIRED_LANGUAGE_REJECTED", payload: err}))
     }
 }   
 
+// FETCH
 export function fetchUserProvidedLanguages(id){
     return function(dispatch){
         dispatch({type:"FETCH_USER_PROVIDED_LANGUAGES_PENDING"})
@@ -69,7 +68,7 @@ export function fetchDesiredLanguages(id){
 }   
 
 
-
+// UPDATE
 export function updateProvidedLanguages(providedLanguageUpdate){
     return function(dispatch){
         console.log("data from action",providedLanguageUpdate)
@@ -113,4 +112,19 @@ export function updateDesiredLanguages(desiredLanguageUpdate){
             dispatch({type:"UPDATE_DESIRED_LANGUAGES_REJECTED", payload: err})
         });
     }
-}   
+}  
+
+
+// DELETE
+export function deleteDesiredLanguage (desiredLanguageId, user_id){
+    return function(dispatch){
+        dispatch({type:"DELETE_DESIRED_LANGUAGE_PENDING"})
+        axios.delete(`/api/desired_languages/${desiredLanguageId}`)
+        .then(response => {
+            dispatch({type:"DELETE_DESIRED_LANGUAGE_FULFILLED",payload:response.data});
+            console.log("Response data: ",response.data);
+            dispatch(fetchUserDesiredLanguages(user_id))
+        })
+        .catch(err=>dispatch({type: "DELETE_DESIRED_LANGUAGE_REJECTED", payload: err}))
+    }
+}

@@ -90,7 +90,7 @@ export default function userReducer(state=initialState, action) {
             break;
         }
 
-
+// UPDATE
         case "UPDATE_PROVIDED_LANGUAGES_FULFILLED":{
             state =  { ...state, fetching:false, fetched:true, userProvidedLanguages: action.payload };
             break;
@@ -110,6 +110,23 @@ export default function userReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
+
+    // DELETE
+    case "DELETE_DESIRED_LANGUAGE_PENDING":{
+        state = {...state, fetching:true};
+        break;
+    }       
+    
+    case "DELETE_DESIRED_LANGUAGE_REJECTED":{
+        state =  {...state,fetching: false, error: action.payload };
+        break;
+    }
+    
+    case "DELETE_DESIRED_LANGUAGE_FULFILLED":{
+        state =  { ...state, fetching:false};
+        break;
+    }
+
 
 
         default:
