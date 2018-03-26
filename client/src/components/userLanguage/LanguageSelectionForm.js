@@ -1,9 +1,36 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+const validate = values => {
+    const errors = {}
+   
+
+    if (!values.language_id){
+        errors.language_id = 'Required'
+    }  
+
+    if (!values.ability){
+        errors.ability = 'Required'
+    }  
+
+    return errors
+  } 
+
 
 let LanguageSelectionForm = props => {
   const {  handleSubmit, pristine, submitting,languages, abilities } = props;
+
+  const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
+    <div>
+      <label className="control-label">{label}</label>
+      <div>
+      <select {...input} className= "form-control custom-select form-control-sm">
+        {children}
+      </select>
+        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
 
 
  
@@ -14,9 +41,9 @@ let LanguageSelectionForm = props => {
              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
-                    <label htmlFor="language_id">Language</label>             
-                    <Field name="language_id" id="language_id" component="select" className="form-control custom-select form-control-sm">
-                        <option/>
+        
+                    <Field name="language_id" label="Language" component={SelectField}>
+                        <option />
                         {languages.map(language => (
                         <option value={language.id} key={language.id}>
                             {language.name}
@@ -26,9 +53,8 @@ let LanguageSelectionForm = props => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="ability">Ability</label>
-                    <Field name="ability" id="ability" component="select" className="form-control custom-select form-control-sm">
-                        <option/>
+                    <Field name="ability" lable="Ability" component={SelectField}>
+                        <option />
                         {abilities.map(ability => (
                         <option value={ability.id} key={ability.id}>
                             {ability.name}
@@ -49,6 +75,7 @@ let LanguageSelectionForm = props => {
 
 LanguageSelectionForm = reduxForm({
   form: 'languageSelection',
+  validate
 
 })(LanguageSelectionForm)
 
