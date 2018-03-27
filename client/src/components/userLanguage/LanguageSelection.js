@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import * as userActions from "../../actions/userActions";
 import * as languageActions from '../../actions/languageActions';
 import * as abilityActions from '../../actions/abilityActions';
 import * as userLanguageActions from '../../actions/userLanguageActions';
@@ -12,15 +11,8 @@ import LanguageSelectionForm from './LanguageSelectionForm';
 class LanguageSelection extends Component{
 
     componentDidMount() {
-        // this.props.fetchCurrentUser();
         this.props.fetchAbilities();
         this.props.fetchLanguages();
-    // if (this.props.userState.current !== null){
-    //       const id = this.props.userState.current.id;
-    //     //   this.props.fetchUserProvidedLanguages(id);
-    //       this.props.fetchUserDesiredLanguages(id);
-        // }
-
     }
 
     submit = values => {
@@ -34,22 +26,32 @@ class LanguageSelection extends Component{
             updated_at : now
         }
         this.props.createDesiredLanguage(newDesiredLanguage);
-
       }
 
     render(){
-        const languageItems = this.props.languageState.languages
+        const languages = this.props.languageState.languages;
         const languageAbility = this.props.abilityState.abilities
+        const desiredLanguagesToRemove = this.props.desiredLanguages;
+
+        for( var i=languages.length - 1; i>=0; i--){
+            for( var j=0; j<desiredLanguagesToRemove.length; j++){
+                if(languages[i] && (languages[i].id === desiredLanguagesToRemove[j].language.id)){
+                    languages.splice(i, 1);
+                }
+            }
+        }
+
         return (
             <div>
                 <LanguageSelectionForm
-                    languages={languageItems}
+                    languages={languages}
                     abilities={languageAbility}
                     onSubmit={this.submit}
                     />
-
+            <hr /> 
             </div>  
         )
+        
     }
 }
 
@@ -61,12 +63,9 @@ function mapStateToProps(state){
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    //   fetchCurrentUser : userActions.fetchCurrentUser,
       fetchLanguages : languageActions.fetchLanguages,
       fetchAbilities : abilityActions.fetchAbilities,
-    //   fetchUserDesiredLanguages : userLanguageActions.fetchUserDesiredLanguages,
       createDesiredLanguage : userLanguageActions.createDesiredLanguage
-    //   fetchCurrentUser : userActions.fetchCurrentUser
   }, dispatch)
  }
 

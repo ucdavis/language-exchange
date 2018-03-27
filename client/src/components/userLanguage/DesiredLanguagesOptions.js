@@ -26,8 +26,9 @@ class CreateUserLanguages extends React.Component {
 
   render() {
 
-    const desiredLanguages = this.props.desired.map(language => {
+    const desiredLanguages = this.props.desiredLanguages.map(language => {
       return(
+        
         <li className="list-group-item" key = {language.id}>
         <DesiredLanguagesOption
           form = {'form_'+language.language.name}
@@ -44,6 +45,7 @@ class CreateUserLanguages extends React.Component {
       )
     })
 
+  if(desiredLanguages.length){
       return (
           <div>
             <ul className="list-group list-group-flush">
@@ -51,6 +53,9 @@ class CreateUserLanguages extends React.Component {
             </ul>
         </div>
       )
+    }else{
+      return <label>Please add a language to your list</label>
+    }
     }
   }
     

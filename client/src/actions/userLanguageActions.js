@@ -5,7 +5,7 @@ export function createDesiredLanguage(newDesiredLanguage){
         dispatch({type:"CREATE_DESIRED_LANGUAGE_PENDING"});
         axios.request({
             method: 'post',
-            url : '/api/desired_languages',
+            url : 'http://localhost:3000/api/desired_languages',
             data: newDesiredLanguage
         })
         .then(response=>{

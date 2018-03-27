@@ -17,8 +17,11 @@ const validate = values => {
   } 
 
 
+
 let LanguageSelectionForm = props => {
-  const {  handleSubmit, pristine, submitting,languages, abilities } = props;
+  const { handleSubmit, pristine, submitting,languages, abilities } = props;
+
+
 
   const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
     <div>
@@ -36,24 +39,25 @@ let LanguageSelectionForm = props => {
  
   return (
 
-      <div className="well">
+      <div>
 
+        <label>Select the name and the level of the language you are learning.</label>
              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
         
-                    <Field name="language_id" label="Language" component={SelectField}>
+                    <Field name="language_id" label="Language:" component={SelectField}>
                         <option />
                         {languages.map(language => (
-                        <option value={language.id} key={language.id}>
-                            {language.name}
-                        </option>
+                            <option value={language.id} key={language.id}>
+                                {language.name}
+                            </option>
                         ))}
                     </Field>
                 </div>
 
                 <div className="form-group">
-                    <Field name="ability" lable="Ability" component={SelectField}>
+                    <Field name="ability" label="Ability:" component={SelectField}>
                         <option />
                         {abilities.map(ability => (
                         <option value={ability.id} key={ability.id}>
@@ -68,14 +72,17 @@ let LanguageSelectionForm = props => {
                     </button>
                 
             </form>
-
-        </div>         
+        </div>
+              
   )
 }
 
+
 LanguageSelectionForm = reduxForm({
   form: 'languageSelection',
-  validate
+  destroyOnUnmount: true,
+  validate,
+  enableReinitialize: true
 
 })(LanguageSelectionForm)
 

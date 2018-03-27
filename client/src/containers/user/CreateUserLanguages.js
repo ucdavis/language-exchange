@@ -31,26 +31,78 @@ class CreateUserLanguages extends React.Component {
   }
 
 
-
-
   render() {
-    // const {redirect} = this.state;
+    const toggleSelection=()=> {
+      toggleButton();
+      var languageSelection = document.getElementById("languageSelection");
+      if (languageSelection.style.display === "none") {
+        languageSelection.style.display = "block";
+      } else {
+        languageSelection.style.display = "none";
+      }
+    }
+
+    const toggleButton=()=> {
+      var newLanguageButton= document.getElementById("newLanguageButton");
+      if (newLanguageButton.style.display === "none") {
+        newLanguageButton.style.display = "block";
+      } else {
+        newLanguageButton.style.display = "none";
+      }
+    }
+
+    const initialStyle = {
+      display: "none"
+    };
+
+    const initialStyleButton = {
+      display: "block"
+    };
 
 
     if (this.props.userState.fetching || this.props.userLanguageState.fetching || this.props.abilityState.fething ){
       return(<h5>..loading User</h5>);
     }else{
-      let desired = this.props.userLanguageState.userDesiredLanguages;
+      let desiredLanguages = this.props.userLanguageState.userDesiredLanguages;
       let abilities = this.props.abilityState.abilities;
       return (
-        <div>
-          <h2>Languages I'm learning</h2>
-          <label>Select the name and the level of the language you are learning , then add it to your list.</label>
-          <LanguageSelection />
-          <label>List of languages I am learning</label>
-          <DesiredLanguagesOptions desired = { desired } abilities = { abilities }/>
+        <div className="row">
 
-      </div>
+            <div className="col-sm-6 well">
+              <h2>Languages I'm learning</h2>
+              <div className="row">
+                  <div className="col-sm-12" id="languageSelection" style={initialStyle}>         
+                  <LanguageSelection desiredLanguages = {desiredLanguages} />
+                  </div> 
+
+                  <div className="col-sm-12">
+                  <DesiredLanguagesOptions desiredLanguages = { desiredLanguages } abilities = { abilities }/>
+                  </div>
+
+                  <div className="col-sm-12">
+                  <button className="btn btn-success"  id="newLanguageButton" style={initialStyleButton} onClick={toggleSelection}>+ New Language</button>
+                  </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 well">
+              <h2>Languages I know</h2>
+              <div className="row">
+                  <div className="col-sm-12" id="languageSelection" style={initialStyle}>         
+                  <LanguageSelection desiredLanguages = {desiredLanguages} />
+                  </div> 
+
+                  <div className="col-sm-12">
+                  <DesiredLanguagesOptions desiredLanguages = { desiredLanguages } abilities = { abilities }/>
+                  </div>
+
+                  <div className="col-sm-12">
+                  <button className="btn btn-success"  id="newLanguageButton" style={initialStyleButton} onClick={toggleSelection}>+ New Language</button>
+                  </div>
+              </div>
+            </div>
+    
+        </div>
       )
     }
   }
