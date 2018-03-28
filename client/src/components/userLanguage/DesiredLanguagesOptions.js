@@ -26,7 +26,6 @@ class DesiredLanguagesOptions extends React.Component {
           deleteDesiredLanguage = {this.deleteDesiredLanguage}
           user_id = {language.user_id}
           ability = {language.abilities.name}
-          abilities = {this.props.abilities}
         />
         </li>
       )

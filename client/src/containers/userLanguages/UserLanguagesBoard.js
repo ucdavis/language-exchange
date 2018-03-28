@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
-import * as languageActions from '../../actions/languageActions';
 import * as abilityActions from '../../actions/abilityActions';
 import { withRouter } from 'react-router-dom';
 import { fetchCurrentUser } from '../../actions/userActions';
@@ -46,10 +45,9 @@ class UserLanguagesBoard extends React.Component {
 
 
     if (this.props.userState.fetching || this.props.userLanguageState.fetching){
-      return(<h5>..loading User</h5>);
+      return(<h5>..loading</h5>);
     }else{
-      let desiredLanguages = this.props.userLanguageState.userDesiredLanguages;
-      let abilities = this.props.abilityState.abilities;
+
       return (
 
         <div className="row">
@@ -75,7 +73,7 @@ class UserLanguagesBoard extends React.Component {
                       onClick={() => this.setState({
                         display:[
                         <DesiredLanguageSelection key="DesiredLanguageSelection" />,
-                        <DesiredLanguagesOptions key="DesiredLanguagesOptions" desiredLanguages = { desiredLanguages } abilities = { abilities }/>
+                        <DesiredLanguagesOptions key="DesiredLanguagesOptions" />
                         ]
                       })} >
                       &nbsp;Languages I'm learning&nbsp;
