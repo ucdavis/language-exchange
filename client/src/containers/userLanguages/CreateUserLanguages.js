@@ -1,82 +1,154 @@
 import React from 'react';
-import LanguageSelection from '../../components/userLanguage/LanguageSelection';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
-import * as languageActions from '../../actions/languageActions'
-import * as userActions from '../../actions/userActions';
+import * as languageActions from '../../actions/languageActions';
 import * as abilityActions from '../../actions/abilityActions';
 import { withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { fetchCurrentUser } from '../../actions/userActions';
+import DesiredLanguagesOptions from '../../components/userLanguage/DesiredLanguagesOptions';
+import DesiredLanguageSelection from "../../containers/userLanguages/DesiredLanguageSelection"
+import ProvidedLanguagesOptions from '../../components/userLanguage/ProvidedLanguagesOptions';
+import ProvidedLanguageSelection from "../../containers/userLanguages/ProvidedLanguageSelection"
 
 class CreateUserLanguages extends React.Component {
-  // constructor (props){
-  //   super(props);
-  //   this.state = {
-  //     redirect : false,
-  //   }
-  // }
+  constructor (props){
+    super(props);
+    this.showView = this.showView.bind(this);
+    this.state = {
+      redirect : false,
+      display : null
+    }
+  }
+
+  showView = (view)=>{
+    this.setState({ display:view });
+  }
 
   componentDidMount = () => {
-    this.props.fetchCurrentUser();
     this.props.fetchLanguages();
     this.props.fetchAbilities();
-    const current_user_id = this.props.userState.current.id;
-    this.props.fetchUserProvidedLanguages(current_user_id);
-    this.props.fetchUserDesiredLanguages(current_user_id);  
+    fetchCurrentUser()
+    if (this.props.userState.current !== null){
+          const id = this.props.userState.current.id;
+          this.props.fetchUserProvidedLanguages(id);
+          this.props.fetchUserDesiredLanguages(id);
+          this.props.fetchLanguages();
+        }
+        
   }
-
-  submit = values => {
-    // values.abilityLanguage.map((ability, desiredLanguage_id)=>{
-
-    //       var now = new Date();
-    //       let desiredLanguageUpdate = {
-    //         id : desiredLanguage_id,
-    //         ability : ability,
-    //         updated_at : now
-    //       } 
-    //       // this.props.updateDesiredLanguages(desiredLanguageUpdate);     
-    //       console.log(desiredLanguageUpdate);
-      console.log(values);
-    //   return desiredLanguageUpdate;   
-    // })
-
-  }
-
 
   render() {
-    if(this.props.userState.fetching || this.props.userLanguageState.fetching){
-      return <h5>...Loading user and languages</h5>
+    const toggleDesiredSelection=()=> {
+      toggleDesiredButton();
+      var desiredLanguageSelection = document.getElementById("desiredLanguageSelection");
+      if (desiredLanguageSelection.style.display === "none") {
+        desiredLanguageSelection.style.display = "block";
+      } else {
+        desiredLanguageSelection.style.display = "none";
+      }
+    }
+
+    const toggleDesiredButton=()=> {
+      var newDesiredLanguageButton= document.getElementById("newDesiredLanguageButton");
+      if (newDesiredLanguageButton.style.display === "none") {
+        newDesiredLanguageButton.style.display = "block";
+      } else {
+        newDesiredLanguageButton.style.display = "none";
+      }
+    }
+
+    const toggleProvidedSelection=()=> {
+      toggleProvidedButton();
+      var providedLanguageSelection = document.getElementById("providedLanguageSelection");
+      if (providedLanguageSelection.style.display === "none") {
+        providedLanguageSelection.style.display = "block";
+      } else {
+        providedLanguageSelection.style.display = "none";
+      }
+    }
+
+    const toggleProvidedButton=()=> {
+      var newProvidedLanguageButton= document.getElementById("newProvidedLanguageButton");
+      if (newProvidedLanguageButton.style.display === "none") {
+        newProvidedLanguageButton.style.display = "block";
+      } else {
+        newProvidedLanguageButton.style.display = "none";
+      }
+    }
+
+    const initialStyle = {
+      display: "none"
+    };
+
+    const initialStyleButton = {
+      display: "block"
+    };
+
+
+    if (this.props.userState.fetching || this.props.userLanguageState.fetching || this.props.abilityState.fething ){
+      return(<h5>..loading User</h5>);
     }else{
-    
+      let desiredLanguages = this.props.userLanguageState.userDesiredLanguages;
+      let providedLanguages = this.props.userLanguageState.userProvidedLanguages;
+      let abilities = this.props.abilityState.abilities;
       return (
-        <div>
-          <h2>Desired Languages</h2>
-          <LanguageSelection
-            languages={this.props.languageState.languages}
-            abilities={this.props.abilityState.abilities}
-          />
+        <div className="row">
+
+            <div className="col-sm-6 well">
+              <h2>Languages I'm learning</h2>
+              <div className="row">
+                  <div className="col-sm-12" id="desiredLanguageSelection" style={initialStyle}>         
+                  <DesiredLanguageSelection desiredLanguages = {desiredLanguages} />
+                  </div> 
+
+                  <div className="col-sm-12">
+                  <DesiredLanguagesOptions desiredLanguages = { desiredLanguages } abilities = { abilities }/>
+                  </div>
+
+                  <div className="col-sm-12">
+                  <button className="btn btn-success"  id="newDesiredLanguageButton" style={initialStyleButton} onClick={toggleDesiredSelection}>+ New Language</button>
+                  </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 well">
+              <h2>Languages I know</h2>
+              <div className="row">
+                  <div className="col-sm-12" id="providedLanguageSelection" style={initialStyle}>         
+                  <ProvidedLanguageSelection providedLanguages = {providedLanguages} />
+                  </div> 
+
+                  <div className="col-sm-12">
+                  <ProvidedLanguagesOptions providedLanguages = { providedLanguages } abilities = { abilities }/>
+                  </div>
+
+                  <div className="col-sm-12">
+                  <button className="btn btn-success"  id="newProvidedLanguageButton" style={initialStyleButton} onClick={toggleProvidedSelection}>+ New Language</button>
+                  </div>
+              </div>
+            </div>
+    
         </div>
       )
     }
-
   }
 }
 
 function mapStateToProps(state){
-    return{ userState : state.userState ,
-            userLanguageState: state.userLanguageState,
+    return{ userLanguageState: state.userLanguageState,
             languageState : state.languageState,
-            abilityState : state.abilityState
-    }
+            userState : state.userState,
+            abilityState : state.abilityState }
 }
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-      fetchAbilities : abilityActions.fetchAbilities,
-      fetchCurrentUser : userActions.fetchCurrentUser,
-      fetchLanguages : languageActions.fetchLanguages,
+      fetchCurrentUser : fetchCurrentUser,
       fetchUserProvidedLanguages : userLanguageActions.fetchUserProvidedLanguages,
-      fetchUserDesiredLanguages: userLanguageActions.fetchUserDesiredLanguages
+      fetchUserDesiredLanguages : userLanguageActions.fetchUserDesiredLanguages,
+      fetchLanguages : languageActions.fetchLanguages,
+      fetchAbilities : abilityActions.fetchAbilities
   }, dispatch)
  }
 

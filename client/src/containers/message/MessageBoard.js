@@ -46,15 +46,25 @@ class MessageBoard extends React.Component {
                       <button
                         type="button"
                         className="btn btn-default"
-                        onClick={() => this.setState({display: <ReceivedMessages showView={this.showView } userState = {this.props.userState}  messageState = {this.props.messageState} /> })} >
-                        &nbsp;&nbsp;Inbox&nbsp;
+                        onClick={() => this.setState({
+                          display: <ReceivedMessages
+                            showView={this.showView }
+                            userState = {this.props.userState}
+                            messageState = {this.props.messageState} />
+                        })} >
+                        &nbsp;Inbox&nbsp;
                       </button>
 
                       <button
                         type="button"
                         className="btn btn-default"
-                        onClick={() => this.setState({display:<SentMessages showView={this.showView } userState = {this.props.userState}  messageState = {this.props.messageState}  />})} >
-                        &nbsp;&nbsp;Sent&nbsp;
+                        onClick={() => this.setState({
+                          display:<SentMessages
+                          showView={this.showView }
+                          userState = {this.props.userState}
+                          messageState = {this.props.messageState}
+                        />})} >
+                        &nbsp;Sent&nbsp;
                       </button>
 
                     </div>

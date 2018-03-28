@@ -5,12 +5,12 @@ const validate = values => {
     const errors = {}
    
 
-    if (!values.language_id){
-        errors.language_id = 'Required'
+    if (!values.provided_language_id){
+        errors.provided_language_id = 'Required'
     }  
 
-    if (!values.ability){
-        errors.ability = 'Required'
+    if (!values.provided_ability){
+        errors.provided_ability = 'Required'
     }  
 
     return errors
@@ -18,8 +18,8 @@ const validate = values => {
 
 
 
-let LanguageSelectionForm = props => {
-  const { handleSubmit, pristine, submitting,languages, abilities } = props;
+let ProvidedLanguageSelectionForm = props => {
+  const { handleSubmit, pristine, submitting, providedLanguagesSelect, abilities } = props;
 
 
 
@@ -36,19 +36,19 @@ let LanguageSelectionForm = props => {
   )
 
 
- 
+
   return (
 
       <div>
 
-        <label>Select the name and the level of the language you are learning.</label>
+        <label>Select name and level of the language you know.</label>
              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
         
-                    <Field name="language_id" label="Language:" component={SelectField}>
+                    <Field name="provided_language_id" label="Language:" component={SelectField}>
                         <option />
-                        {languages.map(language => (
+                        {providedLanguagesSelect.map(language => (
                             <option value={language.id} key={language.id}>
                                 {language.name}
                             </option>
@@ -57,10 +57,10 @@ let LanguageSelectionForm = props => {
                 </div>
 
                 <div className="form-group">
-                    <Field name="ability" label="Ability:" component={SelectField}>
+                    <Field name="provided_ability" label="Ability:" component={SelectField}>
                         <option />
                         {abilities.map(ability => (
-                        <option value={ability.id} key={ability.id}>
+                        <option value={"id_"+ability.id} key={ability.id}>
                             {ability.name}
                         </option>
                         ))}
@@ -78,13 +78,12 @@ let LanguageSelectionForm = props => {
 }
 
 
-LanguageSelectionForm = reduxForm({
-  form: 'languageSelection',
+ProvidedLanguageSelectionForm = reduxForm({
   destroyOnUnmount: true,
   validate,
   enableReinitialize: true
 
-})(LanguageSelectionForm)
+})(ProvidedLanguageSelectionForm)
 
 
-export default LanguageSelectionForm;
+export default ProvidedLanguageSelectionForm;

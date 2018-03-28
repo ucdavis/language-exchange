@@ -9,10 +9,9 @@ import Users from '../containers/user/ReadUsers';
 import UserDetails from '../containers/user/UserDetails';
 import CreateUser from '../containers/user/CreateUser';
 import UpdateUser from '../containers/user/UpdateUser';
-import UpdateUserLanguages from '../containers/user/UpdateUserLanguages';
 import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
-import CreateUserLanguages from '../containers/user/CreateUserLanguages';
+import CreateUserLanguages from '../containers/userLanguages/CreateUserLanguages';
 
 
 const Main = () => (
@@ -27,16 +26,11 @@ const Main = () => (
             <Route exact path='/users/register' component = { CreateUser } />
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
-            <Route exact path='/userlanguages/edit/:id' component = { UpdateUserLanguages } />
             <Route exact path='/userlanguages' component = { CreateUserLanguages } />
-            {/* <Route exact path='/file' component ={ UploadAvatar } /> */}
 
            {/* Messages */}
             <Route exact path='/messages' component ={ MessageBoard } />
             <Route exact path='/users/contact/:id' component ={ CreateMessage } />
-
-           
-            
 
         </Switch>    
     </main>    

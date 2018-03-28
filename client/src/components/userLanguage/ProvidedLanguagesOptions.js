@@ -3,27 +3,28 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 import { withRouter } from 'react-router-dom';
-import DesiredLanguagesOption from '../../components/userLanguage/DesiredLanguagesOption';
+import ProvidedLanguagesForm from '../../components/userLanguage/ProvidedLanguagesForm';
 
-class DesiredLanguagesOptions extends React.Component {
+class ProvidedLanguagesOptions extends React.Component {
 
-  deleteDesiredLanguage = (desiredLanguageId,user_id)=>{
-    this.props.deleteDesiredLanguage(desiredLanguageId,user_id);
+
+  deleteProvidedLanguage = (providedLanguageId,user_id)=>{
+    this.props.deleteProvidedLanguage(providedLanguageId,user_id);
   }
 
   render() {
 
-    const desiredLanguages = this.props.desiredLanguages.map(language => {
+    const providedLanguages = this.props.providedLanguages.map(language => {
       return(
         
         <li className="list-group-item" key = {language.id}>
-        <DesiredLanguagesOption
-          form = {'DesiredLanguagesOption_'+language.language.name}
+        <ProvidedLanguagesForm
+          form = {'ProvidedLanguagesForm_'+language.language.name}
           onSubmit={ this.submit }
           languageName = {language.language.name}
           initialValues = {{ability:language.ability}}
-          desiredLanguageId = {language.id}
-          deleteDesiredLanguage = {this.deleteDesiredLanguage}
+          providedLanguageId = {language.id}
+          deleteProvidedLanguage = {this.deleteProvidedLanguage}
           user_id = {language.user_id}
           ability = {language.abilities.name}
           abilities = {this.props.abilities}
@@ -32,11 +33,11 @@ class DesiredLanguagesOptions extends React.Component {
       )
     })
 
-  if(desiredLanguages.length){
+  if(providedLanguages.length){
       return (
           <div>
             <ul className="list-group list-group-flush">
-            { desiredLanguages }
+            { providedLanguages }
             </ul>
         </div>
       )
@@ -55,8 +56,8 @@ function mapStateToProps(state){
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-      deleteDesiredLanguage : userLanguageActions.deleteDesiredLanguage
+      deleteProvidedLanguage : userLanguageActions.deleteProvidedLanguage
   }, dispatch)
  }
 
- export default withRouter( connect(mapStateToProps, mapDispatchToProps)(DesiredLanguagesOptions));
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(ProvidedLanguagesOptions));

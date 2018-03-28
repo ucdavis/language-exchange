@@ -5,10 +5,9 @@ import * as userLanguageActions from '../../actions/userLanguageActions';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
+import ProvidedLanguageSelectionForm from '../../components/userLanguage/ProvidedLanguageSelectionForm';
 
-import LanguageSelectionForm from './LanguageSelectionForm';
-
-class LanguageSelection extends Component{
+class ProvidedLanguageSelection extends Component{
 
     componentDidMount() {
         this.props.fetchAbilities();
@@ -18,35 +17,37 @@ class LanguageSelection extends Component{
     submit = values => {
         const user_id =  this.props.userState.current.id;
         const now = new Date();
-        const newDesiredLanguage ={
-            language_id : values.language_id,
+        const newProvidedLanguage ={
+            language_id : values.provided_language_id,
             user_id : user_id,
-            ability : values.ability,
+            ability : values.provided_ability,
             created_at : now,
             updated_at : now
         }
-        this.props.createDesiredLanguage(newDesiredLanguage);
+        this.props.createProvidedLanguage(newProvidedLanguage);
       }
 
     render(){
-        const languages = this.props.languageState.languages;
+        const providedLanguagesSelect = this.props.languageState.languages;
         const languageAbility = this.props.abilityState.abilities
-        const desiredLanguagesToRemove = this.props.desiredLanguages;
+        const languagesToRemove = this.props.providedLanguages;
 
-        for( var i=languages.length - 1; i>=0; i--){
-            for( var j=0; j<desiredLanguagesToRemove.length; j++){
-                if(languages[i] && (languages[i].id === desiredLanguagesToRemove[j].language.id)){
-                    languages.splice(i, 1);
+        for( var i=providedLanguagesSelect.length - 1; i>=0; i--){
+            for( var j=0; j<languagesToRemove.length; j++){
+                if(providedLanguagesSelect[i] && (providedLanguagesSelect[i].id === languagesToRemove[j].language.id)){
+                    providedLanguagesSelect.splice(i, 1);
                 }
             }
         }
 
         return (
             <div>
-                <LanguageSelectionForm
-                    languages={languages}
+                <ProvidedLanguageSelectionForm
+                    providedLanguagesSelect={providedLanguagesSelect}
                     abilities={languageAbility}
                     onSubmit={this.submit}
+                    form="ProvidedLanguageSelectionForm"
+                    formKey="ProvidedLanguageSelectionForm"
                     />
             <hr /> 
             </div>  
@@ -65,8 +66,8 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
       fetchLanguages : languageActions.fetchLanguages,
       fetchAbilities : abilityActions.fetchAbilities,
-      createDesiredLanguage : userLanguageActions.createDesiredLanguage
+      createProvidedLanguage : userLanguageActions.createProvidedLanguage
   }, dispatch)
  }
 
- export default withRouter( connect(mapStateToProps, mapDispatchToProps)(LanguageSelection));
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(ProvidedLanguageSelection));

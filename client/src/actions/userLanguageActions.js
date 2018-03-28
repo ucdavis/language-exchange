@@ -16,6 +16,23 @@ export function createDesiredLanguage(newDesiredLanguage){
     }
 }   
 
+
+export function createProvidedLanguage(newProvidedLanguage){
+    return function(dispatch){
+        dispatch({type:"CREATE_PROVIDED_LANGUAGE_PENDING"});
+        axios.request({
+            method: 'post',
+            url : 'http://localhost:3000/api/provided_languages',
+            data: newProvidedLanguage
+        })
+        .then(response=>{
+            dispatch({type:"CREATE_PROVIDED_LANGUAGE_FULFILLED",payload:response.data});
+            dispatch(fetchUserProvidedLanguages(response.data.user_id));
+            })
+        .catch(err=>dispatch({type: "CREATE_PROVIDED_LANGUAGE_REJECTED", payload: err}))
+    }
+}   
+
 // FETCH
 export function fetchUserProvidedLanguages(id){
     return function(dispatch){
@@ -43,35 +60,10 @@ export function fetchUserDesiredLanguages(id){
     }
 }   
 
-export function fetchProvidedLanguages(id){
-    return function(dispatch){
-        axios.get(`/api/provided_languages?filter[include]=language&filter[include]=abilities&filter[where][user_id]=${id}`)
-        .then(response => {
-            dispatch({type:"FETCH_PROVIDED_LANGUAGES_FULFILLED",payload:response.data})
-            })
-        .catch(err => {
-            dispatch({type:"FETCH_PROVIDED_LANGUAGES_REJECTED", payload: err})
-        });
-    }
-}   
-
-export function fetchDesiredLanguages(id){
-    return function(dispatch){
-        axios.get(`/api/desired_languages?filter[include]=language&filter[include]=abilities&filter[where][user_id]=${id}`)
-        .then(response => {
-            dispatch({type:"FETCH_DESIRED_LANGUAGES_FULFILLED",payload:response.data})
-            })
-        .catch(err => {
-            dispatch({type:"FETCH_DESIRED_LANGUAGES_REJECTED", payload: err})
-        });
-    }
-}   
-
 
 // UPDATE
 export function updateProvidedLanguages(providedLanguageUpdate){
     return function(dispatch){
-        console.log("data from action",providedLanguageUpdate)
         let user_id = providedLanguageUpdate.user_id;
         let language_id = providedLanguageUpdate.language_id;
         let ability = providedLanguageUpdate.ability
@@ -93,7 +85,6 @@ export function updateProvidedLanguages(providedLanguageUpdate){
 
 export function updateDesiredLanguages(desiredLanguageUpdate){
     return function(dispatch){
-        console.log("data from action",desiredLanguageUpdate)
         var id = desiredLanguageUpdate.id;
         var ability = desiredLanguageUpdate.ability;
         var updated_at = desiredLanguageUpdate.updated_at;
@@ -122,9 +113,20 @@ export function deleteDesiredLanguage (desiredLanguageId, user_id){
         axios.delete(`/api/desired_languages/${desiredLanguageId}`)
         .then(response => {
             dispatch({type:"DELETE_DESIRED_LANGUAGE_FULFILLED",payload:response.data});
-            console.log("Response data: ",response.data);
             dispatch(fetchUserDesiredLanguages(user_id))
         })
         .catch(err=>dispatch({type: "DELETE_DESIRED_LANGUAGE_REJECTED", payload: err}))
+    }
+}
+
+export function deleteProvidedLanguage (providedLanguageId, user_id){
+    return function(dispatch){
+        dispatch({type:"DELETE_PROVIDED_LANGUAGE_PENDING"})
+        axios.delete(`/api/provided_languages/${providedLanguageId}`)
+        .then(response => {
+            dispatch({type:"DELETE_PROVIDED_LANGUAGE_FULFILLED",payload:response.data});
+            dispatch(fetchUserDesiredLanguages(user_id))
+        })
+        .catch(err=>dispatch({type: "DELETE_PROVIDEDLANGUAGE_REJECTED", payload: err}))
     }
 }
