@@ -41,7 +41,7 @@ let ProvidedLanguageSelectionForm = props => {
 
       <div>
 
-        <label>Select name and level of the language you know.</label>
+        <label>Select name and level of the languages you know</label>
              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
@@ -60,7 +60,7 @@ let ProvidedLanguageSelectionForm = props => {
                     <Field name="provided_ability" label="Ability:" component={SelectField}>
                         <option />
                         {abilities.map(ability => (
-                        <option value={"id_"+ability.id} key={ability.id}>
+                        <option value={ability.id} key={ability.id}>
                             {ability.name}
                         </option>
                         ))}
@@ -79,10 +79,9 @@ let ProvidedLanguageSelectionForm = props => {
 
 
 ProvidedLanguageSelectionForm = reduxForm({
-  destroyOnUnmount: true,
-  validate,
-  enableReinitialize: true
-
+    form:"ProvidedLanguageForm",
+    destroyOnUnmount: true,
+    validate
 })(ProvidedLanguageSelectionForm)
 
 

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 import { withRouter } from 'react-router-dom';
 import ProvidedLanguagesForm from '../../components/userLanguage/ProvidedLanguagesForm';
+import * as abilityActions from '../../actions/abilityActions';
 
 class ProvidedLanguagesOptions extends React.Component {
 
@@ -13,8 +14,8 @@ class ProvidedLanguagesOptions extends React.Component {
   }
 
   render() {
-
-    const providedLanguages = this.props.providedLanguages.map(language => {
+      
+    const providedLanguages = this.props.userLanguageState.userProvidedLanguages.map(language => {
       return(
         
         <li className="list-group-item" key = {language.id}>
@@ -27,23 +28,27 @@ class ProvidedLanguagesOptions extends React.Component {
           deleteProvidedLanguage = {this.deleteProvidedLanguage}
           user_id = {language.user_id}
           ability = {language.abilities.name}
-          abilities = {this.props.abilities}
+          abilities = {this.props.abilityState.abilities}
         />
         </li>
       )
-    })
+    });
 
-  if(providedLanguages.length){
-      return (
-          <div>
-            <ul className="list-group list-group-flush">
-            { providedLanguages }
-            </ul>
-        </div>
-      )
-    }else{
-      return <label>Please add a language to your list</label>
-    }
+if (this.props.userLanguageState.fetching ){
+  return(<h5>..loading</h5>);
+      }else{
+        if(providedLanguages.length){
+            return (
+                <div>
+                  <ul className="list-group list-group-flush">
+                  { providedLanguages }
+                  </ul>
+              </div>
+            )
+          }else{
+            return <label>Please add a language to your list</label>
+          }
+      }
     }
   }
     
@@ -51,12 +56,15 @@ class ProvidedLanguagesOptions extends React.Component {
 function mapStateToProps(state){
     return{ userLanguageState: state.userLanguageState,
             languageState : state.languageState,
-            userState : state.userState }
+            userState : state.userState,
+            abilityState : state.abilityState
+          }
 }
  
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-      deleteProvidedLanguage : userLanguageActions.deleteProvidedLanguage
+      deleteProvidedLanguage : userLanguageActions.deleteProvidedLanguage,
+      fetchAbilities : abilityActions.fetchAbilities
   }, dispatch)
  }
 

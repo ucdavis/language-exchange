@@ -125,7 +125,7 @@ export function deleteProvidedLanguage (providedLanguageId, user_id){
         axios.delete(`/api/provided_languages/${providedLanguageId}`)
         .then(response => {
             dispatch({type:"DELETE_PROVIDED_LANGUAGE_FULFILLED",payload:response.data});
-            dispatch(fetchUserDesiredLanguages(user_id))
+            dispatch(fetchUserProvidedLanguages(user_id))
         })
         .catch(err=>dispatch({type: "DELETE_PROVIDEDLANGUAGE_REJECTED", payload: err}))
     }

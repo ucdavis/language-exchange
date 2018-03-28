@@ -28,7 +28,8 @@ class MessageBoard extends React.Component {
         display:<ReceivedMessages
                   showView={this.showView }
                   userState = {this.props.userState}
-                />});
+                />
+      });
     }
 
 }

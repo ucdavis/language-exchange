@@ -30,7 +30,7 @@ class ProvidedLanguageSelection extends Component{
     render(){
         const providedLanguagesSelect = this.props.languageState.languages;
         const languageAbility = this.props.abilityState.abilities
-        const languagesToRemove = this.props.providedLanguages;
+        const languagesToRemove =  this.props.userLanguageState.userProvidedLanguages;
 
         for( var i=providedLanguagesSelect.length - 1; i>=0; i--){
             for( var j=0; j<languagesToRemove.length; j++){
@@ -42,6 +42,10 @@ class ProvidedLanguageSelection extends Component{
 
         return (
             <div>
+            <div> 
+                <h2>Languages I know</h2>
+            </div>
+                
                 <ProvidedLanguageSelectionForm
                     providedLanguagesSelect={providedLanguagesSelect}
                     abilities={languageAbility}
@@ -59,6 +63,7 @@ class ProvidedLanguageSelection extends Component{
 function mapStateToProps(state){
     return{ abilityState: state.abilityState,
             languageState : state.languageState,
+            userLanguageState : state.userLanguageState,
             userState : state.userState }
 }
  

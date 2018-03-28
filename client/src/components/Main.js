@@ -11,7 +11,7 @@ import CreateUser from '../containers/user/CreateUser';
 import UpdateUser from '../containers/user/UpdateUser';
 import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
-import CreateUserLanguages from '../containers/userLanguages/CreateUserLanguages';
+import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 
 
 const Main = () => (
@@ -26,7 +26,7 @@ const Main = () => (
             <Route exact path='/users/register' component = { CreateUser } />
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
-            <Route exact path='/userlanguages' component = { CreateUserLanguages } />
+            <Route exact path='/userlanguages' component = { UserLanguagesBoard } />
 
            {/* Messages */}
             <Route exact path='/messages' component ={ MessageBoard } />

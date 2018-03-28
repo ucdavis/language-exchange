@@ -41,7 +41,7 @@ let DesiredLanguageSelectionForm = props => {
 
       <div>
 
-        <label>Select name and level of the language you are learning.</label>
+        <label>Select name and level of the languages you are learning</label>
              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">

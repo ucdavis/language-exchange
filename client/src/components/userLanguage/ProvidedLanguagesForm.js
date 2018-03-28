@@ -18,10 +18,6 @@ const validate = values => {
 
 let ProvidedLanguagesForm = props => {
   let {  handleSubmit, submitting, user_id, languageName, providedLanguageId, deleteProvidedLanguage, ability} = props;
-  console.log(props);
-
-
-
   return (
       <div>
 
@@ -47,10 +43,8 @@ let ProvidedLanguagesForm = props => {
 }
 
 ProvidedLanguagesForm = reduxForm({
+  form:"ProvidedLanguagesForm",
   validate
 })(ProvidedLanguagesForm)
-
- 
-
 
 export default ProvidedLanguagesForm;
