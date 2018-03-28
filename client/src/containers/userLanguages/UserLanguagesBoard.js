@@ -36,7 +36,8 @@ class UserLanguagesBoard extends React.Component {
     fetchCurrentUser()
     if (this.props.userState.current !== null){
           const id = this.props.userState.current.id;
-          this.props.fetchUserDesiredLanguages(id);         
+          this.props.fetchUserDesiredLanguages(id); 
+          this.props.fetchUserProvidedLanguages(id);         
         }
         
   }
@@ -73,7 +74,7 @@ class UserLanguagesBoard extends React.Component {
                       className="btn btn-default"
                       onClick={() => this.setState({
                         display:[
-                        <DesiredLanguageSelection key="DesiredLanguageSelection" desiredLanguages = {desiredLanguages} />,
+                        <DesiredLanguageSelection key="DesiredLanguageSelection" />,
                         <DesiredLanguagesOptions key="DesiredLanguagesOptions" desiredLanguages = { desiredLanguages } abilities = { abilities }/>
                         ]
                       })} >
@@ -109,6 +110,7 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
       fetchCurrentUser : fetchCurrentUser,
       fetchUserDesiredLanguages : userLanguageActions.fetchUserDesiredLanguages,
+      fetchUserProvidedLanguages : userLanguageActions.fetchUserProvidedLanguages,
       fetchAbilities : abilityActions.fetchAbilities
   }, dispatch)
  }

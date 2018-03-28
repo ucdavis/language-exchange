@@ -13,7 +13,7 @@ class DesiredLanguagesOptions extends React.Component {
 
   render() {
 
-    const desiredLanguages = this.props.desiredLanguages.map(language => {
+    const desiredLanguages = this.props.userLanguageState.userDesiredLanguages.map(language => {
       return(
         
         <li className="list-group-item" key = {language.id}>

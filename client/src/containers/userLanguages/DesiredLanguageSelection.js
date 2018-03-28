@@ -30,7 +30,7 @@ class DesiredLanguageSelection extends Component{
     render(){
         const languages = this.props.languageState.languages;
         const languageAbility = this.props.abilityState.abilities
-        const desiredLanguagesToRemove = this.props.desiredLanguages;
+        const desiredLanguagesToRemove = this.props.userLanguageState.userDesiredLanguages;
 
         for( var i=languages.length - 1; i>=0; i--){
             for( var j=0; j<desiredLanguagesToRemove.length; j++){
@@ -62,7 +62,8 @@ class DesiredLanguageSelection extends Component{
 function mapStateToProps(state){
     return{ abilityState: state.abilityState,
             languageState : state.languageState,
-            userState : state.userState }
+            userState : state.userState,
+            userLanguageState : state.userLanguageState }
 }
  
 function mapDispatchToProps(dispatch){
