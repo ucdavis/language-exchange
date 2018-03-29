@@ -24,6 +24,31 @@ class UserLanguagesBoard extends React.Component {
     this.setState({ display:view });
   }
 
+  toggleDesiredButton=()=> {
+    var optionButton= document.getElementById("desiredButton");
+    var providedButton = document.getElementById("providedButton");
+    if (optionButton.className === "btn btn-default") {
+      optionButton.className = "btn btn-default active";
+      providedButton.className = "btn btn-default";
+    }else if(optionButton.className ===  "btn btn-default active"){
+      optionButton.className =  "btn btn-default active"
+    } else {
+      optionButton.className = "btn btn-default";
+    }
+  }
+  toggleProvidedButton=()=> {
+    var optionButton= document.getElementById("providedButton");
+    var desiredButton= document.getElementById("desiredButton");
+    if (optionButton.className === "btn btn-default") {
+      optionButton.className = "btn btn-default active";
+      desiredButton.className = "btn btn-default";
+    }else if(optionButton.className ===  "btn btn-default active"){
+      optionButton.className =  "btn btn-default active"
+    } else {
+      optionButton.className = "btn btn-default";
+    }
+  }
+
   componentDidMount = () => {
     this.props.fetchAbilities();
     this.setState({
@@ -41,7 +66,29 @@ class UserLanguagesBoard extends React.Component {
         
   }
 
+  showDesired = () => {
+    this.setState({
+        display:[
+        <DesiredLanguageSelection key="DesiredLanguageSelection" />,
+        <DesiredLanguagesOptions key="DesiredLanguagesOptions" />
+        ]
+      });
+      
+      this.toggleDesiredButton();
+    }
+
+  showProvided = () => {
+    this.setState({
+      display:[
+        <ProvidedLanguageSelection key="ProvidedLanguageSelection" />,
+        <ProvidedLanguagesOptions key="ProvidedLanguagesOptions"/>
+      ]
+      });
+      this.toggleProvidedButton();
+    }
+
   render() {
+
 
 
     if (this.props.userState.fetching || this.props.userLanguageState.fetching){
@@ -52,30 +99,24 @@ class UserLanguagesBoard extends React.Component {
 
         <div className="row">
         <div className="col-sm-12">
-              <div className="side-bar">
+              <div className="side-bar pull-right">
                 <div className="btn-group" role="group" aria-label="button group">
                 
                     <button
                       type="button"
-                      className="btn btn-default"
-                      onClick={() => this.setState({
-                        display:[
-                          <ProvidedLanguageSelection key="ProvidedLanguageSelection" />,
-                          <ProvidedLanguagesOptions key="ProvidedLanguagesOptions"/>
-                        ]
-                      })} >
+                      id = "providedButton"
+                      className="btn btn-default active"
+                      data-toggle="button"
+                      onClick={this.showProvided} >
                       &nbsp;Languages I know&nbsp;
                     </button>
 
                     <button
                       type="button"
+                      id = "desiredButton"
                       className="btn btn-default"
-                      onClick={() => this.setState({
-                        display:[
-                        <DesiredLanguageSelection key="DesiredLanguageSelection" />,
-                        <DesiredLanguagesOptions key="DesiredLanguagesOptions" />
-                        ]
-                      })} >
+                      data-toggle="button"
+                      onClick={this.showDesired} >
                       &nbsp;Languages I'm learning&nbsp;
                     </button>
 
