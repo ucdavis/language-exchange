@@ -4,5 +4,12 @@
     "file": "./server/db/dev.sqlite3",
     "debug": true,
     "connector": "loopback-connector-sqlite3"
+  },
+  "imageStorage": {
+    "name": "imageStorage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./storage",
+    "maxFileSize": "1000000"
   }
 }
