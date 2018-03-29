@@ -22,5 +22,7 @@ npm-debug.log
 server/db/
 
 # Storage
-storage/images*
-!*/storage/images/no_image.png
+storage/*
+!storage/images
+storage/images/*
+!storage/images/no_image.png
