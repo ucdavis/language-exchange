@@ -79,6 +79,9 @@ class Nav extends React.Component {
                 <a href="/userlanguages" onClick={this.toggleCollapse.bind(this)}>My Languages</a>
               </li>
               <li >
+                <a href="/users/profile" onClick={this.toggleCollapse.bind(this)}>My Profile</a>
+              </li>
+              <li >
                 <Link to={link_to_profile} onClick={this.toggleCollapse.bind(this)}>
                   <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
                   &nbsp;{ user_name } - {cas_user}

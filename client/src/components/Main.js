@@ -6,6 +6,7 @@ import Home from './Home';
 import LanguageContainer from '../containers/language/LanguageContainer';
 import LanguageDetails from '../containers/language/LanguageDetails';
 import Users from '../containers/user/ReadUsers';
+import UserProfile from '../containers/user/UserProfile';
 import UserDetails from '../containers/user/UserDetails';
 import CreateUser from '../containers/user/CreateUser';
 import UpdateUser from '../containers/user/UpdateUser';
@@ -24,6 +25,7 @@ const Main = () => (
             <Route exact path='/languages/:id' component = { LanguageDetails } /> 
             <Route exact path='/users' component = { Users } />
             <Route exact path='/users/register' component = { CreateUser } />
+            <Route exact path='/users/profile' component = { UserProfile } />
             <Route exact path='/users/edit/:id' component = { UpdateUser } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
             <Route exact path='/userlanguages' component = { UserLanguagesBoard } />
