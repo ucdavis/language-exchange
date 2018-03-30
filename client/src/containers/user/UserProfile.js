@@ -13,7 +13,6 @@ class userProfile extends Component{
 
     componentDidMount(){
         const id = this.props.userState.current.id;
-        this.props.fetchUser(id);
         this.props.fetchUserProvidedLanguages(id);
         this.props.fetchUserDesiredLanguages(id);
     }
@@ -42,7 +41,9 @@ class userProfile extends Component{
                             <ul className="list-group">
                                 <li className="list-group-item text-center" >
                                     { userImage() }
+                                   
                                 </li>
+                                <Link to="/users/languages" className="btn btn-default btn-block" >Change Image</Link>
                                 <li className="list-group-item">  
                                     <label>Description:</label> 
                                     <p>{user.description}</p> 
@@ -59,7 +60,9 @@ class userProfile extends Component{
                                     <label>University Affiliation:</label>
                                     <p>{user.affiliation} </p>
                                 </li>
+                                <Link to="/users/edit" className="btn btn-default btn-block" >Edit Profile</Link>
                             </ul>
+                            
                         </div>
                         
                         <div className="col-sm-8">
@@ -73,9 +76,10 @@ class userProfile extends Component{
                                 <div className="well well-small"> 
                                     <DesiredLanguageDetail state={this.props.userLanguageState}/>
                                 </div>
+                                <Link to="/users/languages" className="btn btn-default btn-block" >Edit Languages</Link>
                             </div>
                             </div>
-                            <Link to={ `/users/contact/${user.id}`} className="btn btn-success" >Contact</Link>
+                           
                         </div>
                         
 

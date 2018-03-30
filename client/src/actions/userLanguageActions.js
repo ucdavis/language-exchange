@@ -61,51 +61,6 @@ export function fetchUserDesiredLanguages(id){
 }   
 
 
-// UPDATE
-export function updateProvidedLanguages(providedLanguageUpdate){
-    return function(dispatch){
-        let user_id = providedLanguageUpdate.user_id;
-        let language_id = providedLanguageUpdate.language_id;
-        let ability = providedLanguageUpdate.ability
-        axios.request({
-            method: 'put',
-            url : `/api/provided_languages/upsertWithWhere?where={"user_id":${user_id},"language_id":${language_id}}`,
-            data: {
-                ability : ability
-            }
-        })
-        .then(response => {
-            dispatch({type:"UPDATE_PROVIDED_LANGUAGES_FULFILLED",payload:response.data})
-            })
-        .catch(err => {
-            dispatch({type:"UPDATE_PROVIDED_LANGUAGES_REJECTED", payload: err})
-        });
-    }
-}   
-
-export function updateDesiredLanguages(desiredLanguageUpdate){
-    return function(dispatch){
-        var id = desiredLanguageUpdate.id;
-        var ability = desiredLanguageUpdate.ability;
-        var updated_at = desiredLanguageUpdate.updated_at;
-        axios.request({
-            method: 'patch',
-            url : `http://localhost:3000/api/desired_languages/${id}`,
-            data: {
-                ability : ability,
-                updated_at : updated_at
-            }
-        })
-        .then(response => {
-            dispatch({type:"UPDATE_DESIRED_LANGUAGES_FULFILLED",payload:response.data})
-            })
-        .catch(err => {
-            dispatch({type:"UPDATE_DESIRED_LANGUAGES_REJECTED", payload: err})
-        });
-    }
-}  
-
-
 // DELETE
 export function deleteDesiredLanguage (desiredLanguageId, user_id){
     return function(dispatch){

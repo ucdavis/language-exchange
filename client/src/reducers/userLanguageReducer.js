@@ -74,26 +74,6 @@ export default function userReducer(state=initialState, action) {
         }
        
 
-// UPDATE
-        case "UPDATE_PROVIDED_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, userProvidedLanguages: action.payload };
-            break;
-        }
-
-        case "UPDATE_PROVIDED_LANGUAGES_REJECTED":{
-            state =  {...state, fetching: false, error: action.payload };
-            break;
-        }
-
-        case "UPDATE_DESIRED_LANGUAGES_FULFILLED":{
-            state =  { ...state, fetching:false, fetched:true, userDesiredLanguages: action.payload };
-            break;
-        }
-
-        case "UPDATE_DESIRED_LANGUAGES_REJECTED":{
-            state =  {...state, fetching: false, error: action.payload };
-            break;
-        }
 
     // DELETE
     case "DELETE_DESIRED_LANGUAGE_PENDING":{

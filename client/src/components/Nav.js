@@ -25,16 +25,9 @@ class Nav extends React.Component {
 
   render() {
   
-  let link_to_profile = '/users/register';
   let user_name = "Unregistered";
-  let user_id = null;
-  let cas_user = this.props.userState.cas_user;
   if( this.props.userState.current !== null ){
-    user_id = this.props.userState.current.id
     user_name = this.props.userState.current.user_name;
-    cas_user = this.props.userState.current.cas_user;
-    link_to_profile = `/users/edit/${user_id}`;
-
   }
     
     // const { location } = this.props;
@@ -76,15 +69,12 @@ class Nav extends React.Component {
                 <a href="/logout" onClick={this.toggleCollapse.bind(this)}>Logout</a>
               </li>
               <li >
-                <a href="/userlanguages" onClick={this.toggleCollapse.bind(this)}>My Languages</a>
+                <a href="/users/languages" onClick={this.toggleCollapse.bind(this)}>My Languages</a>
               </li>
               <li >
-                <a href="/users/profile" onClick={this.toggleCollapse.bind(this)}>My Profile</a>
-              </li>
-              <li >
-                <Link to={link_to_profile} onClick={this.toggleCollapse.bind(this)}>
+                <Link to="/users/profile" onClick={this.toggleCollapse.bind(this)}>
                   <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>
-                  &nbsp;{ user_name } - {cas_user}
+                  &nbsp;{ user_name }
                 </Link>
               </li>
             </ul>

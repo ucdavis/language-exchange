@@ -38,8 +38,8 @@
     "babel-preset-env": "^1.6.1"
   },
   "proxy": {
-    "/api":{
-      "target":"http://localhost:3000"
+    "/api": {
+      "target": "http://localhost:3000"
     }
   }
 }
