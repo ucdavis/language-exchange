@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
@@ -51,19 +50,10 @@ class Nav extends React.Component {
             <li className="nav-item">
               <a className="nav-link">Help</a>
             </li>
-            <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div className="dropdown-menu" x-placement="bottom-start" >
-                  <a className="dropdown-item" href="#">Action</a>
-                  <a className="dropdown-item" href="#">Another action</a>
-                  <a className="dropdown-item" href="#">Something else here</a>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">Separated link</a>
-                </div>
-              </li>
+
 {/* User Menu */}
             <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <a className="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
                <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{ user_name }
               </a>
               <div className="dropdown-menu" x-placement="bottom-start" >
