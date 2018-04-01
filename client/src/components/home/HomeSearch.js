@@ -6,30 +6,28 @@ class HomeSearch extends Component{
 
     render(){
         return(
-<div>
-<h2>Language Exchange App</h2>
+                <div>
+                         <div>
+                            <div className="card border-secondary bg-light mt-3 mb-3">
+                            <div className="card-header border-secondary bg-secondary">
+                                Find a Partner
+                            </div>
+                                <div className="card-body">
+                                    <SearchUsers/>
+                                </div>
+                            </div>
 
-            <div>
-                <div className="row">
-                    <div className="col-lg-12">
+                            <div className="card border-secondary bg-light mt-3 mb-3">
+                            <div className="card-header border-secondary bg-secondary">
+                                Search Result
+                            </div>
+                                <div className="card-body">
+                                    <SearchUsersResults/>
+                                </div>
+                            </div>
 
-                        <div className="well well-sm">
-                         <SearchUsers/>
-                        </div>
-                    </div>
+                        </div> 
                 </div> 
-
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div >
-                        <SearchUsersResults/>
-                        </div>
-                    </div>
-                </div> 
-         </div>
-
-
-</div>
 
         )
     }

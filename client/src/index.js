@@ -13,6 +13,7 @@ import promiseMiddleware from "redux-promise-middleware";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
 import { PersistGate } from 'redux-persist/integration/react';
+import './index.css';
 
 const persistConfig = {
     key: 'root',
