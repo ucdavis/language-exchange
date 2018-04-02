@@ -17,7 +17,6 @@ import { Field, reduxForm } from 'redux-form';
     <div>
         <div className="row">
             <div className="col-sm-12">
-                <h4>Find a partner</h4>  
                     <form onSubmit={handleSubmit}>   
 
                         <div className="form-group col-md-4">

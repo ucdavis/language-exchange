@@ -36,7 +36,6 @@ class UsersResult extends Component{
         if( this.props.state.searchResult.length > 0 ){
             return (
                 <div>
-                    <h4>Search Result</h4>
                     <p>Some people currently available for contacting:</p>
                     <div className="table-responsive">
                     <table className="table table-responsive table-hover table-sm">
