@@ -13,6 +13,7 @@ import UpdateUser from '../containers/user/UpdateUser';
 import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
 import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
+import UploadAvatar from '../containers/user/UploadAvatar';
 
 
 const Main = () => (
@@ -28,6 +29,7 @@ const Main = () => (
             <Route exact path='/users/messages' component ={ MessageBoard } />
             <Route exact path='/users/profile' component = { UserProfile } />
             <Route exact path='/users/edit' component = { UpdateUser } />
+            <Route exact path='/users/avatar' component ={ UploadAvatar } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
            
             <Route exact path='/users/register' component = { CreateUser } />
