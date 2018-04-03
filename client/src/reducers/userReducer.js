@@ -90,6 +90,19 @@ export default function userReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
+    // UPLOAD AVATAR
+        case "UPLOAD_AVATAR_PENDING":{
+            state =  { ...state, fetching:true };
+            break;
+        }
+        case "UPLOAD_AVATAR_FULFILLED":{
+            state =  { ...state, fetching:false };
+            break;
+        }
+        case "UPLOAD_AVATAR_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
     // SEARCH USERS
         case "SEARCH_USERS_PENDING":{
             state = {...state, fetching:true};

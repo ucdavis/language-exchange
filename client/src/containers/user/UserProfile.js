@@ -43,7 +43,7 @@ class userProfile extends Component{
                                     { userImage() }
                                    
                                 </li>
-                                <Link to="/users/languages" className="btn btn-default btn-block" >Change Image</Link>
+                                <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
                                 <li className="list-group-item">  
                                     <label>Description:</label> 
                                     <p>{user.description}</p> 

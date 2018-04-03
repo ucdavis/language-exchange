@@ -60,7 +60,6 @@ class Nav extends React.Component {
                 <a className="dropdown-item" href="/users/messages">My Messages</a>
                 <a className="dropdown-item" href="/users/languages">My Languages</a>
                 <a className="dropdown-item" href="/users/profile">My Profile</a>
-                <a className="dropdown-item" href="/users/profile/picture">My Avatar</a>
                 <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="/logout">Logout</a>
               </div>

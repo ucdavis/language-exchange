@@ -4,22 +4,30 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 // import * as flashMessageAction from "../../actions/flashMessageActions"
 import { withRouter } from 'react-router-dom';
+import * as userActions from '../../actions/userActions';
 
 class UploadFile extends React.Component {
   constructor() {
-    super()
+    super();
+    this.sendFile = this.sendFile.bind(this);;
     this.state = {
       files:[],
       accepted: [],
-      rejected: []
+      rejected: [],
+      id: null
     }
-  }
     
-    sendFile(file) {
+  }
+    componentDidMount(){
+      this.props.fetchCurrentUser();      
+    }
+
+    sendFile=(accepted, user_id)=>{
         return new Promise(function(resolve, reject) {
 
             var xhr = new XMLHttpRequest();
             var fd = new FormData();
+            var file = accepted[0];
 
             const url = "http://localhost:3000/api/storages/images/upload";
 
@@ -29,18 +37,37 @@ class UploadFile extends React.Component {
                     resolve(JSON.parse(xhr.responseText));
                 }
             };
-            fd.append('file', file[0]);
+            fd.append('file', file);
             xhr.send(fd);
+
+            //update user after upload file
+            const now = new Date();
+
+           
+            const avatarUserData= {
+              id : user_id,
+              avatar_file_name : file.name,
+              avatar_content_type : file.type,
+              avatar_file_size : file.size,
+              avatar_updated_at : now,
+              updated_at : now
+          }
+            console.log("Avatar data:",avatarUserData);
+
+            // this.props.uploadAvatar(f)
 
         });
     }
 
     onImageDrop(accepted, rejected ){
-        this.setState({ accepted, rejected });
-        this.sendFile(accepted);
+        if (accepted){
+          const user_id = this.props.userState.current.id
+          this.sendFile(accepted, user_id)
+        }
     }
 
     render() {
+    
 
       return (
 
@@ -84,14 +111,17 @@ class UploadFile extends React.Component {
     }
   }
 
-//   function mapStateToProps(state){
-//     return { flashMessage : state.flashMessage }
-//  }
+  function mapStateToProps(state){
+    return {  userState : state.userState,
+              // flashMessage : state.flashMessage
+            }
+ }
  
-//  function mapDispatchToProps(dispatch){
-//     return  bindActionCreators(dispatch)
-//     // return  bindActionCreators({ sendFlashMessage : flashMessageAction.sendFlashMessage}, dispatch)
-//  }
+ function mapDispatchToProps(dispatch){
+    return  bindActionCreators({  fetchCurrentUser : userActions.fetchCurrentUser,
+                                  uploadAvatar : userActions.uploadAvatar
+                                  // sendFlashMessage : flashMessageAction.sendFlashMessage
+                                }, dispatch)
+ }
 
-//  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UploadFile));
- export default UploadFile;
+ export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UploadFile));

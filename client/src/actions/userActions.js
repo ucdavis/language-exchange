@@ -90,6 +90,60 @@ export function updateUser(newUserData){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
+export function uploadAvatar(file){
+
+
+//     return new Promise(function(resolve, reject, dispatch) {
+//             dispatch({type:"UPLOAD_AVATAR_PENDING"});
+//             var xhr = new XMLHttpRequest();
+//             var fd = new FormData();
+
+//             const url = "http://localhost:3000/api/storages/images/upload";
+
+//             xhr.open("POST", url, true);
+//             xhr.onreadystatechange = function() {
+//                 if(xhr.readyState === 4 && xhr.status === 200) {
+//                     resolve(JSON.parse(xhr.responseText));
+//                 }
+//             };
+//             fd.append('file', file[0]);
+//             xhr.send(fd)
+
+            
+//             .then(response=>{
+//                 dispatch({type:"UPLOAD_AVATAR_FULFILLED",payload:response.data})
+//                 })
+//             .catch(err=>dispatch({type: "UPLOAD_AVATAR_REJECTED", payload: err}))
+
+//         }
+            
+        
+
+
+    // return function (dispatch){
+    //     axios.request({
+    //         method: 'put',
+    //         url : `/api/partners/${newUserData.id}`,
+    //         data: {
+    //             cas_user : newUserData.cas_user,
+    //             user_name : newUserData.user_name,
+    //             email : newUserData.email,
+    //             available : newUserData.available,
+    //             description : newUserData.description,
+    //             gender : newUserData.gender,
+    //             email_confirmed : newUserData.email_confirmed,
+    //             notify_by_email : newUserData.notify_by_email,
+    //             affiliation : newUserData.affiliation,
+    //             field_of_study : newUserData.field_of_study,
+    //             updated_at : newUserData.updated_at,
+    //             created_at : newUserData.created_at
+
+    //         }
+    //     })
+    //     .then(response =>dispatch({type:"UPDATE_USER_FULFILLED",payload:response.data}))
+    //     .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
+    // }
+}
 
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
