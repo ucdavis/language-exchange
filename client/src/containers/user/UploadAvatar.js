@@ -23,6 +23,7 @@ class UploadFile extends React.Component {
     }
 
     sendFile=(accepted, user_id)=>{
+      console.log(accepted);
         return new Promise(function(resolve, reject) {
 
             var xhr = new XMLHttpRequest();
@@ -54,15 +55,16 @@ class UploadFile extends React.Component {
           }
             console.log("Avatar data:",avatarUserData);
 
-            // this.props.uploadAvatar(f)
-
         });
     }
 
     onImageDrop(accepted, rejected ){
-        if (accepted){
+      this.setState({ accepted, rejected }); 
+        if (accepted.length){
           const user_id = this.props.userState.current.id
           this.sendFile(accepted, user_id)
+        }else{
+          console.log("File was rejected");
         }
     }
 
