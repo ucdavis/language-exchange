@@ -90,59 +90,33 @@ export function updateUser(newUserData){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
-export function uploadAvatar(file){
+export function updateUserAvatar(avatarUserData){    
+    return function (dispatch){
+        dispatch({type:"UPDATE_USER_AVATAR_PENDING"});
+        axios.request({
+            method: 'patch',
+            url : `/api/partners/${avatarUserData.id}`,
+            data: {
+                avatar_file_name : avatarUserData.avatar_file_name,
+                avatar_content_type : avatarUserData.avatar_content_type,
+                avatar_file_size : avatarUserData.size,
+                avatar_updated_at : avatarUserData.avatar_updated_at,
+                updated_at : avatarUserData.updated_at
 
+            }
+        })
+        .then(response =>dispatch({type:"UPDATE_USER_AVATAR_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"UPDATE_USER_AVATAR_REJECTED", payload: err}));
+    }
+}
 
-//     return new Promise(function(resolve, reject, dispatch) {
-//             dispatch({type:"UPLOAD_AVATAR_PENDING"});
-//             var xhr = new XMLHttpRequest();
-//             var fd = new FormData();
-
-//             const url = "http://localhost:3000/api/storages/images/upload";
-
-//             xhr.open("POST", url, true);
-//             xhr.onreadystatechange = function() {
-//                 if(xhr.readyState === 4 && xhr.status === 200) {
-//                     resolve(JSON.parse(xhr.responseText));
-//                 }
-//             };
-//             fd.append('file', file[0]);
-//             xhr.send(fd)
-
-            
-//             .then(response=>{
-//                 dispatch({type:"UPLOAD_AVATAR_FULFILLED",payload:response.data})
-//                 })
-//             .catch(err=>dispatch({type: "UPLOAD_AVATAR_REJECTED", payload: err}))
-
-//         }
-            
-        
-
-
-    // return function (dispatch){
-    //     axios.request({
-    //         method: 'put',
-    //         url : `/api/partners/${newUserData.id}`,
-    //         data: {
-    //             cas_user : newUserData.cas_user,
-    //             user_name : newUserData.user_name,
-    //             email : newUserData.email,
-    //             available : newUserData.available,
-    //             description : newUserData.description,
-    //             gender : newUserData.gender,
-    //             email_confirmed : newUserData.email_confirmed,
-    //             notify_by_email : newUserData.notify_by_email,
-    //             affiliation : newUserData.affiliation,
-    //             field_of_study : newUserData.field_of_study,
-    //             updated_at : newUserData.updated_at,
-    //             created_at : newUserData.created_at
-
-    //         }
-    //     })
-    //     .then(response =>dispatch({type:"UPDATE_USER_FULFILLED",payload:response.data}))
-    //     .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
-    // }
+export function deleteUserAvatar(file_name){
+    return function(dispatch){
+        dispatch({type:"DELETE_USER_AVATAR_PENDING"});
+        axios.delete(`/api/storages/images/files/${file_name}`)
+        .then(response => dispatch({type:"DELETE_USER_AVATAR_FULFILLED",payload:response.data}))
+        .catch(err=>dispatch({type: "DELETE_USER_AVATAR_REJECTED", payload: err}))
+    }
 }
 
 export function searchUsers(gender, provided, desired){

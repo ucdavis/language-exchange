@@ -7,14 +7,17 @@ import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLangua
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
 import { Link } from 'react-router-dom';
+import UserAvatar from '../../components/user/UserAvatar';
 
 
 class userProfile extends Component{
 
     componentDidMount(){
+        this.props.fetchCurrentUser();
         const id = this.props.userState.current.id;
         this.props.fetchUserProvidedLanguages(id);
         this.props.fetchUserDesiredLanguages(id);
+        
     }
 
     
@@ -40,7 +43,7 @@ class userProfile extends Component{
                         <div className="col-sm-4">                       
                             <ul className="list-group">
                                 <li className="list-group-item text-center" >
-                                    { userImage() }
+                                  <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
                                    
                                 </li>
                                 <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
@@ -96,7 +99,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
-        fetchUser: userActions.fetchUser,
+        fetchCurrentUser: userActions.fetchCurrentUser,
         fetchUserProvidedLanguages:userLanguageActions.fetchUserProvidedLanguages,
         fetchUserDesiredLanguages:userLanguageActions.fetchUserDesiredLanguages
     }, dispatch)

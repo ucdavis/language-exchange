@@ -91,15 +91,28 @@ export default function userReducer(state=initialState, action) {
             break;
         }
     // UPLOAD AVATAR
-        case "UPLOAD_AVATAR_PENDING":{
+        case "UPDATE_USER_AVATAR_PENDING":{
             state =  { ...state, fetching:true };
             break;
         }
-        case "UPLOAD_AVATAR_FULFILLED":{
+        case "UPDATE_USER_AVATAR_FULFILLED":{
             state =  { ...state, fetching:false };
             break;
         }
-        case "UPLOAD_AVATAR_REJECTED":{
+        case "UPDATE_USER_AVATAR_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
+    // DELETE AVATAR
+        case "DELETE_USER_AVATAR_PENDING":{
+            state =  { ...state, fetching:true };
+            break;
+        }
+        case "DELETE_USER_AVATAR_FULFILLED":{
+            state =  { ...state, fetching:false };
+            break;
+        }
+        case "DELETE_USER_AVATAR_REJECTED":{
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
