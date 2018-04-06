@@ -8,7 +8,8 @@ const initialState = {
     created : {},
     active : {},
     searchResult : [],
-    error : null
+    error : null,
+    image_exists : []
   }
 
 export default function userReducer(state=initialState, action) {
@@ -114,6 +115,19 @@ export default function userReducer(state=initialState, action) {
         }
         case "DELETE_USER_AVATAR_REJECTED":{
             state =  {...state, fetching: false, error: action.payload };
+            break;
+        }
+    // CHECK_IMAGE_EXISTS
+        case "CHECK_IMAGE_EXISTS_PENDING":{
+            state =  { ...state, fetching:true, image_exists : null };
+            break;
+        }
+        case "CHECK_IMAGE_EXISTS_FULFILLED":{
+            state =  { ...state, fetching:false, image_exists : action.payload};
+            break;
+        } 
+        case "CHECK_IMAGE_EXISTS_REJECTED":{
+            state =  {...state, fetching: false, error: action.payload, image_exists : null };
             break;
         }
     // SEARCH USERS

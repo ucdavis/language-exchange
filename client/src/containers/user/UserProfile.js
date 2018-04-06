@@ -22,15 +22,16 @@ class userProfile extends Component{
 
     
     render(){
-        
+        // const server = "http://localhost:3000";
         let user = this.props.userState.current;
-        let notFound = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar"/>;
-        let userImage = () => <Img src="api/storages/images/download/no_image.png" alt="avatar" />;
-        if (user.avatar_file_name !== null) {
+        let userImage = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar"/>;
+        let notFound = userImage;
+        if (user.avatar_file_name !== null || user.avatar_file_name !== "" ) {
             var url = `/api/storages/images/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
-            userImage = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar" unloader={ notFound() } />;
+            url = "/api/storages/images/download/no_image.png";
+            userImage = () => <Img src={ url } alt="avatar" unloader={ notFound() } />;
            }
         
         return (   

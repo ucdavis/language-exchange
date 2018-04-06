@@ -119,6 +119,15 @@ export function deleteUserAvatar(file_name){
     }
 }
 
+export function checkImageExists(file_name){
+    return function(dispatch){
+        dispatch({type:"CHECK_IMAGE_EXISTS_PENDING"});
+        axios.get(`/api/partners?filter={"where":{"avatar_file_name":"${file_name}"}}`)
+        .then(response => dispatch({type:"CHECK_IMAGE_EXISTS_FULFILLED",payload:response.data}))
+        .catch(err=>dispatch({type: "CHECK_IMAGE_EXISTS_REJECTED", payload: err}))
+    }
+}
+
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
         var filter = "";
