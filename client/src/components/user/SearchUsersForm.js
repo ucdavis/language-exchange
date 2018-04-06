@@ -17,11 +17,11 @@ import { Field, reduxForm } from 'redux-form';
     <div>
         <div className="row">
             <div className="col-sm-12">
-                    <form onSubmit={handleSubmit}>   
-
+                    <form onSubmit={handleSubmit} className="form-row">   
+ 
                         <div className="form-group col-md-4">
-                            <label>Search for a user who Speaks :</label>
-                                <Field name="provided" component="select" className="form-control custom-select form-control-sm">
+                            <label>Who Speaks :</label>
+                                <Field name="provided" component="select" className="form-control custom-select">
                                     <option />
                                     { languages }
                                 </Field>
@@ -29,7 +29,7 @@ import { Field, reduxForm } from 'redux-form';
 
                         <div className="form-group col-md-4">
                             <label>And wants to learn :</label>
-                                <Field name="desired" component="select" className="form-control custom-select form-control-sm">
+                                <Field name="desired" component="select" className="form-control custom-select">
                                     <option />
                                     { languages }
                                 </Field>
@@ -37,7 +37,7 @@ import { Field, reduxForm } from 'redux-form';
 
                         <div className="form-group col-md-4">
                             <label>Gender :</label>
-                                <Field name="gender" component="select" className="form-control custom-select ">
+                                <Field name="gender" component="select" className="form-control custom-select">
                                     <option />
                                     <option value="Any">Any</option>
                                     <option value="Male">Male</option>
@@ -46,7 +46,7 @@ import { Field, reduxForm } from 'redux-form';
                                 </Field>
                         </div> 
                         
-                        <div className="form-group text-center">
+                        <div className="form-group col-sm-12 text-center">
                             <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
                                 Search
                             </button>
