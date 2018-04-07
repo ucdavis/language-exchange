@@ -90,6 +90,56 @@ export function updateUser(newUserData){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
+// USER AVATAR
+export function saveUserAvatar(image, user_id, fileToDelete){
+    return function(dispatch){
+        dispatch({type:"SAVE_USER_AVATAR_PENDING"});
+        dispatch({type:"CHECK_IMAGE_EXISTS_PENDING"});
+        const file_name = image[0].name;
+        axios.get(`/api/partners?filter={"where":{"avatar_file_name":"${file_name}"}}`)
+        .then(response => dispatch({type:"CHECK_IMAGE_EXISTS_FULFILLED",payload:response.data}))
+        .catch(err=>dispatch({type: "CHECK_IMAGE_EXISTS_REJECTED", payload: err}))
+
+        .then(response => {
+            return new Promise(function(resolve, reject) {
+            
+                var file = image[0];
+                var xhr = new XMLHttpRequest();
+                var fd = new FormData();
+                const url = "http://localhost:3000/api/storages/images/upload";
+
+                xhr.open("POST", url, true);
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    }
+                }
+                fd.append('file', file);
+                // fd.set(file[0].new_file_name,new_file_name);
+                console.log("File from savarUserAvatar:",file);
+                xhr.send(fd)
+            })
+        })
+        .then(response => dispatch({type:"SAVE_USER_AVATAR_FULFILLED", payload:response.data}))
+        .catch(err => dispatch({type:"SAVE_USER_AVATAR_REJECTED", payload: err}))
+        .then( response=>{
+                const file = image[0];
+                const now = new Date();
+                const avatarUserData= {
+                    id : user_id,
+                    avatar_file_name : file.name,
+                    avatar_content_type : file.type,
+                    avatar_file_size : file.size,
+                    avatar_updated_at : now,
+                    updated_at : now
+                }
+                dispatch(updateUserAvatar(avatarUserData))
+                }
+        )
+
+    }
+}   
+
 export function updateUserAvatar(avatarUserData){    
     return function (dispatch){
         dispatch({type:"UPDATE_USER_AVATAR_PENDING"});
@@ -128,6 +178,8 @@ export function checkImageExists(file_name){
     }
 }
 
+
+// SEARCH TOOL
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
         var filter = "";
@@ -140,4 +192,4 @@ export function searchUsers(gender, provided, desired){
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
-}  
+} 

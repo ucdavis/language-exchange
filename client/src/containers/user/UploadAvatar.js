@@ -14,7 +14,8 @@ class UploadFile extends React.Component {
       files:[],
       accepted: [],
       rejected: [],
-      redirect:false
+      redirect:false,
+      preview : ""
     }
     
   }
@@ -22,66 +23,36 @@ class UploadFile extends React.Component {
       this.props.fetchCurrentUser();      
     }
 
-    sendFile=(accepted, user_id)=>{
-      const updateUserAvatar =  this.props.updateUserAvatar;
-      const deleteUserAvatar = this.props.deleteUserAvatar;
-      const fileToDelete = this.props.userState.current.avatar_file_name;
-      const setState = this.setState.bind(this);
-      const userState = this.props.userState;
-        return new Promise(function(resolve, reject) {
-            var file = accepted[0]
-            var xhr = new XMLHttpRequest();
-            var fd = new FormData();
-            
-            const url = "http://localhost:3000/api/storages/images/upload";
-
-            xhr.open("POST", url, true);
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    resolve(JSON.parse(xhr.responseText));
-                }
-            };
-            fd.append('file', file);
-            // fd.set(file[0].new_file_name,new_file_name);
-            console.log("File:",file);
-            xhr.send(fd);
-
-            //update user after upload file
-            // const user_name = this.props.userState.current.user_name;
-            const now = new Date();          
-            const avatarUserData= {
-              id : user_id,
-              avatar_file_name : file.name,
-              avatar_content_type : file.type,
-              avatar_file_size : file.size,
-              avatar_updated_at : now,
-              updated_at : now
-          }
-          console.log(accepted);
-
-
-          updateUserAvatar(avatarUserData);
-          deleteUserAvatar(fileToDelete);
-          if(!userState.fetching){
-            setState({ redirect: true });
-          } 
-          
-
-        });
-        
-    }
-
     onImageDrop(accepted, rejected ){
+      const fileToDelete = this.props.userState.current.avatar_file_name;
       this.setState({ accepted, rejected }); 
         if (accepted.length){
           const user_id = this.props.userState.current.id;
-          this.sendFile(accepted, user_id)
+          this.sendFile(accepted, user_id, fileToDelete)
         }else{
           console.log("File was rejected");
         }
     }
 
+    sendFile=(accepted, user_id, fileToDelete)=>{
+      
+      const setState = this.setState.bind(this);
+      // const userState = this.props.userState;
+      const saveUserAvatar = this.props.saveUserAvatar;
+      saveUserAvatar(accepted, user_id, fileToDelete);
+      const blob = accepted[0].preview;
+      setState({
+        preview : <div> <a href="/users/profile"className="btn btn-success">View Profile</a><br/><img src={blob}  alt="avatar"/></div>
+      })
+          // if(!userState.fetching){
+          //   setState({ redirect: true });
+          // }       
+    }
+
+    
+
     render() {
+      const filePreview = this.state.preview;
       const {redirect} = this.state;
         if (redirect) {
           return <Redirect to='/users/profile' />;
@@ -119,6 +90,10 @@ class UploadFile extends React.Component {
                 </aside>
                 </section>
 
+                <div>
+                   { filePreview }
+                </div>
+
                 </div>
               </div>
               </div>
@@ -139,7 +114,8 @@ class UploadFile extends React.Component {
     return  bindActionCreators({
       fetchCurrentUser : userActions.fetchCurrentUser,
       updateUserAvatar : userActions.updateUserAvatar,
-      deleteUserAvatar : userActions.deleteUserAvatar
+      deleteUserAvatar : userActions.deleteUserAvatar,
+      saveUserAvatar : userActions.saveUserAvatar
       // sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
