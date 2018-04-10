@@ -91,22 +91,66 @@ export function updateUser(newUserData){
     }
 }
 // USER AVATAR
-export function saveUserAvatar(image, user_id, fileToDelete){
+
+export function checkUserDirectory(user_id){
+    return function(dispatch){
+        dispatch({type:"CHECK_USER_DIRECTORY_PENDING"});
+        axios.get('/api/storages')
+        .then(response=>{
+            var result = false;
+            response.data.map(directory=>{
+                if( directory.name === user_id.toString() ){
+                    result = true
+                }
+                return result;              
+            })
+            dispatch({type:"CHECK_USER_DIRECTORY_FULFILLED",payload:result})
+        })
+        .catch(err => dispatch({type:"CHECK_USER_DIRECTORY_REJECTED", payload : err}));
+    }
+}
+
+export function createUserDirectory(user_id){
+    return function(dispatch){
+        dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
+        axios.post("http://localhost:3000/api/storages",{'name': user_id.toString()})
+        .then(response => {
+            dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response.data})
+            })
+        .catch(err => {
+            dispatch({type:"CREATE_USER_DIRECTORY_REJECTED", payload: err})
+        });
+    }
+
+}
+export function createUserDirectoryAndSave(image, user_id){
+    return function(dispatch){
+        dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_PENDING"});
+        dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
+        axios.post("http://localhost:3000/api/storages",{'name': user_id.toString()})
+        .then(response =>{
+            dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response.data})
+            dispatch(saveUserAvatar(image, user_id))
+        })
+        .then(response => {
+            dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_FULFILLED",payload:response.data})
+            })
+        .catch(err => {
+            dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_REJECTED", payload: err})
+        });
+    }
+
+}
+
+export function saveUserAvatar(image, user_id){
     return function(dispatch){
         dispatch({type:"SAVE_USER_AVATAR_PENDING"});
-        dispatch({type:"CHECK_IMAGE_EXISTS_PENDING"});
-        const file_name = image[0].name;
-        axios.get(`/api/partners?filter={"where":{"avatar_file_name":"${file_name}"}}`)
-        .then(response => dispatch({type:"CHECK_IMAGE_EXISTS_FULFILLED",payload:response.data}))
-        .catch(err=>dispatch({type: "CHECK_IMAGE_EXISTS_REJECTED", payload: err}))
-
-        .then(response => {
+        
             return new Promise(function(resolve, reject) {
-            
                 var file = image[0];
                 var xhr = new XMLHttpRequest();
                 var fd = new FormData();
-                const url = "http://localhost:3000/api/storages/images/upload";
+                const url = `http://localhost:3000/api/storages/${user_id}/upload`;
 
                 xhr.open("POST", url, true);
                 xhr.onreadystatechange = function() {
@@ -115,11 +159,9 @@ export function saveUserAvatar(image, user_id, fileToDelete){
                     }
                 }
                 fd.append('file', file);
-                // fd.set(file[0].new_file_name,new_file_name);
-                console.log("File from savarUserAvatar:",file);
                 xhr.send(fd)
             })
-        })
+
         .then(response => dispatch({type:"SAVE_USER_AVATAR_FULFILLED", payload:response.data}))
         .catch(err => dispatch({type:"SAVE_USER_AVATAR_REJECTED", payload: err}))
         .then( response=>{
@@ -160,6 +202,20 @@ export function updateUserAvatar(avatarUserData){
     }
 }
 
+export function createUserFolder(user_id){
+    return function(dispatch){
+        dispatch({type:"CREATE_USER_FOLDER_PENDING"});
+        axios.request({
+            method: 'post',
+            url : "/api/storages/images",
+            data: {
+                images : user_id
+            }
+        })
+        .then(response => dispatch({type:"CREATE_USER_FOLDER_FULFILLED",payload:response.data}))
+        .catch(err=>dispatch({type: "CREATE_USER_FOLDER_REJECTED", payload: err}))
+    }
+}
 export function deleteUserAvatar(file_name){
     return function(dispatch){
         dispatch({type:"DELETE_USER_AVATAR_PENDING"});

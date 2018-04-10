@@ -17,6 +17,7 @@ class userProfile extends Component{
         const id = this.props.userState.current.id;
         this.props.fetchUserProvidedLanguages(id);
         this.props.fetchUserDesiredLanguages(id);
+        this.props.checkUserDirectory(id);
         
     }
 
@@ -27,7 +28,7 @@ class userProfile extends Component{
         let userImage = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar"/>;
         let notFound = userImage;
         if (user.avatar_file_name !== null || user.avatar_file_name !== "" ) {
-            var url = `/api/storages/images/download/${user.avatar_file_name}`;
+            var url = `/api/storages/${user.id}/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
             url = "/api/storages/images/download/no_image.png";
@@ -102,7 +103,8 @@ function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchCurrentUser: userActions.fetchCurrentUser,
         fetchUserProvidedLanguages:userLanguageActions.fetchUserProvidedLanguages,
-        fetchUserDesiredLanguages:userLanguageActions.fetchUserDesiredLanguages
+        fetchUserDesiredLanguages:userLanguageActions.fetchUserDesiredLanguages,
+        checkUserDirectory : userActions.checkUserDirectory
     }, dispatch)
 }
 

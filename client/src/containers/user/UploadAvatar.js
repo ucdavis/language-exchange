@@ -20,40 +20,44 @@ class UploadFile extends React.Component {
     
   }
     componentDidMount(){
-      this.props.fetchCurrentUser();      
-    }
+      this.props.fetchCurrentUser();
+   }
 
     onImageDrop(accepted, rejected ){
-      const fileToDelete = this.props.userState.current.avatar_file_name;
-      this.setState({ accepted, rejected }); 
-        if (accepted.length){
-          const user_id = this.props.userState.current.id;
-          this.sendFile(accepted, user_id, fileToDelete)
+      const directory_exists = this.props.userState.directory_exists.toString();
+      const user_id = this.props.userState.current.id;
+      const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
+      const setState = this.setState.bind(this);
+      const blob = accepted[0].preview;
+
+        if (accepted.length && directory_exists === "true"){
+          this.sendFile(accepted, user_id);
+          setState({
+            preview : <div>
+                        <a href="/users/profile" className="btn btn-success">View Profile</a>
+                        <br/>
+                        <img src={blob} alt="avatar"/>
+                      </div>
+          , accepted, rejected }
+          )
+        }else if( directory_exists === "false"){
+          createUserDirectoryAndSave(accepted,user_id)
         }else{
           console.log("File was rejected");
         }
     }
 
-    sendFile=(accepted, user_id, fileToDelete)=>{
-      
-      const setState = this.setState.bind(this);
-      // const userState = this.props.userState;
+    sendFile=(accepted, user_id)=>{
       const saveUserAvatar = this.props.saveUserAvatar;
-      saveUserAvatar(accepted, user_id, fileToDelete);
-      const blob = accepted[0].preview;
-      setState({
-        preview : <div> <a href="/users/profile"className="btn btn-success">View Profile</a><br/><img src={blob}  alt="avatar"/></div>
-      })
-          // if(!userState.fetching){
-          //   setState({ redirect: true });
-          // }       
+      saveUserAvatar(accepted, user_id);
     }
 
     
-
     render() {
+
       const filePreview = this.state.preview;
       const {redirect} = this.state;
+      
         if (redirect) {
           return <Redirect to='/users/profile' />;
         }else{
@@ -115,7 +119,10 @@ class UploadFile extends React.Component {
       fetchCurrentUser : userActions.fetchCurrentUser,
       updateUserAvatar : userActions.updateUserAvatar,
       deleteUserAvatar : userActions.deleteUserAvatar,
-      saveUserAvatar : userActions.saveUserAvatar
+      saveUserAvatar : userActions.saveUserAvatar,
+      checkUserDirectory : userActions.checkUserDirectory,
+      createUserDirectory : userActions.createUserDirectory,
+      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave    
       // sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
