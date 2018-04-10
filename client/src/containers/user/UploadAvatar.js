@@ -20,26 +20,31 @@ class UploadFile extends React.Component {
     
   }
     componentDidMount(){
-      this.props.fetchCurrentUser();      
-    }
+      this.props.fetchCurrentUser();
+   }
 
     onImageDrop(accepted, rejected ){
-      const fileToDelete = this.props.userState.current.avatar_file_name;
+      const directory_exists = this.props.userState.directory_exists.toString();
+      const user_id = this.props.userState.current.id;
+      const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       this.setState({ accepted, rejected }); 
-        if (accepted.length){
-          const user_id = this.props.userState.current.id;
-          this.sendFile(accepted, user_id, fileToDelete)
+
+        if (accepted.length && directory_exists === "true"){
+          this.sendFile(accepted, user_id)
+        }else if( directory_exists === "false"){
+          createUserDirectoryAndSave(accepted,user_id)
         }else{
           console.log("File was rejected");
         }
     }
 
-    sendFile=(accepted, user_id, fileToDelete)=>{
+    sendFile=(accepted, user_id)=>{
+      const saveUserAvatar = this.props.saveUserAvatar;
+
+      saveUserAvatar(accepted, user_id);
       
       const setState = this.setState.bind(this);
-      // const userState = this.props.userState;
-      const saveUserAvatar = this.props.saveUserAvatar;
-      saveUserAvatar(accepted, user_id, fileToDelete);
+      // // const userState = this.props.userState;
       const blob = accepted[0].preview;
       setState({
         preview : <div> <a href="/users/profile"className="btn btn-success">View Profile</a><br/><img src={blob}  alt="avatar"/></div>
@@ -49,11 +54,16 @@ class UploadFile extends React.Component {
           // }       
     }
 
+    createDirectoyAndSaveFile=(accepted, user_id)=>{
+
+    }
     
 
     render() {
+      // const directory_exists = this.props.userState.directory_exists.toString();
       const filePreview = this.state.preview;
       const {redirect} = this.state;
+      
         if (redirect) {
           return <Redirect to='/users/profile' />;
         }else{
@@ -66,6 +76,10 @@ class UploadFile extends React.Component {
                 <div className="panel panel-default">
                 <div className="panel-heading"><h4><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Profile Picture </h4></div>
                 <div className="panel-body">
+
+                <div>
+                {/* directory_exists { directory_exists } */}
+                </div>
 
                 <section>
                   <div className="dropzone">
@@ -115,7 +129,10 @@ class UploadFile extends React.Component {
       fetchCurrentUser : userActions.fetchCurrentUser,
       updateUserAvatar : userActions.updateUserAvatar,
       deleteUserAvatar : userActions.deleteUserAvatar,
-      saveUserAvatar : userActions.saveUserAvatar
+      saveUserAvatar : userActions.saveUserAvatar,
+      checkUserDirectory : userActions.checkUserDirectory,
+      createUserDirectory : userActions.createUserDirectory,
+      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave    
       // sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
