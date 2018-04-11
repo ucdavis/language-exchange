@@ -2,9 +2,9 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-// import * as flashMessageAction from "../../actions/flashMessageActions"
-import { withRouter, Redirect } from 'react-router-dom';
+import * as flashMessageAction from "../../actions/flashMessageActions"
 import * as userActions from '../../actions/userActions';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class UploadFile extends React.Component {
   constructor() {
@@ -29,6 +29,7 @@ class UploadFile extends React.Component {
       const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       const setState = this.setState.bind(this);
       const blob = accepted[0].preview;
+      const sendFlashMessage = this.props.sendFlashMessage;
 
         if (accepted.length && directory_exists === "true"){
           this.sendFile(accepted, user_id);
@@ -39,7 +40,8 @@ class UploadFile extends React.Component {
                         <img src={blob} alt="avatar"/>
                       </div>
           , accepted, rejected }
-          )
+          );
+          sendFlashMessage("File Uploaded", "alert-success");
         }else if( directory_exists === "false"){
           createUserDirectoryAndSave(accepted,user_id);
           setState({
@@ -49,7 +51,8 @@ class UploadFile extends React.Component {
                         <img src={blob} alt="avatar"/>
                       </div>
           , accepted, rejected }
-          )
+          );
+          sendFlashMessage("File Uploaded", "alert-success");
         }else{
           console.log("File was rejected");
         }
@@ -124,7 +127,7 @@ class UploadFile extends React.Component {
 
   function mapStateToProps(state){
     return {  userState : state.userState,
-              // flashMessage : state.flashMessage
+              flashMessage : state.flashMessage
             }
  }
  
@@ -136,8 +139,8 @@ class UploadFile extends React.Component {
       saveUserAvatar : userActions.saveUserAvatar,
       checkUserDirectory : userActions.checkUserDirectory,
       createUserDirectory : userActions.createUserDirectory,
-      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave    
-      // sendFlashMessage : flashMessageAction.sendFlashMessage
+      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave,    
+      sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
 
