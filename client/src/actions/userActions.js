@@ -99,6 +99,10 @@ export function checkUserDirectory(user_id){
         .then(response=>{
             var result = false;
             response.data.map(directory=>{
+<<<<<<< HEAD
+=======
+                console.log(directory);
+>>>>>>> 369533d448f0ab73c24b84cf3c3518c8d3f446b1
                 if( directory.name === user_id.toString() ){
                     result = true
                 }
