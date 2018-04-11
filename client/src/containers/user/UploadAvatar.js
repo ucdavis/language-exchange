@@ -27,7 +27,6 @@ class UploadFile extends React.Component {
       const directory_exists = this.props.userState.directory_exists.toString();
       const user_id = this.props.userState.current.id;
       const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
-<<<<<<< HEAD
       const setState = this.setState.bind(this);
       const blob = accepted[0].preview;
 
@@ -41,14 +40,16 @@ class UploadFile extends React.Component {
                       </div>
           , accepted, rejected }
           )
-=======
-      this.setState({ accepted, rejected }); 
-
-        if (accepted.length && directory_exists === "true"){
-          this.sendFile(accepted, user_id)
->>>>>>> 369533d448f0ab73c24b84cf3c3518c8d3f446b1
         }else if( directory_exists === "false"){
-          createUserDirectoryAndSave(accepted,user_id)
+          createUserDirectoryAndSave(accepted,user_id);
+          setState({
+            preview : <div>
+                        <a href="/users/profile" className="btn btn-success">View Profile</a>
+                        <br/>
+                        <img src={blob} alt="avatar"/>
+                      </div>
+          , accepted, rejected }
+          )
         }else{
           console.log("File was rejected");
         }
@@ -56,22 +57,7 @@ class UploadFile extends React.Component {
 
     sendFile=(accepted, user_id)=>{
       const saveUserAvatar = this.props.saveUserAvatar;
-<<<<<<< HEAD
       saveUserAvatar(accepted, user_id);
-=======
-
-      saveUserAvatar(accepted, user_id);
-      
-      const setState = this.setState.bind(this);
-      // // const userState = this.props.userState;
-      const blob = accepted[0].preview;
-      setState({
-        preview : <div> <a href="/users/profile"className="btn btn-success">View Profile</a><br/><img src={blob}  alt="avatar"/></div>
-      })
-          // if(!userState.fetching){
-          //   setState({ redirect: true });
-          // }       
->>>>>>> 369533d448f0ab73c24b84cf3c3518c8d3f446b1
     }
 
     createDirectoyAndSaveFile=(accepted, user_id)=>{
@@ -79,11 +65,6 @@ class UploadFile extends React.Component {
     }
     
     render() {
-<<<<<<< HEAD
-
-=======
-      // const directory_exists = this.props.userState.directory_exists.toString();
->>>>>>> 369533d448f0ab73c24b84cf3c3518c8d3f446b1
       const filePreview = this.state.preview;
       const {redirect} = this.state;
       
