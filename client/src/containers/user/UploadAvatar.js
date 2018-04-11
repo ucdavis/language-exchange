@@ -2,9 +2,9 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-// import * as flashMessageAction from "../../actions/flashMessageActions"
-import { withRouter, Redirect } from 'react-router-dom';
+import * as flashMessageAction from "../../actions/flashMessageActions"
 import * as userActions from '../../actions/userActions';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class UploadFile extends React.Component {
   constructor() {
@@ -14,75 +14,63 @@ class UploadFile extends React.Component {
       files:[],
       accepted: [],
       rejected: [],
-      redirect:false
+      redirect:false,
+      preview : ""
     }
     
   }
     componentDidMount(){
-      this.props.fetchCurrentUser();      
-    }
-
-    sendFile=(accepted, user_id)=>{
-      const updateUserAvatar =  this.props.updateUserAvatar;
-      const deleteUserAvatar = this.props.deleteUserAvatar;
-      const fileToDelete = this.props.userState.current.avatar_file_name;
-      const setState = this.setState.bind(this);
-      const userState = this.props.userState;
-        return new Promise(function(resolve, reject) {
-            var file = accepted[0]
-            var xhr = new XMLHttpRequest();
-            var fd = new FormData();
-            
-            const url = "http://localhost:3000/api/storages/images/upload";
-
-            xhr.open("POST", url, true);
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    resolve(JSON.parse(xhr.responseText));
-                }
-            };
-            fd.append('file', file);
-            // fd.set(file[0].new_file_name,new_file_name);
-            console.log("File:",file);
-            xhr.send(fd);
-
-            //update user after upload file
-            // const user_name = this.props.userState.current.user_name;
-            const now = new Date();          
-            const avatarUserData= {
-              id : user_id,
-              avatar_file_name : file.name,
-              avatar_content_type : file.type,
-              avatar_file_size : file.size,
-              avatar_updated_at : now,
-              updated_at : now
-          }
-          console.log(accepted);
-
-
-          updateUserAvatar(avatarUserData);
-          deleteUserAvatar(fileToDelete);
-          if(!userState.fetching){
-            setState({ redirect: true });
-          } 
-          
-
-        });
-        
-    }
+      this.props.fetchCurrentUser();
+   }
 
     onImageDrop(accepted, rejected ){
-      this.setState({ accepted, rejected }); 
-        if (accepted.length){
-          const user_id = this.props.userState.current.id;
-          this.sendFile(accepted, user_id)
+      const directory_exists = this.props.userState.directory_exists.toString();
+      const user_id = this.props.userState.current.id;
+      const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
+      const setState = this.setState.bind(this);
+      const blob = accepted[0].preview;
+      const sendFlashMessage = this.props.sendFlashMessage;
+
+        if (accepted.length && directory_exists === "true"){
+          this.sendFile(accepted, user_id);
+          setState({
+            preview : <div>
+                        <a href="/users/profile" className="btn btn-success">View Profile</a>
+                        <br/>
+                        <img src={blob} alt="avatar"/>
+                      </div>
+          , accepted, rejected }
+          );
+          sendFlashMessage("File Uploaded", "alert-success");
+        }else if( directory_exists === "false"){
+          createUserDirectoryAndSave(accepted,user_id);
+          setState({
+            preview : <div>
+                        <a href="/users/profile" className="btn btn-success">View Profile</a>
+                        <br/>
+                        <img src={blob} alt="avatar"/>
+                      </div>
+          , accepted, rejected }
+          );
+          sendFlashMessage("File Uploaded", "alert-success");
         }else{
           console.log("File was rejected");
         }
     }
 
+    sendFile=(accepted, user_id)=>{
+      const saveUserAvatar = this.props.saveUserAvatar;
+      saveUserAvatar(accepted, user_id);
+    }
+
+    createDirectoyAndSaveFile=(accepted, user_id)=>{
+
+    }
+    
     render() {
+      const filePreview = this.state.preview;
       const {redirect} = this.state;
+      
         if (redirect) {
           return <Redirect to='/users/profile' />;
         }else{
@@ -95,6 +83,10 @@ class UploadFile extends React.Component {
                 <div className="panel panel-default">
                 <div className="panel-heading"><h4><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Profile Picture </h4></div>
                 <div className="panel-body">
+
+                <div>
+                {/* directory_exists { directory_exists } */}
+                </div>
 
                 <section>
                   <div className="dropzone">
@@ -119,6 +111,10 @@ class UploadFile extends React.Component {
                 </aside>
                 </section>
 
+                <div>
+                   { filePreview }
+                </div>
+
                 </div>
               </div>
               </div>
@@ -131,7 +127,7 @@ class UploadFile extends React.Component {
 
   function mapStateToProps(state){
     return {  userState : state.userState,
-              // flashMessage : state.flashMessage
+              flashMessage : state.flashMessage
             }
  }
  
@@ -139,8 +135,12 @@ class UploadFile extends React.Component {
     return  bindActionCreators({
       fetchCurrentUser : userActions.fetchCurrentUser,
       updateUserAvatar : userActions.updateUserAvatar,
-      deleteUserAvatar : userActions.deleteUserAvatar
-      // sendFlashMessage : flashMessageAction.sendFlashMessage
+      deleteUserAvatar : userActions.deleteUserAvatar,
+      saveUserAvatar : userActions.saveUserAvatar,
+      checkUserDirectory : userActions.checkUserDirectory,
+      createUserDirectory : userActions.createUserDirectory,
+      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave,    
+      sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
 
