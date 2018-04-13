@@ -20,25 +20,26 @@ let ProvidedLanguagesForm = props => {
   let {  handleSubmit, submitting, user_id, languageName, providedLanguageId, deleteProvidedLanguage, ability} = props;
   return (
       <div>
+        <div className="card mb-3">
 
             <form onSubmit={handleSubmit}  >
-            
-            <div className="form-group">
-            <label>{languageName}</label>
-            </div>
-            <div className="form-group">
-            <label>{ability}</label>
-            </div>
+              <div className="card-header bg-primary text-white">
+                {languageName}
+              </div>
 
-            <div className="form-group">
-                <button type="button" onClick={()=>deleteProvidedLanguage(providedLanguageId,user_id)} disabled={submitting} className="btn btn-danger btn-sm">
-                  Remove
-                </button>
-            </div>
-            
+              <div className="card-body">
+                {ability}
+              </div>
+
+              <div className="card-footer">
+                  <button type="button" onClick={()=>deleteProvidedLanguage(providedLanguageId,user_id)} disabled={submitting} className="btn btn-danger btn-sm">
+                    Remove
+                  </button>
+              </div>
             </form>
 
-        </div>         
+        </div>        
+      </div>                  
   )
 }
 

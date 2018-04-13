@@ -24,30 +24,32 @@ class UserLanguagesBoard extends React.Component {
     this.setState({ display:view });
   }
 
-  toggleDesiredButton=()=> {
-    var optionButton= document.getElementById("desiredButton");
-    var providedButton = document.getElementById("providedButton");
-    if (optionButton.className === "btn btn-default") {
-      optionButton.className = "btn btn-default active";
-      providedButton.className = "btn btn-default";
-    }else if(optionButton.className ===  "btn btn-default active"){
-      optionButton.className =  "btn btn-default active"
-    } else {
-      optionButton.className = "btn btn-default";
-    }
-  }
   toggleProvidedButton=()=> {
-    var optionButton= document.getElementById("providedButton");
+    var providedButton= document.getElementById("providedButton");
     var desiredButton= document.getElementById("desiredButton");
-    if (optionButton.className === "btn btn-default") {
-      optionButton.className = "btn btn-default active";
-      desiredButton.className = "btn btn-default";
-    }else if(optionButton.className ===  "btn btn-default active"){
-      optionButton.className =  "btn btn-default active"
+    if (providedButton.className === "btn btn-outline-info") {
+      providedButton.className = "btn btn-info";
+      desiredButton.className = "btn btn-outline-info";
+    }else if(providedButton.className ===  "btn btn-info"){
+      providedButton.className =  "btn btn-info"
     } else {
-      optionButton.className = "btn btn-default";
+      providedButton.className = "btn btn-outline-info";
     }
   }
+
+  toggleDesiredButton=()=> {
+    var desiredButton= document.getElementById("desiredButton");
+    var providedButton = document.getElementById("providedButton");
+    if (desiredButton.className === "btn btn-outline-info") {
+      desiredButton.className = "btn btn-info";
+      providedButton.className = "btn btn-outline-info";
+    }else if(desiredButton.className ===  "btn btn-info"){
+      desiredButton.className =  "btn btn-info"
+    } else {
+      desiredButton.className = "btn btn-outline-info";
+    }
+  }
+
 
   componentDidMount = () => {
     this.props.fetchAbilities();
@@ -97,42 +99,36 @@ class UserLanguagesBoard extends React.Component {
 
       return (
 
-        <div className="row">
-        <div className="col-sm-12">
-              <div className="side-bar pull-right">
+        <div>
+          <div className="row">
+            <div className="col-sm-12">
+
+              <div className="side-bar text-right">
                 <div className="btn-group" role="group" aria-label="button group">
-                
-                    <button
-                      type="button"
-                      id = "providedButton"
-                      className="btn btn-default active"
-                      data-toggle="button"
-                      onClick={this.showProvided} >
-                      &nbsp;Languages I know&nbsp;
-                    </button>
+                  <button
+                    type="button"
+                    id = "providedButton"
+                    className="btn btn-info"
+                    onClick={this.showProvided} >
+                    Languages I know
+                  </button>
 
-                    <button
-                      type="button"
-                      id = "desiredButton"
-                      className="btn btn-default"
-                      data-toggle="button"
-                      onClick={this.showDesired} >
-                      &nbsp;Languages I'm learning&nbsp;
-                    </button>
-
-                  </div>
+                  <button
+                    type="button"
+                    id = "desiredButton"
+                    className="btn btn-outline-info"
+                    onClick={this.showDesired} >
+                    Languages I'm learning
+                  </button>
                 </div>
-              <div>
-            </div>
-        </div>
+              </div>
 
-        <div className="col-sm-12">
-        
-            <div>
-              { this.state.display }
-            </div>
-        </div>
+              <div className="card border-left-0 border-right-0">
+               { this.state.display }
+              </div>
 
+            </div>
+          </div>
       </div>
       )
     }
