@@ -18,7 +18,7 @@ class ProvidedLanguagesOptions extends React.Component {
     const providedLanguages = this.props.userLanguageState.userProvidedLanguages.map(language => {
       return(
         
-        <div key = {language.id}>
+        <div key = {language.id} className="col-sm-4">
         <ProvidedLanguagesForm
           form = {'ProvidedLanguagesForm_'+language.language.name}
           onSubmit={ this.submit }
@@ -27,7 +27,7 @@ class ProvidedLanguagesOptions extends React.Component {
           providedLanguageId = {language.id}
           deleteProvidedLanguage = {this.deleteProvidedLanguage}
           user_id = {language.user_id}
-          ability = {language.abilities.name}
+          ability = {language.abilities}
           abilities = {this.props.abilityState.abilities}
         />
         </div>
@@ -41,13 +41,20 @@ if (this.props.userLanguageState.fetching ){
             return (
               <div>
 
-                <div className="card-deck">
-                  { providedLanguages }
-                </div>
+                  <div className="row">
+                  <div className="col-sm-12">
+                    <div className="card-group">
+
+                      { providedLanguages }
+
+                    </div>
+                    </div>
+                  </div>
+                
                 </div>
             )
           }else{
-            return <label>Please add a language to your list</label>
+            return <div/>
           }
       }
     }

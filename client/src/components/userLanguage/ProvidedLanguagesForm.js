@@ -19,19 +19,18 @@ const validate = values => {
 let ProvidedLanguagesForm = props => {
   let {  handleSubmit, submitting, user_id, languageName, providedLanguageId, deleteProvidedLanguage, ability} = props;
   return (
-      <div>
-        <div className="card mb-3">
-
-            <form onSubmit={handleSubmit}  >
-              <div className="card-header bg-primary text-white">
-                {languageName}
+      <div> 
+        <div className="card mb-3 text-center border-info" >
+            <form onSubmit={handleSubmit}>
+              <div className="card-header bg-dark text-white">
+                <strong>{languageName}</strong>
               </div>
 
-              <div className="card-body">
-                {ability}
+              <div className="card-body text-center">
+                Level<br/><strong>({ability.id}) {ability.name}</strong>
               </div>
 
-              <div className="card-footer">
+              <div className="card-footer text-center">
                   <button type="button" onClick={()=>deleteProvidedLanguage(providedLanguageId,user_id)} disabled={submitting} className="btn btn-danger btn-sm">
                     Remove
                   </button>
@@ -39,7 +38,7 @@ let ProvidedLanguagesForm = props => {
             </form>
 
         </div>        
-      </div>                  
+      </div>             
   )
 }
 

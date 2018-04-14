@@ -16,6 +16,11 @@ const validate = values => {
     return errors
   } 
 
+  const buttonStyle = {
+    position: 'relative',
+    top:25,
+  };
+
 let ProvidedLanguageSelectionForm = props => {
   const { handleSubmit, pristine, submitting, providedLanguagesSelect, abilities } = props;
 
@@ -26,32 +31,20 @@ let ProvidedLanguageSelectionForm = props => {
       <select {...input} className= "form-control">
         {children}
       </select>
-        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+        
       </div>
+      {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   )
 
   return (
     <div>
-        {/* <div className="text-right"> <button
-                className="btn btn-success"
-                type="button"
-                data-toggle="collapse"
-                data-target="#selector"
-                aria-expanded="false"
-                aria-controls="selector">
-            + Add
-            </button>
-        </div> */}
-
-      
             <div className="card bg-secondary" id="selector">
-      
                 <div className="card-body">
                 
                     <label>Select name and level of the languages you know well</label>
                         <form onSubmit={handleSubmit}>
-                        <div className="form-row align-items-center">
+                        <div className="row">
                             <div className="form-group  col-md-4">
                     
                                 <Field name="provided_language_id" component={SelectField}>
@@ -74,8 +67,8 @@ let ProvidedLanguageSelectionForm = props => {
                                     ))}
                                 </Field>
                             </div>
-                            <div className="form-group  col-md-4">
-                                <button type="submit" className="btn btn-success " disabled={pristine || submitting}>
+                            <div className="form-group col-md-4" style={buttonStyle}>
+                                <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
                                     Add Language
                                 </button>
                             </div>    

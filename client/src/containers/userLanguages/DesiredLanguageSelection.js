@@ -42,9 +42,8 @@ class DesiredLanguageSelection extends Component{
 
         return (
             <div>
-            <div> 
-                <h2>Languages I'm learning</h2>
-            </div>
+                <div className="card-body">
+                <h3>Languages I'm learning</h3>
                 <DesiredLanguageSelectionForm
                     languages={languages}
                     abilities={languageAbility}
@@ -52,7 +51,7 @@ class DesiredLanguageSelection extends Component{
                     form="DesiredLanguageSelectionForm"
                     formKey="DesiredLanguageSelectionForm"
                     />
-            <hr /> 
+                </div>  
             </div>  
         )
         

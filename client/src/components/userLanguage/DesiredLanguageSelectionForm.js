@@ -16,7 +16,10 @@ const validate = values => {
     return errors
   } 
 
-
+  const buttonStyle = {
+    position: 'relative',
+    top:25,
+  };
 
 let DesiredLanguageSelectionForm = props => {
   const { handleSubmit, pristine, submitting, languages, abilities } = props;
@@ -27,27 +30,29 @@ let DesiredLanguageSelectionForm = props => {
     <div>
       <label className="control-label">{label}</label>
       <div>
-      <select {...input} className= "form-control custom-select form-control-sm">
+      <select {...input} className= "form-control">
         {children}
       </select>
-        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+        
       </div>
+      {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   )
-
 
  
   return (
 
-      <div>
+        <div>
+        <div className="card bg-secondary" id="selector">
+        <div className="card-body">
 
         <label>Select name and level of the languages you are learning</label>
-             <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+            <div className="row">
+                <div className="form-group  col-md-4">
 
-                <div className="form-group">
-        
-                    <Field name="language_id" label="Language:" component={SelectField}>
-                        <option />
+                    <Field name="language_id" component={SelectField}>
+                        <option value="">-- Language --</option>
                         {languages.map(language => (
                             <option value={language.id} key={language.id}>
                                 {language.name}
@@ -56,9 +61,9 @@ let DesiredLanguageSelectionForm = props => {
                     </Field>
                 </div>
 
-                <div className="form-group">
-                    <Field name="ability" label="Ability:" component={SelectField}>
-                        <option />
+                <div className="form-group col-md-4">
+                    <Field name="ability" component={SelectField}>
+                        <option value="">-- Level -- </option>
                         {abilities.map(ability => (
                         <option value={ability.id} key={ability.id}>
                             {ability.name}
@@ -67,11 +72,16 @@ let DesiredLanguageSelectionForm = props => {
                     </Field>
                 </div>
             
-                    <button type="submit" className="btn btn-success " disabled={pristine || submitting}>
+                <div className="form-group col-md-4" style={buttonStyle}>
+                    <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
                         Add Language
                     </button>
-                
-            </form>
+                </div>  
+        </div>
+        </form>
+        
+        </div>
+        </div>
         </div>
               
   )
