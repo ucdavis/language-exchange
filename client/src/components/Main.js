@@ -31,10 +31,7 @@ const Main = () => (
             <Route exact path='/users/edit' component = { UpdateUser } />
             <Route exact path='/users/avatar' component ={ UploadAvatar } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
-           
             <Route exact path='/users/register' component = { CreateUser } />
-            
-
             <Route exact path='/users/contact/:id' component ={ CreateMessage } />
 
         </Switch>    

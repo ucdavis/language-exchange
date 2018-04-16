@@ -42,17 +42,18 @@ class ProvidedLanguageSelection extends Component{
 
         return (
             <div>
-                
-                <div className="card-body">
-                <h3>Languages I know</h3>
-                    <ProvidedLanguageSelectionForm
-                        providedLanguagesSelect={providedLanguagesSelect}
-                        abilities={languageAbility}
-                        onSubmit={this.submit}
-                        form="ProvidedLanguageSelectionForm"
-                        formKey="ProvidedLanguageSelectionForm"
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h3>Languages I know</h3>
+                        <ProvidedLanguageSelectionForm
+                            providedLanguagesSelect={providedLanguagesSelect}
+                            abilities={languageAbility}
+                            onSubmit={this.submit}
+                            form="ProvidedLanguageSelectionForm"
+                            formKey="ProvidedLanguageSelectionForm"
                         />
                 
+                    </div> 
                 </div> 
             </div>
         )

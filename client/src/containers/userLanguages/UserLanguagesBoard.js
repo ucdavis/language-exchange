@@ -98,8 +98,8 @@ class UserLanguagesBoard extends React.Component {
     // }else{
 
       return (
-
         <div>
+
           <div className="row">
             <div className="col-sm-12">
               <div className="side-bar text-right">
@@ -122,15 +122,16 @@ class UserLanguagesBoard extends React.Component {
                 </div>
               </div>
             </div>
-            </div>
-            <div className="row">
+          </div>
+
+          <div className="row">
             <div className="col-sm-12">
               <div className="border border-info border-left-0 border-right-0 border-bottom-0">
                 { this.state.display }
-
               </div>
             </div>
           </div>
+
         </div>
       )
     }

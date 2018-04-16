@@ -20,6 +20,7 @@ const validate = values => {
 
 let MessageForm = props => {
   const { handleSubmit, pristine, submitting, recipient  } = props;
+  console.log("Recipient:", recipient)
 
   const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
@@ -45,26 +46,28 @@ let MessageForm = props => {
   
   return (
       <div>
-      <h2>New Message</h2>
-      <form onSubmit={ handleSubmit }>
+        <h3>New Message</h3>
+        <div className="card">
+        <div className="card-header">
+         To: { recipient.user_name }
+         </div>
 
-      <div className="form-group">
-        <label>To: {recipient}</label>   
-      </div>
+          <div className="card-body">
+            <form onSubmit={ handleSubmit }>
+              <div className="form-group">
+                <Field name="subject" component={InputField} label="Subject" />
+              </div>
 
-      <div className="form-group">
-        <Field name="subject" component={InputField} label="Subject" />
-      </div>
-
-      <div className="form-group">
-        <Field name="content" component={TextAreaField}  label="Message" />
-      </div>
-      <div className="form-group">
-        <button type="submit" disabled={pristine || submitting} className="btn btn-success">Send Message</button>
-      </div>
-    </form>
-
+              <div className="form-group">
+                <Field name="content" component={TextAreaField}  label="Message" />
+              </div>
+              <div className="form-group">
+                <button type="submit" disabled={pristine || submitting} className="btn btn-success">Send Message</button>
+              </div>
+            </form>
         </div>         
+      </div>         
+    </div>         
   )
 }
 

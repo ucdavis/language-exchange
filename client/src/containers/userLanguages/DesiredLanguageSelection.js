@@ -42,15 +42,17 @@ class DesiredLanguageSelection extends Component{
 
         return (
             <div>
-                <div className="card-body">
-                <h3>Languages I'm learning</h3>
-                <DesiredLanguageSelectionForm
-                    languages={languages}
-                    abilities={languageAbility}
-                    onSubmit={this.submit}
-                    form="DesiredLanguageSelectionForm"
-                    formKey="DesiredLanguageSelectionForm"
-                    />
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h3>Languages I'm learning</h3>
+                        <DesiredLanguageSelectionForm
+                            languages={languages}
+                            abilities={languageAbility}
+                            onSubmit={this.submit}
+                            form="DesiredLanguageSelectionForm"
+                            formKey="DesiredLanguageSelectionForm"
+                        />
+                    </div>  
                 </div>  
             </div>  
         )
