@@ -66,5 +66,9 @@
   "total_languages": {
     "dataSource": "db",
     "public": true
+  },
+  "users_per_year": {
+    "dataSource": "db",
+    "public": true
   }
 }

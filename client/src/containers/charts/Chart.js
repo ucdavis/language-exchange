@@ -31,6 +31,7 @@ class Chart extends Component {
     const {useCanvas} = this.state;
     const  totalLanguages = this.props.reportState.totalLanguages;
     const barChartData = [];
+    const linearChartData = [];
     var totalUsers = 0;
     totalLanguages.map(data=>{
       totalUsers += data.total;
@@ -64,9 +65,51 @@ class Chart extends Component {
                         data={barChartData} />
 
                 </XYPlot>
-
               </div>
             </div>
+
+            <div className="card">
+              <div className="card-header">
+                Users per year
+              </div>
+              <div className="card-body">               
+                <XYPlot
+                  width={300}
+                  height={300}>
+                  <HorizontalGridLines />
+                  <VerticalGridLines />
+                  <XAxis title="X Axis" position="start"/>
+                  <YAxis title="Y Axis"/>
+                  <LineSeries
+                    className="first-series"
+                    data={[
+                      {x: 1, y: 3},
+                      {x: 2, y: 5},
+                      {x: 3, y: 15},
+                      {x: 4, y: 12}
+                    ]}/>
+                  <LineSeries
+                    className="second-series"
+                    data={null}/>
+                  <LineSeries
+                    className="third-series"
+                    curve={'curveMonotoneX'}
+                    style={{
+                      strokeDasharray: '2 2'
+                    }}
+                    data={[
+                      {x: 1, y: 10},
+                      {x: 2, y: 4},
+                      {x: 3, y: 2},
+                      {x: 4, y: 15}
+                    ]}
+                    strokeDasharray="7, 3"
+                    />
+
+                </XYPlot>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
