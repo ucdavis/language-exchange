@@ -14,6 +14,7 @@ import MessageBoard from "../containers/message/MessageBoard";
 import CreateMessage from "../containers/message/CreateMessage";
 import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 import UploadAvatar from '../containers/user/UploadAvatar';
+import Chart from '../containers/charts/Chart'
 
 
 const Main = () => (
@@ -36,6 +37,7 @@ const Main = () => (
             
 
             <Route exact path='/users/contact/:id' component ={ CreateMessage } />
+            <Route exact path='/admin/dashboard' component ={ Chart } />
 
         </Switch>    
     </main>    

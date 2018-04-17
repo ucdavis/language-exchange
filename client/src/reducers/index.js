@@ -4,6 +4,7 @@ import userReducer from "./userReducer";
 import userLanguageReducer from "./userLanguageReducer";
 import messageReducer from "./messageReducer";
 import abilityReducer from "./abilityReducer";
+import reportReducer from "./reportReducer";
 import { reducer as formReducer } from 'redux-form';
 import flashMessageReducer from "./flashMessageReducer";
 
@@ -14,6 +15,7 @@ const allReducers = combineReducers({
     messageState: messageReducer,
     abilityState: abilityReducer,
     flashMessage: flashMessageReducer,
+    reportState: reportReducer,
     form: formReducer
 });
 
