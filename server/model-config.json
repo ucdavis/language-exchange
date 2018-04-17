@@ -62,5 +62,9 @@
   "storage": {
     "dataSource": "imageStorage",
     "public": true
+  },
+  "total_languages": {
+    "dataSource": "db",
+    "public": true
   }
 }

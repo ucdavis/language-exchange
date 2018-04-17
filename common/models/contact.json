@@ -22,7 +22,7 @@
       "type": "string",
       "required": true
     },
-    "read":{
+    "read": {
       "type": "boolean",
       "required": true,
       "default": false
@@ -49,7 +49,6 @@
       "model": "partner",
       "foreignKey": "sender_id"
     }
-
   },
   "acls": [],
   "methods": {}

@@ -70,6 +70,7 @@ class Nav extends React.Component {
                 Admin
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
                 <a className="dropdown-item" href="/users">Users</a>
                 <a className="dropdown-item" href="/Languages">Languages</a>
                 <div className="dropdown-divider"></div>
