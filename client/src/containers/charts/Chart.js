@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import * as reportActions from '../../actions/reportActions';
 import '../../../node_modules/react-vis/dist/style.css';
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 import {
   XYPlot,
   VerticalGridLines,
@@ -16,113 +16,76 @@ import {
   Hint,
   XAxis,
   YAxis,
-  LineSeries
+  LineSeries,
+  LineMarkSeries
   } from 'react-vis';
 
 class Chart extends Component {
 
   state = {
-    useCanvas: false
+    useCanvas: false,
+    barData : [{x:0, y:0}]
   }
   componentDidMount() {
     this.props.getTotalUsersPerLanguages();
     this.props.getTotalUsersPerYear();
+
+  }
+
+  showData(totalLanguages){
+    var totalUsers = 0;
+    const barChartData = [];
+    totalLanguages.map(data=>{
+      totalUsers += data.total;
+      barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
+    });
+    this.setState({barData:barChartData})
+
   }
 
   render() {
     const {useCanvas} = this.state;
-    const barChartData = [];
     const linearChartData = [];
+
+    // Data for bar char
+    const barChartData = [];
     var totalUsers = 0;
-    var  totalLanguages = this.props.reportState.totalUsersPerLanguages;
+    var totalLanguages = this.props.reportState.totalUsersPerLanguages;
     totalLanguages.map(data=>{
       totalUsers += data.total;
       barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
     });
 
+
+
     var usersPerYear = [];
     var totalUsersPerYear = this.props.reportState.totalUsersPerYear;
     console.log("totalUsersPerYear",totalUsersPerYear);
 
-
-    const totalPerYear = [];
-    totalUsersPerYear.map(total =>{
-      totalPerYear.push({x:total.year,y:total.total})
-    })
-    console.log("Total Year",totalPerYear);
-    
-    // totalUsersPerYear.map(data=>{
-    //   usersPerYear.push({x:data.}) 
-    // })
-
     // D3 nest
-    // var totalYear = d3.nest()
-    // .key(function(d) { return d.year; })
-    // .entries(totalPerYear);
-    // console.log("totalYear",totalYear)
 
-    const abcArr = [["2014", 10], ["2015", 20], ["2016",30],["2014",40],["2015",40]]
+    var totalUserByYear = d3.nest()
+    .key(function(d) { return d.year;})
+    .rollup(function(v) { return d3.sum(v, function(d) { return d.total; }); })
+    .entries(totalUsersPerYear)
 
-      var items = {}, row, year;
-      for (var i = 0; i < totalPerYear.length; i++) {
-          row = totalPerYear[i];
-          console.log("row:",row)
-          year = row[0];
-          console.log("year",year);
-          if (!items[year]) {
-              items[year] = 0;
-          }
-          items[year] += row[1];
-          console.log("Items (year)",items[year]);
-          
-      }
-      console.log("Items Variable:",items);
+    var dataUsersByYear = [];
+    totalUserByYear.map(row=>{
+      dataUsersByYear.push({x:row.key,y:row.value})
+    })
 
-      // var totalsPerYear = {}, row, year;
-      // for (var i = 0; i < totalPerYear.length; i++) {
-      //   row = totalPerYear[i];
-      //     year = row.year;
-      //     if (!totalsPerYear[i].total) {
-      //       totalsPerYear[i].total = 0;
-      //     }
-      //     totalsPerYear[i].total += row.total;
-          
-      // }
-      // console.log("totalsPerYear:",totalsPerYear);
+    var allYears = [];
+    dataUsersByYear.map(row=>allYears.push(row.x))
 
-      function groupBy(list, keyGetter) {
-        const map = new Map();
-        list.forEach((item) => {
-            const key = keyGetter(item);
-            const collection = map.get(key);
-            if (!collection) {
-                map.set(key, [item]);
-            } else {
-                collection.push(item);
-            }
-        });
-        return map;
-    }
+    var sumUsersByYear = [];
+    var totalYear = 0;
+    dataUsersByYear.map(row=>{
+      sumUsersByYear.push({x:row.x,y:row.y+totalYear})
+      totalYear += row.y
+    })
+    console.log("sumUsersByYear",sumUsersByYear)
 
-    Array.prototype.groupBy = function(prop) {
-      return this.reduce(function(groups, item) {
-        const val = item[prop]
-        groups[val] = groups[val] || []
-        groups[val].push(item)
-        return groups
-      }, {})
-    }
-    const groupedBy = totalUsersPerYear.groupBy('year')
-    console.log("GROUPED BY:",groupedBy);
-
-
-      // // Now, generate new array
-      // var outputArr = [], temp;
-      // for (key in items) {
-      //     temp = [key, items[key]]
-      //     outputArr.push(temp);
-      // }
-      //  console.log("TotalPerYear:",outputArr);
+    
 
     return (
       <div>
@@ -133,7 +96,7 @@ class Chart extends Component {
               <div className="card-header">
                 Total : {totalUsers} Records
               </div>
-              <div className="card-body">               
+              <div className="card-body">         
                 <XYPlot
                     xType="ordinal"
                     width={800}
@@ -147,6 +110,7 @@ class Chart extends Component {
                     <VerticalBarSeries
                       className="vertical-bar-series-example"
                       data={barChartData}
+                      animation={{stiffness: 100,damping:25 }}
                       />
                       <LabelSeries
                         data={barChartData} />
@@ -165,30 +129,30 @@ class Chart extends Component {
                   height={300}>
                   <HorizontalGridLines />
                   <VerticalGridLines />
-                  <XAxis title="Time" position="start"/>
-                  <YAxis title="Number of users"/>
-                  <LineSeries
+                  <XAxis tickTotal={1} tickValues={allYears}/>
+                  <YAxis />
+
+                  <LineMarkSeries
                     className="first-series"
-                    data={totalPerYear}/>
-                  <LineSeries
-                    className="second-series"
-                    data={null}/>
-                  <LineSeries
+                    curve={'curveMonotoneX'}
+                    style={{
+                      strokeDasharray: '5 5'
+                    }}
+                    data={dataUsersByYear}
+                    />
+
+                    <LineMarkSeries
                     className="third-series"
                     curve={'curveMonotoneX'}
                     style={{
-                      strokeDasharray: '2 2'
+                      strokeDasharray: '5 5'
                     }}
-                    data={[
-                      {x: 1, y: 10},
-                      {x: 2, y: 4},
-                      {x: 3, y: 2},
-                      {x: 4, y: 15}
-                    ]}
-                    strokeDasharray="7, 3"
+                    data={sumUsersByYear}
                     />
 
                 </XYPlot>
+
+                
               </div>
             </div>
 
