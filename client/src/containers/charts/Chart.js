@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import * as reportActions from '../../actions/reportActions';
+import {fetchUsers} from '../../actions/userActions';
 import '../../../node_modules/react-vis/dist/style.css';
 import * as d3 from 'd3';
 import {
@@ -23,31 +24,40 @@ import {
 class Chart extends Component {
 
   state = {
-    useCanvas: false,
     barData : [{x:0, y:0}]
   }
   componentDidMount() {
     this.props.getTotalUsersPerLanguages();
     this.props.getTotalUsersPerYear();
+    this.props.fetchUsers();
 
   }
 
-  showData(totalLanguages){
-    var totalUsers = 0;
-    const barChartData = [];
-    totalLanguages.map(data=>{
-      totalUsers += data.total;
-      barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
-    });
-    this.setState({barData:barChartData})
-
-  }
+  // showData(totalLanguages){
+  //   var totalUsers = 0;
+  //   totalLanguages.map(data=>{
+  //     totalUsers += data.total;
+  //     barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
+  //   });
+  //   this.setState({barData:barChartData})
+  // }
 
   render() {
-    const {useCanvas} = this.state;
-    const linearChartData = [];
 
-    // Data for bar char
+    // Data for users updated by year
+    const users = this.props.userState.users;
+    const usersUpdated = [];
+    d3.nest()
+    .key(function(d){ return d.updated_at.split("-")[0]; })
+    .sortKeys(d3.ascending)
+    .rollup(function(v) {return v.length})
+    .entries(users)
+    .map(row=>{
+      usersUpdated.push({x:row.key,y:row.value})
+    })
+    console.log ("usersUpdated",usersUpdated);
+
+    // Data for bar chart
     const barChartData = [];
     var totalUsers = 0;
     var totalLanguages = this.props.reportState.totalUsersPerLanguages;
@@ -56,14 +66,11 @@ class Chart extends Component {
       barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
     });
 
-
-
+    // Data for line chart
     var usersPerYear = [];
     var totalUsersPerYear = this.props.reportState.totalUsersPerYear;
-    console.log("totalUsersPerYear",totalUsersPerYear);
 
     // D3 nest
-
     var totalUserByYear = d3.nest()
     .key(function(d) { return d.year;})
     .rollup(function(v) { return d3.sum(v, function(d) { return d.total; }); })
@@ -83,9 +90,7 @@ class Chart extends Component {
       sumUsersByYear.push({x:row.x,y:row.y+totalYear})
       totalYear += row.y
     })
-    console.log("sumUsersByYear",sumUsersByYear)
-
-    
+   
 
     return (
       <div>
@@ -150,6 +155,15 @@ class Chart extends Component {
                     data={sumUsersByYear}
                     />
 
+                    <LineMarkSeries
+                    className="third-series"
+                    curve={'curveMonotoneX'}
+                    style={{
+                      strokeDasharray: '5 5'
+                    }}
+                    data={usersUpdated}
+                    />
+
                 </XYPlot>
 
                 
@@ -165,13 +179,14 @@ class Chart extends Component {
 }
 
 function mapStateToProps(state){
-  return { reportState : state.reportState }
+  return { reportState : state.reportState, userState : state.userState }
 }
 
 function mapDispatchToProps(dispatch){
   return  bindActionCreators({
     getTotalUsersPerLanguages : reportActions.getTotalUsersPerLanguages,
-    getTotalUsersPerYear : reportActions.getTotalUsersPerYear
+    getTotalUsersPerYear : reportActions.getTotalUsersPerYear,
+    fetchUsers : fetchUsers
    }, dispatch)
 }
 
