@@ -11,21 +11,35 @@ import {
   VerticalGridLines,
   HorizontalGridLines,
   VerticalBarSeries,
-  RadialChart,
-  DiscreteColorLegend,
   LabelSeries,
-  Hint,
   XAxis,
   YAxis,
-  LineSeries,
-  LineMarkSeries
+  LineMarkSeries,
   } from 'react-vis';
 
 class Chart extends Component {
 
-  state = {
-    barData : [{x:0, y:0}]
+  constructor(props) {
+    super(props);
+    this.state = {
+      barData : [{x:0, y:0}],
+      year: 'All',
+      value: null
+      }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
+  handleChange(event) {
+    this.setState({year: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your have chosen year: ' + this.state.year);
+    event.preventDefault();
+  }
+  
   componentDidMount() {
     this.props.getTotalUsersPerLanguages();
     this.props.getTotalUsersPerYear();
@@ -43,19 +57,7 @@ class Chart extends Component {
   // }
 
   render() {
-
-    // Data for users updated by year
     const users = this.props.userState.users;
-    const usersUpdated = [];
-    d3.nest()
-    .key(function(d){ return d.updated_at.split("-")[0]; })
-    .sortKeys(d3.ascending)
-    .rollup(function(v) {return v.length})
-    .entries(users)
-    .map(row=>{
-      usersUpdated.push({x:row.key,y:row.value})
-    })
-    console.log ("usersUpdated",usersUpdated);
 
     // Data for bar chart
     const barChartData = [];
@@ -63,33 +65,64 @@ class Chart extends Component {
     var totalLanguages = this.props.reportState.totalUsersPerLanguages;
     totalLanguages.map(data=>{
       totalUsers += data.total;
-      barChartData.push({x:data.language,y:data.total, label:data.total.toString()})
+      barChartData.push({x:data.language,y:data.total, label:data.total.toString(),yOffset: -15});
+      return barChartData;
     });
 
-    // Data for line chart
-    var usersPerYear = [];
-    var totalUsersPerYear = this.props.reportState.totalUsersPerYear;
+    // Data for users updated per year
+    const usersUpdated = [];
+    d3.nest()
+    .key(function(d){ return d.updated_at.split("-")[0]; })
+    .sortKeys(d3.ascending)
+    .rollup(function(v) {return v.length})
+    .entries(users)
+    .map(row=>{
+      usersUpdated.push({x:row.key, y:row.value, label:row.value.toString(),yOffset: -10});
+      return usersUpdated;
+    })
+    // console.log ("usersUpdated",usersUpdated);
 
-    // D3 nest
-    var totalUserByYear = d3.nest()
-    .key(function(d) { return d.year;})
-    .rollup(function(v) { return d3.sum(v, function(d) { return d.total; }); })
-    .entries(totalUsersPerYear)
-
-    var dataUsersByYear = [];
-    totalUserByYear.map(row=>{
-      dataUsersByYear.push({x:row.key,y:row.value})
+    // Data for users per year
+    const usersRegistered = [];
+    d3.nest()
+    .key(function(d){ return d.created_at.split("-")[0]; })
+    .sortKeys(d3.ascending)
+    .rollup(function(v) {return v.length})
+    .entries(users)
+    .map(row=>{
+      usersRegistered.push({x:row.key, y:row.value, label:row.value.toString(),yOffset:18});
+      return usersRegistered;
     })
 
+    // All Data for users per all year
+    const allUsersPerYear = [];
+    d3.nest()
+    .key(function(d){ return ( (d.created_at.split("-")[0]) +"/"+ (d.created_at.split("-")[1]) )})
+    .sortKeys(d3.ascending)
+    .rollup(function(v) {return v.length;})
+    .entries(users)
+    .map(row=>{
+      allUsersPerYear.push({x:row.key,y:row.value, label:row.value.toString(),yOffset:-15});
+      return allUsersPerYear;
+    })
+    console.log ("allUsersPerYear",allUsersPerYear);
+    
+
     var allYears = [];
-    dataUsersByYear.map(row=>allYears.push(row.x))
+    usersRegistered.map(row=>{ allYears.push(row.x); return allYears})
+
+    const max = Math.max(...allYears);
+    const min = Math.min(...allYears);
+
 
     var sumUsersByYear = [];
     var totalYear = 0;
-    dataUsersByYear.map(row=>{
-      sumUsersByYear.push({x:row.x,y:row.y+totalYear})
-      totalYear += row.y
-    })
+    usersRegistered.map(row=>{
+      sumUsersByYear.push({x:row.x,y:row.y+totalYear, label:(row.y+totalYear).toString(),yOffset: -20})
+      totalYear += row.y;
+      return sumUsersByYear;
+    });
+
    
 
     return (
@@ -97,76 +130,154 @@ class Chart extends Component {
         <div className="row">
           <div className="col-sm-12 bg-white">
 
-            <div className="card">
+
+            <div className="card mb-3 mt-3">
+              <div className="card-header">
+                New users per month
+              </div>
+              <div className="card-body">     
+             
+
+                <XYPlot
+                  xType="ordinal"
+                  yDomain = {[0,70]}
+                  width={1000}
+                  height={400}
+                  margin={{bottom:70}}
+                >
+                    <HorizontalGridLines />
+                    <VerticalGridLines />
+                    <XAxis tickLabelAngle={-45} tickSize={10} style={{fontSize:10}}/>
+                    <YAxis />
+
+                    <LineMarkSeries
+                      className="first-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={ allUsersPerYear }
+                    />
+                    <LabelSeries
+                        data={allUsersPerYear}
+                        style={{fontSize:12}}
+                    />
+
+
+                </XYPlot>
+                {/* <form onSubmit={this.handleSubmit}>
+                      <label>
+                        Filter by year :
+                        <select value={this.state.year} onChange={this.handleChange}>
+                        <option value="All">All</option>
+                        {allYears.map(row=>{
+                          return <option key={row} value={row}>{row}</option>
+                        })}
+                        </select>
+                      </label>
+                      <input type="submit" value="Submit" />
+                    </form> */}
+              </div>
+            </div>
+
+
+
+
+
+            <div className="card mb-3">
               <div className="card-header">
                 Total : {totalUsers} Records
               </div>
               <div className="card-body">         
                 <XYPlot
                     xType="ordinal"
+                    yDomain = {[0,300]}
                     width={800}
-                    height={300}
+                    height={400}
+                    margin={{bottom:70, top:20}}
                     >
+
                     
                     <VerticalGridLines />
                     <HorizontalGridLines />
-                    <XAxis />
+                    <XAxis tickLabelAngle={-45} />
                     <YAxis />
                     <VerticalBarSeries
-                      className="vertical-bar-series-example"
                       data={barChartData}
                       animation={{stiffness: 100,damping:25 }}
                       />
                       <LabelSeries
-                        data={barChartData} />
+                        data={barChartData}
+                        style={{fontSize:12}}
+                      />
 
                 </XYPlot>
               </div>
             </div>
 
-            <div className="card">
+            <div className="card mb-3">
               <div className="card-header">
                 Users per year
               </div>
-              <div className="card-body">               
+              <div className="card-body">     
+             
+
                 <XYPlot
+                  xType="ordinal"
+                  xScale={[min,max]}
+                  yDomain = {[0,700]}
                   width={800}
-                  height={300}>
-                  <HorizontalGridLines />
-                  <VerticalGridLines />
-                  <XAxis tickTotal={1} tickValues={allYears}/>
-                  <YAxis />
-
-                  <LineMarkSeries
-                    className="first-series"
-                    curve={'curveMonotoneX'}
-                    style={{
-                      strokeDasharray: '5 5'
-                    }}
-                    data={dataUsersByYear}
+                  height={400}
+                >
+                    <HorizontalGridLines />
+                    <VerticalGridLines />
+                    <XAxis tickValues={ allYears } />
+                    <YAxis />
+                   
+                    <LineMarkSeries
+                      className="first-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={ usersRegistered }
+                    />
+                    <LabelSeries
+                        data={usersRegistered}
+                        style={{fontSize:11}}
+                        
                     />
 
+                      
                     <LineMarkSeries
-                    className="third-series"
-                    curve={'curveMonotoneX'}
-                    style={{
-                      strokeDasharray: '5 5'
-                    }}
-                    data={sumUsersByYear}
+                      className="third-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={sumUsersByYear}
+                      />
+                    <LabelSeries
+                        data={sumUsersByYear}
+                        style={{fontSize:11}}
                     />
 
+
                     <LineMarkSeries
-                    className="third-series"
-                    curve={'curveMonotoneX'}
-                    style={{
-                      strokeDasharray: '5 5'
-                    }}
-                    data={usersUpdated}
+                      className="third-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={usersUpdated}
+                    />
+                    <LabelSeries
+                        data={usersUpdated}
+                        style={{fontSize:11}}
                     />
 
                 </XYPlot>
-
-                
+               
               </div>
             </div>
 
