@@ -15,6 +15,8 @@ import {
   XAxis,
   YAxis,
   LineMarkSeries,
+  DiscreteColorLegend
+
   } from 'react-vis';
 
 class Chart extends Component {
@@ -121,6 +123,11 @@ class Chart extends Component {
 
 // Data for sum of users by year
 
+    var usersRegisteredLegend = [
+      {title: "New", color:"red"},
+      {title:"Active", color:"green"},
+      {title:"Total", color:"orange"}
+    ];
     var sumUsersByYear = [];
     var totalYear = 0;
     usersRegistered.map(row=>{
@@ -175,18 +182,19 @@ class Chart extends Component {
               </div>
               <div className="card-body">     
              
-
+              <DiscreteColorLegend  items={usersRegisteredLegend} orientation="horizontal"/>
                 <XYPlot
                   xType="ordinal"
                   xScale={[minYear,maxYear]}
                   yDomain = {[0,totalRegistered.y+50]}
                   width={800}
-                  height={400}
+                  height={350}
                 >
                     <HorizontalGridLines />
                     <VerticalGridLines />
                     <XAxis tickValues={ allYears } />
                     <YAxis />
+                    
                    
                     <LineMarkSeries
                       className="first-series"
@@ -195,6 +203,7 @@ class Chart extends Component {
                         strokeDasharray: '5 5'
                       }}
                       data={ usersRegistered }
+                      color="red"
                     />
                     <LabelSeries
                         data={usersRegistered}
@@ -210,6 +219,7 @@ class Chart extends Component {
                         strokeDasharray: '5 5'
                       }}
                       data={sumUsersByYear}
+                      color="orange"
                       />
                     <LabelSeries
                         data={sumUsersByYear}
@@ -224,6 +234,7 @@ class Chart extends Component {
                         strokeDasharray: '5 5'
                       }}
                       data={usersUpdated}
+                      color="green"
                     />
                     <LabelSeries
                         data={usersUpdated}
@@ -245,7 +256,7 @@ class Chart extends Component {
                 <XYPlot
                   xType="ordinal"
                   yDomain = {[0,70]}
-                  width={1000}
+                  width={800}
                   height={400}
                   margin={{bottom:70}}
                 >
