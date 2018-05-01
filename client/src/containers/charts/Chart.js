@@ -24,7 +24,8 @@ class Chart extends Component {
     this.state = {
       barData : [{x:0, y:0}],
       year: 'All',
-      value: null
+      value: null,
+      total_registered_by_year : null,
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,15 +60,19 @@ class Chart extends Component {
   render() {
     const users = this.props.userState.users;
 
+
     // Data for bar chart
     const barChartData = [];
     var totalUsers = 0;
     var totalLanguages = this.props.reportState.totalUsersPerLanguages;
     totalLanguages.map(data=>{
       totalUsers += data.total;
-      barChartData.push({x:data.language,y:data.total, label:data.total.toString(),yOffset: -15});
+      barChartData.push({x:data.short_name,y:data.total, label:data.total.toString(),yOffset: -15});
       return barChartData;
     });
+    var maxUsersPerLanguageValues = [];
+    barChartData.map(row=>{maxUsersPerLanguageValues.push(row.y); return maxUsersPerLanguageValues});
+    var maxUsersPerLanguage = Math.max(...maxUsersPerLanguageValues);
 
     // Data for users updated per year
     const usersUpdated = [];
@@ -82,7 +87,7 @@ class Chart extends Component {
     })
     // console.log ("usersUpdated",usersUpdated);
 
-    // Data for users per year
+    // Data for users registered per year
     const usersRegistered = [];
     d3.nest()
     .key(function(d){ return d.created_at.split("-")[0]; })
@@ -94,7 +99,7 @@ class Chart extends Component {
       return usersRegistered;
     })
 
-    // All Data for users per all year
+    // All Data for users per all years
     const allUsersPerYear = [];
     d3.nest()
     .key(function(d){ return ( (d.created_at.split("-")[0]) +"/"+ (d.created_at.split("-")[1]) )})
@@ -111,19 +116,21 @@ class Chart extends Component {
     var allYears = [];
     usersRegistered.map(row=>{ allYears.push(row.x); return allYears})
 
-    const max = Math.max(...allYears);
-    const min = Math.min(...allYears);
+    const maxYear = Math.max(...allYears);
+    const minYear = Math.min(...allYears);
 
+// Data for sum of users by year
 
     var sumUsersByYear = [];
     var totalYear = 0;
     usersRegistered.map(row=>{
-      sumUsersByYear.push({x:row.x,y:row.y+totalYear, label:(row.y+totalYear).toString(),yOffset: -20})
+      sumUsersByYear
+      .push({x:row.x,y:row.y+totalYear, label:(row.y+totalYear)
+      .toString(),yOffset: -20})
       totalYear += row.y;
       return sumUsersByYear;
     });
-
-   
+    var totalRegistered = sumUsersByYear[sumUsersByYear.length-1]
 
     return (
       <div>
@@ -131,67 +138,14 @@ class Chart extends Component {
           <div className="col-sm-12 bg-white">
 
 
-            <div className="card mb-3 mt-3">
-              <div className="card-header">
-                New users per month
-              </div>
-              <div className="card-body">     
-             
-
-                <XYPlot
-                  xType="ordinal"
-                  yDomain = {[0,70]}
-                  width={1000}
-                  height={400}
-                  margin={{bottom:70}}
-                >
-                    <HorizontalGridLines />
-                    <VerticalGridLines />
-                    <XAxis tickLabelAngle={-45} tickSize={10} style={{fontSize:10}}/>
-                    <YAxis />
-
-                    <LineMarkSeries
-                      className="first-series"
-                      curve={'curveMonotoneX'}
-                      style={{
-                        strokeDasharray: '5 5'
-                      }}
-                      data={ allUsersPerYear }
-                    />
-                    <LabelSeries
-                        data={allUsersPerYear}
-                        style={{fontSize:12}}
-                    />
-
-
-                </XYPlot>
-                {/* <form onSubmit={this.handleSubmit}>
-                      <label>
-                        Filter by year :
-                        <select value={this.state.year} onChange={this.handleChange}>
-                        <option value="All">All</option>
-                        {allYears.map(row=>{
-                          return <option key={row} value={row}>{row}</option>
-                        })}
-                        </select>
-                      </label>
-                      <input type="submit" value="Submit" />
-                    </form> */}
-              </div>
-            </div>
-
-
-
-
-
-            <div className="card mb-3">
+            <div className="card mt-3 mb-3">
               <div className="card-header">
                 Total : {totalUsers} Records
               </div>
               <div className="card-body">         
                 <XYPlot
                     xType="ordinal"
-                    yDomain = {[0,300]}
+                    yDomain = {[0,maxUsersPerLanguage+50]}
                     width={800}
                     height={400}
                     margin={{bottom:70, top:20}}
@@ -200,7 +154,7 @@ class Chart extends Component {
                     
                     <VerticalGridLines />
                     <HorizontalGridLines />
-                    <XAxis tickLabelAngle={-45} />
+                    <XAxis tickLabelAngle={0} />
                     <YAxis />
                     <VerticalBarSeries
                       data={barChartData}
@@ -224,8 +178,8 @@ class Chart extends Component {
 
                 <XYPlot
                   xType="ordinal"
-                  xScale={[min,max]}
-                  yDomain = {[0,700]}
+                  xScale={[minYear,maxYear]}
+                  yDomain = {[0,totalRegistered.y+50]}
                   width={800}
                   height={400}
                 >
@@ -280,6 +234,56 @@ class Chart extends Component {
                
               </div>
             </div>
+
+                        <div className="card mb-3 mt-3">
+              <div className="card-header">
+                New users per month
+              </div>
+              <div className="card-body">     
+             
+
+                <XYPlot
+                  xType="ordinal"
+                  yDomain = {[0,70]}
+                  width={1000}
+                  height={400}
+                  margin={{bottom:70}}
+                >
+                    <HorizontalGridLines />
+                    <VerticalGridLines />
+                    <XAxis tickLabelAngle={-45} tickSize={10} style={{fontSize:10}}/>
+                    <YAxis />
+
+                    <LineMarkSeries
+                      className="first-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={ allUsersPerYear }
+                    />
+                    <LabelSeries
+                        data={allUsersPerYear}
+                        style={{fontSize:12}}
+                    />
+
+                </XYPlot>
+                {/* <form onSubmit={this.handleSubmit}>
+                      <label>
+                        Filter by year :
+                        <select value={this.state.year} onChange={this.handleChange}>
+                        <option value="All">All</option>
+                        {allYears.map(row=>{
+                          return <option key={row} value={row}>{row}</option>
+                        })}
+                        </select>
+                      </label>
+                      <input type="submit" value="Submit" />
+                    </form> */}
+              </div>
+            </div>
+
+
 
           </div>
         </div>

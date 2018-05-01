@@ -9,6 +9,9 @@
     "language": {
       "type": "string"
     },
+    "short_name": {
+      "type": "string"
+    },
     "total": {
       "type": "number"
     }
