@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import  SentMessages  from "../../containers/message/SentMessages";
-import  ReceivedMessages  from "../../containers/message/ReceivedMessages";
+import SentMessages  from "../../containers/message/SentMessages";
+import ReceivedMessages  from "../../containers/message/ReceivedMessages";
 
 class MessageBoard extends React.Component {
 
@@ -18,6 +18,32 @@ class MessageBoard extends React.Component {
 
   showView = (view)=>{
     this.setState({ display:view });
+  }
+
+  toggleSentButton=()=> {
+    var sentButton= document.getElementById("sentButton");
+    var inboxButton= document.getElementById("inboxButton");
+    if (sentButton.className === "btn btn-outline-info") {
+      sentButton.className = "btn btn-info";
+      inboxButton.className = "btn btn-outline-info";
+    }else if(sentButton.className ===  "btn btn-info"){
+      sentButton.className =  "btn btn-info"
+    } else {
+      sentButton.className = "btn btn-outline-info";
+    }
+  }
+
+  toggleInboxButton=()=> {
+    var inboxButton= document.getElementById("inboxButton");
+    var sentButton = document.getElementById("sentButton");
+    if (inboxButton.className === "btn btn-outline-info") {
+      inboxButton.className = "btn btn-info";
+      sentButton.className = "btn btn-outline-info";
+    }else if(inboxButton.className ===  "btn btn-info"){
+      inboxButton.className =  "btn btn-info"
+    } else {
+      inboxButton.className = "btn btn-outline-info";
+    }
   }
 
   componentDidMount(){
@@ -34,50 +60,64 @@ class MessageBoard extends React.Component {
 
 }
 
+showInbox= () => {
+  this.setState({
+    display: <ReceivedMessages
+      showView={this.showView }
+      userState = {this.props.userState}
+      messageState = {this.props.messageState} />
+  });
+    
+    this.toggleInboxButton();
+  }
+
+showSent = () => {
+  this.setState({
+    display:<SentMessages
+    showView={this.showView }
+    userState = {this.props.userState}
+    messageState = {this.props.messageState}
+  />});
+    this.toggleSentButton();
+  }
+
   
   render() {
 
     return (
     
-        <div className="row">
-          <div className="col-sm-2">
-                <div className="side-bar">
-                  <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
-                  
-                      <button
-                        type="button"
-                        className="btn btn-default"
-                        onClick={() => this.setState({
-                          display: <ReceivedMessages
-                            showView={this.showView }
-                            userState = {this.props.userState}
-                            messageState = {this.props.messageState} />
-                        })} >
-                        &nbsp;Inbox&nbsp;
-                      </button>
+        <div>
+          
+           <div className="row">
+            <div className="col-sm-12">
+              <div className="side-bar text-right">
+                <div className="btn-group" role="group" aria-label="button group">
+                  <button
+                    type="button"
+                    id = "inboxButton"
+                    className="btn btn-info"
+                    onClick={this.showInbox} >
+                    &nbsp;Inbox&nbsp;
+                  </button>
 
-                      <button
-                        type="button"
-                        className="btn btn-default"
-                        onClick={() => this.setState({
-                          display:<SentMessages
-                          showView={this.showView }
-                          userState = {this.props.userState}
-                          messageState = {this.props.messageState}
-                        />})} >
-                        &nbsp;Sent&nbsp;
-                      </button>
-
-                    </div>
-                  </div>
-                <div>
+                  <button
+                    type="button"
+                    id = "sentButton"
+                    className="btn btn-outline-info"
+                    onClick={this.showSent} >
+                    &nbsp;Sent&nbsp;
+                  </button>
+                </div>
               </div>
+            </div>
           </div>
 
-          <div className="col-sm-10">
-              <div>
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="border border-info border-left-0 border-right-0 border-bottom-0">
                 { this.state.display }
               </div>
+            </div>
           </div>
 
         </div>

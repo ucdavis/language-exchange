@@ -42,19 +42,20 @@ class ProvidedLanguageSelection extends Component{
 
         return (
             <div>
-            <div> 
-                <h2>Languages I know</h2>
-            </div>
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h3>Languages I know</h3>
+                        <ProvidedLanguageSelectionForm
+                            providedLanguagesSelect={providedLanguagesSelect}
+                            abilities={languageAbility}
+                            onSubmit={this.submit}
+                            form="ProvidedLanguageSelectionForm"
+                            formKey="ProvidedLanguageSelectionForm"
+                        />
                 
-                <ProvidedLanguageSelectionForm
-                    providedLanguagesSelect={providedLanguagesSelect}
-                    abilities={languageAbility}
-                    onSubmit={this.submit}
-                    form="ProvidedLanguageSelectionForm"
-                    formKey="ProvidedLanguageSelectionForm"
-                    />
-            <hr /> 
-            </div>  
+                    </div> 
+                </div> 
+            </div>
         )
         
     }

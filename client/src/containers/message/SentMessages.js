@@ -15,8 +15,9 @@ class SentMessagesContainer extends Component{
             <div>
                     <SentMessages
                         messageState = { this.props.messageState }
-                        showView={this.props.showView}
-                        currentUser = {this.props.userState.current}  />
+                        showView={ this.props.showView }
+                        currentUser = { this.props.userState.current }
+                        fetchSentMessages = { this.props.fetchSentMessages }  />
             </div>       
         )
     }

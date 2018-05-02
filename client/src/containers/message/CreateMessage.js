@@ -5,20 +5,26 @@ import * as userActions from "../../actions/userActions";
 import * as messageActions from "../../actions/messageActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import MessageForm from '../../components/message/MessageForm';
+import SentMessages  from "../../containers/message/SentMessages";
+import ReceivedMessages  from "../../containers/message/ReceivedMessages";
 
 class CreateMessage extends Component {
-    state = {
-        redirect : false
-    }
-    componentDidMount() {
-        const user_id  = this.props.match.params.id;
-        this.props.fetchUser(user_id);
-        this.props.fetchCurrentUser(); 
-    }
+    constructor(props){
+        super(props);
+        this.showView = this.showView.bind(this);
+        this.state = {
+          display : <MessageForm recipient={ this.props.recipient} onSubmit={this.submit} />,
+          redirect : false
+        }
+      }
+
+      showView = (view)=>{
+        this.setState({ display:view });
+      }
 
     submit = values =>{
         let now = new Date();
-        let recipient_id = this.props.userState.active.id;
+        let recipient_id = this.props.recipient.id;
         let sender_id = this.props.userState.current.id;
         const newMessage = {
             content : values.content,
@@ -33,13 +39,38 @@ class CreateMessage extends Component {
         this.setState({ redirect: true })
     }
 
+    showInbox= () => {
+            this.setState({
+            display: <ReceivedMessages
+                showView={this.showView }
+                userState = {this.props.userState}
+                messageState = {this.props.messageState} />
+            });
+        }
+      
+      showSent = () => {
+            this.setState({
+            display:<SentMessages
+            showView={this.showView }
+            userState = {this.props.userState}
+            messageState = {this.props.messageState}
+            />});
+        }
+
     render() {
         const {redirect} = this.state;
         if (redirect) {
-            return <Redirect to='/messages' />;
+            return <Redirect to='users/messages' />;
         }else{
-            return <MessageForm recipient={this.props.userState.active.user_name} onSubmit={this.submit} />
-            
+            return(
+                <div>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            { this.state.display }
+                        </div>
+                    </div>
+            </div>
+            )
         }
     }
 }

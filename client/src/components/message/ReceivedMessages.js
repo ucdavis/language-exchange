@@ -23,40 +23,52 @@ class ReceivedMessages extends Component{
 
             const read = message.read.toString();
             if(read === "false" ){
-                read_class = "bg-info";               
+                read_class = "bg-default";               
             }
 
               return (
                     <tr key={message.id} className={read_class}>
-                        <th scope="row"  className={read_class}>{message.sender.user_name}</th>
+                        <th scope="row"  className={read_class}>
+                            <button
+                                onClick={()=>this.props.showView(<MessageDetail message={message}
+                                showView={ this.props.showView }
+                                sent={false}
+                                read={true}/>)}
+                                className="btn btn-secondary btn-sm">
+                                    Read
+                            </button>  
+                        </th>
+                        <td className={read_class}>{message.sender.user_name}</td>
                         <td className={read_class}>{message.subject}</td>
                         <td className={read_class}>{date}</td>
-                        <td className={read_class}>
-                            <button onClick={()=>this.props.showView(<MessageDetail message={message} sent={false} read={true}/>)} className="btn btn-default btn-sm">Read</button>  
-                        </td>
+                        
                     </tr>
               )
           })
         }
 
-        return(
-            
+        return(        
             <div>
-                <h2>Inbox</h2>
-                <div className="table-responsive">
-                <table className="table table-sm table-hover table-responsive">
-                    <thead>
-                        <tr>
-                        <th scope="col">From</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Received</th>
-                        <th scope="col">Read</th>
-                        </tr>
-                    </thead>
-                    <tbody>{messages}</tbody>
-                </table>
-                    
-            </div>
+                <div className="row">
+                    <div className="col-sm-12">
+                            <h3>Inbox</h3>
+                            <div className="card border-secondary">
+                            <div className="table-responsive">
+                                <table className="table table-sm">
+                                    <thead className="thead-light">
+                                        <tr>
+                                        <th scope="col">Read</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col">Received</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{messages}</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

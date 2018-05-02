@@ -5,14 +5,19 @@ import Footer from './components/Footer';
 import FlashMessage from './components/layout/FlashMessage';
 
 const App = () => (
-      <div className="row" >
-        <div className="col-sm-12">
-          <Nav />
-          <FlashMessage />     
-          <Main />
-          <Footer />
+  <div>
+    <div className="main-container">
+        <div className="row" >
+          <div className="col-sm-12">
+            <Nav />
+            <FlashMessage />     
+            <Main />
+          </div>
         </div>
       </div>
+      <Footer />
+  </div>
+      
     )
     
 export default App;

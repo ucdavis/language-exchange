@@ -16,7 +16,7 @@ class DesiredLanguagesOptions extends React.Component {
     const desiredLanguages = this.props.userLanguageState.userDesiredLanguages.map(language => {
       return(
         
-        <li className="list-group-item" key = {language.id}>
+        <div key = {language.id} className="col-sm-4">
         <DesiredLanguagesOption
           form = {'DesiredLanguagesOption_'+language.language.name}
           onSubmit={ this.submit }
@@ -25,25 +25,37 @@ class DesiredLanguagesOptions extends React.Component {
           desiredLanguageId = {language.id}
           deleteDesiredLanguage = {this.deleteDesiredLanguage}
           user_id = {language.user_id}
-          ability = {language.abilities.name}
+          ability = {language.abilities}
         />
-        </li>
+        </div>
       )
     })
 
-  if(desiredLanguages.length){
-      return (
-          <div>
-            <ul className="list-group list-group-flush">
-            { desiredLanguages }
-            </ul>
-        </div>
-      )
-    }else{
-      return <label>Please add a language to your list</label>
-    }
-    }
-  }
+    if (this.props.userLanguageState.fetching ){
+      return(<h5>..loading</h5>);
+          }else{
+            if(desiredLanguages.length){
+                return (
+                  <div>
+    
+                      <div className="row">
+                      <div className="col-sm-12">
+                        <div className="card-group">
+    
+                          { desiredLanguages }
+    
+                        </div>
+                        </div>
+                      </div>
+                    
+                    </div>
+                )
+              }else{
+                return <div/>
+              }
+          }
+        }
+      }
     
 
 function mapStateToProps(state){

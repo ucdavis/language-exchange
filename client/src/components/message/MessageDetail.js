@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
+import CreateMessage from "../../containers/message/CreateMessage";
 
 
 class MessageDetail extends React.Component {
@@ -60,7 +61,13 @@ class MessageDetail extends React.Component {
                         +addZero(created_at.getMinutes());
 
                 if(this.props.sent===false){
-                     button = (<button onClick={()=>this.reply(`${this.props.message.sender_id}`)} className="btn btn-success" type="button">Reply</button>);
+                     button = (
+                        <button
+                            onClick={()=>this.props.showView(<CreateMessage recipient = { this.props.message.sender }/>)}
+                            className="btn btn-success"
+                            type="button">
+                                Reply
+                        </button>);
                      sender = this.props.message.sender.user_name;
                      label = "From";
 
@@ -72,26 +79,32 @@ class MessageDetail extends React.Component {
 
                     return(
                         <div>
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                <label> {label}: </label>&nbsp;{ sender }
-                            </li>
-                        
-                            <li className="list-group-item">
-                                <label> Recived: </label> &nbsp;{ date }
-                            </li>  
-
-                            <li className="list-group-item">
-                                <label> Subject: </label>&nbsp;{ this.props.message.subject }
-                            </li>            
-                        </ul>
-                        
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                <label> Message: </label> &nbsp; { this.props.message.content }
-                            </li>
-                        </ul>
-                        {button}
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <h3>Message</h3>
+                                    <div className="card">
+                                        <div className="card-header">
+                                            { this.props.message.subject }
+                                        </div>
+                                        <ul className="list-group">
+                                            <li className="list-group-item">
+                                                <label><strong>{label}: </strong></label>&nbsp;{ sender }
+                                            </li>
+                                        
+                                            <li className="list-group-item">
+                                            <label><strong> Recived: </strong></label> &nbsp;{ date }
+                                            </li>
+                                        </ul>
+                                        <div className="card-body">
+                                            <h5 className="card-title">Message</h5>
+                                            <p className="card-text">{ this.props.message.content }</p>
+                                        </div>
+                                        <div className="card-footer text-center">
+                                            {button}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     );
 
