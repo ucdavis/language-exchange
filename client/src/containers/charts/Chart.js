@@ -100,7 +100,7 @@ class Chart extends Component {
     .rollup(function(v) {return v.length})
     .entries(users)
     .map(row=>{
-      usersUpdated.push({x:row.key, y:row.value, label:row.value.toString(),yOffset: -10});
+      usersUpdated.push({x:row.key, y:row.value, label:row.value.toString()});
       return usersUpdated;
     })
     // console.log ("usersUpdated",usersUpdated);
@@ -113,7 +113,7 @@ class Chart extends Component {
     .rollup(function(v) {return v.length})
     .entries(users)
     .map(row=>{
-      usersRegistered.push({x:row.key, y:row.value, label:row.value.toString(),yOffset:18});
+      usersRegistered.push({ x:row.key, y:row.value, label:row.value.toString()});
       return usersRegistered;
     })
 
@@ -148,19 +148,18 @@ class Chart extends Component {
     var totalYear = 0;
     usersRegistered.map(row=>{
       sumUsersByYear
-      .push({x:row.x,y:row.y+totalYear, label:(row.y+totalYear)
-      .toString(),yOffset: -20})
+      .push({x:row.x,y:row.y+totalYear, label:(row.y+totalYear).toString()})
       totalYear += row.y;
       return sumUsersByYear;
     });
-    var totalRegistered = sumUsersByYear[sumUsersByYear.length-1]
+
 
     return (
       <div>
         <div className="row">
           <div className="col-sm-12 bg-white">
 
-
+{/* Bar chart */}
             <div className="card mt-3 mb-3">
               <div className="card-header">
                 Total : {totalUsers} Records
@@ -168,18 +167,17 @@ class Chart extends Component {
               <div className="card-body">         
                 <XYPlot
                     xType="ordinal"
-                    yDomain = {[0,maxUsersPerLanguage+50]}
+                    yDomain = {[0,maxUsersPerLanguage+10]}
                     width={850}
                     height={400}
-                    margin={{bottom:70, top:20}}
-                    >                   
+                >                   
                     <VerticalGridLines />
                     <HorizontalGridLines />
                     <XAxis tickLabelAngle={0} />
                     <YAxis />
                     <VerticalBarSeries
                       data={barChartData}
-                      animation={{stiffness: 100,damping:25 }}
+                      animation={{stiffness:100, damping:25 }}
                       />
                     <LabelSeries
                       data={barChartData}
@@ -189,6 +187,7 @@ class Chart extends Component {
               </div>
             </div>
 
+  {/* Line chart users activitity by year */}
             <div className="card mb-3">
               <div className="card-header">
                 Users activity by year
@@ -199,14 +198,29 @@ class Chart extends Component {
                 <XYPlot
                   xType="ordinal"
                   xScale={[minYear,maxYear]}
-                  yDomain = {[0,totalRegistered.y+50]}
+                  
                   width={850}
                   height={350}
+                  margin={{top:20}}
                 >
                     <HorizontalGridLines tickTotal={ allYears.length*2 } />
                     <VerticalGridLines/>
                     <XAxis tickValues={ allYears } />
                     <YAxis />
+
+                    <LineMarkSeries
+                      className="third-series"
+                      curve={'curveMonotoneX'}
+                      style={{
+                        strokeDasharray: '5 5'
+                      }}
+                      data={usersUpdated}
+                      color="green"
+                    />
+                    <LabelSeries
+                        data={usersUpdated}
+                        style={{fontSize:11}}
+                    />
                     
                    
                     <LineMarkSeries
@@ -238,26 +252,12 @@ class Chart extends Component {
                         style={{fontSize:11}}
                     />
 
-
-                    <LineMarkSeries
-                      className="third-series"
-                      curve={'curveMonotoneX'}
-                      style={{
-                        strokeDasharray: '5 5'
-                      }}
-                      data={usersUpdated}
-                      color="green"
-                    />
-                    <LabelSeries
-                        data={usersUpdated}
-                        style={{fontSize:11}}
-                    />
-
                 </XYPlot>
                
               </div>
             </div>
-
+            
+{/* Line chart users by year/month */}
             <div className="card mb-3 mt-3">
               <div className="card-header">
                 New users by month
@@ -286,14 +286,25 @@ class Chart extends Component {
                     <XYPlot
                       xType="ordinal"
                       yDomain = { [0,maxUsersByMonth+5]}
-                      width={850}
+                      width={900}
                       height={400}
                       margin={{bottom:70}}
                     >
                       <HorizontalGridLines />
                       <VerticalGridLines tickTotal={allYears.length}/>
-                      <XAxis tickLabelAngle={-45} tickSize={10} style={{fontSize:10}}/>
-                      <YAxis />
+                      <XAxis tickLabelAngle={-45} tickSize={10} style={{
+                        fontSize:10,
+                        line: {stroke: 'lightGrey'},
+                        ticks: {stroke: 'lightGrey'},
+                        text: {stroke: 'none', fill: '#6b6b76'}
+                        }}
+                      />
+                      <YAxis style={{
+                          line: {stroke: 'lightGrey'},
+                          ticks: {stroke: 'lightGrey'},
+                          text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}
+                        }}
+                      />
 
                       <LineMarkSeries
                         onValueMouseOver={this._rememberValue}
