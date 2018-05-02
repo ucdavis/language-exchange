@@ -153,7 +153,7 @@ class Chart extends Component {
                 <XYPlot
                     xType="ordinal"
                     yDomain = {[0,maxUsersPerLanguage+50]}
-                    width={800}
+                    width={850}
                     height={400}
                     margin={{bottom:70, top:20}}
                     >
@@ -187,7 +187,7 @@ class Chart extends Component {
                   xType="ordinal"
                   xScale={[minYear,maxYear]}
                   yDomain = {[0,totalRegistered.y+50]}
-                  width={800}
+                  width={850}
                   height={350}
                 >
                     <HorizontalGridLines />
@@ -256,7 +256,7 @@ class Chart extends Component {
                 <XYPlot
                   xType="ordinal"
                   yDomain = {[0,70]}
-                  width={800}
+                  width={850}
                   height={400}
                   margin={{bottom:70}}
                 >
