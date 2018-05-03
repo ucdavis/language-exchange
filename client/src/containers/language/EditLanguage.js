@@ -34,7 +34,7 @@ class EditLanguage extends Component{
     render(){
         return(
             <div>
-                <h1>Edit Language Container</h1>
+                <h3>Edit Language Container</h3>
                
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <div className="form-group">

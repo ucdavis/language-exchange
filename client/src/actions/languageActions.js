@@ -16,6 +16,7 @@ export function createLanguage (newLanguage){
 
 export function fetchLanguages(){
     return function(dispatch){
+        dispatch({type:"FETCH_LANGUAGES_PENDING"})
         axios.get('/api/languages')
         .then(response => dispatch({type:"FETCH_LANGUAGES_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_LANGUAGES_REJECTED", payload: err}));
@@ -36,16 +37,25 @@ export function fetchLanguage(id){
 
 export function updateLanguage(newLanguage){
     return function (dispatch){
+        dispatch({type:"UPDATE_LANGUAGE_PENDING"})
         axios.request({
-            method: 'put',
+            method: 'patch',
             url : `/api/languages/${newLanguage.id}`,
             data: {
                 name : newLanguage.name,
-                updated_at : newLanguage.updated_at,
-                created_at : newLanguage.created_at,
+                short_name : newLanguage.short_name,
+                updated_at : newLanguage.updated_at
                 
             }
         })
+        .then( response =>{
+            dispatch({type:"FETCH_LANGUAGES_PENDING"})
+            axios.get('/api/languages')
+            .then(response => dispatch({type:"FETCH_LANGUAGES_FULFILLED",payload:response.data}))
+            .catch(err => dispatch({type:"FETCH_LANGUAGES_REJECTED", payload: err}));
+        }
+            
+        )
         .then(response =>dispatch({type:"UPDATE_LANGUAGE_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"UPDATE_LANGUAGE_REJECTED", payload: err}));
     }

@@ -2,65 +2,69 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom';
+import UpdateLanguageForm from '../../components/language/UpdateLanguageForm';
+
 
 class UpdateLanguage extends Component{
-    
     constructor(props){
         super(props);
-        this.state = {
-            id: this.props.match.params.id,
-            name : '' ,
-            created_at : '',
-            title: this.props.languageState.active.name 
+        this.state={
+            redirect : false
         }
-
-        this.handleInputChange = this.handleInputChange.bind(this)
-    }
-
-    componentWillMount(){
-        if(this.props.match.params.id){
-            this.props.fetchLanguage(this.props.match.params.id);
-    }}
-
-    handleInputChange(event){
-        this.setState({
-            ...this.state.values,
-            name : event.target.value
-        })
     }
     
+
+    componentDidMount(){
+        if(this.props.match.params.id){
+            this.props.fetchLanguage(this.props.match.params.id);
+            
+    }}
+
+
     onDelete(){
        this.props.deleteLanguage(this.props.match.params.id);
     }
     
-    onSubmit(e){
-        e.preventDefault();
+    submit= values =>{
         let now = new Date();
+        const language_id= this.props.languageState.active.id
         const newLanguage = {
-            id : this.props.match.params.id,
-            name : this.refs.name.value,
-            updated_at : now,
-            created_at : this.props.languageState.active.created_at
+            id : language_id,
+            name : values.name,
+            short_name : values.short_name,
+            updated_at : now
 
         }
         this.props.updateLanguage(newLanguage);
+        this.setState({ redirect: true })
     }
 
     render(){
-         return(
-            <div>
-                <h1>Edit Language : {this.props.languageState.active.name } </h1>
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <div className="form-group">
-                        <label htmlFor="name" className="control-label">Language Name:</label>
-                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.name} onChange={this.handleInputChange} />
-                    </div> 
-                    <input type="submit" value="Save" className="btn btn-success" />
-                    <button className="btn btn-danger pull-right" onClick={this.onDelete.bind(this)} > Delete </button> 
-                </form>
-            </div>  
-        )
+        const {redirect} = this.state;
+        if (redirect) {
+            return <Redirect to='/Languages' />;
+        }else{
+        
+            return(
+                <div>
+                    <h3>Edit Language</h3>
+                    <hr/>
+
+                    <div className="card">
+                        <div className="card-header bg-dark text-white">
+                            Language : {this.props.languageState.active.name } 
+                        </div>
+                        <div className="card-body">
+
+                        <UpdateLanguageForm onSubmit={this.submit} />
+                        </div>
+                    </div>
+
+
+                </div>  
+            )
+        }
     }
 
 }

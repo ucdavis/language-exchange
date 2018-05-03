@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
+import { Link } from 'react-router-dom';
 
 
 class LanguageDetail extends Component{
-    componentWillMount(){
+    componentDidMount(){
         const id = this.props.match.params.id;
         this.props.fetchLanguage(id);
     }
@@ -19,9 +20,21 @@ class LanguageDetail extends Component{
         }       
         return (         
             <div>
-               <h1>{this.props.languageState.active.name} </h1>
-               <p><label>Date Created:</label> {createdAt} </p>
-               <p><label>Date Updated:</label> {updatedAt} </p>
+                <div className="card">
+                    <div className="card-header bg-dark text-white">
+                        Languages
+                    </div>
+                    <div className="card-body">
+                        <h3>{this.props.languageState.active.name} </h3>
+                        <hr/>
+                        <p><label>Short Name:</label> {this.props.languageState.active.short_name} </p>
+                        <p><label>Date Created:</label> {createdAt} </p>
+                        <p><label>Date Updated:</label> {updatedAt} </p>
+                    </div>  
+                    <div className="card-footer">
+                    <Link to={'/Languages'}  className="btn btn-secondary">Back</Link>
+                    </div>     
+                </div>    
             </div>    
         )
     }

@@ -10,23 +10,33 @@ class LanguageContainer extends Component{
     }
     
     render(){ 
-        var languages = this.props.languageState;       
-        return (
-            <div>
-                <Languages state= { languages } fetchLanguage = {this.props.fetchLanguage}/>
-            </div>       
-        )
+        const {updating,fetching,languages} = this.props.languageState;
+        console.log(updating,fetching,languages)
+        if(updating || fetching){
+
+            return <h5>...loading</h5>
+
+            
+        }else{
+            return (
+                
+                <div>
+                    <Languages  languages={languages} />
+                </div>       
+            )
+            
+        }
     }
 }
 
 function mapStateToProps(state){
     return{
-        languageState: state.languageState
+        languageState: state.languageState  
     }
 }
 
 function mapDispatchToProps(dispatch){
-    return bindActionCreators({fetchLanguages: languageActions.fetchLanguages, fetchLanguage : languageActions.fetchLanguage}, dispatch)
+    return bindActionCreators({fetchLanguages: languageActions.fetchLanguages}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageContainer);
