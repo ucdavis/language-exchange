@@ -39,7 +39,7 @@ class userProfile extends Component{
         return (   
                
             <div>
-                <h2><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;User Profile</h2>
+                <h3>User Profile</h3>
                 <hr />
 
                     <div className="row">
@@ -49,10 +49,8 @@ class userProfile extends Component{
                                   <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
                                    
                                 </li>
+                                <li className="list-group-item bg-secondary"> 
                                 <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
-                                <li className="list-group-item">  
-                                    <label>Description:</label> 
-                                    <p>{user.description}</p> 
                                 </li>
                                 <li className="list-group-item">  
                                     <label>Gender :&nbsp;</label>
@@ -66,24 +64,36 @@ class userProfile extends Component{
                                     <label>University Affiliation:</label>
                                     <p>{user.affiliation} </p>
                                 </li>
-                                <Link to="/users/edit" className="btn btn-default btn-block" >Edit Profile</Link>
+                                <li className="list-group-item bg-secondary"> 
+                                    <Link to="/users/edit" className="btn btn-default btn-block" >Edit Profile</Link>
+                                </li>
                             </ul>
                             
                         </div>
                         
                         <div className="col-sm-8">
-                            <div className="card">
-                            <div className="card-header">
-                                <h4>{user.user_name}</h4></div>
-                            <div className="card=block">
-                                <div className="well well-small"> 
-                                    <ProvidedLanguageDetail state={this.props.userLanguageState}/>
+                            <div className="card ">
+                                <div className="card-header bg-dark text-white">
+                                    <h5>{user.user_name}</h5></div>
+                                <div className="card-body">
+
+                                    <div > 
+                                    <h5>Description</h5>
+                                        { user.description }
+                                    </div>
+                                    <br />
+                                    <div > 
+                                        <ProvidedLanguageDetail state={this.props.userLanguageState}/>
+                                    </div>
+                                    <br />
+                                    <div > 
+                                        <DesiredLanguageDetail state={this.props.userLanguageState}/>
+                                    </div>
+                                    
                                 </div>
-                                <div className="well well-small"> 
-                                    <DesiredLanguageDetail state={this.props.userLanguageState}/>
+                                <div className="card-footer  bg-secondary">
+                                    <Link to="/users/languages" className="btn btn-default btn-block" >Edit Languages</Link>
                                 </div>
-                                <Link to="/users/languages" className="btn btn-default btn-block" >Edit Languages</Link>
-                            </div>
                             </div>
                            
                         </div>

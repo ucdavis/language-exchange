@@ -44,6 +44,9 @@ let DesiredLanguageSelectionForm = props => {
 
         <div>
         <div className="card bg-secondary m-3" id="selector">
+        <div className="card-header">
+                Language selection
+            </div>
         <div className="card-body">
 
         <label>Select name and level of the languages you are learning</label>
@@ -64,7 +67,9 @@ let DesiredLanguageSelectionForm = props => {
                 <div className="form-group col-md-4">
                     <Field name="ability" component={SelectField}>
                         <option value="">-- Level -- </option>
-                        {abilities.map(ability => (
+                        {abilities.filter(ability =>{
+                            return ability.id < 5})
+                        .map(ability => (
                         <option value={ability.id} key={ability.id}>
                             {ability.name}
                         </option>

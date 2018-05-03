@@ -7,7 +7,7 @@ class DesiredLanguagesDetail extends Component{
         })
         return (
             <div>
-                <h4>Languages I'm learning</h4>
+                <h5>Languages I'm learning</h5>
                 <ul className="list-group">
                     { languageItems }
                 </ul>

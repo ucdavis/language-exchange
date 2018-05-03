@@ -51,7 +51,7 @@ class SentMessages extends Component{
             <div>
                 <div className="row">
                     <div className="col-sm-12">
-                        <h3>Sent messages</h3>
+                        <h3 className="text-right">Sent messages</h3>
                         <div className="card border-secondary">
                         <div className="table-responsive">
                             <table className="table table-sm">

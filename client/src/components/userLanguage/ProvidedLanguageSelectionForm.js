@@ -39,45 +39,48 @@ let ProvidedLanguageSelectionForm = props => {
 
   return (
     <div>
-        
-        
-                <div className="card bg-secondary m-3" id="selector">
-                    <div className="card-body">
+            <div className="card bg-secondary m-3" id="selector">
+            <div className="card-header">
+                Language selection
+            </div>
+            <div className="card-body">
+            
+                <label>Select name and level of the languages you know well</label>
+                    <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="form-group  col-md-4">
                     
-                        <label>Select name and level of the languages you know well</label>
-                            <form onSubmit={handleSubmit}>
-                                <div className="row">
-                                    <div className="form-group  col-md-4">
-                            
-                                        <Field name="provided_language_id" component={SelectField}>
-                                        <option value="">-- Language --</option>
-                                            {providedLanguagesSelect.map(language => (
-                                                <option value={language.id} key={language.id}>
-                                                    {language.name}
-                                                </option>
-                                            ))}
-                                        </Field>
-                                    </div>
+                                <Field name="provided_language_id" component={SelectField}>
+                                <option value="">-- Language --</option>
+                                    {providedLanguagesSelect.map(language => (
+                                        <option value={language.id} key={language.id}>
+                                            {language.name}
+                                        </option>
+                                    ))}
+                                </Field>
+                            </div>
 
-                                    <div className="form-group  col-md-4">
-                                        <Field name="provided_ability"  component={SelectField}>
-                                            <option value="">-- Level -- </option>
-                                            {abilities.map(ability => (
-                                            <option value={ability.id} key={ability.id}>
-                                                {ability.name}
-                                            </option>
-                                            ))}
-                                        </Field>
-                                    </div>
-                                    <div className="form-group col-md-4" style={buttonStyle}>
-                                        <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
-                                            Add Language
-                                        </button>
-                                    </div>    
-                                </div>    
-                            </form>
-                        </div>
-                    </div>
+                            <div className="form-group  col-md-4">
+                            <Field name="ability" component={SelectField}>
+                                <option value="">-- Level -- </option>
+                                {abilities.filter(ability =>{
+                                    return ability.id > 2})
+                                .map(ability => (
+                                <option value={ability.id} key={ability.id}>
+                                    {ability.name}
+                                </option>
+                                ))}
+                            </Field>
+                            </div>
+                            <div className="form-group col-md-4" style={buttonStyle}>
+                                <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
+                                    Add Language
+                                </button>
+                            </div>    
+                        </div>    
+                    </form>
+                </div>
+            </div>
 
         </div>
 

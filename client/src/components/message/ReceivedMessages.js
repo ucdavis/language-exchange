@@ -51,7 +51,7 @@ class ReceivedMessages extends Component{
             <div>
                 <div className="row">
                     <div className="col-sm-12">
-                            <h3>Inbox</h3>
+                            <h3 className="text-right">Inbox</h3>
                             <div className="card border-secondary">
                             <div className="table-responsive">
                                 <table className="table table-sm">

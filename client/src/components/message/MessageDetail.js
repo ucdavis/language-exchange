@@ -81,7 +81,7 @@ class MessageDetail extends React.Component {
                         <div>
                             <div className="row">
                                 <div className="col-sm-12">
-                                    <h3>Message</h3>
+                                    <h3 className="text-right">Message</h3>
                                     <div className="card">
                                         <div className="card-header">
                                             { this.props.message.subject }

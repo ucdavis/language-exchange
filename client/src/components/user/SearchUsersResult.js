@@ -35,27 +35,32 @@ class UsersResult extends Component{
         
         if( this.props.state.searchResult.length > 0 ){
             return (
-                <div>
-                    <p>Some people currently available for contacting:</p>
-                    <div className="table-responsive">
-                    <table className="table table-responsive table-hover table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Speaks</th>
-                        <th scope="col">Learning</th>
-                        <th scope="col">Show</th>
-                        <th scope="col">Contact</th>  
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { userList }
-                    </tbody>
-                    </table> 
+                <div className="card border-info mt-3 mb-3">
+                    <div className="card-header border-info text-white bg-info">
+                        Search Result
                     </div>
-                </div>    
+                    <div className="card-body">    
+                        <p>Some people currently available for contacting:</p>
+                        <div className="table-responsive">
+                            <table className="table  table-hover table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Speaks</th>
+                                <th scope="col">Learning</th>
+                                <th scope="col">Show</th>
+                                <th scope="col">Contact</th>  
+                            </tr>
+                            </thead>
+                            <tbody>
+                            { userList }
+                            </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </div>        
             )
 
         }else {

@@ -37,8 +37,14 @@ class UpdateUser extends React.Component {
     
     return (
       <div>
-        <h2>My Profile</h2>
-        <UpdateUserForm onSubmit={this.submit}  />
+        <h3>My Profile</h3>
+        <hr />
+
+        <div className="row">
+            <div className="col-sm-12">  
+                <UpdateUserForm onSubmit={this.submit}  />
+            </div>
+        </div>
     </div>
     )
   }

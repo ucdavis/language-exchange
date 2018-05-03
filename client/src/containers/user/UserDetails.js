@@ -6,7 +6,7 @@ import * as userLanguageActions from "../../actions/userLanguageActions";
 import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLanguageDetail";
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
-import { Link } from 'react-router-dom';
+import UserAvatar from '../../components/user/UserAvatar';
 
 
 class userDetails extends Component{
@@ -22,31 +22,32 @@ class userDetails extends Component{
     render(){
         
         let user = this.props.userState.active;
-        let notFound = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar"/>;
-        let userImage = () => <Img src="api/storages/images/download/no_image.png" alt="avatar" />;
-        if (user.avatar_file_name !== null) {
-            var url = `/api/storages/images/download/${user.avatar_file_name}`;
+        let no_image = `http://localhost:3000/api/storages/images/download/no_image.png`
+        let userImage = () => <Img src={no_image} alt="avatar"/>;
+        let avatar_file_name = user.avatar_file_name;
+        let notFound = userImage;
+        if (avatar_file_name) {
+            console.log("file name not equal to null nor empty")
+            var url = `http://localhost:3000/api/storages/${user.id}/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
-            userImage = () => <Img src="/api/storages/images/download/no_image.png" alt="avatar" unloader={ notFound() } />;
+            userImage = () => <Img src={ no_image } alt="avatar" unloader={ notFound() } />;
            }
         
         return (   
                
             <div>
-                <h2><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;User Profile</h2>
+                <h3>User Profile</h3>
                 <hr />
 
                     <div className="row">
                         <div className="col-sm-4">                       
                             <ul className="list-group">
                                 <li className="list-group-item text-center" >
-                                    { userImage() }
+                                  <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
+                                   
                                 </li>
-                                <li className="list-group-item">  
-                                    <label>Description:</label> 
-                                    <p>{user.description}</p> 
-                                </li>
+
                                 <li className="list-group-item">  
                                     <label>Gender :&nbsp;</label>
                                     {user.gender}
@@ -59,29 +60,39 @@ class userDetails extends Component{
                                     <label>University Affiliation:</label>
                                     <p>{user.affiliation} </p>
                                 </li>
+
                             </ul>
+                            
                         </div>
                         
                         <div className="col-sm-8">
                             <div className="card">
-                            <div className="card-header">
-                                <h4>{user.user_name}</h4></div>
-                            <div className="card=block">
-                                <div className="well well-small"> 
+                            <div className="card-header bg-dark text-white">
+                                <h5>{user.user_name}</h5></div>
+                            <div className="card-body">
+
+                                <div > 
+                                <h5>Description</h5>
+                                     { user.description }
+                                </div>
+                                <br />
+                                <div > 
                                     <ProvidedLanguageDetail state={this.props.userLanguageState}/>
                                 </div>
-                                <div className="well well-small"> 
+                                <br />
+                                <div > 
                                     <DesiredLanguageDetail state={this.props.userLanguageState}/>
                                 </div>
+
                             </div>
                             </div>
-                            <Link to={ `/users/contact/${user.id}`} className="btn btn-success" >Contact</Link>
+                           
                         </div>
                         
 
                     </div> 
                 
-                </div>    
+                </div>     
         )
     }
 }

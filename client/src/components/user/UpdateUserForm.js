@@ -80,9 +80,9 @@ const validate = values => {
 
               <form onSubmit={handleSubmit}>
               
-              <div className="well">
-                  <div className="form-check">
-                      <label className="form-check-label">
+              <div className="card bg-secondary col-sm-12">
+                  <div className="card-body">
+                  <div className="form-group">
                           <Field
                               name="available"
                               component="input"
@@ -93,7 +93,8 @@ const validate = values => {
                               <br /> If you uncheck this box your data will not show up in search results for others to contact you.
                               <br /> You can come back to re-check the box when you are available again.
                               </small>
-                      </label>
+                     
+                  </div>
                   </div>
               </div>
   
@@ -133,9 +134,9 @@ const validate = values => {
               <div className="form-group">
                       <Field name="gender" component={SelectField} label="Gender" >
                           <option />
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="undeclared">Undeclared</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Undeclared">Undeclared</option>
                       </Field>
               </div>
   

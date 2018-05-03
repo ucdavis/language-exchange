@@ -134,9 +134,9 @@ let UserForm = props => {
             <div className="form-group">
                     <Field name="gender" component={SelectField} label="Gender" >
                         <option />
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="undeclared">Undeclared</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Undeclared">Undeclared</option>
                     </Field>
             </div>
 

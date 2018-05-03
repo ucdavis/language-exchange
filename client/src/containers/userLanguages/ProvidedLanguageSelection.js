@@ -20,7 +20,7 @@ class ProvidedLanguageSelection extends Component{
         const newProvidedLanguage ={
             language_id : values.provided_language_id,
             user_id : user_id,
-            ability : values.provided_ability,
+            ability : values.ability,
             created_at : now,
             updated_at : now
         }
@@ -42,19 +42,14 @@ class ProvidedLanguageSelection extends Component{
 
         return (
             <div>
-                <div className="row">
-                    <div className="col-sm-12">
-                        <h3>Languages I know</h3>
-                        <ProvidedLanguageSelectionForm
-                            providedLanguagesSelect={providedLanguagesSelect}
-                            abilities={languageAbility}
-                            onSubmit={this.submit}
-                            form="ProvidedLanguageSelectionForm"
-                            formKey="ProvidedLanguageSelectionForm"
-                        />
-                
-                    </div> 
-                </div> 
+                <h3 className="text-right">Languages I know</h3>
+                <ProvidedLanguageSelectionForm
+                    providedLanguagesSelect={providedLanguagesSelect}
+                    abilities={languageAbility}
+                    onSubmit={this.submit}
+                    form="ProvidedLanguageSelectionForm"
+                    formKey="ProvidedLanguageSelectionForm"
+                />               
             </div>
         )
         

@@ -7,7 +7,7 @@ class ProvidedLanguagesDetail extends Component{
         })
         return (
             <div>
-                <h4>Languages I know</h4>
+                <h5>Languages I know</h5>
                 <ul className="list-group">
                     { languageItems }
                 </ul>

@@ -29,7 +29,7 @@ class UploadFile extends React.Component {
       const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       const setState = this.setState.bind(this);
       const blob = accepted[0].preview;
-      const sendFlashMessage = this.props.sendFlashMessage;
+      // const sendFlashMessage = this.props.sendFlashMessage;
 
         if (accepted.length && directory_exists === "true"){
           this.sendFile(accepted, user_id);
@@ -41,7 +41,7 @@ class UploadFile extends React.Component {
                       </div>
           , accepted, rejected }
           );
-          sendFlashMessage("File Uploaded", "alert-success");
+          // sendFlashMessage("File Uploaded", "alert-success");
         }else if( directory_exists === "false"){
           createUserDirectoryAndSave(accepted,user_id);
           setState({
@@ -52,7 +52,7 @@ class UploadFile extends React.Component {
                       </div>
           , accepted, rejected }
           );
-          sendFlashMessage("File Uploaded", "alert-success");
+          // sendFlashMessage("File Uploaded", "alert-success");
         }else{
           console.log("File was rejected");
         }
@@ -105,8 +105,8 @@ class UploadFile extends React.Component {
                   <aside>
 
                   <ul className="list-group">
-                    {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>{f.name} - {f.size} bytes</li>) }
-                    { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> {f.name} - {f.size } bytes</li>) }
+                    {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>Avatar Uploaded!</li>) }
+                    { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> Wrong file format or size - {f.size } bytes</li>) }
                   </ul>
                 </aside>
                 </section>

@@ -46,7 +46,7 @@ let MessageForm = props => {
   
   return (
       <div>
-        <h3>New Message</h3>
+        <h3 className="text-right">New Message</h3>
         <div className="card">
         <div className="card-header">
          To: { recipient.user_name }

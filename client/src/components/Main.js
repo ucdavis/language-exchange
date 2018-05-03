@@ -11,7 +11,7 @@ import UserDetails from '../containers/user/UserDetails';
 import CreateUser from '../containers/user/CreateUser';
 import UpdateUser from '../containers/user/UpdateUser';
 import MessageBoard from "../containers/message/MessageBoard";
-import CreateMessage from "../containers/message/CreateMessage";
+import QuickMessage from "../containers/message/QuickMessage";
 import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 import UploadAvatar from '../containers/user/UploadAvatar';
 import Chart from '../containers/charts/Chart'
@@ -33,7 +33,7 @@ const Main = () => (
             <Route exact path='/users/avatar' component ={ UploadAvatar } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
             <Route exact path='/users/register' component = { CreateUser } />
-            <Route exact path='/users/contact/:id' component ={ CreateMessage } />
+            <Route exact path='/users/contact/:id' component ={ QuickMessage } />
             <Route exact path='/admin/dashboard' component ={ Chart } />
 
         </Switch>    

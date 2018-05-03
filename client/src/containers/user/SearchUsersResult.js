@@ -5,10 +5,11 @@ import { withRouter } from 'react-router-dom';
 
 class SearchUsersResult extends Component{
     
-    render(){        
+    render(){ 
+        const userState = this.props.userState;    
         return (
             <div>
-                <UsersResult state= {this.props.userState}/>
+                <UsersResult state= {userState}/>
             </div>       
         )
     }

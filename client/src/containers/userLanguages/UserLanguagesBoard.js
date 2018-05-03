@@ -102,7 +102,7 @@ class UserLanguagesBoard extends React.Component {
 
           <div className="row">
             <div className="col-sm-12">
-              <div className="side-bar text-right">
+              <div className="side-bar text-left">
                 <div className="btn-group" role="group" aria-label="button group">
                   <button
                     type="button"

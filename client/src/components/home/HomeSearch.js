@@ -13,30 +13,20 @@ class HomeSearch extends Component{
                     <p className="lead">This program helps a native speaker of one language to find a native speaker of another language to help each other in language learning</p>
                 </div>
 
-                            <div className="card border-dark bg-light  mt-3 mb-3">
-                            <div className="card-header border-dark text-dark bg-secondary">
-                               Find a Partner
-                            </div>
-                                <div className="card-body">
-                                    <SearchUsers/>
-                                </div>
-                            </div>
+                <div className="card border-dark bg-light  mt-3 mb-3">
+                    <div className="card-header border-dark text-dark bg-secondary">
+                    Find a Partner
+                    </div>
+                    <div className="card-body">
+                        <SearchUsers/>
+                    </div>
+                </div>
+        
+                <div>
+                        <SearchUsersResults/>
+                </div>
 
-                  
-
-                            <div className="card border-info mt-3 mb-3">
-                            <div className="card-header border-info text-white bg-info">
-                                Search Result
-                            </div>
-                                <div className="card-body">
-                                    <SearchUsersResults/>
-                                </div>
-                            </div>
             </div>
-
-                       
-                
-
         )
     }
 
