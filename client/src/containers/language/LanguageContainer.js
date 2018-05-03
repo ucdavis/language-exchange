@@ -5,14 +5,15 @@ import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
 
 class LanguageContainer extends Component{
-    componentWillMount(){
+    componentDidMount(){
         this.props.fetchLanguages();
     }
     
-    render(){        
+    render(){ 
+        var languages = this.props.languageState;       
         return (
             <div>
-                <Languages state= {this.props.languageState} fetchLanguage = {this.props.fetchLanguage}/>
+                <Languages state= { languages } fetchLanguage = {this.props.fetchLanguage}/>
             </div>       
         )
     }

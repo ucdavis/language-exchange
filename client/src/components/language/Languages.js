@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
-import  LanguageItem from './LanguageItem';
 import { Link } from 'react-router-dom';
 
 class Languages extends Component{
     render(){
         const languageItems = this.props.state.languages.map((language, i) => {
-            return <LanguageItem key={i} language={language} state={this.props.state} fetchLanguage={()=>this.props.fetchLanguage} />
+            return (
+
+                 <tr key={i}>
+                 <td>  <Link to={`/languages/${language.id}`} > { language.name }</Link> </td>
+                 <td>  <Link to={`/languages/${language.id}`} > { language.short_name }</Link> </td>
+                 <td>  <Link to={`/languages/edit/${language.id}`} className="btn btn-xs btn-default pull-right"> Edit </Link>   </td>
+                </tr> 
+
+            )
         })
         return (
             <div>
-                <h1>Languages<Link to={'/languages/add'} className="btn btn-sm btn-success pull-right" > New Language </Link>    </h1>
-                <ul className="list-group">
-                    { languageItems }
-                </ul>
+
+                <div className="card">
+                <div className="card-header bg-dark text-white">
+                    Languages
+                </div>
+                <div className="card-body">
+                    <table className="table table-hover table-small">
+                        <thead>
+                        <tr><th>Language</th><th>Short Name</th><th>Edit</th></tr>
+                        </thead>
+                        <tbody>
+                        { languageItems }
+                        </tbody>      
+                    </table>
                 
+                 </div>    
+                </div>    
             </div>    
         )
     }
