@@ -61,10 +61,11 @@ export function fetchUser(id){
     }
 }   
 
+// UPDATE
 export function updateUser(newUserData){
     return function (dispatch){
         axios.request({
-            method: 'put',
+            method: 'patch',
             url : `/api/partners/${newUserData.id}`,
             data: {
                 cas_user : newUserData.cas_user,

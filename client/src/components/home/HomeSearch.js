@@ -8,9 +8,11 @@ class HomeSearch extends Component{
         return(
 
             <div>
-                <div className="jumbotron">
-                    <h4 className="mt-0">Welcome to Tandem Language Exchange</h4>
-                    <p className="lead">This program helps a native speaker of one language to find a native speaker of another language to help each other in language learning</p>
+                <div className="card mt-3">
+                    <div className="card-body">
+                        <h4 className="mt-0">Welcome to Tandem Language Exchange (TLE)</h4>
+                        <p className="lead">This program helps a native speaker of one language to find a native speaker of another language to help each other in language learning</p>
+                    </div>
                 </div>
 
                 <div className="card border-dark bg-light  mt-3 mb-3">

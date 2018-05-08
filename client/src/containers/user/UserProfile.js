@@ -39,40 +39,41 @@ class userProfile extends Component{
         return (   
                
             <div>
-                <h3>User Profile</h3>
-                <hr />
+
 
                     <div className="row">
-                        <div className="col-sm-4">                       
-                            <ul className="list-group">
-                                <li className="list-group-item text-center" >
-                                  <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
-                                   
-                                </li>
-                                <li className="list-group-item bg-secondary"> 
-                                <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
-                                </li>
-                                <li className="list-group-item">  
-                                    <label>Gender :&nbsp;</label>
-                                    {user.gender}
-                                </li>     
-                                <li className="list-group-item">  
-                                    <label>Field of Study:</label>
-                                    <p> {user.field_of_study} </p>
-                                </li>                                  
-                                <li className="list-group-item">  
-                                    <label>University Affiliation:</label>
-                                    <p>{user.affiliation} </p>
-                                </li>
-                                <li className="list-group-item bg-secondary"> 
-                                    <Link to="/users/edit" className="btn btn-default btn-block" >Edit Profile</Link>
-                                </li>
-                            </ul>
-                            
+                        <div className="col-sm-4">               
+                            <div className="card mt-3">               
+                                <ul className="list-group">
+                                    <li className="list-group-item text-center" >
+                                    <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
+                                    
+                                    </li>
+                                    <li className="list-group-item bg-secondary"> 
+                                    <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
+                                    </li>
+                                    <li className="list-group-item">  
+                                        <label>Gender :&nbsp;</label>
+                                        {user.gender}
+                                    </li>     
+                                    <li className="list-group-item">  
+                                        <label>Field of Study:</label>
+                                        <p> {user.field_of_study} </p>
+                                    </li>                                  
+                                    <li className="list-group-item">  
+                                        <label>University Affiliation:</label>
+                                        <p>{user.affiliation} </p>
+                                    </li>
+                                    <li className="list-group-item bg-secondary"> 
+                                        <Link to="/users/edit" className="btn btn-default btn-block" >Edit Profile</Link>
+                                    </li>
+                                </ul>
+                                
+                            </div>
                         </div>
                         
                         <div className="col-sm-8">
-                            <div className="card ">
+                            <div className="card mt-3">
                                 <div className="card-header bg-dark text-white">
                                     <h5>{user.user_name}</h5></div>
                                 <div className="card-body">

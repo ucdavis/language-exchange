@@ -25,7 +25,7 @@ class Nav extends React.Component {
 
   render() {
     const server = "http://localhost:3000";
-    var url = `${server}/api/storages/images/download/ucd_logo.png`;
+    var url = `${server}/api/storages/images/download/logo.png`;
     let user_name = "Unregistered";
     if( this.props.userState.current !== null ){
       user_name = this.props.userState.current.user_name;

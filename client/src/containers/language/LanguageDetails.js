@@ -20,7 +20,7 @@ class LanguageDetail extends Component{
         }       
         return (         
             <div>
-                <div className="card">
+                <div className="card mt-3">
                     <div className="card-header bg-dark text-white">
                         Languages
                     </div>

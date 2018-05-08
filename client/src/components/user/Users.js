@@ -2,11 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class Users extends Component{
+
+    
     render(){
+
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
         
         const userList = this.props.state.users.map((user,i)=>{
-            var created = new Date(user.created_at);
-            var updated = new Date(user.updated_at);
+            var created_at = new Date(user.created_at);
+            var updated_at = new Date(user.updated_at);
+            var created = addZero(created_at.getMonth()+1) +"/"
+                        +addZero(created_at.getDate())+"/"
+                        +addZero(created_at.getFullYear());
+            var updated = addZero(updated_at.getMonth()+1) +"/"
+                        +addZero(updated_at.getDate())+"/"
+                        +addZero(updated_at.getFullYear());
+                        
             return (
                 <tr key={ i } >
                     <th scope="row"> { i+1 } </th>
@@ -18,8 +34,8 @@ class Users extends Component{
                                 }else return null
                             })}
                     </td>
-                    <td> { (created.getMonth()+1)+"/"+created.getDate()+"/"+created.getFullYear() } </td>  
-                    <td> { (updated.getMonth()+1)+"/"+updated.getDate()+"/"+updated.getFullYear() } </td>  
+                    <td> { created } </td>  
+                    <td> { updated } </td>  
                 </tr>    
             )
         });
@@ -27,7 +43,7 @@ class Users extends Component{
 
         return (
             <div>
-                <div className="card">
+                <div className="card mt-3">
                     <div className="card-header bg-dark text-white">
                         Users
                     </div>
