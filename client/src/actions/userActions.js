@@ -15,13 +15,8 @@ export function createUser (newUser){
     }
 }
 
-export function fetchUsers(){
-    return function(dispatch){
-        axios.get('/api/partners')
-        .then(response => dispatch({type:"FETCH_USERS_FULFILLED",payload:response.data}))
-        .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
-    }
-}
+
+
 
 export function existedUser(cas_user){
     return function(dispatch){
@@ -55,6 +50,7 @@ export function fetchCurrentUser(){
 
 export function fetchUser(id){
     return function(dispatch){
+        dispatch({type:"FETCH_USER_PENDING"})
         axios.get(`/api/partners/${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_FULFILLED",payload:response.data})
@@ -249,3 +245,14 @@ export function searchUsers(gender, provided, desired){
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
 } 
+
+
+export function fetchUsers(){
+    return function(dispatch){
+        dispatch({type:"FETCH_USERS_PENDING"})
+        var filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}}]}`
+        axios.get(`/api/partners?filter=${filter}`)
+        .then(response => dispatch({type:"FETCH_USERS_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
+    }
+}

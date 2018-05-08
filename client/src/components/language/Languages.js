@@ -15,9 +15,7 @@ class Languages extends Component{
 
             )
         })
-
-       
-            
+      
         return (
             <div>
 

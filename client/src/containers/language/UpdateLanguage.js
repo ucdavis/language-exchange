@@ -14,13 +14,10 @@ class UpdateLanguage extends Component{
         }
     }
     
-
     componentDidMount(){
         if(this.props.match.params.id){
             this.props.fetchLanguage(this.props.match.params.id);
-            
     }}
-
 
     onDelete(){
        this.props.deleteLanguage(this.props.match.params.id);
@@ -34,7 +31,6 @@ class UpdateLanguage extends Component{
             name : values.name,
             short_name : values.short_name,
             updated_at : now
-
         }
         this.props.updateLanguage(newLanguage);
         this.setState({ redirect: true })
@@ -60,8 +56,6 @@ class UpdateLanguage extends Component{
                         <UpdateLanguageForm onSubmit={this.submit} />
                         </div>
                     </div>
-
-
                 </div>  
             )
         }

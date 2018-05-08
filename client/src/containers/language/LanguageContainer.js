@@ -11,20 +11,15 @@ class LanguageContainer extends Component{
     
     render(){ 
         const {updating,fetching,languages} = this.props.languageState;
-        console.log(updating,fetching,languages)
+
         if(updating || fetching){
-
             return <h5>...loading</h5>
-
-            
         }else{
             return (
-                
                 <div>
                     <Languages  languages={languages} />
                 </div>       
             )
-            
         }
     }
 }
