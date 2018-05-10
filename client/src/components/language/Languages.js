@@ -18,22 +18,20 @@ class Languages extends Component{
       
         return (
             <div>
-
                 <div className="card mt-3">
-                <div className="card-header bg-dark text-white">
-                    Languages
-                </div>
-                <div className="card-body">
-                    <table className="table table-hover table-sm">
-                        <thead>
-                        <tr><th>Language</th><th>Short Name</th><th>Edit</th></tr>
-                        </thead>
-                        <tbody>
-                        { languageItems }
-                        </tbody>      
-                    </table>
-                
-                 </div>    
+                    <div className="card-header bg-dark text-white">
+                        Languages
+                    </div>
+                    <div className="card-body">
+                        <table className="table table-hover table-sm">
+                            <thead>
+                            <tr><th>Language</th><th>Short Name</th><th>Edit</th></tr>
+                            </thead>
+                            <tbody>
+                            { languageItems }
+                            </tbody>      
+                        </table>
+                    </div>    
                 </div>    
             </div>    
         )

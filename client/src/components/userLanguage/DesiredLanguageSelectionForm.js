@@ -44,12 +44,11 @@ let DesiredLanguageSelectionForm = props => {
 
         <div>
         <div className="card bg-secondary m-3" id="selector">
-        <div className="card-header">
-                Language selection
+            <div className="card-header">
+                Select name and level of the languages you are learning
             </div>
         <div className="card-body">
 
-        <label>Select name and level of the languages you are learning</label>
         <form onSubmit={handleSubmit}>
             <div className="row">
                 <div className="form-group  col-md-4">

@@ -39,6 +39,12 @@ class userProfile extends Component{
         return (   
                
             <div>
+            <div className="card mt-3">
+            <div className="card-header bg-dark text-white">
+                My Profile
+            </div>
+            <div className="card-body">
+            
 
 
                     <div className="row">
@@ -74,8 +80,9 @@ class userProfile extends Component{
                         
                         <div className="col-sm-8">
                             <div className="card mt-3">
-                                <div className="card-header bg-dark text-white">
-                                    <h5>{user.user_name}</h5></div>
+                                <div className="card-header bg-secondary">
+                                    <h5>{user.user_name}</h5>
+                                </div>
                                 <div className="card-body">
 
                                     <div > 
@@ -98,10 +105,12 @@ class userProfile extends Component{
                             </div>
                            
                         </div>
+                        </div>
                         
 
                     </div> 
                 
+                </div>    
                 </div>    
         )
     }

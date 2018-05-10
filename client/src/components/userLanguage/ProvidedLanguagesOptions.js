@@ -40,14 +40,11 @@ if (this.props.userLanguageState.fetching ){
         if(providedLanguages.length){
             return (
               <div>
-
                   <div className="row">
-                  <div className="col-sm-12">
-                    <div className="card-group">
-
-                      { providedLanguages }
-
-                    </div>
+                    <div className="col-sm-12">                
+                      <div className="card-group">
+                        { providedLanguages }
+                      </div>
                     </div>
                   </div>
                 

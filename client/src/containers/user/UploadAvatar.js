@@ -2,7 +2,6 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as flashMessageAction from "../../actions/flashMessageActions"
 import * as userActions from '../../actions/userActions';
 import { withRouter, Redirect } from 'react-router-dom';
 
@@ -28,10 +27,11 @@ class UploadFile extends React.Component {
       const user_id = this.props.userState.current.id;
       const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       const setState = this.setState.bind(this);
-      const blob = accepted[0].preview;
-      // const sendFlashMessage = this.props.sendFlashMessage;
+      let blob = null;
+
 
         if (accepted.length && directory_exists === "true"){
+          blob = accepted[0].preview;
           this.sendFile(accepted, user_id);
           setState({
             preview : <div>
@@ -41,7 +41,7 @@ class UploadFile extends React.Component {
                       </div>
           , accepted, rejected }
           );
-          // sendFlashMessage("File Uploaded", "alert-success");
+
         }else if( directory_exists === "false"){
           createUserDirectoryAndSave(accepted,user_id);
           setState({
@@ -52,8 +52,13 @@ class UploadFile extends React.Component {
                       </div>
           , accepted, rejected }
           );
-          // sendFlashMessage("File Uploaded", "alert-success");
+
         }else{
+          setState({
+            preview : null,
+            accepted,
+            rejected
+          });
           console.log("File was rejected");
         }
     }
@@ -63,10 +68,7 @@ class UploadFile extends React.Component {
       saveUserAvatar(accepted, user_id);
     }
 
-    createDirectoyAndSaveFile=(accepted, user_id)=>{
-
-    }
-    
+   
     render() {
       const filePreview = this.state.preview;
       const {redirect} = this.state;
@@ -79,14 +81,21 @@ class UploadFile extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-12">
+                <aside>
+                    <ul className="list-group">
+                      {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>Avatar Uploaded!</li>) }
+                      { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> Wrong file format or size - {f.size } bytes</li>) }
+                    </ul>
+                  </aside>
+                <div className="card mt-3">
+                <div className="card-header bg-dark text-white">
+                    My Profile
+                </div>
+                <div className="card-body">
 
                 <div className="panel panel-default">
                 <div className="panel-heading"><h4><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Profile Picture </h4></div>
                 <div className="panel-body">
-
-                <div>
-                {/* directory_exists { directory_exists } */}
-                </div>
 
                 <section>
                   <div className="dropzone">
@@ -101,20 +110,15 @@ class UploadFile extends React.Component {
                       <p className="text-center">Drop files here, or click to select files to upload.</p>
                     </Dropzone>
                   </div>
-                  <br />
-                  <aside>
-
-                  <ul className="list-group">
-                    {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>Avatar Uploaded!</li>) }
-                    { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> Wrong file format or size - {f.size } bytes</li>) }
-                  </ul>
-                </aside>
                 </section>
+                <br />
 
                 <div>
                    { filePreview }
                 </div>
 
+                </div>
+                </div>
                 </div>
               </div>
               </div>
@@ -134,13 +138,8 @@ class UploadFile extends React.Component {
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
       fetchCurrentUser : userActions.fetchCurrentUser,
-      updateUserAvatar : userActions.updateUserAvatar,
-      deleteUserAvatar : userActions.deleteUserAvatar,
       saveUserAvatar : userActions.saveUserAvatar,
-      checkUserDirectory : userActions.checkUserDirectory,
-      createUserDirectory : userActions.createUserDirectory,
       createUserDirectoryAndSave : userActions.createUserDirectoryAndSave,    
-      sendFlashMessage : flashMessageAction.sendFlashMessage
     }, dispatch)
  }
 

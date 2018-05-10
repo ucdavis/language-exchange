@@ -7,6 +7,7 @@ import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLangua
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
 import UserAvatar from '../../components/user/UserAvatar';
+import { Link } from 'react-router-dom';
 
 
 class userDetails extends Component{
@@ -83,6 +84,10 @@ class userDetails extends Component{
                                 <div > 
                                     <DesiredLanguageDetail state={this.props.userLanguageState}/>
                                 </div>
+
+                            </div>
+                            <div className="card-footer text-center">
+                                <Link to={ `/users/contact/${user.id}`} className="btn btn-success" >Contact</Link>
 
                             </div>
                             </div>
