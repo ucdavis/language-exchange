@@ -16,6 +16,8 @@ class CreateUser extends React.Component {
 
   componentDidMount(){
     this.props.fetchCasUser(); 
+    let today = new Date();
+    console.log("today",today)
 }
 
   submit = values => {
@@ -47,12 +49,25 @@ class CreateUser extends React.Component {
     }
    
     if (redirect) {
-      const user_id = this.props.userState.current.id;
-      const redirect_url = `/userlanguages/edit/${user_id}`;
-      // const redirect_url = '/userlanguages/create';
+      const redirect_url = `/users/languages`;
       return <Redirect to={redirect_url}  />;
     }else{
-      return <UserForm onSubmit={this.submit} />
+      return (
+        <div>
+          <div className="row">
+            <div className="col-sm-12"> 
+                <div className="card mt-3">
+                  <div className="card-header bg-dark text-white">
+                      Registration Form
+                  </div>
+                  <div className="card-body">
+                    <UserForm onSubmit={this.submit} />
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      )
 
     }
     

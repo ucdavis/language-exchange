@@ -78,25 +78,26 @@ let UserForm = props => {
 
   return (
       <div>
-      <h2>Registration Form</h2>
             <form onSubmit={handleSubmit}>
-            
-            <div className="well">
-                <div className="form-check">
-                    <label className="form-check-label">
-                        <Field
-                            name="available"
-                            component="input"
-                            type="checkbox"
-                            className="form-check-input"
-                        /> Available
-                            <small id="availableHelp" className="form-text text-muted">
-                            <br /> If you uncheck this box your data will not show up in search results for others to contact you.
-                            <br /> You can come back to re-check the box when you are available again.
-                            </small>
-                    </label>
+                <div className="card bg-secondary col-sm-12">
+                    <div className="card-body">
+                        <div className="form-check">
+                            <label className="form-check-label">
+                                <Field
+                                    name="available"
+                                    component="input"
+                                    type="checkbox"
+                                    className="form-check-input"
+                                /> Available
+                                    <small id="availableHelp" className="form-text text-muted">
+                                    <br /> If you uncheck this box your data will not show up in search results for others to contact you.
+                                    <br /> You can come back to re-check the box when you are available again.
+                                    </small>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
 
 
             <div className="form-group">
