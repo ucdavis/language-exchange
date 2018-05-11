@@ -27,7 +27,36 @@ class Home extends Component{
         return(
             <div>
               { home }
-         </div>
+
+                <div className="card-group">
+
+                    <div className="card bg-light mb-3" styles="max-width: 18rem;">
+                        <div className="card-header text-white bg-dark">Find a partner</div>
+                        <div className="card-body">
+                            <h5 className="card-title">Information</h5>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+
+                    <div className="card bg-light mb-3" styles="max-width: 18rem;">
+                        <div className="card-header bg-warning text-white">Read your Messages</div>
+                        <div className="card-body">
+                            <h5 className="card-title">Information</h5>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+
+                    <div className="card bg-light mb-3" styles="max-width: 18rem;">
+                        <div className="card-header bg-primary text-white">Improve your Skills</div>
+                        <div className="card-body">
+                            <h5 className="card-title">Information</h5>
+                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>    
+
+                </div>
+
+            </div>
         );
     }
 }

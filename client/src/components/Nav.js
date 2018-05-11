@@ -61,9 +61,9 @@ class Nav extends React.Component {
                   <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{ user_name }
                   </a>
                   <div className="dropdown-menu" x-placement="bottom-start" >
+                    <a className="dropdown-item" href="/users/profile">My Profile</a>
                     <a className="dropdown-item" href="/users/messages">My Messages</a>
                     <a className="dropdown-item" href="/users/languages">My Languages</a>
-                    <a className="dropdown-item" href="/users/profile">My Profile</a>
                     <div className="dropdown-divider"></div>
                     <a className="dropdown-item" href="/logout">Logout</a>
                   </div>

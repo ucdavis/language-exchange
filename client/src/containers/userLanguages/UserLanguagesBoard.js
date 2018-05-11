@@ -98,36 +98,16 @@ class UserLanguagesBoard extends React.Component {
 
       return (
         <div>
-
-
-
-
-          {/* <div className="row">
-            <div className="col-sm-12">
-              <div className="side-bar text-left">
-                <div className="btn-group" role="group" aria-label="button group">
-                  <button
-                    type="button"
-                    id = "providedButton"
-                    className="btn btn-info"
-                    onClick={this.showProvided} >
-                    Languages I know
-                  </button>
-
-                  <button
-                    type="button"
-                    id = "desiredButton"
-                    className="btn btn-outline-info"
-                    onClick={this.showDesired} >
-                    Languages I'm learning
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <div className="row">
             <div className="col-sm-12">
+
+              <div className="alert alert-danger  alert-dismissible fade show mt-2" role="alert">
+                <strong>Help!</strong> Make sure to complete both well known and learning languages below.
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
               <nav className="nav nav-pills nav-fill mt-3">
                   <button
                     type="button"
