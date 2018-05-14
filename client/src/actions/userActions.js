@@ -77,11 +77,7 @@ export function updateUser(newUserData){
                 email_confirmed : newUserData.email_confirmed,
                 notify_by_email : newUserData.notify_by_email,
                 affiliation : newUserData.affiliation,
-                field_of_study : newUserData.field_of_study,
-                updated_at : newUserData.updated_at,
-                created_at : newUserData.created_at
-
-            }
+                field_of_study : newUserData.field_of_study            }
         })
         .then(response =>dispatch({type:"UPDATE_USER_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));

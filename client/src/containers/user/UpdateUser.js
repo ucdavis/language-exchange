@@ -4,6 +4,7 @@ import UpdateUserForm from '../../components/user/UpdateUserForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
 import { withRouter } from 'react-router-dom';
+import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class UpdateUser extends React.Component {
 
@@ -13,8 +14,8 @@ class UpdateUser extends React.Component {
 
   submit = values => {
     let cas_user = this.props.userState.current.cas_user;
-    let now = new Date();
     let user_id = this.props.userState.current.id;
+
 
     const newUserData= {
         id : user_id,
@@ -28,10 +29,9 @@ class UpdateUser extends React.Component {
         description : values.description,
         affiliation : values.affiliation,
         field_of_study: values.field_of_study,
-        created_at : this.props.userState.active.created_at,
-        updated_at : now,
     }
     this.props.updateUser(newUserData);
+    this.props.sendFlashMessage("Profile updated!!", "alert-success");
   }
   render() {
     
@@ -55,13 +55,17 @@ class UpdateUser extends React.Component {
 }
 
 function mapStateToProps(state){
-    return { userState : state.userState }
+    return { userState : state.userState,
+             flashMessage : state.flashMessage
+          }
  }
  
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
         updateUser : userActions.updateUser,
-        fetchCurrentUser: userActions.fetchCurrentUser}, dispatch)
+        fetchCurrentUser: userActions.fetchCurrentUser,
+        sendFlashMessage: flashMessageActions.sendFlashMessage
+      }, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(UpdateUser));

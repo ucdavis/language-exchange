@@ -22,7 +22,6 @@ class CreateUser extends React.Component {
 
   submit = values => {
     let cas_user = this.props.userState.cas_user;
-    let now = new Date();
     
     const newUser= {
         cas_user : cas_user,
@@ -35,8 +34,6 @@ class CreateUser extends React.Component {
         description : values.description,
         affiliation : values.affiliation,
         field_of_study: values.field,
-        updated_at : now,
-        created_at : now
     }
     this.props.createUser(newUser);
     this.setState({ redirect: true })

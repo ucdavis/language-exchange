@@ -131,7 +131,6 @@ class UploadFile extends React.Component {
 
   function mapStateToProps(state){
     return {  userState : state.userState,
-              flashMessage : state.flashMessage
             }
  }
  

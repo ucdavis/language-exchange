@@ -41,9 +41,9 @@ const validate = values => {
     const {  handleSubmit, pristine, submitting } = props;
   
     const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
-      <div>
-        <label className="control-label">{label}</label>
-        <div>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">{label}</label>
+        <div className="col-sm-10">
           <input {...input} placeholder={label} type={type} className="form-control" />
           {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
         </div>
@@ -51,9 +51,9 @@ const validate = values => {
     )
   
     const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
-      <div>
-        <label className="control-label">{label}</label>
-        <div>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">{label}</label>
+        <div className="col-sm-10">
         <select {...input} className= "form-control custom-select">
           {children}
         </select>
@@ -63,13 +63,14 @@ const validate = values => {
     )
   
     const TextAreaField = ({ input, label, meta: { touched, error, warning } }) => (
-      <div>
-        <label className="control-label">{label}</label><br/>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label">{label}</label><br/>
+          
+        <div className="col-sm-10">
+          <textarea {...input} placeholder={label}  rows="3" className="form-control" />
           <small id="description" className="form-text text-muted">
               Please give your partners a brief background about yourself.
           </small>
-        <div>
-          <textarea {...input} placeholder={label}  rows="3" className="form-control" />
           {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
         </div>
       </div>
@@ -80,9 +81,9 @@ const validate = values => {
 
               <form onSubmit={handleSubmit}>
               
-              <div className="card bg-secondary col-sm-12">
+              <div className="card bg-secondary mb-3 col-sm-12">
                   <div className="card-body">
-                  <div className="form-group">
+                  <div >
                           <Field
                               name="available"
                               component="input"
@@ -90,8 +91,7 @@ const validate = values => {
                               className="form-check-input"
                           /> Available
                               <small id="availableHelp" className="form-text text-muted">
-                              <br /> If you uncheck this box your data will not show up in search results for others to contact you.
-                              <br /> You can come back to re-check the box when you are available again.
+                              If you uncheck this box your data will not show up in search results for others to contact you.You can come back to re-check the box when you are available again.
                               </small>
                      
                   </div>
@@ -99,7 +99,7 @@ const validate = values => {
               </div>
   
   
-              <div className="form-group">
+              <div>
                   <Field
                       name="user_name"
                       component={InputField}
@@ -108,7 +108,7 @@ const validate = values => {
                   />
               </div>
   
-              <div className="form-group">
+              <div>
                   <Field
                       name="email"
                       component={InputField}
@@ -170,11 +170,17 @@ const validate = values => {
                   
               </div>                       
               
-              <div className="form-group">
-                  <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
-                  Save Changes
-                  </button>
-   
+              <div className="form-group row">
+                <div className="col-xs-6">  
+                    <button type="submit" className="btn btn-success" disabled={pristine || submitting}>
+                        Save Changes
+                    </button>
+                </div>
+              <div className="col-xs-6">
+                  <a href="/users/profile" className="btn btn-primary" disabled={submitting}>
+                    View Profile
+                  </a >
+              </div>
               </div>
               </form>
   
