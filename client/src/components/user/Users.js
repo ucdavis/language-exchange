@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import ReactTable from "react-table";
+import { CSVLink } from 'react-csv'; 
 import 'react-table/react-table.css';
 
 
@@ -18,12 +18,26 @@ class Users extends Component{
         
 
         const userList = this.props.state.users.map((user)=>{return user });
+        const dataDownload = [];
+        userList.map(user=>{
+            dataDownload.push({
+                Username:user.user_name,
+                Gender:user.gender,
+                Field: user.field_of_study,
+                Affiliation: user.affiliation,
+                Known_Languages: user.provided_languages.map(language=>{return language.language.short_name}),
+                Learning_languages: user.provided_languages.map(language=>{return language.language.short_name}),
+                Registered:user.created_at.toString().split('T',1),
+                Last_Login: user.updated_at.toString().split('T',1)            
+            })
+            return userList;
+        })
 
 
         const columns = [{
-            Header: 'Show',
+            Header: 'View',
             accessor: 'id',
-            Cell: row => (<a href={ `/users/${row.value}`} className="btn btn-sm btn-primary"> Show</a>)
+            Cell: row => (<a href={ `/users/${row.value}`} className="btn btn-sm btn-primary">View</a>)
 
           },{
             Header: 'Username',
@@ -70,11 +84,19 @@ class Users extends Component{
             <div>
                 <div className="card mt-3">
                     <div className="card-header bg-dark text-white">
+                        
+                        <div className="row">
+                        <div className="col-sm-6">
                         Users
+                        </div>
+                        <div className="col-sm-6 text-right">
+                            <CSVLink data={dataDownload} className="btn btn-success btn-sm" filename="report_tle_users.csv">Download CSV</CSVLink>
+                        </div>
+                        </div>
                     </div>
                     <div className="card-body">
                         <div className="table-responsive">
-
+                        
                         <ReactTable
                             data={userList}
                             columns={columns}
