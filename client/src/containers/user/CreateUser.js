@@ -13,11 +13,9 @@ class CreateUser extends React.Component {
     }
   }
 
-
   componentDidMount(){
-    this.props.fetchCasUser(); 
-    let today = new Date();
-    console.log("today",today)
+    this.props.fetchCasUser();
+    this.props.fetchCurrentUser();
 }
 
   submit = values => {
@@ -39,33 +37,39 @@ class CreateUser extends React.Component {
     this.setState({ redirect: true })
   }
   render() {
-    const {redirect} = this.state;
-
-    if (this.props.userState.fetching){
-      return <h5>...Creating User</h5>
-    }
-   
-    if (redirect) {
-      const redirect_url = `/users/languages`;
-      return <Redirect to={redirect_url}  />;
+    const authUser = this.props.userState.current;
+    if(authUser){
+      return <h3> You are already registered!</h3>
     }else{
-      return (
-        <div>
-          <div className="row">
-            <div className="col-sm-12"> 
-                <div className="card mt-3">
-                  <div className="card-header bg-dark text-white">
-                      Registration Form
-                  </div>
-                  <div className="card-body">
-                    <UserForm onSubmit={this.submit} />
-                  </div>
+
+      const {redirect} = this.state;
+
+      if (this.props.userState.fetching){
+        return <h5>...Creating User</h5>
+      }
+    
+      if (redirect) {
+        const redirect_url = `/users/languages`;
+        return <Redirect to={redirect_url}  />;
+      }else{
+        return (
+          <div>
+            <div className="row">
+              <div className="col-sm-12"> 
+                  <div className="card mt-3">
+                    <div className="card-header bg-dark text-white">
+                        Registration Form
+                    </div>
+                    <div className="card-body">
+                      <UserForm onSubmit={this.submit} />
+                    </div>
+                </div>
               </div>
             </div>
-          </div>
-      </div>
-      )
+        </div>
+        )
 
+      }
     }
     
   }
@@ -79,7 +83,8 @@ function mapStateToProps(state){
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
       createUser : userActions.createUser,
-      fetchCasUser : userActions.fetchCasUser  }, dispatch)
+      fetchCasUser : userActions.fetchCasUser,
+      fetchCurrentUser: userActions.fetchCurrentUser  }, dispatch)
  }
 
  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(CreateUser));

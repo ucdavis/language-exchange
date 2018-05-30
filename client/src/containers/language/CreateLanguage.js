@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
+import * as userActions from "../../actions/userActions";
 
 class CreateLanguage extends Component{
     
@@ -14,6 +15,10 @@ class CreateLanguage extends Component{
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
+    }
+
+    componentDidMount(){
+        this.props.fetchCurrentUser();
     }
 
     handleInputChange(event){
@@ -36,28 +41,40 @@ class CreateLanguage extends Component{
     }
 
     render(){
-         return(
-            <div>
-                <h1>{this.state.title } </h1>
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <div className="form-group">
-                        <label htmlFor="name" className="control-label">Language Name:</label>
-                        <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.name} onChange={this.handleInputChange} />
-                    </div> 
-                    <input type="submit" value="Save" className="btn btn-success" />
-                </form>
-            </div>  
-        )
-    }
+        const authUser = this.props.userState.current;
+        if( authUser.user_type){
+        
+            return(
+                <div>
+                    <h3>{this.state.title }</h3>
+                    <form onSubmit={this.onSubmit.bind(this)}>
+                        <div className="form-group">
+                            <label htmlFor="name" className="control-label">Language Name:</label>
+                            <input type="text" className="form-control" ref="name" name = "name" id="name" value={this.state.name} onChange={this.handleInputChange} />
+                        </div> 
+                        <input type="submit" value="Save" className="btn btn-success" />
+                    </form>
+                </div>  
+            )
+        }else{
+            return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+        }
 
+    }
 }
 
 function mapStateToProps(state){
-   return { languageState : state.languageState }
+    return{
+        languageState: state.languageState,
+        userState: state.userState
+    }
 }
 
 function mapDispatchToProps(dispatch){
-   return  bindActionCreators({ createLanguage:languageActions.createLanguage}, dispatch)
+   return  bindActionCreators({
+       createLanguage:languageActions.createLanguage,
+       fetchCurrentUser: userActions.fetchCurrentUser
+    }, dispatch)
 }
 
 export default withRouter( connect(mapStateToProps, mapDispatchToProps)(CreateLanguage));

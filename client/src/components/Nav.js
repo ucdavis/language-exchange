@@ -27,10 +27,7 @@ class Nav extends React.Component {
     let authUser = this.props.userState.current;
     const server = "http://localhost:3000";
     var url = `${server}/api/storages/images/download/logo.png`;
-    let user_name = "Unregistered";
-    if( authUser !== null ){
-      user_name = authUser.user_name;
-    }
+
     let admin_menu = "";
     if(authUser.user_type){
       admin_menu = (
@@ -41,10 +38,11 @@ class Nav extends React.Component {
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
                       <a className="dropdown-item" href="/users">Users</a>
-                      <a className="dropdown-item" href="/Languages">Languages</a>
+                      <a className="dropdown-item" href="/languages">Languages</a>
                     </div>
                   </li>
-    )};
+    )
+  };
         return (
           <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
