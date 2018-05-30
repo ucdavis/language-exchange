@@ -37,20 +37,18 @@ class CreateUser extends React.Component {
     this.setState({ redirect: true })
   }
   render() {
+    if (this.props.userState.fetching){
+      return <h5>...Creating User</h5>
+    }
+    const {redirect} = this.state;
     const authUser = this.props.userState.current;
-    if(authUser){
-      return <h3> You are already registered!</h3>
-    }else{
-
-      const {redirect} = this.state;
-
-      if (this.props.userState.fetching){
-        return <h5>...Creating User</h5>
-      }
+      
     
       if (redirect) {
         const redirect_url = `/users/languages`;
         return <Redirect to={redirect_url}  />;
+      }else if(authUser){
+        return <h3> You are already registered!</h3>
       }else{
         return (
           <div>
@@ -70,7 +68,7 @@ class CreateUser extends React.Component {
         )
 
       }
-    }
+    
     
   }
 }
