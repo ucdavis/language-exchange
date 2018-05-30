@@ -15,8 +15,7 @@ import MessageBoard from "../containers/message/MessageBoard";
 import QuickMessage from "../containers/message/QuickMessage";
 import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 import UploadAvatar from '../containers/user/UploadAvatar';
-import Chart from '../containers/charts/Chart'
-
+import Chart from '../containers/charts/Chart';
 
 const Main = () => (
     <main>
@@ -35,10 +34,8 @@ const Main = () => (
             <Route exact path='/users/edit' component = { UpdateUser } />
             <Route exact path='/users/avatar' component ={ UploadAvatar } />
             <Route exact path='/users/:id' component = { UserDetails } /> 
-            
             <Route exact path='/users/contact/:id' component ={ QuickMessage } />
             <Route exact path='/admin/dashboard' component ={ Chart } />
-
         </Switch>    
     </main>    
 )

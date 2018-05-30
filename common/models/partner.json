@@ -72,6 +72,11 @@
       "type": "date",
       "required": true,
       "defaultFn": "now"
+    },
+    "user_type": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],

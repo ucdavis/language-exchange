@@ -24,14 +24,27 @@ class Nav extends React.Component {
   }
 
   render() {
+    let authUser = this.props.userState.current;
     const server = "http://localhost:3000";
     var url = `${server}/api/storages/images/download/logo.png`;
     let user_name = "Unregistered";
-    if( this.props.userState.current !== null ){
-      user_name = this.props.userState.current.user_name;
+    if( authUser !== null ){
+      user_name = authUser.user_name;
     }
-      
-
+    let admin_menu = "";
+    if(authUser.user_type){
+      admin_menu = (
+      <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Admin
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
+                      <a className="dropdown-item" href="/users">Users</a>
+                      <a className="dropdown-item" href="/Languages">Languages</a>
+                    </div>
+                  </li>
+    )};
         return (
           <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -55,25 +68,13 @@ class Nav extends React.Component {
                     <a className="nav-link" href="/users/languages">Languages</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/users/profile">Profile</a>
-                  </li>
-                  <li className="nav-item">
                     <a className="nav-link" href="/guide">Conversation Guide</a>
                   </li>
-                  
-    {/* Admin Menu */}
-                
-                  <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Admin
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                      <a className="dropdown-item" href="/users">Users</a>
-                      <a className="dropdown-item" href="/Languages">Languages</a>
-                    </div>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/users/profile">Profile</a>
                   </li>
-
+                  
+                  { admin_menu}
 
                 <li className="nav-item pull-right">
                     <a className="nav-link btn btn-sm btn-outline-warning" href="/logout">Logout</a>
