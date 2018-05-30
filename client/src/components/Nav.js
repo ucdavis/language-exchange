@@ -45,49 +45,46 @@ class Nav extends React.Component {
 
               <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                  <li className="nav-item">
+                <li className="nav-item">
                     <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link">Conversation Guide</a>
+                    <a className="nav-link" href="/users/messages">Messages</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link">Help</a>
+                    <a className="nav-link" href="/users/languages">Languages</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/users/profile">Profile</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/guide">Conversation Guide</a>
+                  </li>
+                  
+    {/* Admin Menu */}
+                
+                  <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Admin
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
+                      <a className="dropdown-item" href="/users">Users</a>
+                      <a className="dropdown-item" href="/Languages">Languages</a>
+                    </div>
                   </li>
 
-    {/* User Menu */}
-                <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
-                  <span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{ user_name }
-                  </a>
-                  <div className="dropdown-menu" x-placement="bottom-start" >
-                    <a className="dropdown-item" href="/users/profile">My Profile</a>
-                    <a className="dropdown-item" href="/users/messages">My Messages</a>
-                    <a className="dropdown-item" href="/users/languages">My Languages</a>
-                    <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="/logout">Logout</a>
-                  </div>
-                </li>
-    {/* Admin Menu */}
-                <li className="nav-item dropdown">
-                  <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Admin
-                  </a>
-                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                    <a className="dropdown-item" href="/users">Users</a>
-                    <a className="dropdown-item" href="/Languages">Languages</a>
-                    <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="/logout">Logout</a>
-                  </div>
-                </li>
+
+                <li className="nav-item pull-right">
+                    <a className="nav-link btn btn-sm btn-outline-warning" href="/logout">Logout</a>
+                  </li>
 
                 </ul>
               </div>
             </div>
-              </nav>
-            
-          </div>
+            </nav>
+          
+        </div>
         
         );
       }

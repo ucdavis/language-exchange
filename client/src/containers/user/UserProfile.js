@@ -18,7 +18,6 @@ class userProfile extends Component{
         this.props.fetchUserProvidedLanguages(id);
         this.props.fetchUserDesiredLanguages(id);
         this.props.checkUserDirectory(id);
-        
     }
 
     render(){
@@ -44,9 +43,6 @@ class userProfile extends Component{
                 My Profile
             </div>
             <div className="card-body">
-            
-
-
                     <div className="row">
                         <div className="col-sm-4">               
                             <div className="card mt-3">               
@@ -56,7 +52,7 @@ class userProfile extends Component{
                                     
                                     </li>
                                     <li className="list-group-item bg-secondary"> 
-                                    <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
+                                        <Link to="/users/avatar" className="btn btn-default btn-block" >Change Image</Link>
                                     </li>
                                     <li className="list-group-item">  
                                         <label>Gender :&nbsp;</label>
@@ -85,16 +81,16 @@ class userProfile extends Component{
                                 </div>
                                 <div className="card-body">
 
-                                    <div > 
+                                    <div> 
                                     <h5>Description</h5>
                                         { user.description }
                                     </div>
-                                    <br />
-                                    <div > 
+                                    <br/>
+                                    <div> 
                                         <ProvidedLanguageDetail state={this.props.userLanguageState}/>
                                     </div>
-                                    <br />
-                                    <div > 
+                                    <br/>
+                                    <div> 
                                         <DesiredLanguageDetail state={this.props.userLanguageState}/>
                                     </div>
                                     
