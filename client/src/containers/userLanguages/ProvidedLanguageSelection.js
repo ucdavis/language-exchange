@@ -55,6 +55,7 @@ class ProvidedLanguageSelection extends Component{
                     <div className="row">
                         <div className="col-sm-12">
                             <h3>Languages I know</h3>
+                            <p>Please make sure to complete both well known and learning languages above</p>
                             <ProvidedLanguageSelectionForm
                                 providedLanguagesSelect={providedLanguagesSelect}
                                 abilities={languageAbility}

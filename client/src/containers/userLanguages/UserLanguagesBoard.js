@@ -92,21 +92,14 @@ class UserLanguagesBoard extends React.Component {
   render() {
 
 
-    // if (this.props.userState.fetching || this.props.userLanguageState.fetching){
-    //   return(<h5>..loading</h5>);
-    // }else{
+    if (this.props.userState.fetching || this.props.userLanguageState.fetching){
+      return(<h5>...loading</h5>);
+    }else{
 
       return (
         <div>
           <div className="row">
             <div className="col-sm-12">
-
-              <div className="alert alert-danger  alert-dismissible fade show mt-2" role="alert">
-                <strong>Help!</strong> Make sure to complete both well known and learning languages below.
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
 
               <nav className="nav nav-pills nav-fill mt-3">
                   <button
@@ -137,7 +130,7 @@ class UserLanguagesBoard extends React.Component {
       </div>
       )
     }
-  // }
+  }
 }
 
 function mapStateToProps(state){
