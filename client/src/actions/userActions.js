@@ -16,10 +16,9 @@ export function createUser (newUser){
 }
 
 
-
-
 export function existedUser(cas_user){
     return function(dispatch){
+        dispatch({type:"EXISTED_USER_PENDING"});
         axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
         .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
         .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
@@ -28,6 +27,7 @@ export function existedUser(cas_user){
 
 export function fetchCasUser(){
     return function(dispatch){
+        dispatch({type:"FETCH_CAS_USER_PENDING"});
         axios.get('/api/partners/cas_user')
         .then(response => dispatch({type:"FETCH_CAS_USER_FULFILLED", payload:response.data}))
         .catch(err => dispatch({type:"FETCH_CAS_USER_REJECTED", payload: err}));
@@ -36,6 +36,7 @@ export function fetchCasUser(){
 
 export function fetchCurrentUser(){
     return function(dispatch){
+        dispatch({type:"FETCH_CURRENT_USER_PENDING"});
         let cas_user = null;
         axios.get('/api/partners/cas_user')
         .then(response => {
@@ -64,6 +65,7 @@ export function fetchUser(id){
 // UPDATE
 export function updateUser(newUserData){
     return function (dispatch){
+        dispatch({type:"UPDATE_USER_PENDING"});
         axios.request({
             method: 'patch',
             url : `/api/partners/${newUserData.id}`,
@@ -231,6 +233,7 @@ export function checkImageExists(file_name){
 // SEARCH TOOL
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
+        dispatch({type:"SEARCH_USERS_PENDING"});
         var filter = "";
         if( gender !== "Any"){
             filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20DESC"}`          
