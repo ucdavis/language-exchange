@@ -21,15 +21,15 @@ class userProfile extends Component{
     }
 
     render(){
-        const server = "http://localhost:3000";
+
         let user = this.props.userState.current;
-        let no_image = `${server}/api/storages/images/download/no_image.png`
+        let no_image = '/api/storages/images/download/no_image.png';
         let userImage = () => <Img src={no_image} alt="avatar"/>;
         let avatar_file_name = user.avatar_file_name;
         let notFound = userImage;
         if (avatar_file_name) {
             console.log("file name not equal to null nor empty")
-            var url = `${server}/api/storages/${user.id}/download/${user.avatar_file_name}`;
+            var url = `/api/storages/${user.id}/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
             userImage = () => <Img src={ no_image } alt="avatar" unloader={ notFound() } />;

@@ -108,7 +108,7 @@ export function checkUserDirectory(user_id){
 export function createUserDirectory(user_id){
     return function(dispatch){
         dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
-        axios.post("http://localhost:3000/api/storages",{'name': user_id.toString()})
+        axios.post("/api/storages",{'name': user_id.toString()})
         .then(response => {
             dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response.data})
             })
@@ -122,7 +122,7 @@ export function createUserDirectoryAndSave(image, user_id){
     return function(dispatch){
         dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_PENDING"});
         dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
-        axios.post("http://localhost:3000/api/storages",{'name': user_id.toString()})
+        axios.post("/api/storages",{'name': user_id.toString()})
         .then(response =>{
             dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response})
             dispatch(saveUserAvatar(image, user_id))
@@ -145,7 +145,7 @@ export function saveUserAvatar(image, user_id){
                 var file = image[0];
                 var xhr = new XMLHttpRequest();
                 var fd = new FormData();
-                const url = `http://localhost:3000/api/storages/${user_id}/upload`;
+                const url = `/api/storages/${user_id}/upload`;
 
                 xhr.open("POST", url, true);
                 xhr.onreadystatechange = function() {

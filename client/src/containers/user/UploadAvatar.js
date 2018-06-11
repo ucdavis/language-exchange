@@ -3,8 +3,9 @@ import Dropzone from 'react-dropzone'
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from '../../actions/userActions';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 
+ 
 class UploadFile extends React.Component {
   constructor() {
     super();
@@ -35,7 +36,7 @@ class UploadFile extends React.Component {
           this.sendFile(accepted, user_id);
           setState({
             preview : <div>
-                        <a href="/users/profile" className="btn btn-success">View Profile</a>
+                        <Link to={'/users/profile'} className="btn btn-success">View Profile</Link>
                         <br/>
                         <img src={blob} alt="avatar"/>
                       </div>
@@ -81,47 +82,44 @@ class UploadFile extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-12">
-                <aside>
-                    <ul className="list-group">
-                      {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>Avatar Uploaded!</li>) }
-                      { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> Wrong file format or size - {f.size } bytes</li>) }
-                    </ul>
-                  </aside>
-                <div className="card mt-3">
-                <div className="card-header bg-dark text-white">
-                    My Profile
-                </div>
-                <div className="card-body">
+                  <aside>
+                      <ul className="list-group">
+                        {  this.state.accepted.map(f => <li className="list-group-item list-group-item-success" key={f.name}>Avatar Uploaded!</li>) }
+                        { this.state.rejected.map(f => <li className="list-group-item list-group-item-danger" key={f.name}> Wrong file format or size - {f.size } bytes</li>) }
+                      </ul>
+                    </aside>
+                    <div className="card mt-3">
+                      <div className="card-header bg-dark text-white">
+                          My Profile
+                      </div>
+                      <div className="card-body">
 
-                <div className="panel panel-default">
-                <div className="panel-heading"><h4><span className="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Profile Picture </h4></div>
-                <div className="panel-body">
+                          <h4 className="card-tittle">&nbsp;Profile Picture </h4>
+                              <section>
+                                <div className="dropzone">
+                                  <Dropzone
+                                      accept="image/jpg, image/jpeg, image/png"
+                                      multiple = {false}
+                                      maxSize = {1048576}
+                                      onDrop={ (accepted,rejected)=>                
+                                              this.onImageDrop(accepted, rejected)
+                                      } >
+                                    <p className="text-center">Drop files here, or click to select files to upload.</p>
+                                    <p className="text-center">Max file size: 1MB</p>
+                                  </Dropzone>
+                                </div>
+                              </section>
+                              <br />
 
-                <section>
-                  <div className="dropzone">
-                    <Dropzone
-                        accept="image/jpg, image/jpeg, image/png"
-                        multiple = {false}
-                        maxSize = {1048576}
-                        onDrop={ (accepted,rejected)=>                
-                                this.onImageDrop(accepted, rejected)
-                        }
-                    >
-                      <p className="text-center">Drop files here, or click to select files to upload.</p>
-                    </Dropzone>
+                            <div>
+                              { filePreview }
+                            </div>
+
+ 
+                          </div>
+                        
+                    </div>
                   </div>
-                </section>
-                <br />
-
-                <div>
-                   { filePreview }
-                </div>
-
-                </div>
-                </div>
-                </div>
-              </div>
-              </div>
               </div>
             </div>  
           );

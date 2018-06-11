@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 const validate = values => {
     const errors = {}
@@ -177,9 +178,9 @@ const validate = values => {
                     </button>
                 </div>
               <div className="col-xs-6">
-                  <a href="/users/profile" className="btn btn-primary" disabled={submitting}>
+                  <Link to={ '/users/profile'} className="btn btn-primary" disabled={submitting}>
                     View Profile
-                  </a >
+                  </Link >
               </div>
               </div>
               </form>

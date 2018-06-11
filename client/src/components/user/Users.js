@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactTable from "react-table";
 import { CSVLink } from 'react-csv'; 
 import 'react-table/react-table.css';
+import {Link} from 'react-router-dom';
 
 
 class Users extends Component{
@@ -37,7 +38,7 @@ class Users extends Component{
         const columns = [{
             Header: 'View',
             accessor: 'id',
-            Cell: row => (<a href={ `/users/${row.value}`} className="btn btn-sm btn-primary">View</a>)
+            Cell: row => (<Link to={ `/users/${row.value}`} className="btn btn-sm btn-primary">View</Link>)
 
           },{
             Header: 'Username',

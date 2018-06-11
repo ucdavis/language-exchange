@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
 import { withRouter } from 'react-router-dom';
 import Img from 'react-image';
+import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
   constructor() {
@@ -40,9 +41,9 @@ class Nav extends React.Component {
                         Admin
                       </a>
                       <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a className="dropdown-item" href="/admin/dashboard">Dashboard</a>
-                        <a className="dropdown-item" href="/users">Users</a>
-                        <a className="dropdown-item" href="/languages">Languages</a>
+                        <Link to={ '/admin/dashboard' } className="dropdown-item">Dashboard</Link>
+                        <Link to={ '/users' } className="dropdown-item">Users</Link>
+                        <Link to={ '/languages' } className="dropdown-item">Languages</Link>
                       </div>
                     </li>
         )
@@ -61,20 +62,20 @@ class Nav extends React.Component {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                  <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                <li className="nav-item">
+                  <Link to={ '/' } className="nav-link">Home <span className="sr-only">(current)</span></Link> 
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/users/messages">Messages</a>
+                  <Link to={ '/users/messages' } className="nav-link">Messages</Link> 
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/users/languages">Languages</a>
+                  <Link to={ '/users/languages' } className="nav-link">Languages</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/guide">Conversation Guide</a>
+                  <Link to={ '/guide' } className="nav-link">Conversation Guide</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/users/profile">Profile</a>
+                  <Link to={ '/users/profile' } className="nav-link">Profile</Link>
                 </li>
                 
                 { admin_menu}
@@ -103,7 +104,7 @@ class Nav extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/users/register">Register <span className="sr-only">(current)</span></a>
+                <Link to={ '/users/register' } className="nav-link">Register<span className="sr-only">(current)</span></Link>
                 </li>
 
               </ul>
