@@ -27,8 +27,7 @@ class Nav extends React.Component {
   render() {
 
     let authUser = this.props.userState.current;
-    const server = "http://localhost:3000";
-    var url = `${server}/api/storages/images/download/logo.png`;
+    var url = '/api/storages/images/download/logo.png';
     
 
     if(this.props.userState.current){
