@@ -21,9 +21,6 @@ const validate = values => {
     top:25,
   };
 
-let ProvidedLanguageSelectionForm = props => {
-  const { handleSubmit, pristine, submitting, providedLanguagesSelect, abilities } = props;
-
   const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
     <div>
       <label className="control-label">{label}</label>
@@ -36,6 +33,9 @@ let ProvidedLanguageSelectionForm = props => {
       {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   )
+
+let ProvidedLanguageSelectionForm = props => {
+  const { handleSubmit, pristine, submitting, providedLanguagesSelect, abilities } = props;
 
   return (
     <div>

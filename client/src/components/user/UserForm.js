@@ -36,11 +36,6 @@ const validate = values => {
     return errors
   } 
 
-
-
-let UserForm = props => {
-  const {  handleSubmit, pristine, submitting } = props;
-
   const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label className="control-label">{label}</label>
@@ -75,6 +70,12 @@ let UserForm = props => {
       </div>
     </div>
   )
+
+
+
+let UserForm = props => {
+  const {  handleSubmit, pristine, submitting } = props;
+
 
   return (
       <div>

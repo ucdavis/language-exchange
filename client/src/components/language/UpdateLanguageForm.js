@@ -17,20 +17,19 @@ const validate = values => {
     return errors
   } 
 
+  const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div>
+      <label className="control-label">{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} className="form-control" />
+        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
+
   let UpdateLanguageForm = props => {
     const {  handleSubmit, pristine, submitting } = props;
-  
-    const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
-      <div>
-        <label className="control-label">{label}</label>
-        <div>
-          <input {...input} placeholder={label} type={type} className="form-control" />
-          {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
-        </div>
-      </div>
-    )
 
-  
     return (
         <div>
 

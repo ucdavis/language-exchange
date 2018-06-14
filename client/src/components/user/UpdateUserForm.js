@@ -38,44 +38,46 @@ const validate = values => {
     return errors
   } 
 
+  const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div className="form-group row">
+      <label className="col-sm-2 col-form-label">{label}</label>
+      <div className="col-sm-10">
+        <input {...input} placeholder={label} type={type} className="form-control" />
+        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
+
+  const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
+    <div className="form-group row">
+      <label className="col-sm-2 col-form-label">{label}</label>
+      <div className="col-sm-10">
+      <select {...input} className= "form-control custom-select">
+        {children}
+      </select>
+        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
+
+  const TextAreaField = ({ input, label, meta: { touched, error, warning } }) => (
+    <div className="form-group row">
+      <label className="col-sm-2 col-form-label">{label}</label><br/>
+        
+      <div className="col-sm-10">
+        <textarea {...input} placeholder={label}  rows="3" className="form-control" />
+        <small id="description" className="form-text text-muted">
+            Please give your partners a brief background about yourself.
+        </small>
+        {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
+
   let UserForm = props => {
     const {  handleSubmit, pristine, submitting } = props;
   
-    const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">{label}</label>
-        <div className="col-sm-10">
-          <input {...input} placeholder={label} type={type} className="form-control" />
-          {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
-        </div>
-      </div>
-    )
-  
-    const SelectField = ({ input, label, type, meta: { touched, error, warning }, children }) => (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">{label}</label>
-        <div className="col-sm-10">
-        <select {...input} className= "form-control custom-select">
-          {children}
-        </select>
-          {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
-        </div>
-      </div>
-    )
-  
-    const TextAreaField = ({ input, label, meta: { touched, error, warning } }) => (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">{label}</label><br/>
-          
-        <div className="col-sm-10">
-          <textarea {...input} placeholder={label}  rows="3" className="form-control" />
-          <small id="description" className="form-text text-muted">
-              Please give your partners a brief background about yourself.
-          </small>
-          {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span>{warning}</span>))}
-        </div>
-      </div>
-    )
+
   
     return (
         <div>
