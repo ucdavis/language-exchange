@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from '../../actions/userActions';
 import { withRouter, Redirect, Link } from 'react-router-dom';
+import Img from 'react-image';
 
  
 class UploadFile extends React.Component {
@@ -38,7 +39,7 @@ class UploadFile extends React.Component {
             preview : <div>
                         <Link to={'/users/profile'} className="btn btn-success">View Profile</Link>
                         <br/>
-                        <img src={blob} alt="avatar"/>
+                        <Img src={blob} alt="avatar"/>
                       </div>
           , accepted, rejected }
           );
@@ -49,7 +50,7 @@ class UploadFile extends React.Component {
             preview : <div>
                         <a href="/users/profile" className="btn btn-success">View Profile</a>
                         <br/>
-                        <img src={blob} alt="avatar"/>
+                        <Img src={blob} alt="avatar"/>
                       </div>
           , accepted, rejected }
           );
@@ -60,7 +61,6 @@ class UploadFile extends React.Component {
             accepted,
             rejected
           });
-          console.log("File was rejected");
         }
     }
 
@@ -76,6 +76,8 @@ class UploadFile extends React.Component {
       
         if (redirect) {
           return <Redirect to='/users/profile' />;
+        }else if ( this.props.userState.fetching ){
+          return(<h5>...Uploading file</h5>);
         }else{
 
           return (

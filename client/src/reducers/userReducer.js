@@ -65,7 +65,7 @@ export default function userReducer(state=initialState, action) {
             state = {...state, fetching:false,  directory_exists : action.payload }
             break;
         }
-        case "CHECK_USER_DIRECTORY__REJECTED":{
+        case "CHECK_USER_DIRECTORY_REJECTED":{
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
@@ -84,7 +84,7 @@ export default function userReducer(state=initialState, action) {
         break;
     }    
      // FETCH CAS USER
-     case "FETCH_CAS_USER_PENDIND":{
+     case "FETCH_CAS_USER_PENDING":{
         state = {...state, fetching:true }
         break;
     }
@@ -97,7 +97,7 @@ export default function userReducer(state=initialState, action) {
         break;
     }    
      // CHECK EXISTED USER
-     case "EXISTED_USER_PENDIND":{
+     case "EXISTED_USER_PENDING":{
         state = {...state, fetching:true }
         break;
     }
@@ -110,7 +110,7 @@ export default function userReducer(state=initialState, action) {
         break;
     }    
     // UPDATE USER
-    case "UPDATE_USER_PENDIND":{
+    case "UPDATE_USER_PENDING":{
         state = {...state, fetching:true }
         break;
     }
@@ -176,6 +176,60 @@ export default function userReducer(state=initialState, action) {
         state =  { ...state, fetching:false, searchResult : action.payload };
         break;
     }
+// CREATE_USER_DIRECTORY
+    case "CREATE_USER_DIRECTORY_PENDING":{
+        state = {...state, fetching:true};
+        break;
+    }  
+    case "CREATE_USER_DIRECTORY_FULFILLED":{
+        state =  { ...state, fetching:false};
+        break;
+    }  
+    case "CREATE_USER_DIRECTORY_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }
+// CREATE_USER_DIRECTORY_AND_SAVE
+    case "CREATE_USER_DIRECTORY_AND_SAVE_PENDING":{
+        state = {...state, fetching:true};
+        break;
+    }  
+    case "CREATE_USER_DIRECTORY_AND_SAVE_FULFILLED":{
+        state =  { ...state, fetching:false};
+        break;
+    }  
+    case "CREATE_USER_DIRECTORY_AND_SAVE_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }
+// SAVE_USER_AVATAR
+    case "SAVE_USER_AVATAR_PENDING":{
+        state = {...state, fetching:true};
+        break;
+    }  
+    case "SAVE_USER_AVATAR_FULFILLED":{
+        state =  { ...state, fetching:false};
+        break;
+    }  
+    case "SAVE_USER_AVATAR_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }
+// CREATE_USER_FOLDER
+    case "CREATE_USER_FOLDER_PENDING":{
+        state = {...state, fetching:true};
+        break;
+    }  
+    case "CREATE_USER_FOLDER_FULFILLED":{
+        state =  { ...state, fetching:false};
+        break;
+    }  
+    case "CREATE_USER_FOLDER_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }
+    
+
 
     default:
     return state;       
