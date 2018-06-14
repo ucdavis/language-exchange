@@ -28,7 +28,6 @@ class userProfile extends Component{
         let avatar_file_name = user.avatar_file_name;
         let notFound = userImage;
         if (avatar_file_name) {
-            console.log("file name not equal to null nor empty")
             var url = `/api/storages/${user.id}/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{

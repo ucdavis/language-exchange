@@ -17,11 +17,6 @@ const validate = values => {
     return errors
   } 
 
-
-let MessageForm = props => {
-  const { handleSubmit, pristine, submitting, recipient  } = props;
-  console.log("Recipient:", recipient)
-
   const InputField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label className="control-label">{label}</label>
@@ -42,8 +37,10 @@ let MessageForm = props => {
     </div>
   )
 
- 
-  
+let MessageForm = props => {
+  const { handleSubmit, pristine, submitting, recipient  } = props;
+  console.log("Recipient:", recipient)
+
   return (
       <div>
         <h3 className="text-right">New Message</h3>
