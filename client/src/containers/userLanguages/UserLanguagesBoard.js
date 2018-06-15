@@ -24,38 +24,30 @@ class UserLanguagesBoard extends React.Component {
     this.setState({ display:view });
   }
 
-  toggleProvidedButton=()=> {
-    var providedButton= document.getElementById("providedButton");
-    var desiredButton= document.getElementById("desiredButton");
-    if (providedButton.className === "btn btn-outline-info nav-item nav-link") {
-      providedButton.className = "btn btn-info nav-item nav-link";
-      desiredButton.className = "btn btn-outline-info nav-item nav-link";
-    }else if(providedButton.className ===  "btn btn-info nav-item nav-link"){
-      providedButton.className =  "btn btn-info nav-item nav-link"
-    } else {
-      providedButton.className = "btn btn-outline-info nav-item nav-link";
+
+  showDesired = () => {
+    this.setState({
+        display:[
+        <DesiredLanguageSelection key="DesiredLanguageSelection" showProvided = {this.showProvided} />,
+        <DesiredLanguagesOptions key="DesiredLanguagesOptions" />
+        ]
+      });
     }
-  }
 
-  toggleDesiredButton=()=> {
-    var desiredButton= document.getElementById("desiredButton");
-    var providedButton = document.getElementById("providedButton");
-    if (desiredButton.className === "btn btn-outline-info nav-item nav-link") {
-      desiredButton.className = "btn btn-info nav-item nav-link";
-      providedButton.className = "btn btn-outline-info nav-item nav-link";
-    }else if(desiredButton.className ===  "btn btn-info nav-item nav-link"){
-      desiredButton.className =  "btn btn-info nav-item nav-link"
-    } else {
-      desiredButton.className = "btn btn-outline-info nav-item nav-link";
-    }
-  }
-
-
+    showProvided = () => {
+      this.setState({
+        display:[
+          <ProvidedLanguageSelection key="ProvidedLanguageSelection" showDesired={this.showDesired}/>,
+          <ProvidedLanguagesOptions key="ProvidedLanguagesOptions"/>
+        ]
+        });
+      }
+    
   componentDidMount = () => {
     this.props.fetchAbilities();
     this.setState({
       display:[
-        <ProvidedLanguageSelection key="ProvidedLanguageSelection" />,
+        <ProvidedLanguageSelection key="ProvidedLanguageSelection"  showDesired={this.showDesired}/>,
         <ProvidedLanguagesOptions key="ProvidedLanguagesOptions"/>
       ]
     });
@@ -64,70 +56,17 @@ class UserLanguagesBoard extends React.Component {
           const id = this.props.userState.current.id;
           this.props.fetchUserDesiredLanguages(id); 
           this.props.fetchUserProvidedLanguages(id);         
-        }
-        
+        }  
   }
 
-  showDesired = () => {
-    this.setState({
-        display:[
-        <DesiredLanguageSelection key="DesiredLanguageSelection" />,
-        <DesiredLanguagesOptions key="DesiredLanguagesOptions" />
-        ]
-      });
-      
-      this.toggleDesiredButton();
-    }
-
-  showProvided = () => {
-    this.setState({
-      display:[
-        <ProvidedLanguageSelection key="ProvidedLanguageSelection" />,
-        <ProvidedLanguagesOptions key="ProvidedLanguagesOptions"/>
-      ]
-      });
-      this.toggleProvidedButton();
-    }
-
   render() {
-
-
     if (this.props.userState.fetching || this.props.userLanguageState.fetching){
       return(<h5>...loading</h5>);
     }else{
-
       return (
         <div>
-          <div className="row">
-            <div className="col-sm-12">
-
-              <nav className="nav nav-pills nav-fill mt-3">
-                  <button
-                    type="button"
-                    id = "providedButton"
-                    className="btn btn-info nav-item nav-link"
-                    onClick={this.showProvided} >
-                    Languages I know
-                  </button>
-
-                  <button
-                    type="button"
-                    id = "desiredButton"
-                    className="btn btn-outline-info nav-item nav-link"
-                    onClick={this.showDesired} >
-                    Languages I'm learning
-                  </button>
-                </nav>
-            
-            <div className="card">
-              <div className="card-body"> 
-                { this.state.display }
-              </div>
-            </div>
-          </div>
+            { this.state.display }
         </div>
-
-      </div>
       )
     }
   }

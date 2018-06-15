@@ -31,6 +31,8 @@ class ProvidedLanguageSelection extends Component{
         const providedLanguagesSelect = this.props.languageState.languages;
         const languageAbility = this.props.abilityState.abilities
         const languagesToRemove =  this.props.userLanguageState.userProvidedLanguages;
+
+ 
         if(this.props.userLanguageState.fetching){
             return (
                 <div>
@@ -54,15 +56,38 @@ class ProvidedLanguageSelection extends Component{
                 <div>
                     <div className="row">
                         <div className="col-sm-12">
-                            <h3>Languages I know</h3>
-                            <p>Please make sure to complete both well known and learning languages above</p>
-                            <ProvidedLanguageSelectionForm
-                                providedLanguagesSelect={providedLanguagesSelect}
-                                abilities={languageAbility}
-                                onSubmit={this.submit}
-                                form="ProvidedLanguageSelectionForm"
-                                formKey="ProvidedLanguageSelectionForm"
-                            />               
+
+                            <nav className="nav nav-pills nav-fill mt-3">
+                            <button
+                                type="button"
+                                id = "providedButton"
+                                className="btn btn-info nav-item nav-link"
+                            >
+                                Languages I know
+                            </button>
+
+                            <button
+                                type="button"
+                                id = "desiredButton"
+                                className="btn btn-outline-info nav-item nav-link"
+                                onClick={ ()=>this.props.showDesired() } >
+                                Languages I'm learning
+                            </button>
+                            </nav>
+
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                    <h3>Languages I know</h3>
+                                    <p>Please make sure to complete both well known and learning languages above</p>
+                                    <ProvidedLanguageSelectionForm
+                                        providedLanguagesSelect={providedLanguagesSelect}
+                                        abilities={languageAbility}
+                                        onSubmit={this.submit}
+                                        form="ProvidedLanguageSelectionForm"
+                                        formKey="ProvidedLanguageSelectionForm"
+                                    />  
+                                </div>    
+                            </div>    
                         </div>
                     </div>
                 </div>
