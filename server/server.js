@@ -2,6 +2,7 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var path = require('path');
 
 // Required for cas_authentication module
 var session = require('express-session');
@@ -74,10 +75,26 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
 } );
 
 
-// Test for sending users to root if they manually type a url (ex:/languages)
-app.get( '/languages', function(req, res){
-  res.redirect('/');
-} );
+app.get('/users*', function (req, res){
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
+app.get('/guide', function(req, res){
+      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+})
+
+app.get('/languages*',function(req,res){
+      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
+app.get('/admin*',function(req,res){
+      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
+app.get('/users*', function(req, res){
+      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
 
 
 // Bootstrap the application, configure models, datasources and middleware.
