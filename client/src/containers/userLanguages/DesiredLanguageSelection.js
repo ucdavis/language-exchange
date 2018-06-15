@@ -42,20 +42,44 @@ class DesiredLanguageSelection extends Component{
 
         return (
             <div>
-                <div className="row">
-                    <div className="col-sm-12">
-                        <h3>Languages I'm learning</h3>
-                        <p>Please make sure to complete both well known and learning languages above</p>
-                        <DesiredLanguageSelectionForm
-                            languages={languages}
-                            abilities={languageAbility}
-                            onSubmit={this.submit}
-                            form="DesiredLanguageSelectionForm"
-                            formKey="DesiredLanguageSelectionForm"
-                        />
-                    </div>  
-                </div>  
-            </div>  
+            <div className="row">
+                <div className="col-sm-12">
+
+                    <nav className="nav nav-pills nav-fill mt-3">
+                    <button
+                        type="button"
+                        id = "providedButton"
+                        className="btn btn-outline-info nav-item nav-link"
+                        onClick={ ()=>this.props.showProvided() } 
+                    >
+                        Languages I know
+                    </button>
+
+                    <button
+                        type="button"
+                        id = "desiredButton"
+                        className="btn btn-info nav-item nav-link"
+                    >
+                        Languages I'm learning
+                    </button>
+                    </nav>
+
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <h3>Languages I'm learning</h3>
+                            <p>Please make sure to complete both well known and learning languages above</p>
+                            <DesiredLanguageSelectionForm
+                                languages={languages}
+                                abilities={languageAbility}
+                                onSubmit={this.submit}
+                                form="DesiredLanguageSelectionForm"
+                                formKey="DesiredLanguageSelectionForm"
+                            />
+                        </div>    
+                    </div>    
+                </div>
+            </div>
+        </div> 
         )
         
     }

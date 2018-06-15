@@ -40,6 +40,9 @@ class DesiredLanguagesOptions extends React.Component {
     
                       <div className="row">
                       <div className="col-sm-12">
+                      <div className="card">
+                      <div className="card-body">
+
                         <div className="card-group">
     
                           { desiredLanguages }
@@ -48,6 +51,8 @@ class DesiredLanguagesOptions extends React.Component {
                         </div>
                       </div>
                     
+                    </div>
+                    </div>
                     </div>
                 )
               }else{

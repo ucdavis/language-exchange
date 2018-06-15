@@ -41,11 +41,16 @@ if (this.props.userLanguageState.fetching ){
             return (
               <div>
                   <div className="row">
-                    <div className="col-sm-12">                
+                    <div className="col-sm-12"> 
+                    <div className="card">
+                    <div className="card-body">
+
                       <div className="card-group">
                         { providedLanguages }
                       </div>
                     </div>
+                  </div>
+                  </div>
                   </div>
                 
                 </div>
