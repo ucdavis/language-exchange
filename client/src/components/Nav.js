@@ -32,19 +32,18 @@ class Nav extends React.Component {
 
     if(this.props.userState.current){
       let admin_menu = "";
-      
       if(authUser.user_type){
         admin_menu = (
-        <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                      </a>
-                      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link to={ '/admin/dashboard' } className="dropdown-item">Dashboard</Link>
-                        <Link to={ '/users' } className="dropdown-item">Users</Link>
-                        <Link to={ '/languages' } className="dropdown-item">Languages</Link>
-                      </div>
-                    </li>
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <Link to={ '/admin/dashboard' } className="dropdown-item">Dashboard</Link>
+              <Link to={ '/users' } className="dropdown-item">Users</Link>
+              <Link to={ '/languages' } className="dropdown-item">Languages</Link>
+            </div>
+          </li>
         )
       };
 
@@ -76,11 +75,12 @@ class Nav extends React.Component {
                 <li className="nav-item">
                   <Link to={ '/users/profile' } className="nav-link">Profile</Link>
                 </li>
-                
-                { admin_menu}
+              </ul>
+              <ul className="navbar-nav">  
 
-              <li className="nav-item pull-right">
-                  <a className="nav-link btn btn-sm btn-outline-warning" href="/logout">Logout</a>
+                  { admin_menu}
+                <li className="nav-item pull-right">
+                  <Link to={ "/logout"} className="btn btn-sm btn-outline-secondary">Logout</Link>
                 </li>
               </ul>
             </div>
