@@ -80,6 +80,9 @@ class Nav extends React.Component {
 
                   { admin_menu}
                 <li className="nav-item pull-right">
+                  <Link to={ "#"} className="nav-link">{authUser.user_name}</Link>
+                </li>
+                <li className="nav-item pull-right">
                   <Link to={ "/logout"} className="btn btn-sm btn-outline-secondary">Logout</Link>
                 </li>
               </ul>

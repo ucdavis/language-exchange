@@ -40,7 +40,6 @@ class Chart extends Component {
   componentDidMount() {
     this.props.fetchCurrentUser();
     this.props.getTotalUsersPerLanguages();
-    this.props.getTotalUsersPerYear();
     this.props.fetchUsers();
   }
 
@@ -343,7 +342,6 @@ function mapDispatchToProps(dispatch){
   return  bindActionCreators({
     fetchCurrentUser: userActions.fetchCurrentUser,
     getTotalUsersPerLanguages : reportActions.getTotalUsersPerLanguages,
-    getTotalUsersPerYear : reportActions.getTotalUsersPerYear,
     fetchUsers : fetchUsers
    }, dispatch)
 }
