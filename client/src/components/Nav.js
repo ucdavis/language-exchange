@@ -27,7 +27,7 @@ class Nav extends React.Component {
   render() {
 
     let authUser = this.props.userState.current;
-    var url = '/api/storages/images/download/logo.png';
+    var logo = '/api/storages/images/download/logo.png';
     
 
     if(this.props.userState.current){
@@ -52,7 +52,7 @@ class Nav extends React.Component {
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
             <a className="navbar-brand" href="/">
-              <Img src={ url } />
+              <Img src={ logo } />
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -73,15 +73,12 @@ class Nav extends React.Component {
                   <Link to={ '/guide' } className="nav-link">Conversation Guide</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={ '/users/profile' } className="nav-link">Profile</Link>
+                  <Link to={ '/users/profile' } className="nav-link">{authUser.user_name} &#9662;</Link>
                 </li>
               </ul>
               <ul className="navbar-nav">  
-
                   { admin_menu}
-                <li className="nav-item pull-right">
-                  <Link to={ "#"} className="nav-link">{authUser.user_name}</Link>
-                </li>
+
                 <li className="nav-item pull-right">
                   <Link to={ "/logout"} className="btn btn-sm btn-outline-secondary">Logout</Link>
                 </li>
@@ -97,7 +94,7 @@ class Nav extends React.Component {
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
             <a className="navbar-brand" href="/">
-              <Img src={ url } />
+              <Img src={ logo } />
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>

@@ -71,7 +71,7 @@ class Users extends Component{
                         +addZero(new Date(row.value).getFullYear())
             )
           },{
-            Header: 'Last Login',
+            Header: 'Last Update',
             accessor: 'updated_at',
             Cell:  row => (
                 addZero(new Date(row.value).getMonth()+1) +"/"
