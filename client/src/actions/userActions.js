@@ -256,3 +256,10 @@ export function fetchUsers(){
         .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
     }
 }
+
+
+export function userLogout(){
+    return function(dispatch){
+        dispatch({type:"USER_LOGOUT"})
+    }
+}
