@@ -24,7 +24,10 @@ class Nav extends React.Component {
     this.setState({collapsed});
   }
 
+
   render() {
+
+    
 
     let authUser = this.props.userState.current;
     var logo = '/api/storages/images/download/logo.png';
@@ -80,7 +83,7 @@ class Nav extends React.Component {
                   { admin_menu}
 
                 <li className="nav-item pull-right">
-                  <Link to={ "/logout"} className="btn btn-sm btn-outline-secondary">Logout</Link>
+                  <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
                 </li>
               </ul>
             </div>
@@ -105,6 +108,9 @@ class Nav extends React.Component {
                 <li className="nav-item">
                 <Link to={ '/users/register' } className="nav-link">Register<span className="sr-only">(current)</span></Link>
                 </li>
+                <li className="nav-item pull-right">
+                  <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
+                </li>
 
               </ul>
             </div>
@@ -124,7 +130,9 @@ class Nav extends React.Component {
 
   function mapDispatchToProps(dispatch){
     return bindActionCreators({ fetchCasUser: userActions.fetchCasUser,
-      fetchCurrentUser: userActions.fetchCurrentUser }, dispatch)
+      fetchCurrentUser: userActions.fetchCurrentUser,
+      userLogout: userActions.userLogout
+    }, dispatch)
   }
 
   export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Nav));
