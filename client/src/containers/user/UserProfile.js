@@ -6,7 +6,7 @@ import * as userLanguageActions from "../../actions/userLanguageActions";
 import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLanguageDetail";
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import UserAvatar from '../../components/user/UserAvatar';
 
 
@@ -111,7 +111,7 @@ class userProfile extends Component{
                     </div>   
             )
         }else{
-            return <h5>Not Authorized</h5>
+            return <Redirect to='/' />
         }
     }
 }

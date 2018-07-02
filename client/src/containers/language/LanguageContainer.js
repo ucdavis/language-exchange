@@ -3,18 +3,19 @@ import Languages from '../../components/language/Languages';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
-import * as userActions from "../../actions/userActions";
+import { withRouter, Redirect } from 'react-router-dom';
 
 class LanguageContainer extends Component{
     componentDidMount(){
         this.props.fetchLanguages();
-        this.props.fetchCurrentUser();
     }
     
     render(){ 
-        const {updating,fetching,languages} = this.props.languageState;
         const authUser = this.props.userState.current;
-
+        if(!authUser){
+            return <Redirect to='/' />
+          }
+        const {updating,fetching,languages} = this.props.languageState;
         if( authUser.user_type){
             if(updating || fetching){
                 return <h5>...loading</h5>
@@ -22,7 +23,7 @@ class LanguageContainer extends Component{
                 return ( <div> <Languages  languages={languages} /> </div> )
             }
         }else{
-            return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+            return <Redirect to='/' />
         }
     }
 }
@@ -37,9 +38,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchLanguages: languageActions.fetchLanguages,
-        fetchCurrentUser: userActions.fetchCurrentUser
-
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageContainer);
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(LanguageContainer) );

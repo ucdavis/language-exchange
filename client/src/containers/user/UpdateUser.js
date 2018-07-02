@@ -3,14 +3,11 @@ import { bindActionCreators } from "redux";
 import UpdateUserForm from '../../components/user/UpdateUserForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class UpdateUser extends React.Component {
 
-  componentDidMount(){
-    this.props.fetchCurrentUser(); 
-}
 
   submit = values => {
     let cas_user = this.props.userState.current.cas_user;
@@ -34,6 +31,10 @@ class UpdateUser extends React.Component {
     this.props.sendFlashMessage("Profile updated!!", "alert-success");
   }
   render() {
+    const authUser = this.props.userState.current;
+    if( !authUser ){
+      return <Redirect to='/users/register'/>;  
+  }
     
     return (
       <div>
@@ -63,7 +64,6 @@ function mapStateToProps(state){
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
         updateUser : userActions.updateUser,
-        fetchCurrentUser: userActions.fetchCurrentUser,
         sendFlashMessage: flashMessageActions.sendFlashMessage
       }, dispatch)
  }

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
-import { withRouter } from 'react-router-dom';
-import * as userActions from "../../actions/userActions";
+import { withRouter, Redirect } from 'react-router-dom';
 
 class CreateLanguage extends Component{
     
@@ -15,10 +14,6 @@ class CreateLanguage extends Component{
         }
 
         this.handleInputChange = this.handleInputChange.bind(this)
-    }
-
-    componentDidMount(){
-        this.props.fetchCurrentUser();
     }
 
     handleInputChange(event){
@@ -42,6 +37,9 @@ class CreateLanguage extends Component{
 
     render(){
         const authUser = this.props.userState.current;
+        if(!authUser){
+            return <Redirect to='/' />
+          }
         if( authUser.user_type){
         
             return(
@@ -57,7 +55,7 @@ class CreateLanguage extends Component{
                 </div>  
             )
         }else{
-            return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+            return <Redirect to='/' />
         }
 
     }
@@ -73,7 +71,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
    return  bindActionCreators({
        createLanguage:languageActions.createLanguage,
-       fetchCurrentUser: userActions.fetchCurrentUser
     }, dispatch)
 }
 

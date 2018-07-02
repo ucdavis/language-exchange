@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as messageActions from "../../actions/messageActions";
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import SentMessages  from "../../containers/message/SentMessages";
 import ReceivedMessages  from "../../containers/message/ReceivedMessages";
 
@@ -83,8 +83,11 @@ showSent = () => {
 
   
   render() {
-
-    return (
+    let authUser = this.props.userState.current;
+    if(!authUser){
+      return <Redirect to='/' />
+    }else{
+      return (
     
         <div>
           
@@ -123,6 +126,7 @@ showSent = () => {
         </div>
     
     )
+  }
   }
 }
 

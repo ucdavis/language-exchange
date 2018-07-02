@@ -7,32 +7,11 @@ import Img from 'react-image';
 import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      collapsed: true,
-      
-    };
-  }
-
-  componentDidMount(){
-      this.props.fetchCurrentUser();
-  }
-
-  toggleCollapse() {
-    const collapsed = !this.state.collapsed;
-    this.setState({collapsed});
-  }
-
 
   render() {
-
-    
-
     let authUser = this.props.userState.current;
     var logo = '/api/storages/images/download/logo.png';
     
-
     if(this.props.userState.current){
       let admin_menu = "";
       if(authUser.user_type){
@@ -43,8 +22,8 @@ class Nav extends React.Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link to={ '/admin/dashboard' } className="dropdown-item">Dashboard</Link>
-              <Link to={ '/users' } className="dropdown-item">Users</Link>
-              <Link to={ '/languages' } className="dropdown-item">Languages</Link>
+              <Link to={ '/admin/users' } className="dropdown-item">Users</Link>
+              <Link to={ '/admin/languages' } className="dropdown-item">Languages</Link>
             </div>
           </li>
         )
@@ -64,7 +43,7 @@ class Nav extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link to={ '/' } className="nav-link">Home <span className="sr-only">(current)</span></Link> 
+                  <Link to={ '/users/home' } className="nav-link">Home <span className="sr-only">(current)</span></Link> 
                 </li>
                 <li className="nav-item">
                   <Link to={ '/users/messages' } className="nav-link">Messages</Link> 
@@ -73,7 +52,7 @@ class Nav extends React.Component {
                   <Link to={ '/users/languages' } className="nav-link">Languages</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={ '/guide' } className="nav-link">Conversation Guide</Link>
+                  <Link to={ '/users/guide' } className="nav-link">Conversation Guide</Link>
                 </li>
                 <li className="nav-item">
                   <Link to={ '/users/profile' } className="nav-link">{authUser.user_name} &#9662;</Link>
@@ -129,8 +108,7 @@ class Nav extends React.Component {
   }
 
   function mapDispatchToProps(dispatch){
-    return bindActionCreators({ fetchCasUser: userActions.fetchCasUser,
-      fetchCurrentUser: userActions.fetchCurrentUser,
+    return bindActionCreators({ 
       userLogout: userActions.userLogout
     }, dispatch)
   }

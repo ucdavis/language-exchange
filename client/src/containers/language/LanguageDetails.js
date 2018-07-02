@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
-import * as userActions from "../../actions/userActions";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class LanguageDetail extends Component{
     componentDidMount(){
-        this.props.fetchCurrentUser();
         const id = this.props.match.params.id;
         this.props.fetchLanguage(id);
     }
     
     render(){ 
         const authUser = this.props.userState.current;
+        if(!authUser){
+            return <Redirect to='/' />
+          }
         let createdAt = (new Date(this.props.languageState.active.created_at)).toString();
         let updatedAt = (new Date(this.props.languageState.active.updated_at)).toString();
 
@@ -43,7 +44,7 @@ class LanguageDetail extends Component{
                 </div>    
             )
         }else{
-            return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+            return <Redirect to='/' />
         }            
     }
 }
@@ -58,7 +59,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchLanguage: languageActions.fetchLanguage,
-        fetchCurrentUser: userActions.fetchCurrentUser
     }, dispatch)
 }
 

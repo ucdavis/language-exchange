@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import CreateLanguage from '../containers/language/CreateLanguage';
 import UpdateLanguage from '../containers/language/UpdateLanguage';
 import Home from './Home';
+import Login from './Login';
 import Guide from '../components/home/Guide';
 import LanguageContainer from '../containers/language/LanguageContainer';
 import LanguageDetails from '../containers/language/LanguageDetails';
@@ -20,13 +21,9 @@ import Chart from '../containers/charts/Chart';
 const Main = () => (
     <main>
         <Switch>
-            <Route exact path='/' component = {Home} />
-            <Route exact path='/guide' component = {Guide} />
-            <Route exact path='/languages' component = {LanguageContainer} />
-            <Route exact path='/languages/add' component = { CreateLanguage } />
-            <Route exact path='/languages/edit/:id' component = { UpdateLanguage } />
-            <Route exact path='/languages/:id' component = { LanguageDetails } /> 
-            <Route exact path='/users' component = { Users } />
+            <Route exact path='/' component = {Login} />
+            <Route exact path='/users/home' component = {Home} />
+            <Route exact path='/users/guide' component = {Guide} />
             <Route exact path='/users/register' component = { CreateUser } />
             <Route exact path='/users/languages' component = { UserLanguagesBoard } />
             <Route exact path='/users/messages' component ={ MessageBoard } />
@@ -36,6 +33,11 @@ const Main = () => (
             <Route exact path='/users/:id' component = { UserDetails } /> 
             <Route exact path='/users/contact/:id' component ={ QuickMessage } />
             <Route exact path='/admin/dashboard' component ={ Chart } />
+            <Route exact path='/admin/languages' component = {LanguageContainer} />
+            <Route exact path='/admin/languages/add' component = { CreateLanguage } />
+            <Route exact path='/admin/languages/:id' component = { LanguageDetails } /> 
+            <Route exact path='/admin/languages/edit/:id' component = { UpdateLanguage } />
+            <Route exact path='/admin/users' component = { Users } />
         </Switch>    
     </main>    
 )

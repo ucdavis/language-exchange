@@ -27,7 +27,7 @@ app.start = function() {
 // Set up an Express session, which is required for CASAuthentication.
 // TODO: secret key
 app.use( session({
-  secret            : 'super_secret_key',
+  secret            : 'super_zsecret_key',
   resave            : false,
   saveUninitialized : true,
   cookie: {
@@ -37,14 +37,14 @@ app.use( session({
 }));
  
 var cas = new CASAuthentication({
-    cas_url         : 'https://cas.ucdavis.edu/cas',
+    cas_url         : 'https://ssodev.ucdavis.edu/cas/',
     service_url     : 'http://localhost:3000',
     cas_version     : '3.0',
     renew           : false,
     session_name    : 'cas_user',
     destroy_session : false,
     is_dev_mode     : true,
-    dev_mode_user   : 'guest',
+    dev_mode_user   : 'admin',
 });
 
 
@@ -74,28 +74,13 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
   res.send(req.session[cas.session_name]);
 } );
 
-
 app.get('/users*', function (req, res){
   res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
-});
-
-app.get('/guide', function(req, res){
-      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
-})
-
-app.get('/languages*',function(req,res){
-      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
 
 app.get('/admin*',function(req,res){
       res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
 });
-
-app.get('/users*', function(req, res){
-      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
-});
-
-
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.

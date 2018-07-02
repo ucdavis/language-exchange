@@ -7,7 +7,7 @@ import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLangua
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
 import UserAvatar from '../../components/user/UserAvatar';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class userDetails extends Component{
@@ -21,6 +21,10 @@ class userDetails extends Component{
 
     
     render(){
+        let authUser = this.props.userState.current;
+        if(!authUser){
+        return <Redirect to='/' />
+        }
         
         let user = this.props.userState.active;
         let no_image = `/api/storages/images/download/no_image.png`

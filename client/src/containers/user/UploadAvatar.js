@@ -20,9 +20,6 @@ class UploadFile extends React.Component {
     }
     
   }
-    componentDidMount(){
-      this.props.fetchCurrentUser();
-   }
 
     onImageDrop(accepted, rejected ){
       const directory_exists = this.props.userState.directory_exists.toString();
@@ -71,6 +68,11 @@ class UploadFile extends React.Component {
 
    
     render() {
+      let authUser = this.props.userState.current;
+      if(!authUser){
+        return <Redirect to='/' />
+      }
+
       const filePreview = this.state.preview;
       const {redirect} = this.state;
       
@@ -136,7 +138,6 @@ class UploadFile extends React.Component {
  
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
-      fetchCurrentUser : userActions.fetchCurrentUser,
       saveUserAvatar : userActions.saveUserAvatar,
       createUserDirectoryAndSave : userActions.createUserDirectoryAndSave,    
     }, dispatch)
