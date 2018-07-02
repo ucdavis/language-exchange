@@ -23,8 +23,12 @@ class userProfile extends Component{
     }
 
     render(){
-        if (this.props.userState.current){
-            let user = this.props.userState.current;
+        const authUser = this.props.userState.current;
+        if(!authUser){
+            return <Redirect to='/' />
+          }
+        else{
+            let user = authUser;
             let no_image = '/api/storages/images/download/no_image.png';
             let userImage = () => <Img src={no_image} alt="avatar"/>;
             let avatar_file_name = user.avatar_file_name;
@@ -110,8 +114,6 @@ class userProfile extends Component{
                     </div>    
                     </div>   
             )
-        }else{
-            return <Redirect to='/' />
         }
     }
 }

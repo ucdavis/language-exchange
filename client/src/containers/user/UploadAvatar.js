@@ -42,6 +42,7 @@ class UploadFile extends React.Component {
           );
 
         }else if( directory_exists === "false"){
+          blob = accepted[0].preview;
           createUserDirectoryAndSave(accepted,user_id);
           setState({
             preview : <div>
