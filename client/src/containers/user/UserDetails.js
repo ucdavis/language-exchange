@@ -7,7 +7,7 @@ import ProvidedLanguageDetail from "../../components/userLanguage/ProvidedLangua
 import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguageDetail";
 import Img from 'react-image';
 import UserAvatar from '../../components/user/UserAvatar';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class userDetails extends Component{
@@ -21,6 +21,10 @@ class userDetails extends Component{
 
     
     render(){
+        let authUser = this.props.userState.current;
+        if(!authUser){
+        return <Redirect to='/' />
+        }
         
         let user = this.props.userState.active;
         let no_image = `/api/storages/images/download/no_image.png`
@@ -28,7 +32,6 @@ class userDetails extends Component{
         let avatar_file_name = user.avatar_file_name;
         let notFound = userImage;
         if (avatar_file_name) {
-            console.log("file name not equal to null nor empty")
             var url = `/api/storages/${user.id}/download/${user.avatar_file_name}`;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
@@ -38,43 +41,43 @@ class userDetails extends Component{
         return (   
                
             <div>
-                <h3>User Profile</h3>
-                <hr />
+                <div className="row mt-3">
 
-                    <div className="row">
-                        <div className="col-sm-4">                       
-                            <ul className="list-group">
-                                <li className="list-group-item text-center" >
-                                  <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
-                                   
-                                </li>
-
-                                <li className="list-group-item">  
-                                    <label>Gender :&nbsp;</label>
-                                    {user.gender}
-                                </li>     
-                                <li className="list-group-item">  
-                                    <label>Field of Study:</label>
-                                    <p> {user.field_of_study} </p>
-                                </li>                                  
-                                <li className="list-group-item">  
-                                    <label>University Affiliation:</label>
-                                    <p>{user.affiliation} </p>
-                                </li>
-
-                            </ul>
-                            
-                        </div>
-                        
-                        <div className="col-sm-8">
-                            <div className="card">
+                    <div className="col-sm-4">
+                        <div className="card">
                             <div className="card-header bg-dark text-white">
-                                <h5>{user.user_name}</h5></div>
+                                {user.user_name}
+                            </div>
+                            <div className="card-body">                      
+                                <ul className="list-group">
+                                    <li className="list-group-item text-center" >
+                                        <UserAvatar userImage = { userImage() } userState = { this.props.userState } userLanguageState = {this.props.userLanguageState}/>
+                                    </li>
+                                    <li className="list-group-item">  
+                                        <strong>Gender :&nbsp;</strong>
+                                        <p>{user.gender}</p>
+                                    </li>     
+                                    <li className="list-group-item">  
+                                        <strong>Field of Study:</strong>
+                                        <p> {user.field_of_study} </p>
+                                    </li>                                  
+                                    <li className="list-group-item">  
+                                        <strong>University Affiliation:</strong>
+                                        <p>{user.affiliation} </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="col-sm-8">
+                        <div className="card">
+                            <div className="card-header bg-dark text-white">
+                            Description
+                            </div>
                             <div className="card-body">
-
                                 <div > 
-                                <h5>Description</h5>
-                                     { user.description }
+                                    { user.description }
                                 </div>
                                 <br />
                                 <div > 
@@ -84,20 +87,15 @@ class userDetails extends Component{
                                 <div > 
                                     <DesiredLanguageDetail state={this.props.userLanguageState}/>
                                 </div>
-
                             </div>
                             <div className="card-footer text-center">
                                 <Link to={ `/users/contact/${user.id}`} className="btn btn-success" >Contact</Link>
-
                             </div>
-                            </div>
-                           
                         </div>
-                        
+                    </div>
 
-                    </div> 
-                
-                </div>     
+                </div> 
+            </div>     
         )
     }
 }

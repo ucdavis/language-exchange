@@ -115,10 +115,23 @@ export default function userReducer(state=initialState, action) {
         break;
     }
     case "UPDATE_USER_FULFILLED":{
-        state =  { ...state, fetching:false, active: action.payload, current: action.payload };
+        state =  { ...state, fetching:false, current: action.payload };
         break;
     }
     case "UPDATE_USER_REJECTED":{
+        state =  {...state, fetching: false, error: action.payload };
+        break;
+    }
+    // UPDATE USER LOGIN
+    case "UPDATE_USER_LOGIN_PENDING":{
+        state = {...state, fetching:true }
+        break;
+    }
+    case "UPDATE_USER_LOGIN_FULFILLED":{
+        state =  { ...state, fetching:false, current: action.payload };
+        break;
+    }
+    case "UPDATE_USER_LOGIN_REJECTED":{
         state =  {...state, fetching: false, error: action.payload };
         break;
     }

@@ -44,11 +44,11 @@ class CreateUser extends React.Component {
     const authUser = this.props.userState.current;
       
     
-      if (redirect) {
-        const redirect_url = '/users/languages';
-        return <Redirect to={redirect_url}  />;
-      }else if(authUser){
-        return <h3> You are already registered!</h3>
+      if (authUser ) {
+        return <Redirect to='/' />
+        
+      }else if(redirect){
+        return <Redirect to='/users/languages' />;
       }else{
         return (
           <div>

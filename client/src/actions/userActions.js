@@ -85,6 +85,22 @@ export function updateUser(newUserData){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
+
+export function updateUserLogin(user){
+    return function (dispatch){
+        dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
+        axios.request({
+            method: 'patch',
+            url : `/api/partners/${user.id}`,
+            data: {
+                id : user.id,
+                last_login : user.last_login,
+         }
+        })
+        .then(response =>dispatch({type:"UPDATE_USER_LOGIN_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"UPDATE_USER_LOGIN_REJECTED", payload: err}));
+    }
+}
 // USER AVATAR
 
 export function checkUserDirectory(user_id){
@@ -236,9 +252,9 @@ export function searchUsers(gender, provided, desired){
         dispatch({type:"SEARCH_USERS_PENDING"});
         var filter = "";
         if( gender !== "Any"){
-            filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20DESC"}`          
+            filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`          
         }else{
-            filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20DESC"}`
+            filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`
         }
         axios.get(`/api/partners?filter=${filter}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
@@ -246,13 +262,20 @@ export function searchUsers(gender, provided, desired){
     }
 } 
 
-
+// Fetch users for reports
 export function fetchUsers(){
     return function(dispatch){
         dispatch({type:"FETCH_USERS_PENDING"})
-        var filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}}],"order":"updated_at%20DESC"}`
+        var filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}}],"order":"created_at%20ASC"}`
         axios.get(`/api/partners?filter=${filter}`)
         .then(response => dispatch({type:"FETCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
+    }
+}
+
+
+export function userLogout(){
+    return function(dispatch){
+        dispatch({type:"USER_LOGOUT"})
     }
 }

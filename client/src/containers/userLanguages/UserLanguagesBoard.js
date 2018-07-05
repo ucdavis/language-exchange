@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userLanguageActions from "../../actions/userLanguageActions";
 import * as abilityActions from '../../actions/abilityActions';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { fetchCurrentUser } from '../../actions/userActions';
 import DesiredLanguagesOptions from '../../components/userLanguage/DesiredLanguagesOptions';
 import DesiredLanguageSelection from "../../containers/userLanguages/DesiredLanguageSelection"
@@ -60,6 +60,10 @@ class UserLanguagesBoard extends React.Component {
   }
 
   render() {
+    const authUser = this.props.userState.current;
+    if( !authUser ){
+        return <Redirect to='/users/register'/>;  
+    }
     if (this.props.userState.fetching || this.props.userLanguageState.fetching){
       return(<h5>...loading</h5>);
     }else{

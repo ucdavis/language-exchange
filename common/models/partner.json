@@ -60,7 +60,6 @@
     },
     "field_of_study": {
       "type": "string",
-      "required": true,
       "default": "Not Specified"
     },
     "created_at": {
@@ -77,6 +76,10 @@
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "last_login": {
+      "type": "date",
+      "defaultFn": "now"
     }
   },
   "validations": [],

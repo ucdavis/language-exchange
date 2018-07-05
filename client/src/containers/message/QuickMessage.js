@@ -38,6 +38,10 @@ class CreateMessage extends Component {
 
 
     render() {
+        let authUser = this.props.userState.current;
+        if(!authUser){
+        return <Redirect to='/' />
+        }
         const {redirect} = this.state;
         const recipient = this.props.userState.active;
         if (redirect) {

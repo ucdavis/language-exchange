@@ -3,16 +3,18 @@ import Users from '../../components/user/Users';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 class ReadUsers extends Component{
     componentDidMount(){
-        this.props.fetchCurrentUser();
-        this.props.fetchUsers();
+          this.props.fetchUsers();
     }
     
     render(){
         const authUser = this.props.userState.current;
+        if(!authUser){
+            return <Redirect to='/' />
+          }
         if( authUser.user_type){       
             return (
                 <div>
@@ -20,7 +22,7 @@ class ReadUsers extends Component{
                 </div>       
             )
         }else{
-            return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+            return <Redirect to='/' />
         }
     }
 }
@@ -34,7 +36,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchUsers: userActions.fetchUsers,
-        fetchCurrentUser: userActions.fetchCurrentUser
     }, dispatch)
 }
 

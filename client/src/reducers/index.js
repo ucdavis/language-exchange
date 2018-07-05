@@ -8,7 +8,7 @@ import reportReducer from "./reportReducer";
 import { reducer as formReducer } from 'redux-form';
 import flashMessageReducer from "./flashMessageReducer";
 
-const allReducers = combineReducers({
+const appReducer = combineReducers({
     languageState: languageReducer,
     userState: userReducer,
     userLanguageState: userLanguageReducer,
@@ -18,5 +18,13 @@ const allReducers = combineReducers({
     reportState: reportReducer,
     form: formReducer
 });
+
+const allReducers = (state, action) => {
+    if (action.type === 'USER_LOGOUT') {
+      state = undefined
+    }
+  
+    return appReducer(state, action)
+  }
 
 export default allReducers;

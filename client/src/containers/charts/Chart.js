@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 import * as reportActions from '../../actions/reportActions';
-import * as userActions from '../../actions/userActions';
 import {fetchUsers} from '../../actions/userActions';
 import '../../../node_modules/react-vis/dist/style.css';
 import * as d3 from 'd3';
@@ -38,9 +37,7 @@ class Chart extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchCurrentUser();
     this.props.getTotalUsersPerLanguages();
-    this.props.getTotalUsersPerYear();
     this.props.fetchUsers();
   }
 
@@ -66,6 +63,9 @@ class Chart extends Component {
 
   render() {
     const authUser = this.props.userState.current;
+    if(!authUser){
+      return <Redirect to='/' />
+    }
     if( authUser.user_type){  
         const {hint_value} = this.state;
         const users = this.props.userState.users;
@@ -255,23 +255,6 @@ class Chart extends Component {
                   <div className="card-body">
                     <div className="row">
 
-                      {/* 
-                        <div className="col-sm-12">
-                          <form onSubmit={this.handleSubmit}>
-                            <label>
-                              Filter by year :
-                              <select value={this.state.year} onChange={this.handleChange}>
-                              <option value="All">All</option>
-                              {allYears.map(row=>{
-                                return <option key={row} value={row}>{row}</option>
-                              })}
-                              </select>
-                            </label>
-                            <input type="submit" value="Update Data" />
-                          </form>
-                        </div>
-                      */}
-
                       <div className="col-sm-12">
                         <XYPlot
                           xType="ordinal"
@@ -329,7 +312,7 @@ class Chart extends Component {
         );
 
         }else{
-          return ( <div> <h4> 403 Forbidden - User Not Authorized </h4></div> )
+          return <Redirect to='/' />
       }
     }
   }
@@ -341,9 +324,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return  bindActionCreators({
-    fetchCurrentUser: userActions.fetchCurrentUser,
     getTotalUsersPerLanguages : reportActions.getTotalUsersPerLanguages,
-    getTotalUsersPerYear : reportActions.getTotalUsersPerYear,
     fetchUsers : fetchUsers
    }, dispatch)
 }
