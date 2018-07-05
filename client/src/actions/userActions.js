@@ -85,6 +85,22 @@ export function updateUser(newUserData){
         .catch(err => dispatch({type:"UPDATE_USER_REJECTED", payload: err}));
     }
 }
+
+export function updateUserLogin(user){
+    return function (dispatch){
+        dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
+        axios.request({
+            method: 'patch',
+            url : `/api/partners/${user.id}`,
+            data: {
+                id : user.id,
+                last_login : user.last_login,
+         }
+        })
+        .then(response =>dispatch({type:"UPDATE_USER_LOGIN_FULFILLED",payload:response.data}))
+        .catch(err => dispatch({type:"UPDATE_USER_LOGIN_REJECTED", payload: err}));
+    }
+}
 // USER AVATAR
 
 export function checkUserDirectory(user_id){

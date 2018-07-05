@@ -4,15 +4,22 @@ import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
 import { withRouter } from 'react-router-dom';
 import Img from 'react-image';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Nav extends React.Component {
+
+  componentDidMount(){
+    this.props.fetchCurrentUser();
+}
+
 
   render() {
     let authUser = this.props.userState.current;
     var logo = '/api/storages/images/download/logo.png';
-    
-    if(this.props.userState.current){
+    if( !authUser ){
+      return <Redirect to='/'/>;  
+  }
+    if(authUser){
       let admin_menu = "";
       if(authUser.user_type){
         admin_menu = (
@@ -90,7 +97,6 @@ class Nav extends React.Component {
                 <li className="nav-item pull-right">
                   <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
                 </li>
-
               </ul>
             </div>
           </div>
@@ -109,6 +115,7 @@ class Nav extends React.Component {
 
   function mapDispatchToProps(dispatch){
     return bindActionCreators({ 
+      fetchCurrentUser: userActions.fetchCurrentUser,
       userLogout: userActions.userLogout
     }, dispatch)
   }

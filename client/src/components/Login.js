@@ -12,13 +12,24 @@ class Home extends Component{
         this.props.fetchCurrentUser();
     }
 
+    register_login(user){
+        var date = new Date();
+        user.last_login = date.toISOString();
+        this.props.updateUserLogin(user);
+    }
+
     render(){
         const authUser = this.props.userState.current;
+        var fetching = this.props.userState.fetching;
         var loading = '/api/storages/images/download/loading.gif';
         if( !authUser ){
             return <Redirect to='/users/register'/>;  
         }
         else if(authUser){
+            if(fetching){
+                return <Img src={ loading } />
+            }
+            this.register_login(authUser);
             return <Redirect to='/users/home'/>;  
         }
 
@@ -41,7 +52,10 @@ function mapStateToProps(state){
   }
   
   function mapDispatchToProps(dispatch){
-    return bindActionCreators({ fetchCurrentUser: userActions.fetchCurrentUser}, dispatch)
+    return bindActionCreators({
+            fetchCurrentUser: userActions.fetchCurrentUser,
+            updateUserLogin: userActions.updateUserLogin
+        }, dispatch)
   }
   
   export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home));

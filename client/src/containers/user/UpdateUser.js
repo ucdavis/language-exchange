@@ -7,7 +7,10 @@ import { withRouter, Redirect } from 'react-router-dom';
 import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class UpdateUser extends React.Component {
-
+  
+  componentDidMount(){
+    this.props.fetchCurrentUser();
+}
 
   submit = values => {
     let cas_user = this.props.userState.current.cas_user;
@@ -63,6 +66,7 @@ function mapStateToProps(state){
  
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
+        fetchCurrentUser: userActions.fetchCurrentUser,
         updateUser : userActions.updateUser,
         sendFlashMessage: flashMessageActions.sendFlashMessage
       }, dispatch)

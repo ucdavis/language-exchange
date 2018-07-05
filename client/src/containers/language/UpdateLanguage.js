@@ -43,7 +43,7 @@ class UpdateLanguage extends Component{
         if( authUser.user_type){
             const {redirect} = this.state;
             if (redirect) {
-                return <Redirect to='/Languages' />;
+                return <Redirect to='/admin/languages' />;
             }else{
             
                 return(

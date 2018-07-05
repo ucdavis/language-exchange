@@ -39,7 +39,6 @@ const validate = values => {
 
 let MessageForm = props => {
   const { handleSubmit, pristine, submitting, recipient  } = props;
-  console.log("Recipient:", recipient)
 
   return (
       <div>

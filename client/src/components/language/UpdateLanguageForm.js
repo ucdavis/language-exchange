@@ -60,7 +60,7 @@ const validate = values => {
                     </div>
 
                     <div className="col-sm-6 text-right">
-                    <Link to={'/Languages'}  className="btn btn-danger" disabled={ submitting }>Cancel</Link>
+                    <Link to={'/admin/languages'}  className="btn btn-danger" disabled={ submitting }>Cancel</Link>
                     </div>
               </div>
               </form>

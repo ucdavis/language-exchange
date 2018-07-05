@@ -38,7 +38,7 @@ class LanguageDetail extends Component{
                             <p><label>Date Updated:</label> {updatedAt} </p>
                         </div>  
                         <div className="card-footer">
-                        <Link to={'/Languages'}  className="btn btn-secondary">Back</Link>
+                        <Link to={'/admin/languages'}  className="btn btn-secondary">Back</Link>
                         </div>     
                     </div>    
                 </div>    

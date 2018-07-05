@@ -8,9 +8,9 @@ class Languages extends Component{
             return (
 
                  <tr key={i}>
-                 <td>  <Link to={`/languages/${language.id}`} > { language.name }</Link> </td>
-                 <td>  <Link to={`/languages/${language.id}`} > { language.short_name }</Link> </td>
-                 <td>  <Link to={`/languages/edit/${language.id}`} className="btn btn-sm btn-success pull-right"> Edit </Link>   </td>
+                 <td>  <Link to={`/admin/languages/${language.id}`} > { language.name }</Link> </td>
+                 <td>  <Link to={`/admin/languages/${language.id}`} > { language.short_name }</Link> </td>
+                 <td>  <Link to={`/admin/languages/edit/${language.id}`} className="btn btn-sm btn-success pull-right"> Edit </Link>   </td>
                 </tr> 
 
             )
