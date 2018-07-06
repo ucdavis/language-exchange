@@ -1,6 +1,8 @@
 {
   "initial:before": {
-    "loopback#favicon": {}
+    "loopback#favicon": {
+      "params": "server/client/favicon.ico"
+    }
   },
   "initial": {
     "compression": {},
@@ -47,9 +49,18 @@
 
   },
   "final": {
-    "loopback#urlNotFound": {}
+    "loopback#urlNotFound": {
+          "loopback#static": {
+      "params": "$!./client" 
+     }
+    }
   },
   "final:after": {
-    "strong-error-handler": {}
+    "strong-error-handler": {
+      "params": {
+        "debug": false,
+        "log": false
+      }
+    }
   }
 }
