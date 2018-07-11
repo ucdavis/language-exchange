@@ -34,22 +34,19 @@ class CreateUser extends React.Component {
         field_of_study: values.field,
     }
     this.props.createUser(newUser);
+    console.log('CreateUser')
     this.setState({ redirect: true })
+    console.log('Redirect')
   }
   render() {
     if (this.props.userState.fetching){
-      return <h5>...Creating User</h5>
+      return <h5>...Loading</h5>
     }
     const {redirect} = this.state;
     const authUser = this.props.userState.current;
       
     
-      if (authUser ) {
-        return <Redirect to='/' />
-        
-      }else if(redirect){
-        return <Redirect to='/users/languages' />;
-      }else{
+      if (!authUser ) {
         return (
           <div>
             <div className="row">
@@ -66,6 +63,11 @@ class CreateUser extends React.Component {
             </div>
         </div>
         )
+        
+      }else if(authUser && redirect){
+        return <Redirect to='/users/languages' />;
+      }else{
+        return <Redirect to='/' />;
 
       }
     
