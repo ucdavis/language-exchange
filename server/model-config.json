@@ -1,53 +1,74 @@
 {
   "_meta": {
-    "sources": [
-      "loopback/common/models",
-      "loopback/server/models",
-      "../common/models",
-      "./models"
-    ],
-    "mixins": [
-      "loopback/common/mixins",
-      "loopback/server/mixins",
-      "../common/mixins",
-      "./mixins"
-    ]
+  "sources": [
+  "loopback/common/models",
+  "loopback/server/models",
+  "../common/models",
+  "./models"
+  ],
+  "mixins": [
+  "loopback/common/mixins",
+  "loopback/server/mixins",
+  "../common/mixins",
+  "./mixins"
+  ]
   },
-
+  "User": {
+  "dataSource": "db"
+  },
+  "AccessToken": {
+  "dataSource": "db",
+  "public": false
+  },
+  "ACL": {
+  "dataSource": "db",
+  "public": false
+  },
+  "RoleMapping": {
+  "dataSource": "db",
+  "public": false,
+  "options": {
+  "strictObjectIDCoercion": true
+  }
+  },
+  "Role": {
+  "dataSource": "db",
+  "public": true
+  },
   "languages": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "partner": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "provided_languages": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "ability": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "desired_languages": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "contacts": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "storage": {
-    "dataSource": "imageStorage",
-    "public": true
+  "dataSource": "imageStorage",
+  "public": true
   },
   "total_languages": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   },
   "users_per_year": {
-    "dataSource": "db",
-    "public": true
+  "dataSource": "db",
+  "public": true
   }
-}
+  }
