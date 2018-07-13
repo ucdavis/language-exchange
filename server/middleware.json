@@ -43,16 +43,15 @@
     }
   },
   "files": {
-        "loopback#static": {
-      "params": "$!./client" 
-     }
-
+    "loopback#static": {
+      "params": "$!./client"
+    }
   },
   "final": {
     "loopback#urlNotFound": {
-          "loopback#static": {
-      "params": "$!./client" 
-     }
+      "loopback#static": {
+        "params": "$!./client"
+      }
     }
   },
   "final:after": {

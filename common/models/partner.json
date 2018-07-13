@@ -1,6 +1,6 @@
 {
   "name": "partner",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -103,8 +103,49 @@
       "type": "hasMany",
       "model": "contacts",
       "foreignKey": "recipient_id"
+    },
+    "AccessToken": {
+      "model": "AccessToken",
+      "type": "hasMany",
+      "foreignKey": "userId"
     }
   },
-  "acls": [],
+  "acls": [{
+    "principalType": "ROLE",
+    "principalId": "$everyone",
+    "permission": "DENY",
+    "property":"*"
+  },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "logout"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "*"
+    }
+  ],
   "methods": {}
 }
