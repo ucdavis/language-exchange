@@ -3,7 +3,9 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
+const sqlite3 = require('sqlite3').verbose();
 
+var userType = require('./userType.js');
 // Required for cas_authentication module
 var session = require('express-session');
 var CASAuthentication = require('cas-authentication');
@@ -43,7 +45,7 @@ var cas = new CASAuthentication({
     renew           : false,
     session_name    : 'cas_user',
     destroy_session : false,
-    is_dev_mode     : true,
+    is_dev_mode     : false,
     dev_mode_user   : 'admin',
 });
 
@@ -63,6 +65,54 @@ app.use(function (req, res, next) {
     cas.bounce(req, res, next);       
   }
 });
+
+
+
+// LANGUAGES API
+
+// function getLanguages( req, res, next, user_type ) {
+//   console.log("Ejecuting getLanguages. User Type:", user_type)
+
+//   if(user_type){
+//     let db = new sqlite3.Database('./server/db/dev.sqlite3');
+//     let sql = `SELECT id, name,short_name FROM languages
+//               ORDER BY name`;
+    
+//     db.all(sql, [], (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         res.statusCode = 500;
+//         return res.json({ errors: ['Could not retrieve data'] });
+//       }
+//       // No results returned mean the object is not found
+//       if (results.length === 0) {
+//         // We are able to set the HTTP status code on the res object
+//         res.statusCode = 404;
+//         return res.json({ errors: ['Not Found'] });
+//       }
+
+//      req.languages = results;
+//      db.close();
+//       next();
+//     });
+//   }
+//   if(!user_type){
+//     res.sendStatus(403);
+//   }
+
+// }
+
+
+// function resolveLanguages(req, res, next){
+//   var cas_user = req.session[cas.session_name];
+//   console.log("Asking for :",cas_user)
+//   userType(req,res, next, getLanguages, cas_user);
+// }
+
+// app.get('/api/languages', function(req,res){
+//   res.send(req.languages);
+// })
+
 
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
