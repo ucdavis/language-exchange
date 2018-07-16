@@ -4,6 +4,7 @@ import UserForm from '../../components/user/UserForm';
 import * as userActions from "../../actions/userActions";
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
+import Img from 'react-image';
 
 class CreateUser extends React.Component {
   constructor (props){
@@ -37,39 +38,44 @@ class CreateUser extends React.Component {
     this.setState({ redirect: true })
   }
   render() {
+    let loading = '/api/storages/images/download/loading.gif';
     if (this.props.userState.fetching){
-      return <h5>...Creating User</h5>
+      return(
+        <div>
+            <div className="card mt-3">
+                <div className="card-body text-center">
+                    <Img src={ loading } />
+                </div>
+            </div>
+        </div>
+    )
     }
     const {redirect} = this.state;
     const authUser = this.props.userState.current;
       
+    if(redirect){
+      return <Redirect to='/users/languages' />;
+    }
     
-      if (authUser ) {
-        return <Redirect to='/' />
-        
-      }else if(redirect){
-        return <Redirect to='/users/languages' />;
-      }else{
-        return (
-          <div>
-            <div className="row">
-              <div className="col-sm-12"> 
-                  <div className="card mt-3">
-                    <div className="card-header bg-dark text-white">
-                        Registration Form
-                    </div>
-                    <div className="card-body">
-                      <UserForm onSubmit={this.submit} />
-                    </div>
+    if (authUser ) {
+      return <Redirect to='/' />
+    }
+    return (
+      <div>
+        <div className="row">
+          <div className="col-sm-12"> 
+              <div className="card mt-3">
+                <div className="card-header bg-dark text-white">
+                    Registration Form
                 </div>
-              </div>
+                <div className="card-body">
+                  <UserForm onSubmit={this.submit} />
+                </div>
             </div>
+          </div>
         </div>
-        )
-
-      }
-    
-    
+    </div>
+    )    
   }
 }
 

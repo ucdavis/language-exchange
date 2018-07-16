@@ -86,15 +86,16 @@ export function updateUser(newUserData){
     }
 }
 
-export function updateUserLogin(user){
+export function updateUserLogin(userId){
     return function (dispatch){
         dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
+        var date = new Date().toISOString();;
         axios.request({
             method: 'patch',
-            url : `/api/partners/${user.id}`,
+            url : `/api/partners/${userId}`,
             data: {
-                id : user.id,
-                last_login : user.last_login,
+                id : userId,
+                last_login : date,
          }
         })
         .then(response =>dispatch({type:"UPDATE_USER_LOGIN_FULFILLED",payload:response.data}))
