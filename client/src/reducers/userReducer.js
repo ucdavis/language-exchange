@@ -1,5 +1,6 @@
 const initialState = {
     fetching : false,
+    fetchingUser : false,
     fetched : false,
     users : [],
     cas_user : null,
@@ -71,21 +72,21 @@ export default function userReducer(state=initialState, action) {
         }
      // FETCH CURRENT USER
      case "FETCH_CURRENT_USER_PENDING":{
-        state = {...state, fetching:true}
+        state = {...state, fetching:true, fetchingUser:true}
         break;
     }
 
      case "FETCH_CURRENT_USER_FULFILLED":{
-        state = {...state, fetching:false, current:action.payload }
+        state = {...state, fetching:false,fetchingUser:false, current:action.payload }
         break;
     }
     case "FETCH_CURRENT_USER_REJECTED":{
-        state =  {...state, fetching: false, error: action.payload };
+        state =  {...state, fetching: false, fetchingUser:false, error: action.payload };
         break;
     }    
      // FETCH CAS USER
      case "FETCH_CAS_USER_PENDING":{
-        state = {...state, fetching:true }
+        state = {...state, fetching:true, fetchingUser:true }
         break;
     }
      case "FETCH_CAS_USER_FULFILLED":{
@@ -128,7 +129,7 @@ export default function userReducer(state=initialState, action) {
         break;
     }
     case "UPDATE_USER_LOGIN_FULFILLED":{
-        state =  { ...state, fetching:false, current: action.payload };
+        state =  { ...state, fetching:false};
         break;
     }
     case "UPDATE_USER_LOGIN_REJECTED":{
