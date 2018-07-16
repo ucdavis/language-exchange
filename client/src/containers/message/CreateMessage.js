@@ -7,6 +7,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import MessageForm from '../../components/message/MessageForm';
 import SentMessages  from "../../containers/message/SentMessages";
 import ReceivedMessages  from "../../containers/message/ReceivedMessages";
+import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class CreateMessage extends Component {
     constructor(props){
@@ -36,6 +37,7 @@ class CreateMessage extends Component {
             read : 0
         }
         this.props.createMessage(newMessage);
+        this.props.sendFlashMessage("Message sent!", "alert-success");
         this.setState({ redirect: true })
     }
 
@@ -85,7 +87,8 @@ function mapStateToProps(state){
     return bindActionCreators({
         fetchCurrentUser: userActions.fetchCurrentUser,
         fetchUser: userActions.fetchUser,
-        createMessage: messageActions.createMessage
+        createMessage: messageActions.createMessage,
+        sendFlashMessage: flashMessageActions.sendFlashMessage
     }, dispatch)
   }
   

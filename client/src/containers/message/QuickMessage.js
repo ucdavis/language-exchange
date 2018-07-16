@@ -5,6 +5,7 @@ import * as userActions from "../../actions/userActions";
 import * as messageActions from "../../actions/messageActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import MessageForm from '../../components/message/MessageForm';
+import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class CreateMessage extends Component {
     constructor(props){
@@ -33,6 +34,7 @@ class CreateMessage extends Component {
             read : 0
         }
         this.props.createMessage(newMessage);
+        this.props.sendFlashMessage("Message sent!", "alert-success");
         this.setState({ redirect: true })
     }
 
@@ -45,7 +47,7 @@ class CreateMessage extends Component {
         const {redirect} = this.state;
         const recipient = this.props.userState.active;
         if (redirect) {
-            return <Redirect to='/' />;
+            return <Redirect to='/users/messages' />;
         }else{
             return(
                 <div>
@@ -69,7 +71,8 @@ function mapStateToProps(state){
   function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchUser: userActions.fetchUser,
-        createMessage: messageActions.createMessage
+        createMessage: messageActions.createMessage,
+        sendFlashMessage: flashMessageActions.sendFlashMessage
     }, dispatch)
   }
   
