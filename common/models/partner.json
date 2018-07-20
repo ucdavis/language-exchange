@@ -82,6 +82,13 @@
       "defaultFn": "now"
     }
   },
+  "hidden": [
+    "avatar_file_size",
+    "avatar_content_type",
+    "avatar_updated_at",
+    "email_conf_code",
+    "email_confirmed"
+  ],
   "validations": [],
   "relations": {
     "provided_languages": {
