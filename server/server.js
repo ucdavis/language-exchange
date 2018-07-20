@@ -38,7 +38,7 @@ app.use( session({
  
 var cas = new CASAuthentication({
     cas_url         : 'https://ssodev.ucdavis.edu/cas/',
-    service_url     : 'http://localhost:3000',
+    service_url     : 'http://localhost:5001',
     cas_version     : '3.0',
     renew           : false,
     session_name    : 'cas_user',

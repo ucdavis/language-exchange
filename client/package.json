@@ -43,7 +43,7 @@
   },
   "proxy": {
     "/api": {
-      "target": "https://localhost:3000"
+      "target": "http://localhost:5001"
     }
   }
 }
