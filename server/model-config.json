@@ -44,7 +44,15 @@
   },
   "languages": {
   "dataSource": "db",
-  "public": true
+  "public": true,
+  "options": {
+    "remoting": {
+      "sharedMethods": {
+        "*": false,
+        "getLanguages": true
+      }
+    }
+  }
   },
   "partner": {
   "dataSource": "db",
