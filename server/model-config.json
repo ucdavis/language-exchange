@@ -13,11 +13,18 @@
       "./mixins"
     ]
   },
-
   "languages": {
     "dataSource": "db",
-    "public": true
-  },
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "getLanguages": true
+        }
+      }
+    }
+    },
   "partner": {
     "dataSource": "db",
     "public": true
@@ -28,7 +35,15 @@
   },
   "ability": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true
+        }
+      }
+    }
   },
   "desired_languages": {
     "dataSource": "db",
