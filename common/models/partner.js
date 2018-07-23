@@ -31,6 +31,27 @@ var desired_languages = Partner.relations[desired_languages];
 //             cb(null, res);
 //         });    
 //       }
+
+
+// Function for saving login time
+Partner.remoteMethod('updateUserLogin', {
+    accepts:{arg: "req", type: "object", http: {source: "req"}},
+    http: {path: '/savelogin', verb: 'patch'},
+    returns: {type: 'array', root: true}
+    
+});
+
+Partner.updateUserLogin = function(req, cb) {
+    var param = req.session.cas_user;
+    var sql ="update partner set last_login = datetime('now') where cas_user = ?";
+
+    ds.connector.query(sql, [param], function (err, result ) {
+        if (err)reject(err);
+        cb(null, result)
+    });
+
+  }
+  
       
 
 // Function for getting Authenticated user

@@ -12,8 +12,8 @@ class Home extends Component{
         this.props.fetchCurrentUser();
     }
 
-    register_login(userId){
-        this.props.updateUserLogin(userId);
+    register_login(){
+        this.props.updateUserLogin();
     }
 
     render(){
@@ -39,8 +39,8 @@ class Home extends Component{
                 return <Redirect to='/users/register'/>;  
             }
             if(userId){
-                this.register_login(userId);
-                return <Redirect to='/users/home'/>;  
+                this.register_login();
+                // return <Redirect to='/users/home'/>;  
             }
     }
 }
