@@ -38,7 +38,7 @@ class ReceivedMessages extends Component{
                                     Read
                             </button>  
                         </th>
-                        <td className={read_class}>{message.sender.user_name}</td>
+                        <td className={read_class}>{message.user_name}</td>
                         <td className={read_class}>{message.subject}</td>
                         <td className={read_class}>{date}</td>
                         

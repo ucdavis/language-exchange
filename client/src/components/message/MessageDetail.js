@@ -1,6 +1,3 @@
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import * as messageActions from "../../actions/messageActions";
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import CreateMessage from "../../containers/message/CreateMessage";
@@ -11,24 +8,6 @@ class MessageDetail extends React.Component {
         redirect: false,
         redirect_url : null
     }
-
-
-    componentDidMount(){
-        if(this.props.sent===false){
-            let now = new Date();
-            const messageData = {
-                id : this.props.message.id,
-                content : this.props.message.content,
-                sender_id : this.props.message.sender_id,
-                recipient_id : this.props.message.recipient_id,
-                subject : this.props.message.subject,
-                read : true,
-                updated_at : now,
-                created_at : this.props.message.created_at
-            }
-            this.props.updatedMessage(messageData);
-        }
-    }  
 
     reply(sender_id){
         this.setState({
@@ -63,16 +42,16 @@ class MessageDetail extends React.Component {
                 if(this.props.sent===false){
                      button = (
                         <button
-                            onClick={()=>this.props.showView(<CreateMessage recipient = { this.props.message.sender }/>)}
+                            onClick={()=>this.props.showView(<CreateMessage recipient = { this.props.message.user_name }/>)}
                             className="btn btn-success"
                             type="button">
                                 Reply
                         </button>);
-                     sender = this.props.message.sender.user_name;
+                     sender = this.props.message.user_name;
                      label = "From";
 
                     }else{
-                        sender = this.props.message.recipient.user_name;
+                        sender = this.props.message.user_name;
                         label = "To";
                     }
                 
@@ -107,23 +86,10 @@ class MessageDetail extends React.Component {
                             </div>
                         </div>
                     );
-
             }
-
-
     }
-
 }
 
-function mapStateToProps(state){
-    return { messageState : state.messageState }
- }
- 
- function mapDispatchToProps(dispatch){
-    return  bindActionCreators({
-        fetchMessage : messageActions.fetchMessage,
-        updatedMessage : messageActions.updateMessage }, dispatch)
- }
 
- export default withRouter( connect(mapStateToProps, mapDispatchToProps)(MessageDetail));
+ export default withRouter( MessageDetail);
 

@@ -20,14 +20,23 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
-          "getLanguages": true
+          "find": true
         }
       }
     }
     },
   "partner": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "findById": true,
+          "getAuthUser": true
+        }
+      }
+    }
   },
   "provided_languages": {
     "dataSource": "db",
@@ -51,7 +60,17 @@
   },
   "contacts": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "getReceivedMessages": true,
+          "getSentMessages": true,
+          "create": false
+        }
+      }
+    }
   },
   "storage": {
     "dataSource": "imageStorage",
