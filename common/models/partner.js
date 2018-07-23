@@ -32,6 +32,18 @@ var desired_languages = Partner.relations[desired_languages];
 //         });    
 //       }
 
+var getPromise=function(sqlString, param){
+    var promise = new Promise((resolve, reject) => { 
+        var ds = Contact.dataSource;
+        var sql = sqlString;
+        ds.connector.query(sql, [param], function (err, result ) {
+            if (err)reject(err);
+            resolve( result);
+        });
+    });
+    return promise;
+}
+
 
 // Function for saving login time
 Partner.remoteMethod('updateUserLogin', {
@@ -44,9 +56,9 @@ Partner.remoteMethod('updateUserLogin', {
 Partner.updateUserLogin = function(req, cb) {
     var param = req.session.cas_user;
     var sql ="update partner set last_login = datetime('now') where cas_user = ?";
-
+    var ds = Partner.dataSource;
     ds.connector.query(sql, [param], function (err, result ) {
-        if (err)reject(err);
+        if (err)console.log(err);
         cb(null, result)
     });
 

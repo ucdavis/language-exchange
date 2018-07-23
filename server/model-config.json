@@ -33,7 +33,8 @@
         "sharedMethods": {
           "*": false,
           "findById": true,
-          "getAuthUser": true
+          "getAuthUser": true,
+          "updateUserLogin": true
         }
       }
     }

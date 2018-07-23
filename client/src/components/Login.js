@@ -40,7 +40,7 @@ class Home extends Component{
             }
             if(userId){
                 this.register_login();
-                // return <Redirect to='/users/home'/>;  
+                return <Redirect to='/users/home'/>;  
             }
     }
 }

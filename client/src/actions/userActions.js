@@ -80,17 +80,12 @@ export function updateUser(newUserData){
     }
 }
 
-export function updateUserLogin(userId){
+export function updateUserLogin(){
     return function (dispatch){
         dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
-        var date = new Date().toISOString();;
         axios.request({
             method: 'patch',
-            url : `/api/partners/${userId}`,
-            data: {
-                id : userId,
-                last_login : date,
-         }
+            url : "/api/partners/savelogin"
         })
         .then(response =>dispatch({type:"UPDATE_USER_LOGIN_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"UPDATE_USER_LOGIN_REJECTED", payload: err}));
