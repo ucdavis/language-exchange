@@ -6,15 +6,43 @@ module.exports = function(Partner) {
 var provided_languages = Partner.relations[provided_languages];
 var desired_languages = Partner.relations[desired_languages];
 
-// Custom method for getting CAS authenticated user
-    Partner.remoteMethod('current', {
-        accepts: {arg: 'cas_user', type: 'string', required: true},
-        http: {path: '/current/:cas_user', verb: 'get'},
+// // Function for getting CAS authenticated user
+//     Partner.remoteMethod('current', {
+//         accepts: {arg: 'cas_user', type: 'string', required: true},
+//         http: {path: '/current/:cas_user', verb: 'get'},
+//         returns: {type: 'array', root: true}
+        
+//     });
+
+//     Partner.current = function(cas_user, cb) {
+//             Partner.findOne({
+//                 where: {cas_user: cas_user},                
+//                 fields:{
+//                     email_conf_code:false,
+//                     email_confirmed:false,
+//                     avatar_content_type:false,
+//                     avatar_file_size: false,
+//                     avatar_updated_at: false,
+//                     created_at:false,
+//                     updated_at:false,
+//                     last_login:false
+//                     }
+//             }, function(err, res) { 
+//             cb(null, res);
+//         });    
+//       }
+      
+
+// Function for getting Authenticated user
+    Partner.remoteMethod('getAuthUser', {
+        accepts:{arg: "req", type: "object", http: {source: "req"}},
+        http: {path: '/authenticated', verb: 'get'},
         returns: {type: 'array', root: true}
         
     });
 
-    Partner.current = function(cas_user, cb) {
+    Partner.getAuthUser = function(req, cb) {
+        var cas_user = req.session.cas_user;
             Partner.findOne({
                 where: {cas_user: cas_user},                
                 fields:{

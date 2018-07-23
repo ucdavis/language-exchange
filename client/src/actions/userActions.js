@@ -37,15 +37,9 @@ export function fetchCasUser(){
 export function fetchCurrentUser(){
     return function(dispatch){
         dispatch({type:"FETCH_CURRENT_USER_PENDING"});
-        let cas_user = null;
-        axios.get('/api/partners/cas_user')
-        .then(response => {
-            cas_user = response.data;
-            axios.get(`/api/partners/current/${cas_user}`)
+            axios.get("/api/partners/authenticated")
             .then(response => dispatch({type:"FETCH_CURRENT_USER_FULFILLED", payload:response.data}))
             .catch(err => dispatch({type:"FETCH_CURRENT_USER_REJECTED", payload: err}));
-
-        })
     }
 }   
 
