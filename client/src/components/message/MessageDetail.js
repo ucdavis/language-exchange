@@ -19,8 +19,10 @@ class MessageDetail extends React.Component {
 
     render(){
         let button = null;
-        let sender = null;
+        let name = null;
         let label = null;
+        let message = this.props.message;
+        console.log(message);
         const {redirect,redirect_url} = this.state;
         if(redirect&&redirect_url){
             return <Redirect to={redirect_url}  />;
@@ -32,27 +34,26 @@ class MessageDetail extends React.Component {
                 return i;
             }
 
-                    var created_at = new Date(this.props.message.created_at)
+                    var created_at = new Date(message.created_at)
                     var date = addZero(created_at.getMonth()+1) +"/"
                         +addZero(created_at.getDate())+"/"
                         +addZero(created_at.getFullYear())+" "
                         +addZero(created_at.getHours())+":"
                         +addZero(created_at.getMinutes());
 
-                if(this.props.sent===false){
+                if(this.props.received){
                      button = (
                         <button
-                            onClick={()=>this.props.showView(<CreateMessage recipient = { this.props.message.user_name }/>)}
+                            onClick={()=>this.props.showView(<CreateMessage originalMessage = { message }/>)}
                             className="btn btn-success"
                             type="button">
                                 Reply
                         </button>);
-                     sender = this.props.message.user_name;
-                     label = "From";
-
+                        label = "From";
+                        name = message.sender;
                     }else{
-                        sender = this.props.message.user_name;
                         label = "To";
+                        name = message.recipient;
                     }
                 
 
@@ -63,20 +64,22 @@ class MessageDetail extends React.Component {
                                     <h3 className="text-right">Message</h3>
                                     <div className="card">
                                         <div className="card-header">
-                                            { this.props.message.subject }
+                                        <label><strong>{label}: </strong></label>&nbsp;{ name }
                                         </div>
                                         <ul className="list-group">
-                                            <li className="list-group-item">
-                                                <label><strong>{label}: </strong></label>&nbsp;{ sender }
-                                            </li>
-                                        
-                                            <li className="list-group-item">
+                                        <li className="list-group-item">
                                             <label><strong> Recived: </strong></label> &nbsp;{ date }
-                                            </li>
+                                        </li>
+                                        <li className="list-group-item">
+                                        <label><strong> Subject: </strong></label> &nbsp;
+                                        { message.subject }
+                                        </li>
+                                        
+                                            
                                         </ul>
                                         <div className="card-body">
                                             <h5 className="card-title">Message</h5>
-                                            <p className="card-text">{ this.props.message.content }</p>
+                                            <p className="card-text">{ message.content }</p>
                                         </div>
                                         <div className="card-footer text-center">
                                             {button}

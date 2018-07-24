@@ -34,7 +34,8 @@
           "*": false,
           "findById": true,
           "getAuthUser": true,
-          "updateUserLogin": true
+          "updateUserLogin": true,
+          "searchPartner": true
         }
       }
     }
@@ -68,7 +69,7 @@
           "*": false,
           "getReceivedMessages": true,
           "getSentMessages": true,
-          "create": false
+          "create": true
         }
       }
     }

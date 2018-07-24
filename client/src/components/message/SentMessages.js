@@ -24,10 +24,13 @@ class SentMessages extends Component{
                     <tr key={message.id}>
                     <th scope="row">
                             <button onClick={
-                                ()=>this.props.showView(<MessageDetail message={message} sent={true}/>)
+                                ()=>this.props.showView(<MessageDetail
+                                    message={message}
+                                    received={false}
+                                    />)
                                 } className="btn btn-secondary btn-sm">Read</button>  
                         </th>
-                        <td>{message.user_name}</td>
+                        <td>{message.recipient}</td>
                         <td>{message.subject}</td>
                         <td>{date}</td>
                     </tr>

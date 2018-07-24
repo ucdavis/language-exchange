@@ -22,11 +22,9 @@ class CreateMessage extends Component {
 
     submit = values =>{
         let now = new Date();
-        let recipient_id = this.props.match.params.id;;
-        let sender_id = this.props.userState.current.id;
+        let recipient_id = this.props.match.params.id;
         const newMessage = {
             content : values.content,
-            sender_id : sender_id,
             recipient_id : recipient_id,
             subject : values.subject,
             created_at : now,
@@ -34,7 +32,7 @@ class CreateMessage extends Component {
             read : 0
         }
         this.props.createMessage(newMessage);
-        this.props.sendFlashMessage("Message sent!", "alert-success");
+
         this.setState({ redirect: true })
     }
 
@@ -47,13 +45,16 @@ class CreateMessage extends Component {
         const {redirect} = this.state;
         const recipient = this.props.userState.active;
         if (redirect) {
+            this.props.sendFlashMessage("Message sent!", "alert-success");
             return <Redirect to='/users/messages' />;
         }else{
             return(
                 <div>
                     <div className="row">
                         <div className="col-sm-12">
-                        <MessageForm recipient={ recipient} onSubmit={this.submit} />
+                        <MessageForm
+                            recipient={ recipient.user_name}
+                            onSubmit={this.submit} />
                         </div>
                     </div>
             </div>

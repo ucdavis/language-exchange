@@ -14,7 +14,7 @@ class CreateMessage extends Component {
         super(props);
         this.showView = this.showView.bind(this);
         this.state = {
-          display : <MessageForm recipient={ this.props.recipient} onSubmit={this.submit} />,
+          display : <MessageForm recipient={ this.props.originalMessage.sender} onSubmit={this.submit} />,
           redirect : false
         }
       }
@@ -25,11 +25,9 @@ class CreateMessage extends Component {
 
     submit = values =>{
         let now = new Date();
-        let recipient_id = this.props.recipient.id;
-        let sender_id = this.props.userState.current.id;
+        let recipient_id = this.props.originalMessage.sender_id;
         const newMessage = {
             content : values.content,
-            sender_id : sender_id,
             recipient_id : recipient_id,
             subject : values.subject,
             created_at : now,
@@ -37,7 +35,6 @@ class CreateMessage extends Component {
             read : 0
         }
         this.props.createMessage(newMessage);
-        this.props.sendFlashMessage("Message sent!", "alert-success");
         this.setState({ redirect: true })
     }
 
@@ -62,6 +59,7 @@ class CreateMessage extends Component {
     render() {
         const {redirect} = this.state;
         if (redirect) {
+            this.props.sendFlashMessage("Message sent!", "alert-success");
             return <Redirect to='/' />;
         }else{
             return(
