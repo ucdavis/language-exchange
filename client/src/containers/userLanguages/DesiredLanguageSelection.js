@@ -15,11 +15,9 @@ class DesiredLanguageSelection extends Component{
     }
 
     submit = values => {
-        const user_id =  this.props.userState.current.id;
         const now = new Date();
         const newDesiredLanguage ={
             language_id : values.language_id,
-            user_id : user_id,
             ability : values.ability,
             created_at : now,
             updated_at : now

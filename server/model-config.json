@@ -42,7 +42,17 @@
   },
   "provided_languages": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true,
+          "create":true,
+          "deleteById":true
+        }
+      }
+    }
   },
   "ability": {
     "dataSource": "db",
@@ -58,7 +68,17 @@
   },
   "desired_languages": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true,
+          "create":true,
+          "deleteById":true
+        }
+      }
+    }
   },
   "contacts": {
     "dataSource": "db",

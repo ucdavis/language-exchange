@@ -21,21 +21,16 @@ module.exports = function(Contact) {
 // Hook, adds sender_id before creating a new message
     Contact.beforeRemote('create', function(ctx, unused, next) {
         if(ctx.req.session.cas_user) {
-            console.log("Before remote:",ctx.req.session.cas_user)
             var param = ctx.req.session.cas_user;
             var sql ="select id from partner where cas_user = ?";
             var getUserId = getPromise(sql, param, ctx);
             getUserId.then((result)=>{
-                console.log("result:",result)
                 var id = result[0].id;
                 ctx.req.body['sender_id']=id;
-                console.log(ctx.req.body)
                 next();
-            });
-        
-           
+            });                
         } else {
-          next(new Error('must be logged in to update'))
+          next(new Error('Must be logged in'))
         }
       });
 
@@ -55,31 +50,7 @@ module.exports = function(Contact) {
         }
     });
 
-//     var getUserId=function(cas_user){
-//         var ds = Contact.dataSource;
-//         var sqlUser ="select id from partner where cas_user = ?";
-//         var user_id = ds.connector.query(sqlUser, [cas_user], function (err, user_id ) {
-//             if (err) console.error(err);
-//             return user_id;
-//         });
-//         console.log(user_id);
-//         return user_id;
-//     }
-
-//    var getInbox=function(recipient_id){
-//         var ds = Contact.dataSource;
-//         var sql ="select sender_id, recipient_id, subject, content, read, created_at, id from contacts where recipient_id = ?";
-//         ds.connector.query(sql, [recipient_id], function (err, receivedMessages ) {
-//             if (err) console.error(err);
-//             return receivedMessages;
-//             // cb(err, receivedMessages);
-//         });
-//     }
-
-
-
-
-    
+  
     Contact.getReceivedMessages = function(req, cb) {
         var sql ="select id from partner where cas_user = ?";
         var param = req.session.cas_user;
