@@ -2,6 +2,7 @@
   "name": "storage",
   "base": "Model",
   "idInjection": true,
+
   "options": {
     "validateUpsert": true
   },
