@@ -64,7 +64,6 @@ export function updateUser(newUserData){
             method: 'patch',
             url : `/api/partners/${newUserData.id}`,
             data: {
-                cas_user : newUserData.cas_user,
                 user_name : newUserData.user_name,
                 email : newUserData.email,
                 available : newUserData.available,
