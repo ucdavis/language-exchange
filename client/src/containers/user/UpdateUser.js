@@ -13,13 +13,10 @@ class UpdateUser extends React.Component {
 }
 
   submit = values => {
-    let cas_user = this.props.userState.current.cas_user;
     let user_id = this.props.userState.current.id;
-
 
     const newUserData= {
         id : user_id,
-        cas_user : cas_user,
         available : values.available,
         user_name : values.user_name,
         email_confirmed : values.email_confirmed,
@@ -28,7 +25,7 @@ class UpdateUser extends React.Component {
         gender : values.gender,
         description : values.description,
         affiliation : values.affiliation,
-        field_of_study: values.field_of_study,
+        field_of_study: values.field_of_study
     }
     this.props.updateUser(newUserData);
     this.props.sendFlashMessage("Profile updated!!", "alert-success");

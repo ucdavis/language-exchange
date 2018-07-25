@@ -34,11 +34,11 @@ var desired_languages = Partner.relations[desired_languages];
 
 var getPromise=function(sqlString, param){
     var promise = new Promise((resolve, reject) => { 
-        var ds = Contact.dataSource;
+        var ds = Partner.dataSource;
         var sql = sqlString;
         ds.connector.query(sql, [param], function (err, result ) {
-            if (err)reject(err);
-            resolve( result);
+            if (err)reject(new Error('Soemthing went wrong with getting Promise'));
+            resolve(result);
         });
     });
     return promise;
@@ -63,8 +63,7 @@ Partner.updateUserLogin = function(req, cb) {
     });
 
   }
-  
-      
+     
 
 // Function for getting Authenticated user
     Partner.remoteMethod('getAuthUser', {
@@ -205,5 +204,22 @@ Partner.updateUserLogin = function(req, cb) {
             cb(null, searchResult);
         })
     }
+
+// Remote method before hook. The second argument to the hook is the ctx.result which is not always available.
+      Partner.beforeRemote('prototype.patchAttributes', function(ctx, unused, next) {
+        if(ctx.req.session.cas_user) {
+            var sql= "SELECT id from partner WHERE cas_user = ?";
+            let cas_user = ctx.req.session.cas_user;
+            var getUserId = getPromise(sql,cas_user, ctx);
+            getUserId.then((result)=>{
+                var user_id = result[0].id;
+                ctx.req.body["cas_user"]=cas_user;
+                ctx.req.body["id"] = user_id;
+                next();
+            })          
+        } else {
+          next(new Error('Must be logged in'));
+        }
+      });
 
 };

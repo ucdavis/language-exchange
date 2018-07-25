@@ -35,7 +35,8 @@
           "findById": true,
           "getAuthUser": true,
           "updateUserLogin": true,
-          "searchPartner": true
+          "searchPartner": true,
+          "prototype.patchAttributes":true
         }
       }
     }
