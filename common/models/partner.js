@@ -179,6 +179,59 @@ Partner.searchPartner = function(speaks,learns,gender,cb){
     })
 }
 
+    // Hook, checks registered user before creating
+    Partner.beforeRemote('create', function(ctx, unused, next) {
+        if(ctx.req.session.cas_user) {
+            // Denies access if trying to create cas_user or user_type
+            if(ctx.req.body.user_type || ctx.req.body.cas_user){
+                next(new Error('Action not allowed:inserting protected values.'));
+            }
+            // Checks user_id from cas_user
+            var sql= "SELECT id from partner WHERE cas_user = ?";
+            var cas_user = ctx.req.session.cas_user;
+            var getUserId = getPromise(sql,cas_user, ctx);
+            
+            getUserId.then((result)=>{
+                // If user doesn't exist, then add cas_user and create it
+                if(!result.length){
+                    ctx.req.body.cas_user = cas_user;
+                    ctx.req.body.user_type = false;
+                    next();
+
+                }
+            })
+            .catch(err=>{
+                next(new Error('Something went wrong'));
+            })
+        }else {
+            next(new Error('Must be logged in'));
+        }
+    })
+
+
+    // Hook, checks registered user before querying
+    Partner.beforeRemote('find', function(ctx, unused, next) {
+        if(ctx.req.session.cas_user) {
+            // Checks user_id from cas_user
+            var sql= "SELECT id from partner WHERE cas_user = ?";
+            var cas_user = ctx.req.session.cas_user;
+            var getUserId = getPromise(sql,cas_user, ctx);
+
+            getUserId.then((result)=>{
+                var user_id = result[0].id;
+                // If user_id and idToUpdate are the same, then update
+                if( user_id ){
+                    next();
+                }
+            })
+            .catch(err=>{
+                next(new Error('Action not allowed.'));
+            })
+        }else {
+            next(new Error('Must be logged in'));
+        }
+    })
+
     // Hook, checks data before updating user.
     Partner.beforeRemote('prototype.patchAttributes', function(ctx, unused, next) {
         if(ctx.req.session.cas_user) {
@@ -188,7 +241,7 @@ Partner.searchPartner = function(speaks,learns,gender,cb){
             }
             // Checks user_id from cas_user
             var sql= "SELECT id from partner WHERE cas_user = ?";
-            let cas_user = ctx.req.session.cas_user;
+            var cas_user = ctx.req.session.cas_user;
             var getUserId = getPromise(sql,cas_user, ctx);
             getUserId.then((result)=>{
                 var user_id = result[0].id;
@@ -196,9 +249,10 @@ Partner.searchPartner = function(speaks,learns,gender,cb){
                 // If user_id and idToUpdate are the same, then update
                 if( user_id == idToUpdate ){
                     next();
-                } else {
-                    next(new Error('Action not allowed.'));
-                }
+                } 
+            })
+            .catch(err=>{
+                next(new Error('Action not allowed.'));
             })
         }else {
             next(new Error('Must be logged in'));
