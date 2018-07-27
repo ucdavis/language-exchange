@@ -9,8 +9,8 @@ const validate = values => {
       errors.user_name = 'Required'
     } else if (values.user_name.length < 2) {
       errors.user_name = 'Please use a more descriptive name'
-    } else if (values.user_name.length > 10) {
-        errors.user_name = 'Must be 10 characters or less'
+    } else if (values.user_name.length > 15) {
+        errors.user_name = 'Must be 15 characters or less'
       }
 
     if (!values.email) {

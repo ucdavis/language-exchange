@@ -32,8 +32,8 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
-          "findById": true,
-          "find": true,
+          "getUserById": true,
+          "find":true,
           "create":true,
           "getAuthUser": true,
           "updateUserLogin": true,

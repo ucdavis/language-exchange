@@ -2,6 +2,10 @@
   "name": "provided_languages",
   "base": "PersistedModel",
   "idInjection": true,
+  "hidden": [
+    "updated_at",
+    "created_at"
+  ],
   "options": {
     "validateUpsert": true
   },

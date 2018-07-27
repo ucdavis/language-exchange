@@ -16,14 +16,14 @@ export function createUser (newUser){
 }
 
 
-export function existedUser(cas_user){
-    return function(dispatch){
-        dispatch({type:"EXISTED_USER_PENDING"});
-        axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
-        .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
-        .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
-    }
-}   
+// export function existedUser(cas_user){
+//     return function(dispatch){
+//         dispatch({type:"EXISTED_USER_PENDING"});
+//         axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
+//         .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
+//         .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
+//     }
+// }   
 
 export function fetchCasUser(){
     return function(dispatch){
@@ -46,7 +46,7 @@ export function fetchCurrentUser(){
 export function fetchUser(id){
     return function(dispatch){
         dispatch({type:"FETCH_USER_PENDING"})
-        axios.get(`/api/partners/${id}`)
+        axios.get(`/api/partners/find/${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_FULFILLED",payload:response.data})
             })
@@ -238,7 +238,7 @@ export function checkImageExists(file_name){
 // SEARCH TOOL
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
-
+        dispatch({type:"SEARCH_USERS_PENDING"});
         axios.get(`/api/partners/searchPartner/${provided}/${desired}/${gender}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));

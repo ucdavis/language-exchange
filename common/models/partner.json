@@ -90,11 +90,6 @@
     "email_conf_code",
     "email_confirmed",
     "cas_user",
-    "email",
-    "available",
-    "notify_by_email",
-    "created_at",
-    "updated_at",
     "last_login"
   ],
   "validations": [],
