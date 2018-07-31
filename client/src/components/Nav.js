@@ -39,7 +39,7 @@ class Nav extends React.Component {
               <Link to={ '/users/register' } className="nav-link">Register<span className="sr-only">(current)</span></Link>
               </li>
               <li className="nav-item pull-right">
-                <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
+                <a className="nav-link btn btn-sm btn-outline-secondary" href="/logout" >Logout</a>
               </li>
             </ul>
           </div>
@@ -68,7 +68,7 @@ class Nav extends React.Component {
         )
       };
 
-      return (
+      return (  
         <div>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
@@ -101,7 +101,7 @@ class Nav extends React.Component {
                   { admin_menu}
 
                 <li className="nav-item pull-right">
-                  <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
+                  <a className="nav-link btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
                 </li>
               </ul>
             </div>

@@ -3,6 +3,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
+const morgan = require('morgan');
 
 // Required for cas_authentication module
 var session = require('express-session');
@@ -27,7 +28,7 @@ app.start = function() {
 // Set up an Express session, which is required for CASAuthentication.
 // TODO: secret key
 app.use( session({
-  secret            : 'super_zsecret_key',
+  secret            : 'llave_super_secret_key',
   resave            : false,
   saveUninitialized : true,
   cookie: {
@@ -38,27 +39,29 @@ app.use( session({
  
 var cas = new CASAuthentication({
     cas_url         : 'https://ssodev.ucdavis.edu/cas/',
-    service_url     : 'http://localhost:5001',
+    service_url     : 'http://localhost:3000',
     cas_version     : '3.0',
-    renew           : false,
+    renew           : true,
     session_name    : 'cas_user',
-    destroy_session : false,
+    destroy_session : true,
     is_dev_mode     : true,
     dev_mode_user   : 'admin',
 });
 
+//Morgan
+app.use(morgan('combined'))
+
 
 // Check all requests for authentication
-// TODO : Solve 'No Access-Control-Allow-Origin' Error
 app.use(function (req, res, next) {
   var user_name = null;
 
   if(user_name = req.session[cas.session_name]) {
-    console.log("\n CAS session found : ", user_name);
+    console.log("\n CAS user found: ", user_name);
     next();
   } else {
     // No username in session, need to log in
-    console.log("No CAS session found");
+    console.log("No CAS user found");
     // res.setHeader('Access-Control-Allow-Credentials', 'true');
     cas.bounce(req, res, next);       
   }
@@ -68,8 +71,8 @@ app.use(function (req, res, next) {
 // redirect the client to the CAS logout page. 
 app.get( '/logout', cas.logout );
 
-// API sends current authenticated user
 
+// API gets current authenticated user
 app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
   res.send(req.session[cas.session_name]);
 } );
