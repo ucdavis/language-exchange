@@ -69,7 +69,18 @@ app.use(function (req, res, next) {
 
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
-app.get( '/logout', cas.logout );
+app.get( '/logout', function(req,res){
+  // Destroy the entire session, and CAS session variables.
+  req.session.destroy(function(err) {
+    if (err) {
+        console.log(err);
+    }
+    // Redirect the client to the CAS logout.
+    res.redirect('https://cas.ucdavis.edu/cas/logout');
+
+  });
+
+});
 
 
 // API gets current authenticated user

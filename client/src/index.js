@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from "./reducers";
 import { Provider } from "react-redux";
@@ -35,4 +35,4 @@ ReactDOM.render(
     </PersistGate>    
     </Provider>   
 , document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();
