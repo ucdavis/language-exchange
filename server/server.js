@@ -49,7 +49,17 @@ var cas = new CASAuthentication({
 });
 
 //Morgan
-app.use(morgan('combined'))
+app.use(morgan('dev', {
+  skip: function (req, res) {
+      return res.statusCode < 400
+  }, stream: process.stderr
+}));
+
+app.use(morgan('combined', {
+  skip: function (req, res) {
+      return res.statusCode >= 400
+  }, stream: process.stdout
+}));
 
 
 // Check all requests for authentication
