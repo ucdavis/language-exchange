@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import UpdateLanguage from '../containers/language/UpdateLanguage';
 import Home from './Home';
 import Login from './Login';
+// import UnderConstruction from '../components/underConstruction';
 // import Logout from './Logout';
 import Guide from '../components/home/Guide';
 import LanguageContainer from '../containers/language/LanguageContainer';
@@ -19,10 +20,12 @@ import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 import UploadAvatar from '../containers/user/UploadAvatar';
 import Chart from '../containers/charts/Chart';
 
+
 const Main = () => (
     <main>
         <Switch>
             <Route exact path='/' component = {Login} />
+            {/* <Route exact path='/' component = {UnderConstruction} /> */}
             <Route exact path='/users/home' component = {Home} />
             <Route exact path='/users/guide' component = {Guide} />
             <Route exact path='/users/register' component = { CreateUser } />
