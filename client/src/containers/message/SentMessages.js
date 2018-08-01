@@ -32,8 +32,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
-        fetchSentMessages : messageActions.fetchSentMessages,
-        fetchMessage : messageActions.fetchSentMessages
+        fetchSentMessages : messageActions.fetchSentMessages
     }, dispatch)
 }
 

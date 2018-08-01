@@ -69,6 +69,7 @@ class UploadFile extends React.Component {
 
    
     render() {
+      let loading = '/api/storages/images/download/loading.gif';
       let authUser = this.props.userState.current;
       if(!authUser){
         return <Redirect to='/' />
@@ -80,7 +81,15 @@ class UploadFile extends React.Component {
         if (redirect) {
           return <Redirect to='/users/profile' />;
         }else if ( this.props.userState.fetching ){
-          return(<h5>...Uploading file</h5>);
+          return(
+            <div>
+                <div className="card mt-3">
+                    <div className="card-body text-center">
+                        <Img src={ loading } />
+                    </div>
+                </div>
+            </div>
+        )
         }else{
 
           return (

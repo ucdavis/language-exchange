@@ -1,6 +1,7 @@
 'use strict';
 const sqlite3 = require('sqlite3').verbose();
 module.exports = function(Languages) {
+<<<<<<< HEAD
 
         // Custom Remote Method for getting a
 
@@ -47,4 +48,7 @@ module.exports = function(Languages) {
         //     }
         //   }
 
+=======
+    
+>>>>>>> master
 };

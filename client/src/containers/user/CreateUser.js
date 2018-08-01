@@ -4,6 +4,7 @@ import UserForm from '../../components/user/UserForm';
 import * as userActions from "../../actions/userActions";
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
+import Img from 'react-image';
 
 class CreateUser extends React.Component {
   constructor (props){
@@ -19,10 +20,8 @@ class CreateUser extends React.Component {
 }
 
   submit = values => {
-    let cas_user = this.props.userState.cas_user;
     
     const newUser= {
-        cas_user : cas_user,
         available : values.available,
         user_name : values.user_name,
         email_confirmed : values.emailConfirmed,
@@ -31,7 +30,7 @@ class CreateUser extends React.Component {
         gender : values.gender,
         description : values.description,
         affiliation : values.affiliation,
-        field_of_study: values.field,
+        field_of_study: values.field
     }
     this.props.createUser(newUser);
     console.log('CreateUser')
@@ -39,13 +38,30 @@ class CreateUser extends React.Component {
     console.log('Redirect')
   }
   render() {
+    let loading = '/api/storages/images/download/loading.gif';
     if (this.props.userState.fetching){
+<<<<<<< HEAD
       return <h5>...Loading</h5>
+=======
+      return(
+        <div>
+            <div className="card mt-3">
+                <div className="card-body text-center">
+                    <Img src={ loading } />
+                </div>
+            </div>
+        </div>
+    )
+>>>>>>> master
     }
     const {redirect} = this.state;
     const authUser = this.props.userState.current;
       
+    if(redirect){
+      return <Redirect to='/users/languages' />;
+    }
     
+<<<<<<< HEAD
       if (!authUser ) {
         return (
           <div>
@@ -58,10 +74,26 @@ class CreateUser extends React.Component {
                     <div className="card-body">
                       <UserForm onSubmit={this.submit} />
                     </div>
+=======
+    if (authUser ) {
+      return <Redirect to='/' />
+    }
+    return (
+      <div>
+        <div className="row">
+          <div className="col-sm-12"> 
+              <div className="card mt-3">
+                <div className="card-header bg-dark text-white">
+                    Registration Form
                 </div>
-              </div>
+                <div className="card-body">
+                  <UserForm onSubmit={this.submit} />
+>>>>>>> master
+                </div>
             </div>
+          </div>
         </div>
+<<<<<<< HEAD
         )
         
       }else if(authUser && redirect){
@@ -72,6 +104,10 @@ class CreateUser extends React.Component {
       }
     
     
+=======
+    </div>
+    )    
+>>>>>>> master
   }
 }
 

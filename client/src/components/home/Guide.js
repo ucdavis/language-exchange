@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 class Guide extends Component{
 
     render(){
-        // const server = "http://localhost:3000";
-        // let image = "/api/storages/images/download/TLEConversationGuide.jpg";
 
         return(
             <div>

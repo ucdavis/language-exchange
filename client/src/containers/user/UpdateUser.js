@@ -4,7 +4,8 @@ import UpdateUserForm from '../../components/user/UpdateUserForm';
 import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
-import * as flashMessageActions from '../../actions/flashMessageActions'
+import * as flashMessageActions from '../../actions/flashMessageActions';
+import Img from 'react-image';
 
 class UpdateUser extends React.Component {
   
@@ -13,13 +14,10 @@ class UpdateUser extends React.Component {
 }
 
   submit = values => {
-    let cas_user = this.props.userState.current.cas_user;
     let user_id = this.props.userState.current.id;
 
-
-    const newUserData= {
+    const updateUserData= {
         id : user_id,
-        cas_user : cas_user,
         available : values.available,
         user_name : values.user_name,
         email_confirmed : values.email_confirmed,
@@ -28,33 +26,50 @@ class UpdateUser extends React.Component {
         gender : values.gender,
         description : values.description,
         affiliation : values.affiliation,
-        field_of_study: values.field_of_study,
+        field_of_study: values.field_of_study
     }
-    this.props.updateUser(newUserData);
+    this.props.updateUser(updateUserData);
     this.props.sendFlashMessage("Profile updated!!", "alert-success");
   }
   render() {
+
     const authUser = this.props.userState.current;
     if( !authUser ){
       return <Redirect to='/users/register'/>;  
-  }
+    }
+
+    const loading = '/api/storages/images/download/loading.gif';
+    var updating = this.props.userState.fetching;
+    var fetching = this.props.userState.fetchingUser;
+    if( updating || fetching ){
+      return(
+        <div>
+            <div className="card mt-3">
+                <div className="card-body text-center">
+                    <Img src={ loading } />
+                </div>
+            </div>
+        </div>
+      )
+    }else{
     
-    return (
-      <div>
-        <div className="row">
-            <div className="col-sm-12"> 
-                <div className="card mt-3">
-                  <div className="card-header bg-dark text-white">
-                      My Profile
-                  </div>
-                  <div className="card-body">
-                    <UpdateUserForm onSubmit={this.submit}  />
+      return (
+        <div>
+          <div className="row">
+              <div className="col-sm-12"> 
+                  <div className="card mt-3">
+                    <div className="card-header bg-dark text-white">
+                        My Profile
+                    </div>
+                    <div className="card-body">
+                      <UpdateUserForm onSubmit={this.submit}  />
+                    </div>
                   </div>
                 </div>
-              </div>
+          </div>
         </div>
-      </div>
-    )
+      )
+   }
   }
 }
 

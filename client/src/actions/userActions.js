@@ -16,14 +16,14 @@ export function createUser (newUser){
 }
 
 
-export function existedUser(cas_user){
-    return function(dispatch){
-        dispatch({type:"EXISTED_USER_PENDING"});
-        axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
-        .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
-        .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
-    }
-}   
+// export function existedUser(cas_user){
+//     return function(dispatch){
+//         dispatch({type:"EXISTED_USER_PENDING"});
+//         axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
+//         .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
+//         .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
+//     }
+// }   
 
 export function fetchCasUser(){
     return function(dispatch){
@@ -37,22 +37,16 @@ export function fetchCasUser(){
 export function fetchCurrentUser(){
     return function(dispatch){
         dispatch({type:"FETCH_CURRENT_USER_PENDING"});
-        let cas_user = null;
-        axios.get('/api/partners/cas_user')
-        .then(response => {
-            cas_user = response.data;
-            axios.get(`/api/partners/current/${cas_user}`)
+            axios.get("/api/partners/authenticated")
             .then(response => dispatch({type:"FETCH_CURRENT_USER_FULFILLED", payload:response.data}))
             .catch(err => dispatch({type:"FETCH_CURRENT_USER_REJECTED", payload: err}));
-
-        })
     }
 }   
 
 export function fetchUser(id){
     return function(dispatch){
         dispatch({type:"FETCH_USER_PENDING"})
-        axios.get(`/api/partners/${id}`)
+        axios.get(`/api/partners/find/${id}`)
         .then(response => {
             dispatch({type:"FETCH_USER_FULFILLED",payload:response.data})
             })
@@ -70,7 +64,6 @@ export function updateUser(newUserData){
             method: 'patch',
             url : `/api/partners/${newUserData.id}`,
             data: {
-                cas_user : newUserData.cas_user,
                 user_name : newUserData.user_name,
                 email : newUserData.email,
                 available : newUserData.available,
@@ -86,16 +79,12 @@ export function updateUser(newUserData){
     }
 }
 
-export function updateUserLogin(user){
+export function updateUserLogin(){
     return function (dispatch){
         dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
         axios.request({
             method: 'patch',
-            url : `/api/partners/${user.id}`,
-            data: {
-                id : user.id,
-                last_login : user.last_login,
-         }
+            url : "/api/partners/savelogin"
         })
         .then(response =>dispatch({type:"UPDATE_USER_LOGIN_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"UPDATE_USER_LOGIN_REJECTED", payload: err}));
@@ -250,17 +239,25 @@ export function checkImageExists(file_name){
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
         dispatch({type:"SEARCH_USERS_PENDING"});
-        var filter = "";
-        if( gender !== "Any"){
-            filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`          
-        }else{
-            filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`
-        }
-        axios.get(`/api/partners?filter=${filter}`)
+        axios.get(`/api/partners/searchPartner/${provided}/${desired}/${gender}`)
         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
 } 
+// export function searchUsers(gender, provided, desired){
+//     return function(dispatch){
+//         dispatch({type:"SEARCH_USERS_PENDING"});
+//         var filter = "";
+//         if( gender !== "Any"){
+//             filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`          
+//         }else{
+//             filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`
+//         }
+//         axios.get(`/api/partners?filter=${filter}`)
+//         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
+//         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
+//     }
+// } 
 
 // Fetch users for reports
 export function fetchUsers(){

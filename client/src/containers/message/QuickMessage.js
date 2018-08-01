@@ -5,6 +5,7 @@ import * as userActions from "../../actions/userActions";
 import * as messageActions from "../../actions/messageActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import MessageForm from '../../components/message/MessageForm';
+import * as flashMessageActions from '../../actions/flashMessageActions'
 
 class CreateMessage extends Component {
     constructor(props){
@@ -21,11 +22,9 @@ class CreateMessage extends Component {
 
     submit = values =>{
         let now = new Date();
-        let recipient_id = this.props.match.params.id;;
-        let sender_id = this.props.userState.current.id;
+        let recipient_id = this.props.match.params.id;
         const newMessage = {
             content : values.content,
-            sender_id : sender_id,
             recipient_id : recipient_id,
             subject : values.subject,
             created_at : now,
@@ -33,6 +32,7 @@ class CreateMessage extends Component {
             read : 0
         }
         this.props.createMessage(newMessage);
+
         this.setState({ redirect: true })
     }
 
@@ -45,13 +45,16 @@ class CreateMessage extends Component {
         const {redirect} = this.state;
         const recipient = this.props.userState.active;
         if (redirect) {
-            return <Redirect to='/' />;
+            this.props.sendFlashMessage("Message sent!", "alert-success");
+            return <Redirect to='/users/messages' />;
         }else{
             return(
                 <div>
                     <div className="row">
                         <div className="col-sm-12">
-                        <MessageForm recipient={ recipient} onSubmit={this.submit} />
+                        <MessageForm
+                            recipient={ recipient.user_name}
+                            onSubmit={this.submit} />
                         </div>
                     </div>
             </div>
@@ -69,7 +72,8 @@ function mapStateToProps(state){
   function mapDispatchToProps(dispatch){
     return bindActionCreators({
         fetchUser: userActions.fetchUser,
-        createMessage: messageActions.createMessage
+        createMessage: messageActions.createMessage,
+        sendFlashMessage: flashMessageActions.sendFlashMessage
     }, dispatch)
   }
   

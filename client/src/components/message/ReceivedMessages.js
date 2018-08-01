@@ -12,35 +12,31 @@ class ReceivedMessages extends Component{
 
         let messages = null;
         const received_messages = this.props.messageState.received_messages;
-        let read_class = "bg-default";
+
         if (received_messages.length){
             messages = received_messages.map( message=>{
             var created_at = new Date(message.created_at)
             var date = created_at.getMonth()+1 +"/"
                         +created_at.getDate()+"/"
                         +created_at.getFullYear();
-                  
 
-            const read = message.read.toString();
-            if(read === "false" ){
-                read_class = "bg-default";               
-            }
 
               return (
-                    <tr key={message.id} className={read_class}>
-                        <th scope="row"  className={read_class}>
+                    <tr key={message.id} >
+                        <th scope="row">
                             <button
-                                onClick={()=>this.props.showView(<MessageDetail message={message}
-                                showView={ this.props.showView }
-                                sent={false}
-                                read={true}/>)}
+                                onClick={()=>this.props.showView(<MessageDetail
+                                    message={message}
+                                    showView={ this.props.showView }
+                                    received={true}
+                                    />)}
                                 className="btn btn-secondary btn-sm">
                                     Read
                             </button>  
                         </th>
-                        <td className={read_class}>{message.sender.user_name}</td>
-                        <td className={read_class}>{message.subject}</td>
-                        <td className={read_class}>{date}</td>
+                        <td>{message.sender}</td>
+                        <td>{message.subject}</td>
+                        <td>{date}</td>
                         
                     </tr>
               )

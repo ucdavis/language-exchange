@@ -10,12 +10,24 @@ class Nav extends React.Component {
 
   componentDidMount(){
     this.props.fetchCurrentUser();
-}
-
+  }
 
   render() {
+<<<<<<< HEAD
     const logo = '/api/storages/images/download/logo.png';
     const RegisterBar=(
+=======
+    var logo = '/api/storages/images/download/logo.png';
+    let fetching = this.props.userState.fetchingUser;
+    let authUser = this.props.userState.current;
+    let authUserId;
+
+    if (this.props.userState.current && this.props.userState.current.id){
+      authUserId = this.props.userState.current.id
+    }
+
+    const RegisterBar = (
+>>>>>>> master
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div className="container">
@@ -32,7 +44,11 @@ class Nav extends React.Component {
               <Link to={ '/users/register' } className="nav-link">Register<span className="sr-only">(current)</span></Link>
               </li>
               <li className="nav-item pull-right">
+<<<<<<< HEAD
                 <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
+=======
+                <a className="nav-link btn btn-sm btn-outline-secondary" href="/logout" >Logout</a>
+>>>>>>> master
               </li>
             </ul>
           </div>
@@ -40,12 +56,20 @@ class Nav extends React.Component {
         </nav>
       </div>
     )
+<<<<<<< HEAD
     let authUser = this.props.userState.current;
     
     if( !authUser ){
       return RegisterBar;
   }
     else if(authUser){
+=======
+    
+    if( !fetching && !authUserId ){
+      return ( RegisterBar )
+  }
+    if(authUserId && !fetching){
+>>>>>>> master
       let admin_menu = "";
       if(authUser.user_type){
         admin_menu = (
@@ -62,7 +86,7 @@ class Nav extends React.Component {
         )
       };
 
-      return (
+      return (  
         <div>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
@@ -95,7 +119,7 @@ class Nav extends React.Component {
                   { admin_menu}
 
                 <li className="nav-item pull-right">
-                  <a className="nav-link btn btn-sm btn-outline-secondary" onClick={ this.props.userLogout}  href="/logout" >Logout</a>
+                  <a className="nav-link btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
                 </li>
               </ul>
             </div>
@@ -103,9 +127,15 @@ class Nav extends React.Component {
           </nav>
         </div>
       );
+<<<<<<< HEAD
     }else{
       return RegisterBar;
+=======
+>>>>>>> master
     }
+
+    return ( RegisterBar )
+
   }
 } 
 

@@ -12,36 +12,36 @@ class Home extends Component{
         this.props.fetchCurrentUser();
     }
 
-    register_login(user){
-        var date = new Date();
-        user.last_login = date.toISOString();
-        this.props.updateUserLogin(user);
+    register_login(){
+        this.props.updateUserLogin();
     }
 
     render(){
-        const authUser = this.props.userState.current;
-        var fetching = this.props.userState.fetching;
-        var loading = '/api/storages/images/download/loading.gif';
-        if( !authUser ){
-            return <Redirect to='/users/register'/>;  
+        let userId;
+        if (this.props.userState.current && this.props.userState.current.id){
+            userId = this.props.userState.current.id
         }
-        else if(authUser){
-            if(fetching){
-                return <Img src={ loading } />
-            }
-            this.register_login(authUser);
-            return <Redirect to='/users/home'/>;  
-        }
-
-        return(
-            <div>
-                <div className="card mt-3">
-                    <div className="card-body text-center">
-                        <Img src={ loading } />
+        let fetching = this.props.userState.fetchingUser;
+        let loading = '/api/storages/images/download/loading.gif';
+        if (fetching){
+            return(
+                <div>
+                    <div className="card mt-3">
+                        <div className="card-body text-center">
+                            <Img src={ loading } />
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            )
+            
+        }
+            if( !userId ){
+                return <Redirect to='/users/register'/>;  
+            }
+            if(userId){
+                this.register_login();
+                return <Redirect to='/users/home'/>;  
+            }
     }
 }
 

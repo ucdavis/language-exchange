@@ -2,6 +2,7 @@
   "name": "partner",
   "base": "User",
   "idInjection": true,
+  "forceId": true,
   "options": {
     "validateUpsert": true
   },
@@ -82,6 +83,15 @@
       "defaultFn": "now"
     }
   },
+  "hidden": [
+    "avatar_file_size",
+    "avatar_content_type",
+    "avatar_updated_at",
+    "email_conf_code",
+    "email_confirmed",
+    "cas_user",
+    "last_login"
+  ],
   "validations": [],
   "relations": {
     "provided_languages": {

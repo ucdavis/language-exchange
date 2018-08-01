@@ -1,89 +1,127 @@
 {
   "_meta": {
-  "sources": [
-  "loopback/common/models",
-  "loopback/server/models",
-  "../common/models",
-  "./models"
-  ],
-  "mixins": [
-  "loopback/common/mixins",
-  "loopback/server/mixins",
-  "../common/mixins",
-  "./mixins"
-  ]
-  },
-  "User": {
-  "dataSource": "db"
-  },
-  "AccessToken": {
-  "dataSource": "db",
-  "public": false,
-  "relations": {
-    "partner": {
-      "type": "belongsTo",
-      "model": "parner",
-      "foreignKey": "id"
-    }
-  }
-  },
-  "ACL": {
-  "dataSource": "db",
-  "public": false
-  },
-  "RoleMapping": {
-  "dataSource": "db",
-  "public": false,
-  "options": {
-  "strictObjectIDCoercion": true
-  }
-  },
-  "Role": {
-  "dataSource": "db",
-  "public": true
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
   },
   "languages": {
-  "dataSource": "db",
-  "public": true,
-  "options": {
-    "remoting": {
-      "sharedMethods": {
-        "*": false,
-        "getLanguages": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true
+        }
       }
     }
-  }
-  },
+    },
   "partner": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "getUserById": true,
+          "find":true,
+          "create":true,
+          "getAuthUser": true,
+          "updateUserLogin": true,
+          "searchPartner": true,
+          "prototype.patchAttributes":true
+        }
+      }
+    }
   },
   "provided_languages": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true,
+          "create":true,
+          "deleteById":true
+        }
+      }
+    }
   },
   "ability": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true
+        }
+      }
+    }
   },
   "desired_languages": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true,
+          "create":true,
+          "deleteById":true
+        }
+      }
+    }
   },
   "contacts": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "getReceivedMessages": true,
+          "getSentMessages": true,
+          "create": true
+        }
+      }
+    }
   },
   "storage": {
-  "dataSource": "imageStorage",
-  "public": true
+    "dataSource": "imageStorage",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "upload":true,
+          "download":true,
+          "getContainers":true,
+          "createContainer":true
+        }
+      }
+    }
   },
   "total_languages": {
-  "dataSource": "db",
-  "public": true
-  },
-  "users_per_year": {
-  "dataSource": "db",
-  "public": true
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "find": true
+        }
+      }
+    }
   }
   }

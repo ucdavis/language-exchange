@@ -10,14 +10,10 @@ class Home extends Component{
         redirect : false
     }
 
-    componentDidMount(){
-        this.props.fetchCasUser();
-    }
-
     render(){
         // const {redirect} = this.state;
         let home = null;
-        if( this.props.userState.current !== null ){
+        if( this.props.userState.current && this.props.userState.current.id ){
           home = <HomeSearch/>     
         }else{
             this.setState({ redirect: true });
