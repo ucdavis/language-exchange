@@ -11,6 +11,7 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "arr-union": "^3.1.0",
     "cas-authentication": "0.0.8",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
@@ -23,6 +24,7 @@
     "loopback-connector-mongodb": "^3.3.0",
     "loopback-connector-postgresql": "^3.2.0",
     "loopback-connector-sqlite3": "^1.2.0",
+    "morgan": "^1.9.0",
     "nodemon": "^1.15.1",
     "options": "0.0.6",
     "react-table": "^6.8.6",
@@ -32,6 +34,7 @@
     "webpack": "^3.8.1"
   },
   "devDependencies": {
+    "@types/node": "^10.5.5",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-loopback": "^8.0.0",
