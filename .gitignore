@@ -29,3 +29,6 @@ storage/*
 !storage/images
 storage/images/*
 !storage/images/no_image.png
+
+# ENV
+.env

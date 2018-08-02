@@ -5,6 +5,8 @@ var boot = require('loopback-boot');
 var path = require('path');
 const morgan = require('morgan');
 
+require('dotenv').config()
+
 // Required for cas_authentication module
 var session = require('express-session');
 var CASAuthentication = require('cas-authentication');
@@ -38,8 +40,8 @@ app.use( session({
 }));
  
 var cas = new CASAuthentication({
-    cas_url         : 'https://ssodev.ucdavis.edu/cas/',
-    service_url     : 'http://localhost:3000',
+    cas_url         : process.env.CAS_URL,
+    service_url     : process.env.SERVICE_URL,
     cas_version     : '3.0',
     renew           : true,
     session_name    : 'cas_user',
@@ -80,13 +82,14 @@ app.use(function (req, res, next) {
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
 app.get( '/logout', function(req,res){
+  var cas_logout = process.env.CAS_LOGOUT;
   // Destroy the entire session, and CAS session variables.
   req.session.destroy(function(err) {
     if (err) {
         console.log(err);
     }
     // Redirect the client to the CAS logout.
-    res.redirect('https://cas.ucdavis.edu/cas/logout');
+    res.redirect(cas_logout);
 
   });
 
