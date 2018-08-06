@@ -1,7 +1,7 @@
 {
   "files": {
     "loopback#static": {
-  "params": "$!./client/app/" 
+  "params": "$!./client/maintenance/" 
  }
 },
   "final:after": {

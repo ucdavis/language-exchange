@@ -3,6 +3,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
+var errorHandler = require('strong-error-handler');
 const morgan = require('morgan');
 
 require('dotenv').config()
@@ -46,8 +47,8 @@ var cas = new CASAuthentication({
     renew           : true,
     session_name    : 'cas_user',
     destroy_session : true,
-    is_dev_mode     : true,
-    dev_mode_user   : 'admin',
+    is_dev_mode     : process.env.IS_DEV_MODE,
+    dev_mode_user   : process.env.DEV_MODE_USER
 });
 
 //Morgan
@@ -102,12 +103,17 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
 } );
 
 app.get('/users*', function (req, res){
-  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
 });
 
 app.get('/admin*',function(req,res){
-      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+      res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
 });
+
+app.use(errorHandler({
+  debug: app.get('env') === 'development',
+  log: true,
+}));
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.

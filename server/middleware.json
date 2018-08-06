@@ -41,10 +41,10 @@
     }
   },
   "files": {
-    "loopback#static": {
-  "params": "$!./client/app/" 
- }
-},
+        "loopback#static": {
+      "params": ""
+     }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

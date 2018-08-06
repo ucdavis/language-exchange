@@ -3,15 +3,10 @@
 module.exports = function(server) {
   // Install a `/` route that returns server status
   var router = server.loopback.Router();
-  // comment this for testing changes on DEV
+  // Shows loopback status on root /, uncoment when ENV = dev
   // router.get('/', server.loopback.status());
-  // uncomment this instead
-   router.get('/');
-  
-  // AND add this to middleware.json "files" object
-    // "loopback#static": {
-    //   "params": "$!./client" 
-    //  }
+  // Serves files in configured public directory. uncomment when ENV != dev
+  router.get('/');
 
   server.use(router);
 };
