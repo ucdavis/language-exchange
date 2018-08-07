@@ -1,7 +1,8 @@
 module.exports = {
   db: {
-    file: process.env.DB_FILE,
     debug: process.env.DB_DEBUG,
-
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASS,
+    user: process.env.DB_USER
   }
 };

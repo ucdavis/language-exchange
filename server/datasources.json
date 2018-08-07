@@ -1,7 +1,7 @@
 {
   "db": {
     "name": "db",
-    "connector": "loopback-connector-sqlite3"
+    "connector": "mysql"
   },
   "imageStorage": {
     "name": "imageStorage",
