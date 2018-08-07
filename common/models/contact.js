@@ -1,7 +1,4 @@
 'use strict';
-const sqlite3 = require('sqlite3').verbose();
-var async = require("async");
-
 
 module.exports = function(Contact) {
 
@@ -60,7 +57,7 @@ module.exports = function(Contact) {
             var param = result[0].id;
             var sql =`
                 select c.id, c.sender_id, c.recipient_id, c.subject,
-                c.content, c.read,c.created_at, p.user_name as recipient,
+                c.content, c.viewed,c.created_at, p.user_name as recipient,
                 (select user_name from partner where partner.id=sender_id) as sender
                 from contacts c
                 join partner p
@@ -100,7 +97,7 @@ module.exports = function(Contact) {
                 var param = result[0].id;
                 var sql =`
                 select c.id, c.sender_id, c.recipient_id, c.subject,
-                c.content, c.read,c.created_at, p.user_name as recipient,
+                c.content, c.viewed,c.created_at, p.user_name as recipient,
                 (select user_name from partner where partner.id=sender_id) as sender
                 from contacts c
                 join partner p

@@ -32,7 +32,7 @@ class CreateMessage extends Component {
             subject : values.subject,
             created_at : now,
             updated_at : now,
-            read : 0
+            viewed : 0
         }
         this.props.createMessage(newMessage);
         this.setState({ redirect: true })
