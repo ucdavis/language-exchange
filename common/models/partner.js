@@ -31,7 +31,7 @@ module.exports = function(Partner) {
 
     Partner.updateUserLogin = function(req, cb) {
         var param = req.session.cas_user;
-        var sql ="update partner set last_login = datetime('now') where cas_user = ?";
+        var sql ="update partner set last_login = CURRENT_TIMESTAMP where cas_user = ?";
         var ds = Partner.dataSource;
         ds.connector.query(sql, [param], function (err, result ) {
             if (err)console.log(err);
