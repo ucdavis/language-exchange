@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
 import { withRouter, Redirect } from 'react-router-dom';
+import Img from 'react-image';
 
 class LanguageContainer extends Component{
     componentDidMount(){
@@ -11,6 +12,7 @@ class LanguageContainer extends Component{
     }
     
     render(){ 
+        const loading = '/api/storages/images/download/loading.gif';
         const authUser = this.props.userState.current;
         if(!authUser){
             return <Redirect to='/' />
@@ -18,7 +20,15 @@ class LanguageContainer extends Component{
         const {updating,fetching,languages} = this.props.languageState;
         if( authUser.user_type){
             if(updating || fetching){
-                return <h5>...loading</h5>
+                return(
+                    <div>
+                        <div className="card mt-3">
+                            <div className="card-body text-center">
+                                <Img src={ loading } />
+                            </div>
+                        </div>
+                    </div>
+                  )
             }else{
                 return ( <div> <Languages  languages={languages} /> </div> )
             }

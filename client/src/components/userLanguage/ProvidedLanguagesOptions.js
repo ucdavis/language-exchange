@@ -5,6 +5,7 @@ import * as userLanguageActions from "../../actions/userLanguageActions";
 import { withRouter } from 'react-router-dom';
 import ProvidedLanguagesForm from '../../components/userLanguage/ProvidedLanguagesForm';
 import * as abilityActions from '../../actions/abilityActions';
+import Img from 'react-image';
 
 class ProvidedLanguagesOptions extends React.Component {
 
@@ -14,6 +15,7 @@ class ProvidedLanguagesOptions extends React.Component {
   }
 
   render() {
+    const loading = '/api/storages/images/download/loading.gif';
       
     const providedLanguages = this.props.userLanguageState.userProvidedLanguages.map(language => {
       return(
@@ -34,8 +36,16 @@ class ProvidedLanguagesOptions extends React.Component {
       )
     });
 
-if (this.props.userLanguageState.fetching ){
-  return(<h5>..loading</h5>);
+      if (this.props.userLanguageState.fetching ){
+        return(
+          <div>
+              <div className="card mt-3">
+                  <div className="card-body text-center">
+                      <Img src={ loading } />
+                  </div>
+              </div>
+          </div>
+        )
       }else{
         if(providedLanguages.length){
             return (

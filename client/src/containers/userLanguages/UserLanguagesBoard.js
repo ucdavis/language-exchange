@@ -6,9 +6,10 @@ import * as abilityActions from '../../actions/abilityActions';
 import { withRouter, Redirect } from 'react-router-dom';
 import { fetchCurrentUser } from '../../actions/userActions';
 import DesiredLanguagesOptions from '../../components/userLanguage/DesiredLanguagesOptions';
-import DesiredLanguageSelection from "../../containers/userLanguages/DesiredLanguageSelection"
+import DesiredLanguageSelection from "../../containers/userLanguages/DesiredLanguageSelection";
 import ProvidedLanguagesOptions from '../../components/userLanguage/ProvidedLanguagesOptions';
-import ProvidedLanguageSelection from "../../containers/userLanguages/ProvidedLanguageSelection"
+import ProvidedLanguageSelection from "../../containers/userLanguages/ProvidedLanguageSelection";
+import Img from 'react-image';
 
 class UserLanguagesBoard extends React.Component {
   constructor (props){
@@ -60,12 +61,21 @@ class UserLanguagesBoard extends React.Component {
   }
 
   render() {
+    const loading = '/api/storages/images/download/loading.gif';
     const authUser = this.props.userState.current;
     if( !authUser ){
         return <Redirect to='/users/register'/>;  
     }
     if (this.props.userState.fetching || this.props.userLanguageState.fetching){
-      return(<h5>...loading</h5>);
+      return(
+        <div>
+            <div className="card mt-3">
+                <div className="card-body text-center">
+                    <Img src={ loading } />
+                </div>
+            </div>
+        </div>
+      )
     }else{
       return (
         <div>
