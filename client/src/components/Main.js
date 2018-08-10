@@ -4,9 +4,9 @@ import { Switch, Route } from 'react-router-dom';
 import UpdateLanguage from '../containers/language/UpdateLanguage';
 import Home from './Home';
 import Login from './Login';
-// import UnderConstruction from '../components/underConstruction';
 // import Logout from './Logout';
 import Guide from '../components/home/Guide';
+import NotFound from '../components/NotFound';
 import LanguageContainer from '../containers/language/LanguageContainer';
 import LanguageDetails from '../containers/language/LanguageDetails';
 import Users from '../containers/user/ReadUsers';
@@ -25,7 +25,6 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path='/' component = {Login} />
-            {/* <Route exact path='/' component = {UnderConstruction} /> */}
             <Route exact path='/users/home' component = {Home} />
             <Route exact path='/users/guide' component = {Guide} />
             <Route exact path='/users/register' component = { CreateUser } />
@@ -43,6 +42,7 @@ const Main = () => (
             <Route exact path='/admin/languages/edit/:id' component = { UpdateLanguage } />
             <Route exact path='/admin/users' component = { Users } />
             {/* <Route exact path='/logout' component = { Logout } /> */}
+            <Route path="*" component={NotFound} />
         </Switch>    
     </main>    
 )

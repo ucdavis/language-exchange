@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 const validate = values => {
     const errors = {}
@@ -38,14 +39,14 @@ const validate = values => {
   )
 
 let MessageForm = props => {
-  const { handleSubmit, pristine, submitting, recipient  } = props;
+  const { handleSubmit, pristine, submitting, recipient, recipient_id  } = props;
 
   return (
       <div>
         <h3 className="text-right">New Message</h3>
         <div className="card">
         <div className="card-header">
-         To: { recipient }
+         To: <Link to={ `/users/${recipient_id}`}> { recipient } </Link>
          </div>
 
           <div className="card-body">

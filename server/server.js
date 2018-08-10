@@ -64,6 +64,11 @@ app.use(morgan('combined', {
   }, stream: process.stdout
 }));
 
+// If environment is maintenance, show off line page
+let publicDir = 'client/app';
+var envVar = process.env.NODE_ENV;
+if( envVar == 'maintenance'){ publicDir = 'client/app' }
+
 
 // Check all requests for authentication
 app.use(function (req, res, next) {
@@ -103,12 +108,14 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
 } );
 
 app.get('/users*', function (req, res){
-  res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
+  res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
 
 app.get('/admin*',function(req,res){
-      res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
+      res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
+
+
 
 app.use(errorHandler({
   debug: app.get('env') === 'development',
