@@ -94,7 +94,8 @@ const validate = values => {
                               className="form-check-input"
                           /> Available
                               <small id="availableHelp" className="form-text text-muted">
-                              If you uncheck this box your data will not show up in search results for others to contact you.You can come back to re-check the box when you are available again.
+                              If you uncheck this box your data will not show up in search results for others to contact you.<br />
+                              You can come back to re-check the box when you are available again.
                               </small>
                      
                   </div>

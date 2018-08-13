@@ -11,7 +11,6 @@ class Home extends Component{
     }
 
     render(){
-        // const {redirect} = this.state;
         let home = null;
         if( this.props.userState.current && this.props.userState.current.id ){
           home = <HomeSearch/>     
@@ -20,8 +19,23 @@ class Home extends Component{
             return <Redirect to='/users/register'/>;
         }
 
+        var alertMessage;
+        if (!this.props.userState.current.available ){
+            alertMessage = (
+            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 className="alert-heading">Unavailable</h5>
+                <p>You are not available, your data will not show up in search results for others to contact you.<br/>
+                You can edit to your <a href="/users/edit"> profile </a> and re-check the "Available" box to make yourself available again.</p>
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+             </div>    
+            )
+        }
+
         return(
             <div>
+              { alertMessage }
               { home }
 
                 <div className="card-group">
