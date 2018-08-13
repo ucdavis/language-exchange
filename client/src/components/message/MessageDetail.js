@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import CreateMessage from "../../containers/message/CreateMessage";
+import { Link } from 'react-router-dom';
 
 
 class MessageDetail extends React.Component {
@@ -64,7 +65,8 @@ class MessageDetail extends React.Component {
                                     <h3 className="text-right">Message</h3>
                                     <div className="card">
                                         <div className="card-header">
-                                        <label><strong>{label}: </strong></label>&nbsp;{ name }
+                                        <label><strong>{label}: </strong></label>
+                                            &nbsp;<Link to={ `/users/${message.sender_id}`}>{ name }</Link>
                                         </div>
                                         <ul className="list-group">
                                         <li className="list-group-item">

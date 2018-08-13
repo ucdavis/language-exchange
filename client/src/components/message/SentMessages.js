@@ -14,11 +14,6 @@ class SentMessages extends Component{
 
         if (sent_messages.length){
             messages = sent_messages.map( message=>{
-            var created_at = new Date(message.created_at)
-            var date = created_at.getMonth()+1 +"/"
-                        +created_at.getDate()+"/"
-                        +created_at.getFullYear();
-
               return (
                
                     <tr key={message.id}>
@@ -32,9 +27,8 @@ class SentMessages extends Component{
                         </th>
                         <td>{message.recipient}</td>
                         <td>{message.subject}</td>
-                        <td>{date}</td>
+                        <td>{message.created_at.slice(0, 10)}</td>
                     </tr>
-                
               )
           })
         }

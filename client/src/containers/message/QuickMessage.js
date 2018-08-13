@@ -53,8 +53,9 @@ class CreateMessage extends Component {
                     <div className="row">
                         <div className="col-sm-12">
                         <MessageForm
-                            recipient={ recipient.user_name}
-                            onSubmit={this.submit} />
+                            recipient = { recipient.user_name }
+                            recipient_id = { recipient.id }
+                            onSubmit = { this.submit } />
                         </div>
                     </div>
             </div>
