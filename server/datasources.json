@@ -1,7 +1,8 @@
 {
   "db": {
     "name": "db",
-    "connector": "mysql"
+    "connector": "mysql",
+    "collation":"utf8mb4"
   },
   "imageStorage": {
     "name": "imageStorage",
