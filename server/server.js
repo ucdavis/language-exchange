@@ -3,6 +3,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
+var nodemailer = require('nodemailer');
 var errorHandler = require('strong-error-handler');
 const morgan = require('morgan');
 
@@ -113,6 +114,48 @@ app.get('/users*', function (req, res){
 
 app.get('/admin*',function(req,res){
       res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
+});
+
+// NODEMAILER
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+  host: 'smtp.ucdavis.edu',
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+      user: account.user, // generated ethereal user
+      pass: account.pass // generated ethereal password
+  }
+  // Allow unauthorized domains (when running from localhost)
+  // ,
+  // tls:{
+  //   rejectUnauthorized:false
+  // }
+});
+
+var name = "Mauricio"
+var output = `<b>Hello ${name} </b>`
+
+// setup email data with unicode symbols
+let mailOptions = {
+  from: '"TLE UC Davis" <tle-no-reply@ucdavis.edu>', // sender address
+  to: 'bar@example.com, baz@example.com', // list of receivers
+  subject: 'Hello ✔', // Subject line
+  text: 'Hello world?', // plain text body
+  html: output // html body
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+      return console.log(error);
+  }
+  console.log('Message sent: %s', info.messageId);
+  // Preview only available when sending through an Ethereal account
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 });
 
 
