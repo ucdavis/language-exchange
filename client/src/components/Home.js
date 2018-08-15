@@ -25,7 +25,7 @@ class Home extends Component{
             <div className="alert alert-danger alert-dismissible fade show" role="alert">
                 <h5 className="alert-heading">Unavailable</h5>
                 <p>You are not available, your data will not show up in search results for others to contact you.<br/>
-                You can edit to your <a href="/users/edit"> profile </a> and re-check the "Available" box to make yourself available again.</p>
+                You can edit your <a href="/users/edit"> profile </a> and check the "Available" box to make yourself available again.</p>
                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
