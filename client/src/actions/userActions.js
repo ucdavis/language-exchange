@@ -16,15 +16,6 @@ export function createUser (newUser){
 }
 
 
-// export function existedUser(cas_user){
-//     return function(dispatch){
-//         dispatch({type:"EXISTED_USER_PENDING"});
-//         axios.get(`/api/partners?filter={"where":{"cas_user":${cas_user}}`)
-//         .then(response => dispatch({type:"EXISTED_USER_FULFILLED", payload:response.data}))
-//         .catch(err => dispatch({type:"EXISTED_USER_REJECTED", payload: err}));
-//     }
-// }   
-
 export function fetchCasUser(){
     return function(dispatch){
         dispatch({type:"FETCH_CAS_USER_PENDING"});
@@ -57,6 +48,7 @@ export function fetchUser(id){
 }   
 
 // UPDATE
+// Update user 
 export function updateUser(newUserData){
     return function (dispatch){
         dispatch({type:"UPDATE_USER_PENDING"});
@@ -79,6 +71,7 @@ export function updateUser(newUserData){
     }
 }
 
+// Update user after login
 export function updateUserLogin(){
     return function (dispatch){
         dispatch({type:"UPDATE_USER_LOGIN_PENDING"});
@@ -91,7 +84,7 @@ export function updateUserLogin(){
     }
 }
 // USER AVATAR
-
+// Checks if user has a directory before uploading avatar
 export function checkUserDirectory(user_id){
     return function(dispatch){
         dispatch({type:"CHECK_USER_DIRECTORY_PENDING"});
@@ -110,6 +103,7 @@ export function checkUserDirectory(user_id){
     }
 }
 
+// Creates user directory before uploading file
 export function createUserDirectory(user_id){
     return function(dispatch){
         dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
@@ -123,6 +117,7 @@ export function createUserDirectory(user_id){
     }
 
 }
+
 export function createUserDirectoryAndSave(image, user_id){
     return function(dispatch){
         dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_PENDING"});
@@ -244,26 +239,13 @@ export function searchUsers(gender, provided, desired){
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
 } 
-// export function searchUsers(gender, provided, desired){
-//     return function(dispatch){
-//         dispatch({type:"SEARCH_USERS_PENDING"});
-//         var filter = "";
-//         if( gender !== "Any"){
-//             filter = `{"where":{"and":[{"gender":{"like":"${gender}"}},{"available":true}]},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`          
-//         }else{
-//             filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${provided}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}},{"language_id":${desired}}]}}}],"order":"updated_at%20ASC"}`
-//         }
-//         axios.get(`/api/partners?filter=${filter}`)
-//         .then(response => dispatch({type:"SEARCH_USERS_FULFILLED",payload:response.data}))
-//         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
-//     }
-// } 
+
 
 // Fetch users for reports
 export function fetchUsers(){
     return function(dispatch){
         dispatch({type:"FETCH_USERS_PENDING"})
-        var filter = `{"where":{"available":true},"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}}],"order":"created_at%20ASC"}`
+        var filter = `{"include":[{"relation":"provided_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}},{"relation":"desired_languages","scope":{"include":"language","where":{"and":[{"ability":{"gt":0}}]}}}],"order":"created_at%20ASC"}`
         axios.get(`/api/partners?filter=${filter}`)
         .then(response => dispatch({type:"FETCH_USERS_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
