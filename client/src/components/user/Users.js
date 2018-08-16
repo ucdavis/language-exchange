@@ -28,6 +28,7 @@ class Users extends Component{
                 Affiliation: user.affiliation,
                 Known_Languages: user.provided_languages.map(language=>{return language.language.short_name}),
                 Learning_languages: user.provided_languages.map(language=>{return language.language.short_name}),
+                Available: user.available,
                 Registered:user.created_at.toString().split('T',1),
                 Last_Login: user.updated_at.toString().split('T',1)            
             })
@@ -62,6 +63,10 @@ class Users extends Component{
                         return(<div key={language.id}>{language.language.short_name}<br/></div>)
                 })
             )
+          },{
+            Header: 'Available',
+            accessor: 'available',
+            Cell: ({ value }) => String(value)
           },{
             Header: 'Registered',
             accessor: 'created_at',
