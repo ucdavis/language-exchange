@@ -86,7 +86,7 @@ class Chart extends Component {
         // Data for users updated per year
         const usersUpdated = [];
         d3.nest()
-        .key(function(d){ return d.updated_at.split("-")[0]; })
+        .key(function(d){ return d.last_login.split("-")[0]; })
         .sortKeys(d3.ascending)
         .rollup(function(v) {return v.length})
         .entries(users)

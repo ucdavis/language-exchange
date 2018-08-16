@@ -89,8 +89,7 @@
     "avatar_updated_at",
     "email_conf_code",
     "email_confirmed",
-    "cas_user",
-    "last_login"
+    "cas_user"
   ],
   "validations": [],
   "relations": {

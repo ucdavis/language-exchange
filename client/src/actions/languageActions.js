@@ -17,7 +17,7 @@ export function createLanguage (newLanguage){
 export function fetchLanguages(){
     return function(dispatch){
         dispatch({type:"FETCH_LANGUAGES_PENDING"})
-        axios.get('/api/languages')
+        axios.get('/api/languages?filter={"order":"name%20ASC"}')
         .then(response => dispatch({type:"FETCH_LANGUAGES_FULFILLED",payload:response.data}))
         .catch(err => dispatch({type:"FETCH_LANGUAGES_REJECTED", payload: err}));
     }
