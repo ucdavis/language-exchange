@@ -63,7 +63,7 @@ let ProvidedLanguageSelectionForm = props => {
                             <Field name="ability" component={SelectField}>
                                 <option value="">-- Level -- </option>
                                 {abilities.filter(ability =>{
-                                    return ability.id > 2})
+                                    return ability.id > 1})
                                 .map(ability => (
                                 <option value={ability.id} key={ability.id}>
                                     {ability.name}
