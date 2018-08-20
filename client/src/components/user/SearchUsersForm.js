@@ -38,11 +38,11 @@ import { Field, reduxForm } from 'redux-form';
                         <div className="form-group col-md-4">
                             <label>Gender :</label>
                                 <Field name="gender" component="select" className="form-control custom-select">
-                                    <option />
                                     <option value="Any">Any</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Undeclared">Undeclared</option>
+                                    <option value="Other">Other</option>
                                 </Field>
                         </div> 
                         
