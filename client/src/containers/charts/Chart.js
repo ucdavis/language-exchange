@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import * as reportActions from '../../actions/reportActions';
 import {fetchUsers} from '../../actions/userActions';
@@ -147,14 +147,28 @@ class Chart extends Component {
         return (
           <div>
             <div className="row">
-              <div className="col-sm-12 bg-white">
+              <div className="col-sm-12">
 
+              <nav className="nav nav-pills nav-fill mt-3">
+                    <Link to={'/admin/dashboard'}  className="btn btn-outline-info nav-item nav-link active" >
+                        Stats
+                    </Link>
+                    <Link to={'/admin/users'}  className="btn btn-outline-info nav-item nav-link" >
+                        Users
+                    </Link>
+                    <Link to={'/admin/languages'}  className="btn btn-outline-info nav-item nav-link" >
+                        Languages
+                    </Link>
+              </nav>
+                    
+              
     {/* Bar chart */}
                 <div className="card mt-3 mb-3">
                   <div className="card-header">
                     Total : {totalUsers} Records
                   </div>
-                  <div className="card-body">         
+                  <div className="card-body">
+                  <div className="table-responsive">         
                     <XYPlot
                         xType="ordinal"
                         yDomain = {[0,maxUsersPerLanguage+10]}
@@ -174,7 +188,9 @@ class Chart extends Component {
                           style={{fontSize:12}}
                         />
                     </XYPlot>
+                    </div>
                   </div>
+                
                 </div>
 
       {/* Line chart users activitity by year */}
@@ -182,7 +198,8 @@ class Chart extends Component {
                   <div className="card-header">
                     Users activity by year
                   </div>
-                  <div className="card-body">     
+                  <div className="card-body">
+                  <div className="table-responsive">      
                 
                   <DiscreteColorLegend  items={usersRegisteredLegend} orientation="horizontal"/>
                     <XYPlot
@@ -245,6 +262,7 @@ class Chart extends Component {
                     </XYPlot>
                   
                   </div>
+                  </div>
                 </div>
                 
     {/* Line chart users by year/month */}
@@ -253,6 +271,7 @@ class Chart extends Component {
                     New users by month
                   </div>
                   <div className="card-body">
+                  <div className="table-responsive"> 
                     <div className="row">
 
                       <div className="col-sm-12">
@@ -298,6 +317,7 @@ class Chart extends Component {
                             null
                           }
                         </XYPlot>
+                      </div>
                       </div>
                   
                     </div>

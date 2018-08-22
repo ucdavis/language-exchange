@@ -18,13 +18,23 @@ class Languages extends Component{
       
         return (
             <div>
+            <nav className="nav nav-pills nav-fill mt-3">
+                <Link to={'/admin/dashboard'}  className="btn btn-outline-info nav-item nav-link" >
+                    Stats
+                </Link>
+                <Link to={'/admin/users'}  className="btn btn-outline-info nav-item nav-link" >
+                    Users
+                </Link>
+                <Link to={'/admin/languages'}  className="btn btn-outline-info nav-item nav-link active" >
+                    Languages
+                </Link>
+            </nav>
+
                 <div className="card mt-3">
-                    <div className="card-header bg-dark text-white">
-                        Languages
-                    </div>
+
                     <div className="card-body">
                         <table className="table table-hover table-sm">
-                            <thead>
+                            <thead className="bg-light">
                             <tr><th>Language</th><th>Short Name</th><th>Edit</th></tr>
                             </thead>
                             <tbody>

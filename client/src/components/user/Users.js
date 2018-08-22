@@ -9,14 +9,12 @@ class Users extends Component{
 
     
     render(){
-
         function addZero(i) {
             if (i < 10) {
                 i = "0" + i;
             }
             return i;
         }
-        
 
         const userList = this.props.state.users.map((user)=>{return user });
         const dataDownload = [];
@@ -88,18 +86,24 @@ class Users extends Component{
 
         return (
             <div>
-                <div className="card mt-3">
-                    <div className="card-header bg-dark text-white">
-                        
-                        <div className="row">
-                        <div className="col-sm-6">
+                <nav className="nav nav-pills nav-fill mt-3">
+                    <Link to={'/admin/dashboard'}  className="btn btn-outline-info nav-item nav-link" >
+                        Stats
+                    </Link>
+                    <Link to={'/admin/users'}  className="btn btn-outline-info nav-item nav-link active" >
                         Users
-                        </div>
-                        <div className="col-sm-6 text-right">
-                            <CSVLink data={dataDownload} className="btn btn-success btn-sm" filename="report_tle_users.csv">Download CSV</CSVLink>
-                        </div>
-                        </div>
+                    </Link>
+                    <Link to={'/admin/languages'}  className="btn btn-outline-info nav-item nav-link" >
+                        Languages
+                    </Link>
+                 </nav>
+
+                <div className="card mt-3">
+
+                    <div className="text-left">
+                        <CSVLink data={dataDownload} className="btn btn-success btn-sm" filename="report_tle_users.csv">Download CSV</CSVLink>
                     </div>
+
                     <div className="card-body">
                         <div className="table-responsive">
                         

@@ -110,7 +110,7 @@ class UploadFile extends React.Component {
 
                           <h4 className="card-tittle">&nbsp;Profile Picture </h4>
                               <section>
-                                <div className="dropzone">
+                                <div className="dropzone" >
                                   <Dropzone
                                       accept="image/jpg, image/jpeg, image/png"
                                       multiple = {false}
@@ -118,8 +118,10 @@ class UploadFile extends React.Component {
                                       onDrop={ (accepted,rejected)=>                
                                               this.onImageDrop(accepted, rejected)
                                       } >
+                                    <br/>  
                                     <p className="text-center">Drop files here, or click to select files to upload.</p>
                                     <p className="text-center">Max file size: 1MB</p>
+                                    <p className="text-center">Formats: JPG and PNG</p>
                                   </Dropzone>
                                 </div>
                               </section>
