@@ -62,9 +62,10 @@ import { Field, reduxForm } from 'redux-form';
 }
 
 SearchForm = reduxForm({
-  form: 'search',
-  destroyOnUnmount : false 
-})(SearchForm)
+    form: 'search',
+    initialValues: { gender: "Any" },
+    destroyOnUnmount : true 
+  })(SearchForm)
 
 
 export default SearchForm;
