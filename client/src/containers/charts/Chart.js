@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as reportActions from '../../actions/reportActions';
 import {fetchUsers} from '../../actions/userActions';
 import '../../../node_modules/react-vis/dist/style.css';
+import Img from 'react-image';
 import * as d3 from 'd3';
 import {
   XYPlot,
@@ -62,10 +63,22 @@ class Chart extends Component {
   
 
   render() {
+    let loading = '/api/storages/images/download/loading.gif';
     const authUser = this.props.userState.current;
     if(!authUser){
       return <Redirect to='/' />
     }
+    if(this.props.reportState.fetching ){
+      return (
+          <div>
+              <div className="card mt-3">
+                  <div className="card-body text-center">
+                      <Img src={ loading } />
+                  </div>
+              </div>
+          </div>
+      )
+  }
     if( authUser.user_type){  
         const {hint_value} = this.state;
         const users = this.props.userState.users;
@@ -86,7 +99,7 @@ class Chart extends Component {
         // Data for users updated per year
         const usersUpdated = [];
         d3.nest()
-        .key(function(d){ return d.last_login.split("-")[0]; })
+        .key(function(d){ return d.updated_at.split("-")[0]; })
         .sortKeys(d3.ascending)
         .rollup(function(v) {return v.length})
         .entries(users)
