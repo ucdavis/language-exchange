@@ -68,20 +68,24 @@ app.use(morgan('combined', {
 // If environment is maintenance, show off line page
 let publicDir = 'client/app';
 var envVar = process.env.NODE_ENV;
-if( envVar == 'maintenance'){ publicDir = 'client/app' }
 
+
+app.get('/', function (req, res) {
+  if( envVar == 'maintenance'){ 
+    res.sendFile(path.resolve(__dirname, 'client/maintenance', 'index.html'));
+  }else{
+    res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
+  }
+});
 
 // Check all requests for authentication
 app.use(function (req, res, next) {
   var user_name = null;
-
   if(user_name = req.session[cas.session_name]) {
     console.log("\n CAS user found: ", user_name);
     next();
   } else {
     // No username in session, need to log in
-    console.log("No CAS user found");
-    // res.setHeader('Access-Control-Allow-Credentials', 'true');
     cas.bounce(req, res, next);       
   }
 });
