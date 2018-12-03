@@ -42,14 +42,14 @@ app.use( session({
 }));
  
 var cas = new CASAuthentication({
-    cas_url         : process.env.CAS_URL,
-    service_url     : process.env.SERVICE_URL,
+    cas_url         : 'https://ssodev.ucdavis.edu/cas/',
+    service_url     : 'http://localhost:5001',
     cas_version     : '3.0',
     renew           : true,
     session_name    : 'cas_user',
     destroy_session : true,
-    is_dev_mode     : process.env.IS_DEV_MODE,
-    dev_mode_user   : process.env.DEV_MODE_USER
+    is_dev_mode     : false,
+    dev_mode_user   : null
 });
 
 //Morgan
@@ -70,25 +70,29 @@ let publicDir = 'client/app';
 var envVar = process.env.NODE_ENV;
 
 
+app.use(function(req, res, next) {
+  next();
+});
+
 app.get('/', function (req, res) {
   if( envVar == 'maintenance'){ 
     res.sendFile(path.resolve(__dirname, 'client/maintenance', 'index.html'));
-  }else{
-    res.sendFile(path.resolve(__dirname, 'client/public', 'index.html'));
+  }else{ 
+    res.sendFile(path.resolve(__dirname, 'client/app', 'index.html'));
   }
 });
 
 // Check all requests for authentication
-app.use(function (req, res, next) {
-  var user_name = null;
-  if(user_name = req.session[cas.session_name]) {
-    console.log("\n CAS user found: ", user_name);
-    next();
-  } else {
-    // No username in session, need to log in
-    cas.bounce(req, res, next);       
-  }
-});
+// app.use(function (req, res, next) {
+//   var user_name = null;
+//   if(user_name = req.session[cas.session_name]) {
+//     console.log("\n CAS user found: ", user_name);
+//     next();
+//   } else {
+//     // No username in session, need to log in
+//     cas.bounce(req, res, next);       
+//   }
+// });
 
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
@@ -112,11 +116,12 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
   res.send(req.session[cas.session_name]);
 } );
 
-app.get('/users*', function (req, res){
+
+app.get('/users/*', cas.bounce, function (req, res){
   res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
 
-app.get('/admin*',function(req,res){
+app.get('/admin/*',cas.bounce, function(req,res){
       res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
 
@@ -124,7 +129,7 @@ app.get('/admin*',function(req,res){
 
 // NODEMAILER
 
-app.get('/email',function(req,res){
+app.get('/email',cas.bounce, function(req,res){
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: 'smtp.ucdavis.edu',

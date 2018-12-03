@@ -16,11 +16,8 @@ class Nav extends React.Component {
     var logo = '/api/storages/images/download/logo.png';
     let fetching = this.props.userState.fetchingUser;
     let authUser = this.props.userState.current;
-    let authUserId;
-
-    if (this.props.userState.current && this.props.userState.current.id){
-      authUserId = this.props.userState.current.id
-    }
+    let cas_user = this.props.userState.cas_user;
+    let authUserId = this.props.userState.current.id;
 
     const RegisterBar = (
       <div>
@@ -47,11 +44,33 @@ class Nav extends React.Component {
         </nav>
       </div>
     )
+    const WelcomeBar = (
+      <div>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div className="container">
+          <a className="navbar-brand" href="/">
+            <Img src={ logo } />
+          </a>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+          </div>
+        </div>
+        </nav>
+      </div>
+    )
+
+    if(  !cas_user ){
+      return ( WelcomeBar )
+  }
     
-    if( !fetching && !authUserId ){
+    if( !fetching && !authUserId && cas_user ){
       return ( RegisterBar )
   }
-    if(authUserId && !fetching){
+    if(authUserId && !fetching && cas_user ){
       let admin_menu = "";
       if(authUser.user_type){
         admin_menu = (

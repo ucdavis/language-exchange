@@ -5,7 +5,6 @@ import * as userActions from "../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
 
-
 class Home extends Component{
 
     componentDidMount(){
@@ -18,6 +17,7 @@ class Home extends Component{
 
     render(){
         let userId;
+        let casAuth = this.props.userState.cas_user;
         if (this.props.userState.current && this.props.userState.current.id){
             userId = this.props.userState.current.id
         }
@@ -35,6 +35,9 @@ class Home extends Component{
             )
             
         }
+            if(  !casAuth  ){
+                return <Redirect to='/welcome'/>;  
+            }
             if( !userId ){
                 return <Redirect to='/users/register'/>;  
             }
