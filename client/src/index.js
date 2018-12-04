@@ -14,11 +14,22 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
 import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
+import { createBlacklistFilter } from 'redux-persist-transform-filter';
+
+
+  // remove some keys before save
+  const saveSubsetBlacklistFilter = createBlacklistFilter(
+    'userState',
+    ['cas_user']
+  );
 
 const persistConfig = {
     key: 'root',
     storage,
+    transforms: [saveSubsetBlacklistFilter]
   }
+
+
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 const middleware = applyMiddleware(thunk,logger, promiseMiddleware());
