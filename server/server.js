@@ -78,17 +78,6 @@ app.get('/', function (req, res) {
   }
 });
 
-// Check all requests for authentication
-app.use(function (req, res, next) {
-  var user_name = null;
-  if(user_name = req.session[cas.session_name]) {
-    console.log("\n CAS user found: ", user_name);
-    next();
-  } else {
-    // No username in session, need to log in
-    cas.bounce(req, res, next);       
-  }
-});
 
 // Check all requests for authentication
 // app.use(function (req, res, next) {
@@ -124,12 +113,15 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
   res.send(req.session[cas.session_name]);
 } );
 
+app.get('/welcome', function (req, res){
+  res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
+});
 
 app.get('/users/*', cas.bounce, function (req, res){
   res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
 
-app.get('/admin/*',cas.bounce, function(req,res){
+app.get('/admin/*', cas.bounce, function(req,res){
       res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
 

@@ -4,18 +4,30 @@ import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import HomeSearch from '../components/home/HomeSearch';
+import {Link} from 'react-router-dom';
 
 class Home extends Component{
-    state = {
-        redirect : false
+
+    componentDidMount(){
+        this.props.fetchCasUser();
+        this.props.fetchCurrentUser();
     }
 
     render(){
-        let home = null;
-        if( this.props.userState.current && this.props.userState.current.id ){
+        let userId=this.props.userState.current.id;
+        let casAuth = this.props.userState.cas_user;
+        let current = this.props.userState.current;
+        let home;
+
+        if(  !casAuth  ){
+            return <Redirect to='/welcome'/>;  
+        }
+        if( casAuth && !current ){
+            return <Redirect to='/users/register'/>;  
+        }
+        if( current && current !=="" && userId){
           home = <HomeSearch/>     
         }else{
-            this.setState({ redirect: true });
             return <Redirect to='/users/register'/>;
         }
 
@@ -36,6 +48,14 @@ class Home extends Component{
         return(
             <div>
               { alertMessage }
+
+                <div className="card mt-3 border-info">
+                    <div className="card-body">
+                        <h4 className="mt-0">Welcome to Tandem Language Exchange (TLE)</h4>
+                        <p className="lead">This program helps a native speaker of one language to find a native speaker of another language to help each other in language learning.
+                        <Link to={'/users/guide'}>This is how it works.</Link></p>
+                    </div>
+                </div>
               { home }
 
                 <div className="card-group">
@@ -78,7 +98,11 @@ function mapStateToProps(state){
   }
   
   function mapDispatchToProps(dispatch){
-    return bindActionCreators({ fetchCasUser: userActions.fetchCasUser}, dispatch)
+    return bindActionCreators({ 
+        fetchCasUser: userActions.fetchCasUser,
+        fetchCurrentUser: userActions.fetchCurrentUser,
+    
+    }, dispatch)
   }
   
   export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home));

@@ -32,9 +32,6 @@ class Nav extends React.Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-              <Link to={ '/users/register' } className="nav-link">Register<span className="sr-only">(current)</span></Link>
-              </li>
               <li className="nav-item pull-right">
                 <a className="nav-link btn btn-sm btn-outline-warning" href="/logout" >Logout</a>
               </li>
@@ -56,7 +53,7 @@ class Nav extends React.Component {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
+            Tandem Language Exchange
           </div>
         </div>
         </nav>

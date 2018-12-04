@@ -13,6 +13,7 @@ class Home extends Component{
 
         return(
             <div>
+                <h4 className="mt-0">Welcome to Tandem Language Exchange (TLE)</h4>
                 <div className="card-group">
 
                     <div className="card bg-light mb-3" styles="max-width: 18rem;">
@@ -41,6 +42,7 @@ class Home extends Component{
 
                 </div>
                 <div>
+                   {/* <br/> <a className="btn btn-lg" href="https://dev-tle.ucdavis.edu/users/home">Login</a> */}
                    <br/> <a className="btn btn-lg" href="http://localhost:5001/users/home">Login</a>
                 </div>
 

@@ -46,18 +46,26 @@ class CreateUser extends React.Component {
                 </div>
             </div>
         </div>
-    )
+      )
     }
     const {redirect} = this.state;
-    const authUser = this.props.userState.current;
-      
+    let userId=this.props.userState.current.id;
+    let casAuth = this.props.userState.cas_user;
+    let current = this.props.userState.current;
+
+    if(  !casAuth  ){
+        return <Redirect to='/welcome'/>;  
+    }
+
+    if ( current && userId ) {
+      return <Redirect to='/' />
+    }
+
     if(redirect){
       return <Redirect to='/users/languages' />;
     }
     
-    if (authUser ) {
-      return <Redirect to='/' />
-    }
+
     return (
       <div>
         <div className="row">
