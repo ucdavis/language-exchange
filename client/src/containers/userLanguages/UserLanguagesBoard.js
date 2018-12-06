@@ -62,7 +62,7 @@ class UserLanguagesBoard extends React.Component {
 
   render() {
     const loading = '/api/storages/images/download/loading.gif';
-    const authUser = this.props.userState.current;
+    const authUser = this.props.userState.cas_user;
     if( !authUser ){
         return <Redirect to='/users/register'/>;  
     }

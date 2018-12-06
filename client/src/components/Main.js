@@ -19,12 +19,14 @@ import QuickMessage from "../containers/message/QuickMessage";
 import UserLanguagesBoard from '../containers/userLanguages/UserLanguagesBoard';
 import UploadAvatar from '../containers/user/UploadAvatar';
 import Chart from '../containers/charts/Chart';
+import LandingPage from '../components/home/LandingPage';
 
 
 const Main = () => (
     <main>
         <Switch>
             <Route exact path='/' component = {Login} />
+            <Route exact path='/welcome' component = {LandingPage} />
             <Route exact path='/users/home' component = {Home} />
             <Route exact path='/users/guide' component = {Guide} />
             <Route exact path='/users/register' component = { CreateUser } />

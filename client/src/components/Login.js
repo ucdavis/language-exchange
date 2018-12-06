@@ -5,10 +5,10 @@ import * as userActions from "../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
 
-
-class Home extends Component{
+class Login extends Component{
 
     componentDidMount(){
+        this.props.fetchCasUser();
         this.props.fetchCurrentUser();
     }
 
@@ -17,12 +17,10 @@ class Home extends Component{
     }
 
     render(){
-        let userId;
-        if (this.props.userState.current && this.props.userState.current.id){
-            userId = this.props.userState.current.id
-        }
         let fetching = this.props.userState.fetchingUser;
         let loading = '/api/storages/images/download/loading.gif';
+        let casAuth = this.props.userState.cas_user;
+
         if (fetching){
             return(
                 <div>
@@ -33,15 +31,20 @@ class Home extends Component{
                     </div>
                 </div>
             )
-            
         }
-            if( !userId ){
-                return <Redirect to='/users/register'/>;  
-            }
-            if(userId){
+
+        if( casAuth ){
+            let userId=this.props.userState.current.id;
+            if( userId ){
                 this.register_login();
                 return <Redirect to='/users/home'/>;  
+            }else{
+                return <Redirect to='/users/register'/>;  
             }
+        }else{
+            return <Redirect to='/welcome'/>;  
+
+        }
     }
 }
 
@@ -54,8 +57,9 @@ function mapStateToProps(state){
   function mapDispatchToProps(dispatch){
     return bindActionCreators({
             fetchCurrentUser: userActions.fetchCurrentUser,
+            fetchCasUser: userActions.fetchCasUser,
             updateUserLogin: userActions.updateUserLogin
         }, dispatch)
   }
   
-  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home));
+  export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Login));
