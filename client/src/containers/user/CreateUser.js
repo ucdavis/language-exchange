@@ -33,55 +33,62 @@ class CreateUser extends React.Component {
         field_of_study: values.field
     }
     this.props.createUser(newUser);
-    this.setState({ redirect: true })
   }
   render() {
-    let loading = '/api/storages/images/download/loading.gif';
-    if (this.props.userState.fetching){
-      return(
-        <div>
-            <div className="card mt-3">
-                <div className="card-body text-center">
-                    <Img src={ loading } />
-                </div>
-            </div>
-        </div>
-      )
-    }
     const {redirect} = this.state;
-    let userId=this.props.userState.current.id;
-    let casAuth = this.props.userState.cas_user;
-    let current = this.props.userState.current;
-
-    if(  !casAuth  ){
-        return <Redirect to='/welcome'/>;  
-    }
-
-    if ( current && userId ) {
-      return <Redirect to='/' />
-    }
-
     if(redirect){
       return <Redirect to='/users/languages' />;
     }
-    
 
-    return (
-      <div>
-        <div className="row">
-          <div className="col-sm-12"> 
-              <div className="card mt-3">
-                <div className="card-header bg-dark text-white">
-                    Registration Form
-                </div>
-                <div className="card-body">
-                  <UserForm onSubmit={this.submit} />
+    let fetching = this.props.userState.fetchingUser;
+    let loading = '/api/storages/images/download/loading.gif';
+    let casAuth = this.props.userState.cas_user;
+
+
+    if (fetching){
+        return(
+            <div>
+                <div className="card mt-3">
+                    <div className="card-body text-center">
+                        <Img src={ loading } />
+                    </div>
                 </div>
             </div>
+        )
+    }
+
+
+
+    if( casAuth ){
+      let userId=this.props.userState.current.id;
+      let current = this.props.userState.current;
+
+
+      if ( current && userId ) {
+        return <Redirect to='/users/languages' />
+      }
+
+
+      return (
+        <div>
+          <div className="row">
+            <div className="col-sm-12"> 
+                <div className="card mt-3">
+                  <div className="card-header bg-dark text-white">
+                      Registration Form
+                  </div>
+                  <div className="card-body">
+                    <UserForm onSubmit={this.submit} />
+                  </div>
+              </div>
+            </div>
           </div>
-        </div>
-    </div>
-    )    
+      </div>
+      )
+    }else{
+      return <Redirect to='/'/>;  
+    }
+
   }
 }
 

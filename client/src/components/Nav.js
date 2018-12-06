@@ -16,7 +16,7 @@ class Nav extends React.Component {
     var logo = '/api/storages/images/download/logo.png';
     let fetching = this.props.userState.fetchingUser;
     let authUser = this.props.userState.current;
-    let cas_user = this.props.userState.cas_user;
+    let cas_user = this.props.userState.current.cas_user;
     let authUserId = this.props.userState.current.id;
 
     const RegisterBar = (
@@ -37,6 +37,7 @@ class Nav extends React.Component {
               </li>
             </ul>
           </div>
+
         </div>
         </nav>
       </div>
@@ -48,13 +49,17 @@ class Nav extends React.Component {
           <a className="navbar-brand" href="/">
             <Img src={ logo } />
           </a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            Tandem Language Exchange
+
+          <div className=" navbar" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item pull-right">
+                <a className="nav-link btn btn-outline-warning" href="https://dev-tle.ucdavis.edu/users/home">&nbsp;&nbsp;Login&nbsp;&nbsp;</a>
+              </li>
+            </ul>
           </div>
+
+          
         </div>
         </nav>
       </div>

@@ -6,7 +6,6 @@ const initialState = {
     cas_user : null,
     existed : null,
     current : {},
-    created : {},
     active : {},
     searchResult : [],
     error : null,
@@ -37,11 +36,11 @@ export default function userReducer(state=initialState, action) {
             break;
         }     
         case "CREATE_USER_REJECTED":{
-            state =  {...state, fetching:false, error: action.payload, created : null };
+            state =  {...state, fetching:false, error: action.payload };
             break;
         }
         case "CREATE_USER_FULFILLED":{
-            state =  { ...state, fetching:false, created : action.payload, current: action.payload};
+            state =  { ...state, fetching:false, current: action.payload};
             break;
         }
     // FETCH SINGLE USER

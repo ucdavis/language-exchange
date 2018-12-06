@@ -17,10 +17,10 @@ class Login extends Component{
     }
 
     render(){
-        let userId=this.props.userState.current.id;
-        let casAuth = this.props.userState.cas_user;
         let fetching = this.props.userState.fetchingUser;
         let loading = '/api/storages/images/download/loading.gif';
+        let casAuth = this.props.userState.cas_user;
+
         if (fetching){
             return(
                 <div>
@@ -31,17 +31,19 @@ class Login extends Component{
                     </div>
                 </div>
             )
-            
         }
-        if(  !casAuth  ){
+
+        if( casAuth ){
+            let userId=this.props.userState.current.id;
+            if( userId ){
+                this.register_login();
+                return <Redirect to='/users/home'/>;  
+            }else{
+                return <Redirect to='/users/register'/>;  
+            }
+        }else{
             return <Redirect to='/welcome'/>;  
-        }
-        if( casAuth && casAuth!==null && !userId ){
-            return <Redirect to='/users/register'/>;  
-        }
-        if( casAuth && userId ){
-            this.register_login();
-            return <Redirect to='/users/home'/>;  
+
         }
     }
 }

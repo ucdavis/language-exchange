@@ -11,7 +11,7 @@ class HomeSearch extends Component{
             <div>
                 <div className="card border-info bg-light  mt-3 mb-3">
                     <div className="card-header border-dark text-dark bg-secondary">
-                    Search for partner
+                    Search for a partner
                     </div>
                     <div className="card-body">
                         <SearchUsers/>
