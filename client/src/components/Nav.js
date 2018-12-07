@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 class Nav extends React.Component {
 
   componentDidMount(){
+    this.props.fetchCasUser();
     this.props.fetchCurrentUser();
   }
 
@@ -16,7 +17,7 @@ class Nav extends React.Component {
     var logo = '/api/storages/images/download/logo.png';
     let fetching = this.props.userState.fetchingUser;
     let authUser = this.props.userState.current;
-    let cas_user = this.props.userState.current.cas_user;
+    let cas_user = this.props.userState.cas_user;
     let authUserId = this.props.userState.current.id;
 
     const RegisterBar = (
@@ -33,7 +34,7 @@ class Nav extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item pull-right">
-                <a className="nav-link btn btn-sm btn-outline-warning" href="/logout" >Logout</a>
+                <a className="nav-link btn btn-sm btn-outline-warning" href="/logout">Logout</a>
               </li>
             </ul>
           </div>
@@ -54,7 +55,7 @@ class Nav extends React.Component {
           <div className=" navbar" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item pull-right">
-                <a className="nav-link btn btn-outline-warning" href="https://dev-tle.ucdavis.edu/users/home">&nbsp;&nbsp;Login&nbsp;&nbsp;</a>
+                <a className="nav-link btn btn-outline-warning" href="https://tle.ucdavis.edu/users/home">&nbsp;&nbsp;Login&nbsp;&nbsp;</a>
               </li>
             </ul>
           </div>
@@ -140,6 +141,7 @@ class Nav extends React.Component {
   function mapDispatchToProps(dispatch){
     return bindActionCreators({ 
       fetchCurrentUser: userActions.fetchCurrentUser,
+      fetchCasUser: userActions.fetchCasUser,
       userLogout: userActions.userLogout
     }, dispatch)
   }
