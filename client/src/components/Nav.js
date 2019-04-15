@@ -55,7 +55,7 @@ class Nav extends React.Component {
           <div className=" navbar" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item pull-right">
-                <a className="nav-link btn btn-outline-warning" href="https://tle.ucdavis.edu/users/home">&nbsp;&nbsp;Login&nbsp;&nbsp;</a>
+                <a className="nav-link btn btn-outline-warning" href="/users/home">&nbsp;&nbsp;Login&nbsp;&nbsp;</a>
               </li>
             </ul>
           </div>
