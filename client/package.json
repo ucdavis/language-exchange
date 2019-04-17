@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../server/client/app/* && cp -r build/* ../server/client/app",
+    "build": "react-scripts build && rm -rf ../server/client/app && mkdir -p ../server/client/app && cp -r build/* ../server/client/app",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
