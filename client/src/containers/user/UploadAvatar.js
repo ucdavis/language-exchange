@@ -22,31 +22,17 @@ class UploadFile extends React.Component {
   }
 
     onImageDrop(accepted, rejected ){
-      const directory_exists = this.props.userState.directory_exists.toString();
-      const user_id = this.props.userState.current.id;
-      const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
+      const user_id = this.props.currentUserId;
+      // const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       const setState = this.setState.bind(this);
       let blob = null;
 
-
-        if (accepted.length && directory_exists === "true"){
+        if (accepted.length){
           blob = accepted[0].preview;
           this.sendFile(accepted, user_id);
           setState({
             preview : <div>
                         <Link to={'/users/profile'} className="btn btn-success">View Profile</Link>
-                        <br/>
-                        <Img src={blob} alt="avatar"/>
-                      </div>
-          , accepted, rejected }
-          );
-
-        }else if( directory_exists === "false"){
-          blob = accepted[0].preview;
-          createUserDirectoryAndSave(accepted,user_id);
-          setState({
-            preview : <div>
-                        <a href="/users/profile" className="btn btn-success">View Profile</a>
                         <br/>
                         <Img src={blob} alt="avatar"/>
                       </div>
@@ -111,6 +97,7 @@ class UploadFile extends React.Component {
                           <h4 className="card-tittle">&nbsp;Profile Picture </h4>
                               <section>
                                 <div className="dropzone" >
+                                
                                   <Dropzone
                                       accept="image/jpg, image/jpeg, image/png"
                                       multiple = {false}
@@ -144,14 +131,15 @@ class UploadFile extends React.Component {
     }
 
   function mapStateToProps(state){
-    return {  userState : state.userState,
-            }
+    return { 
+      userState : state.userState,
+      currentUserId : state.userState.current.id
+    }
  }
  
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
-      saveUserAvatar : userActions.saveUserAvatar,
-      createUserDirectoryAndSave : userActions.createUserDirectoryAndSave,    
+      saveUserAvatar : userActions.saveUserAvatar, 
     }, dispatch)
  }
 

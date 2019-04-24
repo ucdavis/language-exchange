@@ -85,77 +85,82 @@ export function updateUserLogin(){
 }
 // USER AVATAR
 // Checks if user has a directory before uploading avatar
-export function checkUserDirectory(user_id){
-    return function(dispatch){
-        dispatch({type:"CHECK_USER_DIRECTORY_PENDING"});
-        axios.get('/api/storages')
-        .then(response=>{
-            var result = false;
-            response.data.map(directory=>{
-                if( directory.name === user_id.toString() ){
-                    result = true
-                }
-                return result;              
-            })
-            dispatch({type:"CHECK_USER_DIRECTORY_FULFILLED",payload:result})
-        })
-        .catch(err => dispatch({type:"CHECK_USER_DIRECTORY_REJECTED", payload : err}));
-    }
-}
+// export function checkUserDirectory(user_id){
+//     return function(dispatch){
+//         dispatch({type:"CHECK_USER_DIRECTORY_PENDING"});
+//         axios.get('/api/storages')
+//         .then(response=>{
+//             var result = false;
+//             response.data.map(directory=>{
+//                 if( directory.name === user_id.toString() ){
+//                     result = true
+//                 }
+//                 return result;              
+//             })
+//             dispatch({type:"CHECK_USER_DIRECTORY_FULFILLED",payload:result})
+//         })
+//         .catch(err => dispatch({type:"CHECK_USER_DIRECTORY_REJECTED", payload : err}));
+//     }
+// }
 
 // Creates user directory before uploading file
-export function createUserDirectory(user_id){
-    return function(dispatch){
-        dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
-        axios.post("/api/storages",{'name': user_id.toString()})
-        .then(response => {
-            dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response.data})
-            })
-        .catch(err => {
-            dispatch({type:"CREATE_USER_DIRECTORY_REJECTED", payload: err})
-        });
-    }
+// export function createUserDirectory(user_id){
+//     return function(dispatch){
+//         dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
+//         axios.post("/api/storages",{'name': user_id.toString()})
+//         .then(response => {
+//             dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response.data})
+//             })
+//         .catch(err => {
+//             dispatch({type:"CREATE_USER_DIRECTORY_REJECTED", payload: err})
+//         });
+//     }
 
-}
+// }
 
-export function createUserDirectoryAndSave(image, user_id){
-    return function(dispatch){
-        dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_PENDING"});
-        dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
-        axios.post("/api/storages",{'name': user_id.toString()})
-        .then(response =>{
-            dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response})
-            dispatch(saveUserAvatar(image, user_id))
-        })
-        .then(response => {
-            dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_FULFILLED",payload:response})
-            })
-        .catch(err => {
-            dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_REJECTED", payload: err})
-        });
-    }
+// export function createUserDirectoryAndSave(image, user_id){
+//     return function(dispatch){
+//         dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_PENDING"});
+//         dispatch({type:"CREATE_USER_DIRECTORY_PENDING"});
+//         axios.post("/api/storages",{'name': user_id.toString()})
+//         .then(response =>{
+//             dispatch({type:"CREATE_USER_DIRECTORY_FULFILLED",payload:response})
+//             dispatch(saveUserAvatar(image, user_id))
+//         })
+//         .then(response => {
+//             dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_FULFILLED",payload:response})
+//             })
+//         .catch(err => {
+//             dispatch({type:"CREATE_USER_DIRECTORY_AND_SAVE_REJECTED", payload: err})
+//         });
+//     }
 
-}
+// }
 
 export function saveUserAvatar(image, user_id){
     return function(dispatch){
         dispatch({type:"SAVE_USER_AVATAR_PENDING"});
-        
-            return new Promise(function(resolve, reject) {
-                var file = image[0];
-                var xhr = new XMLHttpRequest();
-                var fd = new FormData();
-                const url = `/api/storages/${user_id}/upload`;
 
-                xhr.open("POST", url, true);
-                xhr.onreadystatechange = function() {
-                    if(xhr.readyState === 4 && xhr.status === 200) {
-                        resolve(JSON.parse(xhr.responseText));
-                    }
-                }
-                fd.append('file', file);
-                xhr.send(fd)
-            })
+        axios.request({
+            method: 'post',
+            url : `/api/storages/${user_id}/upload-avatar`,
+            image: image
+        })
+            // return new Promise(function(resolve, reject) {
+            //     var file = image[0];
+            //     var xhr = new XMLHttpRequest();
+            //     var fd = new FormData();
+            //     const url = `/api/storages/${user_id}/upload`;
+
+            //     xhr.open("POST", url, true);
+            //     xhr.onreadystatechange = function() {
+            //         if(xhr.readyState === 4 && xhr.status === 200) {
+            //             resolve(JSON.parse(xhr.responseText));
+            //         }
+            //     }
+            //     fd.append('file', file);
+            //     xhr.send(fd)
+            // })
 
         .then(response => dispatch({type:"SAVE_USER_AVATAR_FULFILLED", payload:response.data}))
         .catch(err => dispatch({type:"SAVE_USER_AVATAR_REJECTED", payload: err}))
@@ -197,20 +202,21 @@ export function updateUserAvatar(avatarUserData){
     }
 }
 
-export function createUserFolder(user_id){
-    return function(dispatch){
-        dispatch({type:"CREATE_USER_FOLDER_PENDING"});
-        axios.request({
-            method: 'post',
-            url : "/api/storages/images",
-            data: {
-                images : user_id
-            }
-        })
-        .then(response => dispatch({type:"CREATE_USER_FOLDER_FULFILLED",payload:response.data}))
-        .catch(err=>dispatch({type: "CREATE_USER_FOLDER_REJECTED", payload: err}))
-    }
-}
+// export function createUserFolder(user_id){
+//     return function(dispatch){
+//         dispatch({type:"CREATE_USER_FOLDER_PENDING"});
+//         axios.request({
+//             method: 'post',
+//             url : "/api/storages/images",
+//             data: {
+//                 images : user_id
+//             }
+//         })
+//         .then(response => dispatch({type:"CREATE_USER_FOLDER_FULFILLED",payload:response.data}))
+//         .catch(err=>dispatch({type: "CREATE_USER_FOLDER_REJECTED", payload: err}))
+//     }
+// }
+
 export function deleteUserAvatar(file_name){
     return function(dispatch){
         dispatch({type:"DELETE_USER_AVATAR_PENDING"});

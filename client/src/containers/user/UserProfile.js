@@ -18,7 +18,6 @@ class userProfile extends Component{
             const id = this.props.userState.current.id;
             this.props.fetchUserProvidedLanguages(id);
             this.props.fetchUserDesiredLanguages(id);
-            this.props.checkUserDirectory(id);
         }
     }
 
@@ -127,7 +126,6 @@ function mapDispatchToProps(dispatch){
         fetchCurrentUser: userActions.fetchCurrentUser,
         fetchUserProvidedLanguages:userLanguageActions.fetchUserProvidedLanguages,
         fetchUserDesiredLanguages:userLanguageActions.fetchUserDesiredLanguages,
-        checkUserDirectory : userActions.checkUserDirectory
     }, dispatch)
 }
 

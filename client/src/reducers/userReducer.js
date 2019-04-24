@@ -10,7 +10,6 @@ const initialState = {
     searchResult : [],
     error : null,
     image_exists : [],
-    directory_exists : false
   }
 
 export default function userReducer(state=initialState, action) {
@@ -56,19 +55,19 @@ export default function userReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
-    // FETCH SINGLE USER
-        case "CHECK_USER_DIRECTORY_PENDING":{
-            state = {...state, fetching:true};
-            break;
-        }  
-        case "CHECK_USER_DIRECTORY_FULFILLED":{
-            state = {...state, fetching:false,  directory_exists : action.payload }
-            break;
-        }
-        case "CHECK_USER_DIRECTORY_REJECTED":{
-            state =  {...state, fetching: false, error: action.payload };
-            break;
-        }
+    // CHECK_USER_DIRECTORY
+        // case "CHECK_USER_DIRECTORY_PENDING":{
+        //     state = {...state, fetching:true};
+        //     break;
+        // }  
+        // case "CHECK_USER_DIRECTORY_FULFILLED":{
+        //     state = {...state, fetching:false,  directory_exists : action.payload }
+        //     break;
+        // }
+        // case "CHECK_USER_DIRECTORY_REJECTED":{
+        //     state =  {...state, fetching: false, error: action.payload };
+        //     break;
+        // }
      // FETCH CURRENT USER
      case "FETCH_CURRENT_USER_PENDING":{
         state = {...state, fetching:true, fetchingUser:true}
