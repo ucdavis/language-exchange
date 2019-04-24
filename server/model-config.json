@@ -107,7 +107,9 @@
           "upload":true,
           "download":true,
           "getContainers":true,
-          "createContainer":true
+          "createContainer":true,
+          "uploadAvatarImage":true
+
         }
       }
     }
