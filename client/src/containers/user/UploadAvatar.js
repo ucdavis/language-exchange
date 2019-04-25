@@ -10,7 +10,7 @@ import Img from 'react-image';
 class UploadFile extends React.Component {
   constructor() {
     super();
-    this.sendFile = this.sendFile.bind(this);;
+    // this.sendFile = this.sendFile.bind(this);;
     this.state = {
       files:[],
       accepted: [],
@@ -23,13 +23,14 @@ class UploadFile extends React.Component {
 
     onImageDrop(accepted, rejected ){
       const user_id = this.props.currentUserId;
-      // const createUserDirectoryAndSave = this.props.createUserDirectoryAndSave;
       const setState = this.setState.bind(this);
-      let blob = null;
+      // let blob = null;
+      const submitUserAvatar = this.props.submitUserAvatar;
 
         if (accepted.length){
-          blob = accepted[0].preview;
-          this.sendFile(accepted, user_id);
+          var blob = accepted[0].preview;
+          submitUserAvatar(accepted, user_id);
+        
           setState({
             preview : <div>
                         <Link to={'/users/profile'} className="btn btn-success">View Profile</Link>
@@ -47,12 +48,6 @@ class UploadFile extends React.Component {
           });
         }
     }
-
-    sendFile=(accepted, user_id)=>{
-      const saveUserAvatar = this.props.saveUserAvatar;
-      saveUserAvatar(accepted, user_id);
-    }
-
    
     render() {
       let loading = '/api/storages/images/download/loading.gif';
@@ -97,7 +92,6 @@ class UploadFile extends React.Component {
                           <h4 className="card-tittle">&nbsp;Profile Picture </h4>
                               <section>
                                 <div className="dropzone" >
-                                
                                   <Dropzone
                                       accept="image/jpg, image/jpeg, image/png"
                                       multiple = {false}
@@ -117,8 +111,6 @@ class UploadFile extends React.Component {
                             <div>
                               { filePreview }
                             </div>
-
- 
                           </div>
                         
                     </div>
@@ -139,7 +131,7 @@ class UploadFile extends React.Component {
  
  function mapDispatchToProps(dispatch){
     return  bindActionCreators({
-      saveUserAvatar : userActions.saveUserAvatar, 
+      submitUserAvatar : userActions.submitUserAvatar, 
     }, dispatch)
  }
 

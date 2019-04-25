@@ -55,19 +55,7 @@ export default function userReducer(state=initialState, action) {
             state =  {...state, fetching: false, error: action.payload };
             break;
         }
-    // CHECK_USER_DIRECTORY
-        // case "CHECK_USER_DIRECTORY_PENDING":{
-        //     state = {...state, fetching:true};
-        //     break;
-        // }  
-        // case "CHECK_USER_DIRECTORY_FULFILLED":{
-        //     state = {...state, fetching:false,  directory_exists : action.payload }
-        //     break;
-        // }
-        // case "CHECK_USER_DIRECTORY_REJECTED":{
-        //     state =  {...state, fetching: false, error: action.payload };
-        //     break;
-        // }
+    
      // FETCH CURRENT USER
      case "FETCH_CURRENT_USER_PENDING":{
         state = {...state, fetching:true, fetchingUser:true}
@@ -147,32 +135,32 @@ export default function userReducer(state=initialState, action) {
         state =  {...state, fetching: false, error: action.payload };
         break;
     }
-// DELETE AVATAR
-    case "DELETE_USER_AVATAR_PENDING":{
-        state =  { ...state, fetching:true };
-        break;
-    }
-    case "DELETE_USER_AVATAR_FULFILLED":{
-        state =  { ...state, fetching:false };
-        break;
-    }
-    case "DELETE_USER_AVATAR_REJECTED":{
-        state =  {...state, fetching: false, error: action.payload };
-        break;
-    }
+// // DELETE AVATAR
+//     case "DELETE_USER_AVATAR_PENDING":{
+//         state =  { ...state, fetching:true };
+//         break;
+//     }
+//     case "DELETE_USER_AVATAR_FULFILLED":{
+//         state =  { ...state, fetching:false };
+//         break;
+//     }
+//     case "DELETE_USER_AVATAR_REJECTED":{
+//         state =  {...state, fetching: false, error: action.payload };
+//         break;
+//     }
 // CHECK_IMAGE_EXISTS
-    case "CHECK_IMAGE_EXISTS_PENDING":{
-        state =  { ...state, fetching:true, image_exists : null };
-        break;
-    }
-    case "CHECK_IMAGE_EXISTS_FULFILLED":{
-        state =  { ...state, fetching:false, image_exists : action.payload};
-        break;
-    } 
-    case "CHECK_IMAGE_EXISTS_REJECTED":{
-        state =  {...state, fetching: false, error: action.payload, image_exists : null };
-        break;
-    }
+    // case "CHECK_IMAGE_EXISTS_PENDING":{
+    //     state =  { ...state, fetching:true, image_exists : null };
+    //     break;
+    // }
+    // case "CHECK_IMAGE_EXISTS_FULFILLED":{
+    //     state =  { ...state, fetching:false, image_exists : action.payload};
+    //     break;
+    // } 
+    // case "CHECK_IMAGE_EXISTS_REJECTED":{
+    //     state =  {...state, fetching: false, error: action.payload, image_exists : null };
+    //     break;
+    // }
 // SEARCH USERS
     case "SEARCH_USERS_PENDING":{
         state = {...state, fetching:true};
