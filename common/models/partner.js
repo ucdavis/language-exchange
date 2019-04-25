@@ -103,22 +103,6 @@ module.exports = function(Partner) {
 
     }
 
-
-            // TEST!!
-            Partner.remoteMethod('helloWorld', {
-                accepts:{arg: "req", type: "object", http: {source: "req"}},
-                http: {path: '/auth-user', verb: 'get'},
-                returns: {arg:'Result', type: 'array', root: true}
-                }
-            );
-        
-            Partner.helloWorld = function() {
-                
-                return 'helloWorld';
-        
-            }
-
-
 // Function for Searching users by language and gender
     Partner.remoteMethod('searchPartner',{
             accepts:[

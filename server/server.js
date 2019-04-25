@@ -48,8 +48,8 @@ var cas = new CASAuthentication({
     renew           : true,
     session_name    : 'cas_user',
     destroy_session : true,
-    is_dev_mode     : false,
-    dev_mode_user   : null
+    is_dev_mode     : process.env.CAS_DEV_MODE,
+    dev_mode_user   : process.env.CAS_DEV_MODE_USER
 });
 
 //Morgan

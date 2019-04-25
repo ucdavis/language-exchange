@@ -104,10 +104,7 @@
       "remoting": {
         "sharedMethods": {
           "*": false,
-          "upload":true,
           "download":true,
-          "getContainers":true,
-          "createContainer":true,
           "uploadAvatarImage":true
 
         }

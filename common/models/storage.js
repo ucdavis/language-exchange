@@ -1,7 +1,6 @@
 'use strict';
-let app = require('../../server/server');
 var formidable = require('formidable');
-// var app = require("../../server/server");
+var app = require("../../server/server");
 const { extname } = require('path');
 const { readFileSync } = require('fs');
 const AWS = require('aws-sdk');
@@ -18,7 +17,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 module.exports = function(Storage) {
-    var getPromise=function(sqlString, param){
+    var getPartner=function(sqlString, param){
         var Partner = app.models.Partner;
         var promise = new Promise((resolve, reject) => { 
             var ds = Partner.dataSource;
@@ -34,23 +33,20 @@ module.exports = function(Storage) {
     // Remote method for uploading image
     Storage.remoteMethod('uploadAvatarImage', {
         accepts: [
-            { arg: 'id', type: 'string', required: true }, // get the id of the avatar to save image to
             { arg: 'req', type: 'object', http: { source: 'req' } }, // pass the request object to remote method
         ],
         returns: { root: true, type: 'object' },
-        http: { path: '/:id/upload-avatar', verb: 'post' },
+        http: { path: '/upload-avatar', verb: 'post' },
         });
 
-    Storage.uploadAvatarImage = async (id, req) => {
-        // Get the partner instance
-        // const partner = await Partner.findById(id);
-        // if (!partner) throw new Error('User not found.');
-        
+    Storage.uploadAvatarImage = async (req) => { 
         // extract the file from the request object
         const file = await getFileFromRequest(req);
+        const user_id = req.body.user_id;
+
         
         // upload the file
-        const result = await uploadFileToS3(file, id);
+        const result = await uploadFileToS3(file, user_id );
         
         // save the data to the frog how ever you want
         // await frog.updateAttributes({
@@ -78,7 +74,7 @@ module.exports = function(Storage) {
       /**
      * Helper method which takes the request object and returns a promise with the AWS S3 object details.
      */
-    const uploadFileToS3 = (file, id, options = {}) => {
+    const uploadFileToS3 = (file, user_id, options = {}) => {
 
         // turn the file into a buffer for uploading
         const buffer = readFileSync(file.path);
@@ -91,7 +87,7 @@ module.exports = function(Storage) {
         return s3.upload({
             Bucket: 'tle-dev',
             ACL: 'public-read',
-            Key: `${id}/${fileName}${extension}`,
+            Key: `${user_id}/${fileName}${extension}`,
             Body: buffer,
         }, (err, result) => {
             if (err) reject(err);
@@ -101,24 +97,19 @@ module.exports = function(Storage) {
     };
 
 
-
  // Hook, checks owner before upload file
-    Storage.beforeRemote('upload', function(ctx, unused, next) {
+    Storage.beforeRemote('uploadAvatarImage', function(ctx, unused, next) {
         if(ctx.req.session.cas_user) {
             var param = ctx.req.session.cas_user;
             var sql ="select id from partner where cas_user = ?";
-            var getUserId = getPromise(sql, param, ctx);
+            var getUserId = getPartner(sql, param, ctx);
             getUserId.then((result)=>{
-                var idToUpdate = ctx.req.params.container
-                    if(idToUpdate == result[0].id){
-                        next();
-                    }
-                    else{
-                        next(new Error('Not Allowed'))
-                    }
-            });
+                var id = result[0].id;
+                ctx.req.body['user_id']=id;
+                next();
+            });                
         } else {
-        next(new Error('Must be logged in'))
+          next(new Error('Must be logged in'))
         }
     });
 
