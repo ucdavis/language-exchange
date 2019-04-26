@@ -14,9 +14,10 @@ AWS.config.update({
     region:"us-west-2"
   });
 
-const s3 = new AWS.S3();
+var s3 = new AWS.S3();
 
 module.exports = function(Storage) {
+    
     var getPartner=function(sqlString, param){
         var Partner = app.models.Partner;
         var promise = new Promise((resolve, reject) => { 
@@ -29,6 +30,7 @@ module.exports = function(Storage) {
         });
         return promise;
     }
+    
 
     // Remote method for uploading image
     Storage.remoteMethod('uploadAvatarImage', {
@@ -48,7 +50,9 @@ module.exports = function(Storage) {
         // upload the file
         const result = await uploadFileToS3(file, user_id );
         
-        // save the data to the frog how ever you want
+        // Update user. Save avatar data into the DB 
+
+        const data = await updateUserAvatarData(result, user_id);
         // await frog.updateAttributes({
         // link: Location,
         // etag: ETag,
@@ -57,7 +61,7 @@ module.exports = function(Storage) {
         // });
         
         // return the updated frog instance
-        return result;
+        return data;
     };
 
     // Helper method which takes the request object and returns a promise with a file.
@@ -69,6 +73,21 @@ module.exports = function(Storage) {
           if (!file) reject('File was not found in form data.');
           else resolve(file);
         });
+      });
+      
+
+    // Helper method which updates users avatar information  
+    const updateUserAvatarData = (avatarUserData, user_id) => new Promise((resolve, reject) => {
+        var Partner = app.models.Partner;
+        var params = [avatarUserData.Key, user_id]
+        var sql ="update partner set avatar_file_name =? where id = ?";
+        var ds = Partner.dataSource;
+        ds.connector.query(sql, params, function (err, result ) {
+            if (err)console.log(err);
+            else resolve (result);
+            console.log("result",result);
+        });
+        console.log("avatarUserData",avatarUserData);
       });
 
       /**
@@ -94,6 +113,36 @@ module.exports = function(Storage) {
             else resolve(result); // return the values of the successful AWS S3 request
         });
         });
+    };
+
+    // Remote Method for downloading images
+    Storage.remoteMethod('downloadAvatar', {
+        accepts: [
+            { arg: 'req', type: 'object', http: { source: 'req' } },
+            { arg: 'id', type: 'number', required:true }, 
+            { arg:'file_name', type:'string', required:true },
+        ],
+        returns: [
+      {arg: 'Content-Type', type: 'image/jpeg', http: { target: 'header' }}
+    ],
+        http: { path: '/download/:id/:file_name', verb: 'get' },
+        });
+
+    Storage.downloadAvatar = async (req, id, file_name) => { 
+        var params = {
+            Bucket: "tle-dev", 
+            MaxKeys: 2
+           };
+        s3.listObjects(params, function(err, data) {
+            if (err) {
+                console.log(err, err.stack)
+            }
+            console.log(data); 
+            // var href = this.request.httpRequest.endpoint.href;
+        //     var bucketUrl = "tle-dev/"
+        //      var photoUrl = bucketUrl + encodeURIComponent(file_name);
+        //     return photoUrl;
+          });
     };
 
 

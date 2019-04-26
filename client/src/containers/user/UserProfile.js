@@ -33,7 +33,7 @@ class userProfile extends Component{
             let avatar_file_name = user.avatar_file_name;
             let notFound = userImage;
             if (avatar_file_name) {
-                var url = `/api/storages/${user.id}/download/${user.avatar_file_name}`;
+                var url = `/api/storages/download/${user.avatar_file_name}`;
                 userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
             }else{
                 userImage = () => <Img src={ no_image } alt="avatar" unloader={ notFound() } />;

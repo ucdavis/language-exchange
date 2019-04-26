@@ -105,7 +105,8 @@
         "sharedMethods": {
           "*": false,
           "download":true,
-          "uploadAvatarImage":true
+          "uploadAvatarImage":true,
+          "downloadAvatar":true
 
         }
       }
