@@ -30,9 +30,8 @@ app.start = function() {
 
 
 // Set up an Express session, which is required for CASAuthentication.
-// TODO: secret key
 app.use( session({
-  secret            : 'llave_super_secret_key',
+  secret            : process.env.SESSION_SECRET_KEY,
   resave            : false,
   saveUninitialized : true,
   cookie: {
@@ -43,10 +42,10 @@ app.use( session({
  
 var cas = new CASAuthentication({
     cas_url         : process.env.CAS_URL,
-    service_url     : process.env.SERVICE_URL,
+    service_url     : process.env.CAS_SERVICE_URL,
     cas_version     : '3.0',
     renew           : true,
-    session_name    : 'cas_user',
+    session_name    : process.env.CAS_SESSION_NAME,
     destroy_session : true,
     is_dev_mode     : process.env.CAS_DEV_MODE,
     dev_mode_user   : process.env.CAS_DEV_MODE_USER
@@ -80,16 +79,16 @@ app.get('/', function (req, res) {
 
 
 // Check all requests for authentication
-// app.use(function (req, res, next) {
-//   var user_name = null;
-//   if(user_name = req.session[cas.session_name]) {
-//     console.log("\n CAS user found: ", user_name);
-//     next();
-//   } else {
-//     // No username in session, need to log in
-//     cas.bounce(req, res, next);       
-//   }
-// });
+app.use(function (req, res, next) {
+  var user_name = null;
+  if(user_name = req.session[cas.session_name]) {
+    console.log("\n Authenticated CAS user: ", user_name);
+    next();
+  } else {
+    // No username in session, need to log in
+    cas.bounce(req, res, next);       
+  }
+});
 
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
