@@ -79,7 +79,7 @@ module.exports = function(Storage) {
     // Helper method which updates users avatar information  
     const updateUserAvatarData = (avatarUserData, user_id) => new Promise((resolve, reject) => {
         var Partner = app.models.Partner;
-        var params = [avatarUserData.Key, user_id]
+        var params = [avatarUserData.Location, user_id]
         var sql ="update partner set avatar_file_name =? where id = ?";
         var ds = Partner.dataSource;
         ds.connector.query(sql, params, function (err, result ) {
@@ -104,9 +104,9 @@ module.exports = function(Storage) {
         // return a promise
         return new Promise((resolve, reject) => {
         return s3.upload({
-            Bucket: 'tle-dev',
+            Bucket: process.env.AWS_BUCKET,
             ACL: 'public-read',
-            Key: `${user_id}/${fileName}${extension}`,
+            Key: `${user_id}_avatar${fileName}`,
             Body: buffer,
         }, (err, result) => {
             if (err) reject(err);
@@ -115,35 +115,35 @@ module.exports = function(Storage) {
         });
     };
 
-    // Remote Method for downloading images
-    Storage.remoteMethod('downloadAvatar', {
-        accepts: [
-            { arg: 'req', type: 'object', http: { source: 'req' } },
-            { arg: 'id', type: 'number', required:true }, 
-            { arg:'file_name', type:'string', required:true },
-        ],
-        returns: [
-      {arg: 'Content-Type', type: 'image/jpeg', http: { target: 'header' }}
-    ],
-        http: { path: '/download/:id/:file_name', verb: 'get' },
-        });
+    // // Remote Method for downloading images
+    // Storage.remoteMethod('downloadAvatar', {
+    //     accepts: [
+    //         { arg: 'req', type: 'object', http: { source: 'req' } },
+    //         { arg: 'id', type: 'number', required:true }, 
+    //         { arg:'file_name', type:'string', required:true },
+    //     ],
+    //     returns: [
+    //   {arg: 'Content-Type', type: 'image/jpeg', http: { target: 'header' }}
+    // ],
+    //     http: { path: '/download/:id/:file_name', verb: 'get' },
+    //     });
 
-    Storage.downloadAvatar = async (req, id, file_name) => { 
-        var params = {
-            Bucket: "tle-dev", 
-            MaxKeys: 2
-           };
-        s3.listObjects(params, function(err, data) {
-            if (err) {
-                console.log(err, err.stack)
-            }
-            console.log(data); 
-            // var href = this.request.httpRequest.endpoint.href;
-        //     var bucketUrl = "tle-dev/"
-        //      var photoUrl = bucketUrl + encodeURIComponent(file_name);
-        //     return photoUrl;
-          });
-    };
+    // Storage.downloadAvatar = async (req, id, file_name) => { 
+    //     var params = {
+    //         Bucket: "tle-dev", 
+    //         MaxKeys: 2
+    //        };
+    //     s3.listObjects(params, function(err, data) {
+    //         if (err) {
+    //             console.log(err, err.stack)
+    //         }
+    //         console.log(data); 
+    //         // var href = this.request.httpRequest.endpoint.href;
+    //     //     var bucketUrl = "tle-dev/"
+    //     //      var photoUrl = bucketUrl + encodeURIComponent(file_name);
+    //     //     return photoUrl;
+    //       });
+    // };
 
 
  // Hook, checks owner before upload file
