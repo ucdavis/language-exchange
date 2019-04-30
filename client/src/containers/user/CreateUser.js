@@ -5,6 +5,7 @@ import * as userActions from "../../actions/userActions";
 import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class CreateUser extends React.Component {
   constructor (props){
@@ -41,9 +42,7 @@ class CreateUser extends React.Component {
     }
 
     let fetching = this.props.userState.fetchingUser;
-    let loading = '/api/storages/images/download/loading.gif';
     let casAuth = this.props.userState.cas_user;
-
 
     if (fetching){
         return(
@@ -57,8 +56,6 @@ class CreateUser extends React.Component {
         )
     }
 
-
-
     if( casAuth ){
       let userId=this.props.userState.current.id;
       let current = this.props.userState.current;
@@ -67,7 +64,6 @@ class CreateUser extends React.Component {
       if ( current && userId ) {
         return <Redirect to='/users/languages' />
       }
-
 
       return (
         <div>

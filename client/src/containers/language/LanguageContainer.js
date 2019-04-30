@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as languageActions from "../../actions/languageActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class LanguageContainer extends Component{
     componentDidMount(){
@@ -12,7 +13,6 @@ class LanguageContainer extends Component{
     }
     
     render(){ 
-        const loading = '/api/storages/images/download/loading.gif';
         const authUser = this.props.userState.current;
         if(!authUser){
             return <Redirect to='/' />

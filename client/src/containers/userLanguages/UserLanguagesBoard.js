@@ -10,6 +10,7 @@ import DesiredLanguageSelection from "../../containers/userLanguages/DesiredLang
 import ProvidedLanguagesOptions from '../../components/userLanguage/ProvidedLanguagesOptions';
 import ProvidedLanguageSelection from "../../containers/userLanguages/ProvidedLanguageSelection";
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class UserLanguagesBoard extends React.Component {
   constructor (props){
@@ -61,7 +62,6 @@ class UserLanguagesBoard extends React.Component {
   }
 
   render() {
-    const loading = '/api/storages/images/download/loading.gif';
     const authUser = this.props.userState.cas_user;
     if( !authUser ){
         return <Redirect to='/users/register'/>;  

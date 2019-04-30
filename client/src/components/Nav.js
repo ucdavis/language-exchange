@@ -5,6 +5,7 @@ import * as userActions from "../actions/userActions";
 import { withRouter } from 'react-router-dom';
 import Img from 'react-image';
 import { Link } from 'react-router-dom';
+import logo from '../assets/images/logo.png'
 
 class Nav extends React.Component {
 
@@ -14,7 +15,6 @@ class Nav extends React.Component {
   }
 
   render() {
-    var logo = '/api/storages/images/download/logo.png';
     let fetching = this.props.userState.fetchingUser;
     let authUser = this.props.userState.current;
     let cas_user = this.props.userState.cas_user;

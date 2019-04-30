@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class UserAvatar extends Component{
 
     render(){
-        let loading = '/api/storages/images/download/loading.gif';
+
         if(this.props.userState.fetching && this.props.userLanguageState.fetching ){
             return (
                 <div>

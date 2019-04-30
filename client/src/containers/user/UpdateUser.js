@@ -6,6 +6,7 @@ import * as userActions from "../../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import * as flashMessageActions from '../../actions/flashMessageActions';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class UpdateUser extends React.Component {
   
@@ -38,7 +39,6 @@ class UpdateUser extends React.Component {
       return <Redirect to='/users/register'/>;  
     }
 
-    const loading = '/api/storages/images/download/loading.gif';
     var updating = this.props.userState.fetching;
     var fetching = this.props.userState.fetchingUser;
     if( updating || fetching ){

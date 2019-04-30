@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ProvidedLanguagesForm from '../../components/userLanguage/ProvidedLanguagesForm';
 import * as abilityActions from '../../actions/abilityActions';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class ProvidedLanguagesOptions extends React.Component {
 
@@ -14,9 +15,7 @@ class ProvidedLanguagesOptions extends React.Component {
     this.props.deleteProvidedLanguage(providedLanguageId,user_id);
   }
 
-  render() {
-    const loading = '/api/storages/images/download/loading.gif';
-      
+  render() {  
     const providedLanguages = this.props.userLanguageState.userProvidedLanguages.map(language => {
       return(
         

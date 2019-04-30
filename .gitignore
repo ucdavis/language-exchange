@@ -20,6 +20,7 @@ npm-debug.log
 
 # client folder for public static files
 server/client/*
+!server/client/app/
 
 # Data store
 server/db/
@@ -27,8 +28,6 @@ server/db/
 # Storage
 storage/*
 !storage/images
-storage/images/*
-!storage/images/no_image.png
 
 # ENV
 .env

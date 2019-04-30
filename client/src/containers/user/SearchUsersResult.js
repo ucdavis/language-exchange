@@ -3,12 +3,12 @@ import UsersResult from '../../components/user/SearchUsersResult';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 class SearchUsersResult extends Component{
     
     render(){ 
         var fetching = this.props.userState.fetching;
-        const loading = '/api/storages/images/download/loading.gif';
         const userState = this.props.userState;
         if (fetching){
             return(
@@ -20,7 +20,6 @@ class SearchUsersResult extends Component{
                     </div>
                 </div>
             )
-            
         }
           
         return (

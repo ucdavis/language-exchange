@@ -5,6 +5,7 @@ const { extname } = require('path');
 const { readFileSync } = require('fs');
 const AWS = require('aws-sdk');
 
+// Amazon IAM user credentials.
 var accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 var secretAccessKey = process.env.AWS_ACCESS_KEY;
 

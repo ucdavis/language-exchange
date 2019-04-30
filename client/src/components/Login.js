@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as userActions from "../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../assets/images/loading.gif';
 
 class Login extends Component{
 
@@ -18,7 +19,6 @@ class Login extends Component{
 
     render(){
         let fetching = this.props.userState.fetchingUser;
-        let loading = '/api/storages/images/download/loading.gif';
         let casAuth = this.props.userState.cas_user;
 
         if (fetching){

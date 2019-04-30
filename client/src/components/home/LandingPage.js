@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import * as userActions from "../../actions/userActions";
 import { withRouter, Redirect } from 'react-router-dom';
 import Img from 'react-image';
+import banner from '../../assets/images/tle-banner.jpg';
+import loading from '../../assets/images/loading.gif';
 
 class Home extends Component{
     state = {
@@ -16,8 +18,6 @@ class Home extends Component{
 
     render(){
         let fetching = this.props.userState.fetchingUser;
-        let loading = '/api/storages/images/download/loading.gif';
-        let banner = '/api/storages/images/download/tle-banner.jpg';
         let casAuth = this.props.userState.cas_user;
 
         if (fetching){

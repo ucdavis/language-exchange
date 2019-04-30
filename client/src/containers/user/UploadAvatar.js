@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as userActions from '../../actions/userActions';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
  
 class UploadFile extends React.Component {
@@ -50,7 +51,6 @@ class UploadFile extends React.Component {
     }
    
     render() {
-      let loading = '/api/storages/images/download/loading.gif';
       let authUser = this.props.userState.current;
       if(!authUser){
         return <Redirect to='/' />

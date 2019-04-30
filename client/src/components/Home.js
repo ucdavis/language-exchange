@@ -6,6 +6,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import HomeSearch from '../components/home/HomeSearch';
 import {Link} from 'react-router-dom';
 import Img from 'react-image';
+import loading from '../assets/images/loading.gif';
 
 class Home extends Component{
 
@@ -17,7 +18,6 @@ class Home extends Component{
     render(){
 
         let fetching = this.props.userState.fetchingUser;
-        let loading = '/api/storages/images/download/loading.gif';
         let casAuth = this.props.userState.cas_user;
         let current = this.props.userState.current;
         let home;

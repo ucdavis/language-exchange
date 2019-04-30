@@ -6,6 +6,7 @@ import * as reportActions from '../../actions/reportActions';
 import {fetchUsers} from '../../actions/userActions';
 import '../../../node_modules/react-vis/dist/style.css';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 import * as d3 from 'd3';
 import {
   XYPlot,
@@ -61,9 +62,7 @@ class Chart extends Component {
     });
   }
   
-
   render() {
-    let loading = '/api/storages/images/download/loading.gif';
     const authUser = this.props.userState.current;
     if(!authUser){
       return <Redirect to='/' />

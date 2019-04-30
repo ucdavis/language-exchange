@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Img from 'react-image';
+import image from '../../assets/images/tle_partners.jpg';
 
 class Guide extends Component{
 
     render(){
-        const image = '/api/storages/images/download/tle_partners.jpg';
-
         return(
            
             <div>

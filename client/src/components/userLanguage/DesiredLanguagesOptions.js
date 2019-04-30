@@ -5,6 +5,7 @@ import * as userLanguageActions from "../../actions/userLanguageActions";
 import { withRouter } from 'react-router-dom';
 import DesiredLanguagesOption from '../../components/userLanguage/DesiredLanguagesOption';
 import Img from 'react-image';
+import loading from '../../assets/images/loading.gif';
 
 
 class DesiredLanguagesOptions extends React.Component {
@@ -14,9 +15,6 @@ class DesiredLanguagesOptions extends React.Component {
   }
 
   render() {
-    const loading = '/api/storages/images/download/loading.gif';
-
-
     const desiredLanguages = this.props.userLanguageState.userDesiredLanguages.map(language => {
       return(  
           <div key = {language.id} className="col-sm-4">
