@@ -46,20 +46,14 @@ module.exports = function(Storage) {
         const file = await getFileFromRequest(req);
         const user_id = req.body.user_id;
 
-        
         // upload the file
         const result = await uploadFileToS3(file, user_id );
-        
-        // Update user. Save avatar data into the DB 
+        const fileName = result.Location;
+        const fileType = file.type;
 
-        const data = await updateUserAvatarData(result, user_id);
-        // await frog.updateAttributes({
-        // link: Location,
-        // etag: ETag,
-        // bucket: Bucket,
-        // image: Key,
-        // });
-        
+        // Update user. Save avatar data into the DB 
+        const data = await updateUserAvatarData(fileName, fileType, user_id);
+
         // return the updated frog instance
         return data;
     };
@@ -67,84 +61,52 @@ module.exports = function(Storage) {
     // Helper method which takes the request object and returns a promise with a file.
     const getFileFromRequest = (req) => new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
+        form.maxFileSize = 1 * 1024 * 1024;
+        form.maxFields = 1;
         form.parse(req, (err, fields, files) => {
           if (err) reject(err);
           const file = files.image; // get the file from the returned files object
           if (!file) reject('File was not found in form data.');
-          else resolve(file);
+          const fileType = file.type;
+          if(fileType == 'image/jpg' || fileType == 'image/png' || fileType == 'image/jpeg' ){
+            resolve(file);
+          }else{
+            reject('File format is not supported.');
+          }
         });
       });
       
-
     // Helper method which updates users avatar information  
-    const updateUserAvatarData = (avatarUserData, user_id) => new Promise((resolve, reject) => {
+    const updateUserAvatarData = (fileName, fileType, user_id) => new Promise((resolve, reject) => {
         var Partner = app.models.Partner;
-        var params = [avatarUserData.Location, user_id]
-        var sql ="update partner set avatar_file_name =? where id = ?";
+        var params = [fileName, fileType, user_id]
+        var sql ="update partner set avatar_file_name = ?, avatar_content_type = ? where id = ?";
         var ds = Partner.dataSource;
-        ds.connector.query(sql, params, function (err, result ) {
-            if (err)console.log(err);
+        ds.connector.query(sql, params, function (err, result) {
+            if (err) reject('There was an error uploading the file');
             else resolve (result);
-            console.log("result",result);
         });
-        console.log("avatarUserData",avatarUserData);
       });
 
-      /**
-     * Helper method which takes the request object and returns a promise with the AWS S3 object details.
-     */
+    // Helper method which takes the request object and returns a promise with the AWS S3 object details.
     const uploadFileToS3 = (file, user_id, options = {}) => {
-
         // turn the file into a buffer for uploading
         const buffer = readFileSync(file.path);
-        
-        const fileName = file.name;
-        const extension = extname(file.path);
-        
+        const extension = extname(file.name);
+        const fileName = "avatar" + extension;
         // return a promise
         return new Promise((resolve, reject) => {
-        return s3.upload({
-            Bucket: process.env.AWS_BUCKET,
-            ACL: 'public-read',
-            Key: `${user_id}_avatar${fileName}`,
-            Body: buffer,
-        }, (err, result) => {
-            if (err) reject(err);
-            else resolve(result); // return the values of the successful AWS S3 request
-        });
+          return s3.upload({
+              Bucket: process.env.AWS_BUCKET,
+              ACL: 'public-read',
+              Key: `${user_id}/${user_id}-${fileName}`,
+              Body: buffer,
+          }, (err, result) => {
+              if (err) reject(err);
+              else resolve(result); // return the values of the successful AWS S3 request
+          });
         });
     };
-
-    // // Remote Method for downloading images
-    // Storage.remoteMethod('downloadAvatar', {
-    //     accepts: [
-    //         { arg: 'req', type: 'object', http: { source: 'req' } },
-    //         { arg: 'id', type: 'number', required:true }, 
-    //         { arg:'file_name', type:'string', required:true },
-    //     ],
-    //     returns: [
-    //   {arg: 'Content-Type', type: 'image/jpeg', http: { target: 'header' }}
-    // ],
-    //     http: { path: '/download/:id/:file_name', verb: 'get' },
-    //     });
-
-    // Storage.downloadAvatar = async (req, id, file_name) => { 
-    //     var params = {
-    //         Bucket: "tle-dev", 
-    //         MaxKeys: 2
-    //        };
-    //     s3.listObjects(params, function(err, data) {
-    //         if (err) {
-    //             console.log(err, err.stack)
-    //         }
-    //         console.log(data); 
-    //         // var href = this.request.httpRequest.endpoint.href;
-    //     //     var bucketUrl = "tle-dev/"
-    //     //      var photoUrl = bucketUrl + encodeURIComponent(file_name);
-    //     //     return photoUrl;
-    //       });
-    // };
-
 
  // Hook, checks owner before upload file
     Storage.beforeRemote('uploadAvatarImage', function(ctx, unused, next) {

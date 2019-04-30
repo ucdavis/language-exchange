@@ -16,7 +16,6 @@ export function createUser (newUser){
     }
 }
 
-
 export function fetchCasUser(){
     return function(dispatch){
         dispatch({type:"FETCH_CAS_USER_PENDING"});
@@ -126,7 +125,6 @@ export function updateUserAvatar(avatarUserData){
     }
 }
 
-
 // SEARCH TOOL
 export function searchUsers(gender, provided, desired){
     return function(dispatch){
@@ -136,7 +134,6 @@ export function searchUsers(gender, provided, desired){
         .catch(err => dispatch({type:"SEARCH_USERS_REJECTED", payload: err}));
     }
 } 
-
 
 // Fetch users for reports
 export function fetchUsers(){
@@ -148,7 +145,6 @@ export function fetchUsers(){
         .catch(err => dispatch({type:"FETCH_USERS_REJECTED", payload: err}));
     }
 }
-
 
 export function userLogout(){
     return function(dispatch){
