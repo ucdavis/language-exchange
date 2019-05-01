@@ -21,6 +21,8 @@ npm-debug.log
 # client folder for public static files
 server/client/*
 !server/client/app/
+server/client/app/*
+!server/client/app/.gitkeep
 
 # Data store
 server/db/
