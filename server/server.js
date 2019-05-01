@@ -79,16 +79,16 @@ app.get('/', function (req, res) {
 
 
 // Check all requests for authentication
-app.use(function (req, res, next) {
-  var user_name = null;
-  if(user_name = req.session[cas.session_name]) {
-    console.log("\n Authenticated CAS user: ", user_name);
-    next();
-  } else {
-    // No username in session, need to log in
-    cas.bounce(req, res, next);       
-  }
-});
+// app.use(function (req, res, next) {
+//   var user_name = null;
+//   if(user_name = req.session[cas.session_name]) {
+//     console.log("\n Authenticated CAS user: ", user_name);
+//     next();
+//   } else {
+//     // No username in session, need to log in
+//     cas.bounce(req, res, next);       
+//   }
+// });
 
 // This route will de-authenticate the client with the Express server and then 
 // redirect the client to the CAS logout page. 
