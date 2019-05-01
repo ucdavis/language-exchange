@@ -8,6 +8,7 @@ import DesiredLanguageDetail from "../../components/userLanguage/DesiredLanguage
 import Img from 'react-image';
 import UserAvatar from '../../components/user/UserAvatar';
 import { Link, Redirect } from 'react-router-dom';
+import noImage from '../../assets/images/no_image.png';
 
 
 class userDetails extends Component{
@@ -27,15 +28,14 @@ class userDetails extends Component{
         }
         
         let user = this.props.userState.active;
-        let no_image = `/api/storages/images/download/no_image.png`
-        let userImage = () => <Img src={no_image} alt="avatar"/>;
+        let userImage = () => <Img src={noImage} alt="avatar"/>;
         let avatar_file_name = user.avatar_file_name;
         let notFound = userImage;
         if (avatar_file_name) {
             var url = user.avatar_file_name;
             userImage = () => <Img src={ url } className="img-thumbnail" unloader={ notFound() }/>
            }else{
-            userImage = () => <Img src={ no_image } alt="avatar" unloader={ notFound() } />;
+            userImage = () => <Img src={noImage} alt="avatar" unloader={ notFound() } />;
            }
         
         return (   
