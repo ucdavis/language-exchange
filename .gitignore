@@ -23,9 +23,7 @@ server/client/*
 !server/client/app/
 server/client/app/*
 !server/client/app/.gitkeep
-
-# Data store
-server/db/
+!server/client/maintenance
 
 # Storage
 storage/*
