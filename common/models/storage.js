@@ -12,7 +12,7 @@ var secretAccessKey = process.env.AWS_ACCESS_KEY;
 AWS.config.update({
     accessKeyId:accessKeyId,
     secretAccessKey:secretAccessKey,
-    region:"us-west-2"
+    region:process.env.AWS_REGION
   });
 
 var s3 = new AWS.S3();
