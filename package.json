@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "start": "nodemon node .",
     "posttest": "npm run lint && nsp check",
-    "test": "npm test" 
+    "test": "npm test"
   },
   "dependencies": {
     "arr-union": "^3.1.0",
