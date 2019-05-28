@@ -1,0 +1,16 @@
+stages:
+  - test
+
+# lint and test are two different jobs in the same stage.
+# This allows us to run these two in parallel and making build faster
+
+# Job 1:
+lint:
+  stage: test
+  script:
+    - npm run lint
+# Job 2:
+test:
+  stage: test
+  script:
+    - npm run test
