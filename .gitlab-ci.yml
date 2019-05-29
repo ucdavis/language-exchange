@@ -14,3 +14,5 @@ test:
   stage: test
   script:
     - node --version
+  only:
+    - master
