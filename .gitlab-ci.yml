@@ -1,3 +1,10 @@
+image: node:11.6.0
+
+cache:
+  paths:
+    - node_modules/
+    - client/node_modules
+
 stages:
   - build
   - test
