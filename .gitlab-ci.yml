@@ -1,17 +1,36 @@
 stages:
+  - build
   - test
+  - staging
+  - production
 
-# lint and test are two different jobs in the same stage.
-# This allows us to run these two in parallel and making build faster
-
-# Job 1:
-# lint:
-#   stage: test
-#   script:
-#     - npm run lint
-# Job 2:
-test:
+Test:
   stage: test
   script:
     - echo "Testing!"
+
+Build:
+  stage: build
+  before_script:
+    - echo "Installing dependencies"
+  #  - npm install
+  #  - npm --prefix client/ install
+
+  script:
+    - echo "Building application"
+    # - npm --prefix client/ run build
+
+Stage:
+  stage: staging
+  before_script:
+    - echo "Installing dependencies"
+  script:
+    - echo "Uploading to Staging"
+
+Production:
+  stage: production
+  before_script:
+    - echo "Installing dependencies"
+  script:
+    - echo "Uploading to Production"
     
