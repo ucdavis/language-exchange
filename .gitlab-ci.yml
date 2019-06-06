@@ -14,29 +14,26 @@ stages:
 Build:
   stage: build
   before_script:
-    - echo "Installing dependencies"
-    - npm install
-    - "npm --prefix client/ install"
+    - echo "Build. Installing dependencies"
   script:
     - echo "Building application"
-    - "npm --prefix client/ run build"
 
 Test:
   stage: test
   script:
-    - echo "Testing!"
+    - echo "Testing stage"
 
 Stage:
   stage: staging
   before_script:
-    - echo "Installing dependencies"
+    - echo "Stage. Installing dependencies"
   script:
     - echo "Uploading to Staging"
 
 Production:
   stage: production
   before_script:
-    - echo "Installing dependencies"
+    - echo "Production. Installing dependencies"
   script:
     - echo "Uploading to Production"
   only:
