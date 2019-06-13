@@ -140,7 +140,7 @@ module.exports = function(Partner) {
         if( gender !== "Any"){
 
             filter = {
-                fields: searchHiddenFields,   
+                fields: searchHiddenFields,
                 include:[
                             {
                                 relation:'provided_languages',
@@ -151,9 +151,9 @@ module.exports = function(Partner) {
                                         relation:'language',
                                         scope:{ fields: ['id','name','short_name'] },
                                         where:{'id': speaks}
-                                    }]                                    
+                                    }]
                                 }
-                            },         
+                            },
                             {
                                 relation:'desired_languages',
                                 scope:{
@@ -167,8 +167,10 @@ module.exports = function(Partner) {
                                 }
                             }
                         ],
-                        where:{ and:[{gender:{like:gender}},{available:true}] }
-            }        
+                        order: 'id DESC',
+                        where:{ and:[{gender:{like:gender}},{available:true}] },
+                        
+            }      
         }
         
         else{
@@ -200,6 +202,7 @@ module.exports = function(Partner) {
                                 }
                             }
                         ],
+                        order: 'id DESC',
                         where:{ available:true }
             } 
         }
