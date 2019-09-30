@@ -25,7 +25,7 @@ class Users extends Component{
                 Field: user.field_of_study,
                 Affiliation: user.affiliation,
                 Known_Languages: user.provided_languages.map(language=>{return language.language.short_name}),
-                Learning_languages: user.provided_languages.map(language=>{return language.language.short_name}),
+                Learning_languages: user.desired_languages.map(language=>{return language.language.short_name}),
                 Available: user.available,
                 Registered:user.created_at.toString().split('T',1),
                 Last_Login: user.updated_at.toString().split('T',1)            
