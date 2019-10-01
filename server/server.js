@@ -96,6 +96,14 @@ app.get( '/api/partners/cas_user', cas.bounce, function(req, res){
   res.send(req.session[cas.session_name]);
 } );
 
+// Server status
+app.get( '/status', function(req, res){
+  res.status(200).send({
+    success: 'true',
+    message: 'TLE Server Running OK',
+  })
+} );
+
 app.get('/welcome', function (req, res){
   res.sendFile(path.resolve(__dirname, publicDir, 'index.html'));
 });
